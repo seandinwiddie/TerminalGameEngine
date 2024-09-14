@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 
-class CollidingObject : public GameObject
+class CollidingObject : public TransformObject
 {
 	friend class Simulation;
 
@@ -12,7 +12,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	CollidingObject(const int xPos, const int yPos) : GameObject(xPos, yPos) {};
+	CollidingObject(const int xPos, const int yPos) : TransformObject(xPos, yPos) {};
 
 private:
 	//called by simulation

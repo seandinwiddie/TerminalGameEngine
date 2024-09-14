@@ -1,5 +1,5 @@
 #include "Bunny.h"
-#include "ILevel.h"
+#include "Level.h"
 
 const std::vector<std::vector<unsigned char>> Bunny::walkLeftModel
 {
@@ -50,7 +50,7 @@ const std::vector<std::vector<unsigned char>> Bunny::idleModelLeft
     {'(', 92, '(', 92, ' '}
 };
 
-Bunny::Bunny(int xPos, int yPos, ILevel* level) : CollidingObject(xPos, yPos), level(level)
+Bunny::Bunny(int xPos, int yPos, Level* level) : CollidingObject(xPos, yPos), level(level)
 {
     SetState(State::idle);
     jumpingModel = jumpLeftModel;
@@ -204,7 +204,7 @@ float Bunny::GetGravityScale() const
 
 void Bunny::Move(Direction direction, float moveSpeed)
 {
-    GameObject::Move(direction, moveSpeed);
+    TransformObject::Move(direction, moveSpeed);
     if (direction == Direction::right || direction == Direction::left)
         lastTimeMovedOnX = TimeUtils::Instance().GetTime();
 }

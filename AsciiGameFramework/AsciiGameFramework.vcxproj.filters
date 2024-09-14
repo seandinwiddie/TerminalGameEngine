@@ -61,6 +61,9 @@
     <ClCompile Include="LevelEndFlag.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h">
@@ -123,7 +126,7 @@
     <ClInclude Include="PuzzleLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="ILevel.h">
+    <ClInclude Include="Level.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
     <ClInclude Include="ObstaclesLevel.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="MainMenuUtils.h">
       <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationObject.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

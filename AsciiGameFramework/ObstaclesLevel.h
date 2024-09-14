@@ -1,20 +1,25 @@
 #pragma once
-#include "ILevel.h";
+#include "Level.h";
 
-class ObstaclesLevel : public ILevel
+class ObstaclesLevel : public Level
 {
+private:
+
+    const unsigned int WORLD_SIZE_X = 90;
+    const unsigned int WORLD_SIZE_Y = 24;
+    const unsigned int SCREEN_PADDING = 4;
+    constexpr static float ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS = 1.5;
+    constexpr static float SHOW_GAMEOVER_SCREEN_AFTER_SECONDS = 1;
+
 public:
     virtual void Load() override
     {
-        const unsigned int WORLD_SIZE_X = 90;
-        const unsigned int WORLD_SIZE_Y = 24;
-        const unsigned int SCREEN_PADDING = 4;
-
+        levelStartedTime = 0;
+        gameOverTime = -1;
         const std::vector<string> BACKGROUND_FILES = { "background1.txt", "background2.txt" };
 
-
         Simulation& simulation = Simulation::Instance();
-        simulation.Reset(WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
+        simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
         //------------------------------- bunny setup
         Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
         Simulation::Instance().TryAddGameObject(bunny);
@@ -80,5 +85,41 @@ public:
     {
         AudioManager::Instance().StopMusic();
         AudioManager::Instance().PlayFx("gameover.wav");
+        gameOverTime = TimeUtils::Instance().GetTime();
     }
+
+    
+
+private:
+    virtual void Update()override
+    {
+        if (gameOverTime > 0)
+        {
+            if (IsShowGameoverDelayExpired() && Simulation::Instance().IsShowingGameOverScreen() == false)
+            {
+                int bestScore = Persistence::LoadBestScore();
+                int score = GetLevelTime();
+
+                Simulation::Instance().ShowGameOverScreen(score, bestScore);
+
+                if (score > bestScore)
+                    Persistence::SaveBestScore(score);
+            }
+            else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
+            {
+                Simulation::Instance().Terminate();
+            }
+        }
+    }
+
+    bool IsShowGameoverDelayExpired() const
+    {
+        return gameOverTime > 0 && TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS;
+    }
+
+    bool CanPlayerPressKeyToRestartGame() const
+    {
+        return  TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS + ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS;
+    }
+
 };

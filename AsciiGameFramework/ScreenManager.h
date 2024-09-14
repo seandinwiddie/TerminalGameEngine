@@ -6,7 +6,7 @@
 
 using string = std::string;
 
-class GameObject;
+class TransformObject;
 
 class ScreenManager
 {
@@ -35,7 +35,7 @@ public:
 	ScreenManager(const int sizeX, const int sizeY, const int padding, bool showGameTime,const std::vector<string>& backgroundFileNames = {});
 
 	void Print();
-	void InsertGameObject(GameObject* go);
+	void InsertGameObject(TransformObject* go);
 	void InsertString(const string& str, const int y, const int x);
 	void Clear();
 	bool IsShowingGameOverScreen() const { return score > -1; }

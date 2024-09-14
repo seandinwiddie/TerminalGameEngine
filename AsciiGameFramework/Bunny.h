@@ -9,7 +9,7 @@
 
 #include <string>
 
-class ILevel;
+class Level;
 
 class Bunny : public CollidingObject
 {
@@ -37,7 +37,7 @@ private:
     static const std::vector<std::vector<unsigned char>> idleModelRight;
     static const std::vector<std::vector<unsigned char>> idleModelLeft;
 
-    ILevel* level;
+    Level* level;
 
 //---------------------------------------------------------- Fields
 
@@ -55,7 +55,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-    Bunny(int xPos, int yPos, ILevel* level);
+    Bunny(int xPos, int yPos, Level* level);
     void Update() override;
 
     virtual bool CanExitScreenSpace() const override { return false; }

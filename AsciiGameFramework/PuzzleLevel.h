@@ -1,7 +1,7 @@
 #pragma once
-#include "ILevel.h";
+#include "Level.h";
 
-class PuzzleLevel : public ILevel
+class PuzzleLevel : public Level
 {
 public:
 
@@ -12,7 +12,7 @@ public:
 	virtual void Load() override
 	{
         Simulation& simulation = Simulation::Instance();
-        simulation.Reset(WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
+        simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
         //------------------------------- bunny setup
         Bunny* bunny = new Bunny(4, 16, this);
         simulation.TryAddGameObject(bunny);
@@ -61,4 +61,6 @@ public:
     {
         Simulation::Instance().Terminate();
     }
+
+
 };

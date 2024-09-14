@@ -140,6 +140,7 @@
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelEndFlag.cpp" />
     <ClCompile Include="LevelEndFlag.h" />
     <ClCompile Include="MovingStraightObject.cpp" />
@@ -164,7 +165,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="ILevel.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="InputUtils.h" />
     <ClInclude Include="MainMenuUtils.h" />
     <ClInclude Include="ObstaclesLevel.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="SimulationObject.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Obstacle.h" />

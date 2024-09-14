@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Simulation.h"
 #include "Config.h"
+#include "Level.h"
 
 ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, bool showLevelTime,const std::vector<string>& backgroundFileNames )
     : 
@@ -37,7 +38,7 @@ void ScreenManager::Print()
 
     if (showLevelTime)
     {
-        double runTime = Simulation::Instance().GetLevelTime();
+        double runTime = Simulation::Instance().GetLevel()->GetLevelTime();
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
@@ -97,7 +98,7 @@ void ScreenManager::InsertString(const string& str, const int y, const int x)
         frame[y][x + i] = str[i];
 }
 
-void ScreenManager::InsertGameObject(GameObject* go)
+void ScreenManager::InsertGameObject(TransformObject* go)
 {
     std::vector<std::vector<unsigned char>> model = go->GetModel();
     if (model[0].size() == 0)

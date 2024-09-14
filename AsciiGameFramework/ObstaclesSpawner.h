@@ -2,7 +2,7 @@
 #include "Obstacle.h"
 #include "GameObject.h"
 
-class ObstaclesSpawner : public GameObject
+class ObstaclesSpawner : public TransformObject
 {
 //---------------------------------------------------------- Fields
 private:

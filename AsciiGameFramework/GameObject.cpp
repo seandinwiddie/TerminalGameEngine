@@ -2,7 +2,7 @@
 #include "TimeUtils.h"
 #include "Simulation.h"
 
-GameObject::GameObject(const int xPos, const int yPos) : 
+TransformObject::TransformObject(const int xPos, const int yPos) : 
 	xPos(xPos), 
 	yPos(yPos), 
 	xPosContinuous(xPos), 
@@ -11,7 +11,7 @@ GameObject::GameObject(const int xPos, const int yPos) :
 	ResetPartialMovement();
 }
 
-int GameObject::GetModelWidth() const
+int TransformObject::GetModelWidth() const
 {
 	if (model.size() == 0)
 		return 0;
@@ -19,7 +19,7 @@ int GameObject::GetModelWidth() const
 	return model[0].size();
 }
 
-void GameObject::Update()
+void TransformObject::Update()
 {
 	float gravityScale = GetGravityScale();
 	if (gravityScale == 0)
@@ -30,7 +30,7 @@ void GameObject::Update()
 		Move(Direction::up, gravityScale);
 }
 
-void GameObject::Move(Direction direction, float moveSpeed)
+void TransformObject::Move(Direction direction, float moveSpeed)
 {
 	if (canMove == false)
 		return;
@@ -74,7 +74,7 @@ void GameObject::Move(Direction direction, float moveSpeed)
 	}
 }
 
-std::vector<std::vector<unsigned char>> GameObject::CreteModelUsingChar
+std::vector<std::vector<unsigned char>> TransformObject::CreteModelUsingChar
 (
 	unsigned char c, 
 	const unsigned int sizeX, 

@@ -14,7 +14,7 @@ ObstaclesSpawner::ObstaclesSpawner
     const float stopSpawningWhenPhaseChangesDuration,
     const std::vector<int>& ySpawnPoints
 ) :
-    GameObject(xPos, yPos),
+    TransformObject(xPos, yPos),
     minSpawnDelays(minSpawnDelays),
     maxSpawnDelays(maxSpawnDelays),
     speeds(speeds),
@@ -42,7 +42,7 @@ void ObstaclesSpawner::Update()
         int randomPosY = ySpawnPoints[RandomUtils::GetRandomIntBetween(0, ySpawnPoints.size() - 1)];
         Obstacle* obstacle = new Obstacle(GetPosX(), randomPosY, Direction::left, GetCurrentObstaclesSpeed());
 
-        Simulation::Instance().TryAddGameObject(dynamic_cast<GameObject*>(obstacle));
+        Simulation::Instance().TryAddGameObject(dynamic_cast<TransformObject*>(obstacle));
     }
 }
 
