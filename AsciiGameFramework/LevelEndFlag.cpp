@@ -17,6 +17,6 @@ void LevelEndFlag::OnCollisionEnter(CollidingObject* other, Direction collisionD
 {
     if (static_cast<Bunny*>(other) != nullptr)
     {
-        Simulation::Instance().NotifyGameOver(true);
+        Simulation::Instance().Terminate();
     }
 }

@@ -27,12 +27,6 @@ void Simulation::Step()
 			hasTerminated = true;
 		}	
 	}
-
-	if (isGameStarting)
-	{
-		OnGameStart.Notify();
-		isGameStarting = false;
-	}
 		
 	//update all objects
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
@@ -433,7 +427,7 @@ const const std::vector<string>& backgroundFileNames
 	this->worldSizeX = worldSizeX;
 	this->worldSizeY = worldSizeY;
 	this->screenPadding = screenPadding;
-	isGameStarting = true;
+	//isGameStarting = true;
 
 	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
@@ -457,23 +451,17 @@ const const std::vector<string>& backgroundFileNames
 	hasTerminated = false;
 	gameOverTime = -1;
 	levelStartedTime = TimeUtils::Instance().GetTime();
-
-	OnGameStart.Clear();
-	OnGameOver.Clear();
 }
 
-void Simulation::NotifyGameOver(const bool terminateSimulationNow)
+void Simulation::Terminate()
 {
-	if (terminateSimulationNow)
-	{
-		hasTerminated = true;
-		return;
-	}
+	hasTerminated = true;
+	return;
 
+	//todo remove
 	if (IsGameOver())
 		return;
 	
-	OnGameOver.Notify();
 	gameOverTime = TimeUtils::Instance().GetTime();
 }		
 

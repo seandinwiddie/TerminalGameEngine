@@ -14,7 +14,7 @@ public:
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
         //------------------------------- bunny setup
-        Bunny* bunny = new Bunny(4, 16);
+        Bunny* bunny = new Bunny(4, 16, this);
         simulation.TryAddGameObject(bunny);
 
         //------------------------------- left platform
@@ -55,5 +55,10 @@ public:
     {
         PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
         Simulation::Instance().TryAddGameObject(pushableObj1);
+    }
+
+    virtual void OnGameOver() override
+    {
+        Simulation::Instance().Terminate();
     }
 };

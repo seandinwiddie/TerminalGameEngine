@@ -16,7 +16,7 @@ public:
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
         //------------------------------- bunny setup
-        Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5);
+        Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
         Simulation::Instance().TryAddGameObject(bunny);
 
         //------------------------------- floor setup
@@ -73,19 +73,12 @@ public:
         );
 
         simulation.TryAddGameObject(spawner);
-
-        Simulation::Instance().OnGameOver.Subscribe(OnGameOver);
-        Simulation::Instance().OnGameStart.Subscribe(OnGameStart);
+        AudioManager::Instance().PlayRandomMusic();
     }
 
-    static void OnGameOver()
+    virtual void OnGameOver() override
     {
         AudioManager::Instance().StopMusic();
         AudioManager::Instance().PlayFx("gameover.wav");
-    }
-
-    static void OnGameStart()
-    {
-        AudioManager::Instance().PlayRandomMusic();
     }
 };

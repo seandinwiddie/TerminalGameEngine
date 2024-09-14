@@ -15,4 +15,5 @@ class ILevel
 {
 public:
 	virtual void Load() = 0;
+	virtual void OnGameOver() = 0;
 };

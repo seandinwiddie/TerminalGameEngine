@@ -1,4 +1,5 @@
 #include "Bunny.h"
+#include "ILevel.h"
 
 const std::vector<std::vector<unsigned char>> Bunny::walkLeftModel
 {
@@ -49,7 +50,7 @@ const std::vector<std::vector<unsigned char>> Bunny::idleModelLeft
     {'(', 92, '(', 92, ' '}
 };
 
-Bunny::Bunny (int xPos, int yPos) : CollidingObject(xPos, yPos)
+Bunny::Bunny(int xPos, int yPos, ILevel* level) : CollidingObject(xPos, yPos), level(level)
 {
     SetState(State::idle);
     jumpingModel = jumpLeftModel;
@@ -213,7 +214,7 @@ void Bunny::OnCollisionEnter(CollidingObject* other, Direction collisionDirectio
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
         SetState(State::defeated);
-        Simulation::Instance().NotifyGameOver(false);
+        level->OnGameOver();
         return;
     }
 

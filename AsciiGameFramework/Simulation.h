@@ -32,8 +32,8 @@ class Simulation : public Singleton<Simulation>
 	friend class CollidingObject;
 
 public:
-	Event<> OnGameOver;
-	Event<> OnGameStart;
+	//Event<> OnGameOver;
+	//Event<> OnGameStart;
 
 private:
 	const static int STEPS_PER_FRAME = 8;
@@ -44,7 +44,7 @@ private:
 	unsigned int worldSizeX;
 	unsigned int worldSizeY;
 	unsigned int screenPadding;
-	bool isGameStarting = true;
+	//bool isGameStarting = true;
 	int printFrameStep;
 	bool hasTerminated = false;
 	double gameOverTime = -1;
@@ -61,7 +61,7 @@ public:
 	bool TryMoveAtDirection(GameObject* obj, const Direction direction);
 	void RemoveGameObject(GameObject* obj);
 	bool HasTerminated() const { return hasTerminated; }
-	void NotifyGameOver(const bool terminateSimulationNow);
+	void Terminate();
 	double GetLevelTime() const;
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }
