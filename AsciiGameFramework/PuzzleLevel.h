@@ -4,13 +4,13 @@
 class PuzzleLevel : public ILevel
 {
 public:
+
+    static const unsigned int WORLD_SIZE_X = 120;
+    static const unsigned int WORLD_SIZE_Y = 30;
+    static const unsigned int SCREEN_PADDING = 4;
+
 	virtual void Load() override
 	{
-        const unsigned int WORLD_SIZE_X = 120;
-        const unsigned int WORLD_SIZE_Y = 30;
-        const unsigned int SCREEN_PADDING = 4;
-
-
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
         //------------------------------- bunny setup
@@ -41,14 +41,7 @@ public:
 
         //------------------------------- pressure plate 1
         PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
-        pressurePlate1->OnPress.Subscribe
-        (
-            [&simulation]()
-            {
-                PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
-                simulation.TryAddGameObject(pushableObj1);
-            }
-        );
+        pressurePlate1->OnPress.Subscribe(SpawnPushableBlock);
         simulation.TryAddGameObject(pressurePlate1);
 
         //------------------------------- pressure plate 2
@@ -57,4 +50,10 @@ public:
         pressurePlate2->OnRelease.Subscribe([automaticDoor]() { automaticDoor->SetClosed(); });
         simulation.TryAddGameObject(pressurePlate2);
 	}
+
+    static void SpawnPushableBlock()
+    {
+        PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
+        Simulation::Instance().TryAddGameObject(pushableObj1);
+    }
 };

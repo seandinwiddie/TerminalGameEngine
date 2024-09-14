@@ -74,14 +74,18 @@ public:
 
         simulation.TryAddGameObject(spawner);
 
-        Simulation::Instance().OnGameOver.Subscribe
-        (
-            []()
-            {
-                AudioManager::Instance().StopMusic();
-                AudioManager::Instance().PlayFx("gameover.wav");
-            }
-        );
-        Simulation::Instance().OnGameStart.Subscribe([]() { AudioManager::Instance().PlayRandomMusic(); });
+        Simulation::Instance().OnGameOver.Subscribe(OnGameOver);
+        Simulation::Instance().OnGameStart.Subscribe(OnGameStart);
+    }
+
+    static void OnGameOver()
+    {
+        AudioManager::Instance().StopMusic();
+        AudioManager::Instance().PlayFx("gameover.wav");
+    }
+
+    static void OnGameStart()
+    {
+        AudioManager::Instance().PlayRandomMusic();
     }
 };
