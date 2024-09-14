@@ -8,6 +8,7 @@ void Simulation::Step()
 	if (hasTerminated)
 		return;
 
+	//todo this shouldn't be competence of simulation, should be of level
 	//handle gameover
 	if (gameOverTime > 0)
 	{
