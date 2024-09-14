@@ -73,7 +73,7 @@ void GameObject::Move(Direction direction, float moveSpeed)
 		}
 	}
 }
-//todo check this is not called often
+
 std::vector<std::vector<unsigned char>> GameObject::CreteModelUsingChar
 (
 	unsigned char c, 

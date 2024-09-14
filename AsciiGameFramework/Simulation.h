@@ -27,8 +27,6 @@ class CollidingObject;
 //------------------------------------------------------------------------------------ simulation
 class Simulation : public Singleton<Simulation>
 {
-	//todo try to improve screen refresh
-
 	friend class Singleton;
 	friend class GameObject;
 	friend class CollidingObject;
