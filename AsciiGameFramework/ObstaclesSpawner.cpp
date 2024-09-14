@@ -1,0 +1,61 @@
+#include "ObstaclesSpawner.h"
+#include "Simulation.h"
+
+
+
+ObstaclesSpawner::ObstaclesSpawner
+(
+    const int xPos,
+    const int yPos,
+    const std::vector<float>& minSpawnDelays,
+    const std::vector<float>& maxSpawnDelays,
+    const std::vector<float>& speeds,
+    const float increaseIntensityEverySeconds,
+    const float stopSpawningWhenPhaseChangesDuration,
+    const std::vector<int>& ySpawnPoints
+) :
+    GameObject(xPos, yPos),
+    minSpawnDelays(minSpawnDelays),
+    maxSpawnDelays(maxSpawnDelays),
+    speeds(speeds),
+    increaseIntensityEverySeconds(increaseIntensityEverySeconds),
+    stopSpawningWhenPhaseChangesDuration(stopSpawningWhenPhaseChangesDuration),
+    ySpawnPoints(ySpawnPoints)
+{
+    assert(maxSpawnDelays.size() == speeds.size());
+    spawnNextProjectileTime = GetNextSpawnObstacleTime();
+    lastTimeIncreasedIntensity = TimeUtils::Instance().GetTime();
+}
+
+void ObstaclesSpawner::Update()
+{
+    double time = TimeUtils::Instance().GetTime();
+    if (time >= spawnNextProjectileTime)
+    {
+        TryIncreaseIntensity(time);
+
+        if (time - lastTimeIncreasedIntensity < stopSpawningWhenPhaseChangesDuration)
+            return;
+
+        spawnNextProjectileTime = GetNextSpawnObstacleTime();
+
+        int randomPosY = ySpawnPoints[RandomUtils::GetRandomIntBetween(0, ySpawnPoints.size() - 1)];
+        Obstacle* obstacle = new Obstacle(GetPosX(), randomPosY, Direction::left, GetCurrentObstaclesSpeed());
+
+        Simulation::Instance().TryAddGameObject(dynamic_cast<GameObject*>(obstacle));
+    }
+}
+
+void ObstaclesSpawner::TryIncreaseIntensity(float time)
+{
+    if (spawnIntensity < speeds.size() - 1 && (time - lastTimeIncreasedIntensity) > increaseIntensityEverySeconds + stopSpawningWhenPhaseChangesDuration)
+    {
+        ++spawnIntensity;
+        lastTimeIncreasedIntensity = time;
+    }
+}
+
+float ObstaclesSpawner::GetNextSpawnObstacleTime() const
+{
+    return TimeUtils::Instance().GetTime() +RandomUtils::GetRandomFloatBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
+}
