@@ -58,6 +58,9 @@
     <ClCompile Include="RandomUtils.h">
       <Filter>Headers\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="LevelEndFlag.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h">

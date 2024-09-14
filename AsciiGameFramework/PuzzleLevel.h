@@ -25,7 +25,7 @@ public:
         StaticCollider* doorRightPlatform = new StaticCollider(63, 14, 16, 1, '#');
         simulation.TryAddGameObject(doorRightPlatform);
 
-        LevelEndFlag* flag = new LevelEndFlag(65, 15);
+        LevelEndFlag* flag = new LevelEndFlag(70, 15);
         simulation.TryAddGameObject(flag);
 
         //------------------------------- automatic door

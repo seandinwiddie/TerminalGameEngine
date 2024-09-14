@@ -63,7 +63,7 @@ public:
 	bool TryMoveAtDirection(GameObject* obj, const Direction direction);
 	void RemoveGameObject(GameObject* obj);
 	bool HasTerminated() const { return hasTerminated; }
-	void NotifyGameOver();
+	void NotifyGameOver(const bool terminateSimulationNow);
 	double GetLevelTime() const;
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }

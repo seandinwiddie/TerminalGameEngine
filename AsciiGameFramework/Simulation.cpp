@@ -461,8 +461,14 @@ const const std::vector<string>& backgroundFileNames
 	OnGameOver.Clear();
 }
 
-void Simulation::NotifyGameOver()
+void Simulation::NotifyGameOver(const bool terminateSimulationNow)
 {
+	if (terminateSimulationNow)
+	{
+		hasTerminated = true;
+		return;
+	}
+
 	if (IsGameOver())
 		return;
 	

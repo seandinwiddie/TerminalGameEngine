@@ -140,6 +140,7 @@
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="LevelEndFlag.cpp" />
     <ClCompile Include="LevelEndFlag.h" />
     <ClCompile Include="MovingStraightObject.cpp" />
     <ClCompile Include="Obstacle.cpp" />

@@ -213,7 +213,7 @@ void Bunny::OnCollisionEnter(CollidingObject* other, Direction collisionDirectio
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
         SetState(State::defeated);
-        Simulation::Instance().NotifyGameOver();
+        Simulation::Instance().NotifyGameOver(false);
         return;
     }
 
