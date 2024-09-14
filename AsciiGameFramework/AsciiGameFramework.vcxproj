@@ -164,6 +164,7 @@
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="InputUtils.h" />
+    <ClInclude Include="LevelLoadUtils.h" />
     <ClInclude Include="Persistence.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="ScreenManager.h" />
