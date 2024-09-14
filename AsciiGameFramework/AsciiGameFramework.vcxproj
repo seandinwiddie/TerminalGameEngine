@@ -163,10 +163,13 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="ILevel.h" />
     <ClInclude Include="InputUtils.h" />
-    <ClInclude Include="LevelLoadUtils.h" />
+    <ClInclude Include="MainMenuUtils.h" />
+    <ClInclude Include="ObstaclesLevel.h" />
     <ClInclude Include="Persistence.h" />
     <ClInclude Include="PressurePlate.h" />
+    <ClInclude Include="PuzzleLevel.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
