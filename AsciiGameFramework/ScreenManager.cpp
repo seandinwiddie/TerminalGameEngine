@@ -4,8 +4,12 @@
 #include "Simulation.h"
 #include "Config.h"
 
-ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, const std::vector<string>& backgroundFileNames )
-    : screenSizeX(worldSizeX - 2 * padding), screenSizeY(worldSizeY - 2 * padding), padding(padding)
+ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, bool showLevelTime,const std::vector<string>& backgroundFileNames )
+    : 
+    screenSizeX(worldSizeX - 2 * padding), 
+    screenSizeY(worldSizeY - 2 * padding), 
+    padding(padding), 
+    showLevelTime(showLevelTime)
 {
     frame.resize(screenSizeY);
 
@@ -31,8 +35,11 @@ void ScreenManager::Print()
     DEBUG_PrintAverageFps(frameString);
 #endif
 
-    double runTime = Simulation::Instance().GetRunTime();
-    frameString += "TIME: " + std::to_string(static_cast<int>(runTime))+'\n';
+    if (showLevelTime)
+    {
+        double runTime = Simulation::Instance().GetLevelTime();
+        frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
+    }
 
     if (IsShowingGameOverScreen())
         InsertGameOverScreenOverFrame();

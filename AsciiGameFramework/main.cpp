@@ -17,7 +17,7 @@
 
 void SpawnPushableObject()
 {
-    PushableObject* pushableObj1 = new PushableObject(30, 22);
+    PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y_TEST_ROOM - 2);
     Simulation::Instance().TryAddGameObject(pushableObj1);
 }
 
@@ -36,10 +36,10 @@ void SetupTestRoom()
     simulation.TryAddGameObject(platform);
 
     //------------------------------- right flag platform
-    StaticCollider* doorRightPlatform = new StaticCollider(63, 16, 16, 1, '#');
+    StaticCollider* doorRightPlatform = new StaticCollider(63, 14, 16, 1, '#');
     simulation.TryAddGameObject(doorRightPlatform);
 
-    LevelEndFlag* flag = new LevelEndFlag(65, 17);
+    LevelEndFlag* flag = new LevelEndFlag(65, 15);
     simulation.TryAddGameObject(flag);
 
     //------------------------------- automatic door
@@ -168,11 +168,11 @@ int main()
         {
         case Mode::GameMode:
             //todo also pass music tracks here
-            simulation.Reset(WORLD_SIZE_X_GAME, WORLD_SIZE_Y_GAME, SCREEN_PADDING, GAME_BACKGROUND_FILES);
+            simulation.Reset(WORLD_SIZE_X_GAME, WORLD_SIZE_Y_GAME, SCREEN_PADDING, true ,GAME_BACKGROUND_FILES);
             SetupGame();
             break;
         case Mode::TestMode:
-            simulation.Reset(WORLD_SIZE_X_TEST_ROOM, WORLD_SIZE_Y_TEST_ROOM, SCREEN_PADDING, {});
+            simulation.Reset(WORLD_SIZE_X_TEST_ROOM, WORLD_SIZE_Y_TEST_ROOM, SCREEN_PADDING, false, {});
             SetupTestRoom();
             break;
         }

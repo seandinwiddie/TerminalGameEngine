@@ -19,6 +19,7 @@ private:
 	int screenSizeX;
 	int screenSizeY;
 	int padding;
+	bool showLevelTime = false;
 	int score = -1;
 	int bestScore = -1;
 
@@ -31,7 +32,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	ScreenManager(const int sizeX, const int sizeY, const int padding, const std::vector<string>& backgroundFileNames = {});
+	ScreenManager(const int sizeX, const int sizeY, const int padding, bool showGameTime,const std::vector<string>& backgroundFileNames = {});
 
 	void Print();
 	void InsertGameObject(GameObject* go);

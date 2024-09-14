@@ -50,7 +50,7 @@ private:
 	int printFrameStep;
 	bool hasTerminated = false;
 	double gameOverTime = -1;
-	double runStartedTime = 0;
+	double levelStartedTime = 0;
 
 	ScreenManager* screenManager;
 	std::vector<std::vector<CollidingObject*>> gameSpace;
@@ -64,11 +64,19 @@ public:
 	void RemoveGameObject(GameObject* obj);
 	bool HasTerminated() const { return hasTerminated; }
 	void NotifyGameOver();
-	void Reset(unsigned int worldSizeX, unsigned int worldSizeY, unsigned int screenPadding, const std::vector<string>& backgroundFileNames);
-	double GetRunTime() const { return IsGameOver() ? gameOverTime - runStartedTime : TimeUtils::Instance().GetTime() - runStartedTime; }
+	double GetLevelTime() const;
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }
 	unsigned int GetScreenPadding() const { return screenPadding; }
+
+	void Reset
+	(
+		const unsigned int worldSizeX,
+		const unsigned int worldSizeY,
+		const unsigned int screenPadding,
+		const bool showLevelTime,
+		const std::vector<string>& backgroundFileNames
+	);
 
 private:
 	bool CanObjectBeAdded(const GameObject* obj) const;
@@ -82,5 +90,5 @@ private:
 	bool CanPlayerPressKeyToRestartGame() const;
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 	bool IsSpaceEmpty(const int startingY, const int startingX, const int width, const int height) const;
-	void ResetScreenManager(const std::vector<string>& backgroundFileNames);
+	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
 };

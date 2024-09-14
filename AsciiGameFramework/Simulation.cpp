@@ -14,7 +14,7 @@ void Simulation::Step()
 		if (IsShowGameoverDelayExpired() && screenManager->IsShowingGameOverScreen() == false)
 		{
 			int bestScore = Persistence::LoadBestScore();
-			int score = GetRunTime();
+			int score = GetLevelTime();
 
 			screenManager->ShowGameOverScreen(score, bestScore);
 
@@ -420,14 +420,21 @@ void Simulation::RemoveGameObject(GameObject* obj)
 	delete(obj);
 }
 
-void Simulation::Reset(unsigned int worldSizeX, unsigned int worldSizeY, unsigned int screenPadding, const std::vector<string>& backgroundFileNames)
+void Simulation::Reset
+(
+const unsigned int worldSizeX, 
+const unsigned int worldSizeY,
+const unsigned int screenPadding,
+const bool showLevelTime,
+const const std::vector<string>& backgroundFileNames
+)
 {
 	this->worldSizeX = worldSizeX;
 	this->worldSizeY = worldSizeY;
 	this->screenPadding = screenPadding;
 	isGameStarting = true;
 
-	ResetScreenManager(backgroundFileNames);
+	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
 	//clear simulation variables
 	for (GameObject* obj : simulationObjects)
@@ -448,7 +455,7 @@ void Simulation::Reset(unsigned int worldSizeX, unsigned int worldSizeY, unsigne
 	printFrameStep = 0;
 	hasTerminated = false;
 	gameOverTime = -1;
-	runStartedTime = TimeUtils::Instance().GetTime();
+	levelStartedTime = TimeUtils::Instance().GetTime();
 
 	OnGameStart.Clear();
 	OnGameOver.Clear();
@@ -463,11 +470,11 @@ void Simulation::NotifyGameOver()
 	gameOverTime = TimeUtils::Instance().GetTime();
 }		
 
-void Simulation::ResetScreenManager(const std::vector<string>& backgroundFileNames)
+void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
 {
 	if (screenManager != nullptr)
 		delete(screenManager);
-	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, backgroundFileNames);
+	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsShowGameoverDelayExpired() const
@@ -494,4 +501,12 @@ bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
 		y < worldSizeY - screenPadding &&
 		x >= screenPadding &&
 		x < worldSizeX - screenPadding;
+}
+
+double Simulation::GetLevelTime() const
+{ 
+	if (IsGameOver())
+		return gameOverTime - levelStartedTime;
+	else
+		return TimeUtils::Instance().GetTime() - levelStartedTime;
 }
