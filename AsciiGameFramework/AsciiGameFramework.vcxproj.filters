@@ -46,76 +46,76 @@
     <ClCompile Include="TimeUtils.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="StaticCollider.h">
+      <Filter>Headers\GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="LevelEndFlag.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="PushableObject.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="RandomUtils.h">
-      <Filter>Headers</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticCollider.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="AutomaticDoor.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Bunny.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="CollidingObject.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GridDirection.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputUtils.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingStraightObject.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ObstaclesSpawner.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Persistence.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="PressurePlate.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenManager.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Event.h">
+      <Filter>Headers\General</Filter>
     </ClInclude>
     <ClInclude Include="Simulation.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="TimeUtils.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Headers\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="GridDirection.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="InputUtils.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingStraightObject.h">
+      <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstaclesSpawner.h">
+      <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Persistence.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="PressurePlate.h">
+      <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +138,18 @@
     </Filter>
     <Filter Include="Sources">
       <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\GameObjects">
+      <UniqueIdentifier>{2b8dc2b2-3b26-41cb-ba2d-aae18c8054ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\General">
+      <UniqueIdentifier>{ebb07b12-15c9-4b45-bc4c-10bf6b665bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Utility">
+      <UniqueIdentifier>{a8b72d00-09fb-42d0-aa94-da70f2b6a4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Simulation">
+      <UniqueIdentifier>{d30d73f0-056c-4c66-b806-9a400568a9de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
