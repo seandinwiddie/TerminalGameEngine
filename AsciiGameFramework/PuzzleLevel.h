@@ -10,7 +10,5 @@ public:
     static const unsigned int SCREEN_PADDING = 4;
 
     virtual void Load() override;
-
-    static void SpawnPushableBlock();
     virtual void OnGameOver() override;
 };

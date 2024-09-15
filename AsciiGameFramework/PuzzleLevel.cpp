@@ -43,7 +43,14 @@ void PuzzleLevel::Load()
 
     //------------------------------- pressure plate 1
     PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
-    pressurePlate1->OnPress.Subscribe(SpawnPushableBlock);
+    pressurePlate1->OnPress.Subscribe
+    (
+        []()
+        {
+            PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
+            Simulation::Instance().TryAddGameObject(pushableObj1);
+        }
+    );
     simulation.TryAddGameObject(pressurePlate1);
 
     //------------------------------- pressure plate 2
@@ -51,12 +58,6 @@ void PuzzleLevel::Load()
     pressurePlate2->OnPress.Subscribe([automaticDoor]() { automaticDoor->SetOpen(); });
     pressurePlate2->OnRelease.Subscribe([automaticDoor]() { automaticDoor->SetClosed(); });
     simulation.TryAddGameObject(pressurePlate2);
-}
-
-void PuzzleLevel::SpawnPushableBlock()
-{
-    PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
-    Simulation::Instance().TryAddGameObject(pushableObj1);
 }
 
 void PuzzleLevel::OnGameOver() { 

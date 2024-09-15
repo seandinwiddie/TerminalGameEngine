@@ -24,26 +24,29 @@ void ObstaclesLevel::Update()
             Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
 
         if (isShowingGameOverScreen == false)
-        {
-            //setup gameover message
-            string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-            string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
-            //centers message
-            string leftSpacing = "";
-            for (int i = 0; i < (42 - message.size()) / 2; ++i)
-                leftSpacing += " ";
-            message = leftSpacing + message;
-
-            gameEndUIMessage.ReplaceChar(message, '$');
-
-            Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
-            isShowingGameOverScreen = true;
-        }
+            ShowGameOverScreen(score, bestScore);
     }
     else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
     {
         Simulation::Instance().Terminate();
     }
+}
+
+void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore) 
+{
+    //setup gameover message
+    string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+    string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+    //centers message
+    string leftSpacing = "";
+    for (int i = 0; i < (42 - message.size()) / 2; ++i)
+        leftSpacing += " ";
+    message = leftSpacing + message;
+
+    gameEndUIMessage.ReplaceChar(message, '$');
+
+    Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
+    isShowingGameOverScreen = true;
 }
 
 void ObstaclesLevel::OnGameOver()

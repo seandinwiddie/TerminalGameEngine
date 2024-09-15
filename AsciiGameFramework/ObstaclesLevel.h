@@ -20,4 +20,5 @@ public:
 
 private:
     virtual void Update()override;
+    void ShowGameOverScreen(int score, int bestScore);
 };
