@@ -14,14 +14,13 @@ class ScreenManager
 private:
 	std::vector<std::vector<unsigned char>> frame;
 	std::vector<std::vector<std::vector<unsigned char>>> backgrounds;
-	std::vector<std::vector<unsigned char>> gameOverScreen;
 
-	int screenSizeX;
+	int screenSizeX; //todo read from simulation
 	int screenSizeY;
 	int padding;
 	bool showLevelTime = false;
-	int score = -1;
-	int bestScore = -1;
+	bool isShowingUIMessage;
+	std::vector<std::vector<unsigned char>> UIMessage = {{}};
 
 #if DEBUG_MODE
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
@@ -38,18 +37,17 @@ public:
 	void InsertGameObject(TransformObject* go);
 	void InsertString(const string& str, const int y, const int x);
 	void Clear();
-	
-	void ShowGameOverScreen(const int score, const int bestScore);
+	int GetScreenSizeX() const { return screenSizeX; }
+	int GetScreenSizeY() const { return screenSizeY; }
+	void SetUIMessage(std::vector<std::vector<unsigned char>> UIMessage){ this->UIMessage = UIMessage; }
 
 private:
+	void InsertUIMessageOverFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
-	void ReadFrameFromFile(const string& fileName, std::vector<std::vector<unsigned char>>& frame);
 	std::vector<std::vector<unsigned char>> GetCurrentBackground() const;
-	void InsertGameOverScreenOverFrame();
 	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
 	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
-	bool IsShowingGameOverScreen() const { return score > -1; }
 	void ClearScreen();
 
 

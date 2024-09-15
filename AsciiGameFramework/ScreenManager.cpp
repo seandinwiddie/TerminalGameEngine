@@ -4,6 +4,11 @@
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"
+#include "FileUtils.h"
+#include "TimeUtils.h"
+
+#include "Windows.h"
+#include <cassert>
 
 ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, bool showLevelTime,const std::vector<string>& backgroundFileNames )
     : 
@@ -19,7 +24,7 @@ ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const i
         frame[i].resize(screenSizeX);
        
     InitBackgrounds(backgroundFileNames);      
-    ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
+    //FileUtils::ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
     Clear();
 
 #if DEBUG_MODE
@@ -42,8 +47,7 @@ void ScreenManager::Print()
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
-    if (IsShowingGameOverScreen())
-        InsertGameOverScreenOverFrame();
+    InsertUIMessageOverFrame();
 
     // add frame
     for (int m = screenSizeY - 1; m >= 0; --m)
@@ -58,35 +62,47 @@ void ScreenManager::Print()
     std::cout << frameString;
 }
 
-void ScreenManager::InsertGameOverScreenOverFrame()
+void ScreenManager::InsertUIMessageOverFrame()
 {
+    if (UIMessage.size() == 0)
+        return;
+
     for (int y = 0; y < screenSizeY; ++y)
-    {
         for (int x = 0; x < screenSizeX; ++x)
         {
-            unsigned char gameOverChar = gameOverScreen[y][x];
-
-            // insert score message
-            if (gameOverChar == '$')
-            {
-                string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-                string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
-
-                //centers message
-                string leftSpacing = "";
-                for (int i = 0; i < (42 - message.size())/2; ++i)
-                    leftSpacing += " ";
-
-                message = leftSpacing + message;
-
-                InsertString(message, y, x);
-                x += message.size()-1;
-            }
-            //don't write over # characters
-            else if (gameOverChar != '#')
-                frame[y][x] = gameOverChar;
+            unsigned char c = UIMessage[y][x];
+            if (c != '#')
+                frame[y][x] = c;
         }
-    }
+            
+
+    //for (int y = 0; y < screenSizeY; ++y)
+    //{
+    //    for (int x = 0; x < screenSizeX; ++x)
+    //    {
+    //        unsigned char gameOverChar = gameOverScreen[y][x];
+
+    //        // insert score message
+    //        if (gameOverChar == '$')
+    //        {
+    //            string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+    //            string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+
+    //            //centers message
+    //            string leftSpacing = "";
+    //            for (int i = 0; i < (42 - message.size())/2; ++i)
+    //                leftSpacing += " ";
+
+    //            message = leftSpacing + message;
+
+    //            InsertString(message, y, x);
+    //            x += message.size()-1;
+    //        }
+    //        //don't write over # characters
+    //        else if (gameOverChar != '#')
+    //            frame[y][x] = gameOverChar;
+    //    }
+    //}
 }
 
 void ScreenManager::InsertString(const string& str, const int y, const int x)
@@ -129,6 +145,7 @@ void ScreenManager::Clear()
                 frame[m][n] = ' ';
         }
     }
+    UIMessage.clear();
 }
 
 void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
@@ -142,56 +159,12 @@ void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNa
     backgrounds.resize(backgroundFilesNames.size());
 
     for (int i = 0; i < backgroundFilesNames.size(); i++)
-        ReadFrameFromFile(backgroundFilesNames[i], backgrounds[i]);
-}
-
-void ScreenManager::ReadFrameFromFile(const string& fileName, std::vector<std::vector<unsigned char>>& frame)
-{
-    std::ifstream file(fileName, std::ios::binary);
-    if (!file)
-    {
-        std::cerr << "Error opening file." << std::endl;
-        return;
-    }
-
-    // Resize the vector to hold the rows
-    frame.resize(screenSizeY);
-
-    //Read the data into the vector
-    for (int m = 0; m < screenSizeY; ++m)
-    {
-        frame[m].resize(screenSizeX);
-
-        for (int n = 0; n < screenSizeX; ++n)
-        {
-            unsigned char c = file.get();
-
-            //ignore invisible characters
-            if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
-            {
-                --n;
-                continue;
-            }
-            frame[m][n] = c;
-        }
-    }
-
-    std::reverse(frame.begin(), frame.end());
+        FileUtils::ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY, backgrounds[i]);
 }
 
 std::vector<std::vector<unsigned char>> ScreenManager::GetCurrentBackground()const
 {
     return  TimeUtils::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
-}
-
-void ScreenManager::ShowGameOverScreen(int score, int bestScore)
-{
-    if (IsShowingGameOverScreen())
-        return;
-
-    this->score = score;
-    this->bestScore = bestScore;
-    AudioManager::Instance().PlayFx("show-end-screen.wav", 0);
 }
 
 void ScreenManager::ClearScreen()

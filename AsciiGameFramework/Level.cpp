@@ -1,5 +1,7 @@
 #include "Level.h"
 
+#include "TimeUtils.h"
+
 double Level:: GetLevelTime() const
 {
     if (IsGameOver())

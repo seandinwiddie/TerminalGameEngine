@@ -5,6 +5,10 @@
 #include "SimulationObject.h"
 #include "TransformObject.h"
 #include "Level.h"
+#include "TimeUtils.h"
+
+#include <Windows.h>
+#include <cassert>
 
 void Simulation::Step()
 {
@@ -470,10 +474,4 @@ bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
 		y < worldSizeY - screenPadding &&
 		x >= screenPadding &&
 		x < worldSizeX - screenPadding;
-}
-
-//todo pass file name
-void Simulation::ShowGameOverScreen(const int score, const int bestScore)
-{
-	screenManager->ShowGameOverScreen(score,bestScore);
 }

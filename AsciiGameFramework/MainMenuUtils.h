@@ -3,6 +3,9 @@
 #include "Level.h";
 #include "PuzzleLevel.h"
 #include "ObstaclesLevel.h"
+#include "InputUtils.h"
+
+#include <iostream>
 
 namespace MainMenuUtils
 {

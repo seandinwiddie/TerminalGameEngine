@@ -1,14 +1,9 @@
 #pragma once
+#include "SimulationObject.h"
+#include <vector>
 
-#include "Config.h"
-#include "Simulation.h"
-#include "Bunny.h"
-#include "StaticCollider.h"
-#include "LevelEndFlag.h"
-#include "AutomaticDoor.h"
-#include "PressurePlate.h"
-#include "ObstaclesSpawner.h"
-#include "PushableObject.h"
+
+class Simulation;
 
 class Level : public SimulationObject
 {
@@ -22,6 +17,8 @@ protected:
     double gameOverTime = -1;
     double levelStartedTime = 0;
     bool isShowingGameOverScreen = false;
+    std::vector<std::vector<unsigned char>> gameEndUIMessage;
+
 
 public:
     virtual void OnGameOver();

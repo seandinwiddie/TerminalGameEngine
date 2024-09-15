@@ -1,23 +1,10 @@
 #pragma once
 
+#include "GridDirection.h"
+#include "Singleton.h"
 #include <list>
 #include <vector>
 #include <string>
-#include <iostream>
-#include <cassert>
-#include <fstream>
-#include <stdexcept>
-#include <random>
-#include "InputUtils.h"
-#include "Time.h"
-#include "RandomUtils.h"
-#include "AudioManager.h"
-#include "Persistence.h"
-#include "GridDirection.h"
-#include "Singleton.h"
-#include "TransformObject.h"
-#include "Event.h"
-
 
 using namespace GridDirection;
 using string = std::string;
@@ -25,6 +12,7 @@ using string = std::string;
 const class Level;
 class ScreenManager;
 class CollidingObject;
+class SimulationObject;
 
 //------------------------------------------------------------------------------------ simulation
 class Simulation : public Singleton<Simulation>
@@ -61,8 +49,8 @@ public:
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }
 	unsigned int GetScreenPadding() const { return screenPadding; }
-	void ShowGameOverScreen(const int score, const int bestScore);
 	const Level* const GetLevel() { return level; }
+	ScreenManager* GetScreenManager() { return screenManager; }
 
 	void Reset
 	(
@@ -80,10 +68,6 @@ private:
 	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
 	bool IsCoordinateInsideGameSpace(const int x, const int y) const;
 	bool IsCoordinateInsideScreenSpace(const int x, const int y) const;
-
-
-	bool IsShowGameoverDelayExpired() const;
-	bool CanPlayerPressKeyToRestartGame() const;
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 	bool IsSpaceEmpty(const int startingY, const int startingX, const int width, const int height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
