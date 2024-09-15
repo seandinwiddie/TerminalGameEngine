@@ -1,6 +1,7 @@
 #pragma once
 #include "SimulationObject.h"
 #include <vector>
+#include "Frame.h"
 
 
 class Simulation;
@@ -17,8 +18,7 @@ protected:
     double gameOverTime = -1;
     double levelStartedTime = 0;
     bool isShowingGameOverScreen = false;
-    std::vector<std::vector<unsigned char>> gameEndUIMessage;
-
+    Frame gameEndUIMessage;
 
 public:
     virtual void OnGameOver();

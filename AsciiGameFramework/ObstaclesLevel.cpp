@@ -3,12 +3,12 @@
 #include "Simulation.h"
 #include "ScreenManager.h"
 #include "StaticCollider.h"
-#include "FileUtils.h"
 #include "Persistence.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "Bunny.h"
 #include "ObstaclesSpawner.h"
+#include "Frame.h"
 
 void ObstaclesLevel::Update()
 {
@@ -34,7 +34,7 @@ void ObstaclesLevel::Update()
                 leftSpacing += " ";
             message = leftSpacing + message;
 
-            FileUtils::ReplaceChar(gameEndUIMessage,message,'$');
+            gameEndUIMessage.ReplaceChar(message, '$');
 
             Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
             isShowingGameOverScreen = true;
@@ -65,13 +65,7 @@ void ObstaclesLevel::Load()
 
     const ScreenManager* screenManager = simulation.GetScreenManager();
 
-    FileUtils::ReadFrameFromFile
-    (
-        "gameover-screen.txt", 
-        screenManager->GetScreenSizeX(),
-        screenManager->GetScreenSizeY(),
-        gameEndUIMessage
-    );
+    gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", screenManager->GetScreenSizeX(), screenManager->GetScreenSizeY());
 
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);

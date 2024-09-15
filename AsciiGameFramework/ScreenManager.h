@@ -1,5 +1,6 @@
 #pragma once
 #include "Config.h"
+#include "Frame.h"
 #include <vector>
 #include <list>
 #include <string>
@@ -12,15 +13,15 @@ class ScreenManager
 {
 //---------------------------------------------------------- Fields
 private:
-	std::vector<std::vector<unsigned char>> frame;
-	std::vector<std::vector<std::vector<unsigned char>>> backgrounds;
+	Frame frame;
+	std::vector<Frame> backgrounds;
 
 	int screenSizeX; //todo read from simulation
 	int screenSizeY;
 	int padding;
 	bool showLevelTime = false;
 	bool isShowingUIMessage;
-	std::vector<std::vector<unsigned char>> UIMessage = {{}};
+	Frame UIMessage;
 
 #if DEBUG_MODE
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
@@ -38,12 +39,12 @@ public:
 	void Clear();
 	int GetScreenSizeX() const { return screenSizeX; }
 	int GetScreenSizeY() const { return screenSizeY; }
-	void SetUIMessage(std::vector<std::vector<unsigned char>> UIMessage){ this->UIMessage = UIMessage; }
+	void SetUIMessage(Frame UIMessage){ this->UIMessage = UIMessage; }
 
 private:
 	void InsertUIMessageOverFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
-	std::vector<std::vector<unsigned char>> GetCurrentBackground() const;
+	Frame GetCurrentBackground() const;
 	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
 	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }

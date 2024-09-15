@@ -4,7 +4,6 @@
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"
-#include "FileUtils.h"
 #include "TimeUtils.h"
 
 #include "Windows.h"
@@ -17,12 +16,9 @@ ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const i
     padding(padding), 
     showLevelTime(showLevelTime)
 {
-    UIMessage.clear();
-    frame.resize(screenSizeY);
-
-    // Resize each row (inner vector) to have SCREEN_X_DIM columns
-    for (int i = 0; i < screenSizeY; ++i)
-        frame[i].resize(screenSizeX);
+    UIMessage.Clear();
+    frame.ResizeY(screenSizeY);
+    frame.ResizeX(screenSizeX);
        
     InitBackgrounds(backgroundFileNames);      
     //FileUtils::ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
@@ -53,7 +49,7 @@ void ScreenManager::Print()
     // add frame
     for (int m = screenSizeY - 1; m >= 0; --m)
     {               
-        string rowString(frame[m].begin(), frame[m].end());
+        string rowString(frame.chars[m].begin(), frame.chars[m].end());
         frameString += rowString + '\n';
     }
 
@@ -65,15 +61,15 @@ void ScreenManager::Print()
 
 void ScreenManager::InsertUIMessageOverFrame()
 {
-    if (UIMessage.size() == 0)
+    if (UIMessage.GetSizeY() == 0)
         return;
 
     for (int y = 0; y < screenSizeY; ++y)
         for (int x = 0; x < screenSizeX; ++x)
         {
-            unsigned char c = UIMessage[y][x];
+            unsigned char c = UIMessage.chars[y][x];
             if (c != '#')
-                frame[y][x] = c;
+                frame.chars[y][x] = c;
         }
 }
 
@@ -92,7 +88,7 @@ void ScreenManager::InsertGameObject(TransformObject* go)
                 assert(yModel < go->GetModelHeight() && yModel >= 0);
                 unsigned char charToPrint = go->GetModel()[yModel][xModel];
                 if(charToPrint!=' ')
-                    frame[yScreen][xScreen] = charToPrint;
+                    frame.chars[yScreen][xScreen] = charToPrint;
             }      
 }
 
@@ -103,9 +99,9 @@ void ScreenManager::Clear()
         for (int n = 0; n < screenSizeX; ++n)
         {
             if (IsBackgroundEnabled())
-                frame[m][n] = GetCurrentBackground()[m][n];
+                frame.chars[m][n] = GetCurrentBackground().chars[m][n];
             else
-                frame[m][n] = ' ';
+                frame.chars[m][n] = ' ';
         }
     }
 }
@@ -121,10 +117,10 @@ void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNa
     backgrounds.resize(backgroundFilesNames.size());
 
     for (int i = 0; i < backgroundFilesNames.size(); i++)
-        FileUtils::ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY, backgrounds[i]);
+        backgrounds[i].ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY);
 }
 
-std::vector<std::vector<unsigned char>> ScreenManager::GetCurrentBackground()const
+Frame ScreenManager::GetCurrentBackground()const
 {
     return  TimeUtils::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
 }

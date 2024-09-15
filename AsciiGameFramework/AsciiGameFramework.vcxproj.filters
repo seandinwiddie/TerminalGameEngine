@@ -70,6 +70,9 @@
     <ClCompile Include="PuzzleLevel.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h">
@@ -144,8 +147,8 @@
     <ClInclude Include="SimulationObject.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="FileUtils.h">
-      <Filter>Headers\Utility</Filter>
+    <ClInclude Include="Frame.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
