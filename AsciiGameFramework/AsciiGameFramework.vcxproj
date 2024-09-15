@@ -166,6 +166,7 @@
     <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="RepeatedCollisionTestLevel.h" />
     <ClInclude Include="TransformObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />

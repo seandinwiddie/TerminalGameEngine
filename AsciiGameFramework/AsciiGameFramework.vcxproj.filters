@@ -150,6 +150,9 @@
     <ClInclude Include="SimulationObject.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
+    <ClInclude Include="RepeatedCollisionTestLevel.h">
+      <Filter>Headers\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="background1.txt">
