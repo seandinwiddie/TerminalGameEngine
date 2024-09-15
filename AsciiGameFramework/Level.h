@@ -12,7 +12,6 @@ class Level : public SimulationObject
 
 private:
     constexpr static float ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS = 1.5;
-    constexpr static float SHOW_GAMEOVER_SCREEN_AFTER_SECONDS = 1.5;
     bool isGameOverDelayEnded = false;
     double gameOverTime = -1;
     double levelStartedTime = 0;
@@ -29,6 +28,7 @@ public:
     bool IsTerminated() { return isTerminated; }
 
 protected:
+    virtual double ShowGameOverScreenDelay()const = 0;
     virtual void Update()override;
     virtual void OnGameOverDelayEnded() = 0;
     bool IsShowGameoverDelayExpired() const;

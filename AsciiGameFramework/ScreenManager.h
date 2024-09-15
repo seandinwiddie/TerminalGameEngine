@@ -40,6 +40,7 @@ public:
 	int GetScreenSizeX() const { return screenSizeX; }
 	int GetScreenSizeY() const { return screenSizeY; }
 	void SetUIMessage(Frame UIMessage){ this->UIMessage = UIMessage; }
+	static void ClearScreen();
 
 private:
 	void InsertUIMessageOverFrame();
@@ -48,8 +49,6 @@ private:
 	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
 	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
-	void ClearScreen();
-
 
 #if DEBUG_MODE
 	void DEBUG_PrintAverageFps(string& frameString);

@@ -29,12 +29,12 @@ void Level::Load()
 
 bool Level::IsShowGameoverDelayExpired() const
 {
-    return gameOverTime > 0 && TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS;
+    return gameOverTime > 0 && TimeUtils::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
 }
 
 bool Level::CanPlayerPressKeyToRestartGame() const
 {
-    return  TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS + ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS;
+    return  TimeUtils::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() + ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS;
 }
 
 void Level::OnGameOver()

@@ -28,7 +28,11 @@ private:
 public:
 	void PlayFx(const string& fileName, const float randomPitch = 0.0);
 	void PlayRandomMusic();
-	void StopMusic() { music.stop(); }
+	void StopMusic()
+	{ 
+		if(music.getStatus() == sf::SoundSource::Playing)
+			music.stop(); 
+	}
 
 private:
 	AudioManager()

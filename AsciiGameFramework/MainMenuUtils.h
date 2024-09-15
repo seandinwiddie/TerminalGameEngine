@@ -4,14 +4,22 @@
 #include "PuzzleLevel.h"
 #include "ObstaclesLevel.h"
 #include "InputUtils.h"
+#include "ScreenManager.h"
 
 #include <iostream>
+
+using namespace std;
 
 namespace MainMenuUtils
 {
     static Level* ShowLevelSelection()
     {
-        std::cout << "Press:" << std::endl << "1 -> play endless runner demo" << std::endl << "2 -> play puzzle game demo" << std::endl;
+        ScreenManager::ClearScreen();
+        cout
+            << "Press:" << endl
+            << "1 -> play endless runner demo" << endl
+            << "2 -> play puzzle game demo" << endl << endl
+            << "esc inside levels -> main menu" << endl;
 
         while (true)
         {

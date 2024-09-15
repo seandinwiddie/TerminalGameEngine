@@ -21,4 +21,5 @@ public:
 private:
     virtual void OnGameOverDelayEnded() override;
     void ShowGameOverScreen(int score, int bestScore);
+    virtual double ShowGameOverScreenDelay()const { return 1; }
 };
