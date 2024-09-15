@@ -19,6 +19,6 @@ public:
     virtual void OnGameOver() override;
 
 private:
-    virtual void Update()override;
+    virtual void OnGameOverDelayEnded() override;
     void ShowGameOverScreen(int score, int bestScore);
 };

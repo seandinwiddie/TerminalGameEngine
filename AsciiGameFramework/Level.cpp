@@ -1,6 +1,15 @@
 #include "Level.h"
 
 #include "TimeUtils.h"
+#include "Simulation.h"
+#include "ScreenManager.h"
+#include "StaticCollider.h"
+#include "Persistence.h"
+#include "InputUtils.h"
+#include "AudioManager.h"
+#include "Bunny.h"
+#include "ObstaclesSpawner.h"
+#include "Frame.h"
 
 double Level:: GetLevelTime() const
 {
@@ -14,7 +23,7 @@ void Level::Load()
 {
     gameOverTime = -1;
     levelStartedTime = TimeUtils::Instance().GetTime();
-    isShowingGameOverScreen = false;
+    isGameOverDelayEnded = false;
 }
 
 bool Level::IsShowGameoverDelayExpired() const
@@ -33,4 +42,20 @@ void Level::OnGameOver()
         return;
 
     gameOverTime = TimeUtils::Instance().GetTime();
+}
+
+void Level::Update()
+{
+    if (gameOverTime < 0)
+        return;
+
+    if (IsShowGameoverDelayExpired() && isGameOverDelayEnded == false)
+    {
+        isGameOverDelayEnded = true;
+        OnGameOverDelayEnded();
+    }
+    else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
+    {
+        Simulation::Instance().Terminate();
+    }
 }

@@ -1,6 +1,5 @@
 #include "PuzzleLevel.h"
 
-
 #include "Bunny.h"
 #include "StaticCollider.h"
 #include "LevelEndFlag.h"
@@ -27,7 +26,7 @@ void PuzzleLevel::Load()
     StaticCollider* doorRightPlatform = new StaticCollider(63, 14, 16, 1, '#');
     simulation.TryAddGameObject(doorRightPlatform);
 
-    LevelEndFlag* flag = new LevelEndFlag(70, 15);
+    LevelEndFlag* flag = new LevelEndFlag(this, 70, 15);
     simulation.TryAddGameObject(flag);
 
     //------------------------------- automatic door
@@ -60,6 +59,7 @@ void PuzzleLevel::Load()
     simulation.TryAddGameObject(pressurePlate2);
 }
 
-void PuzzleLevel::OnGameOver() { 
+void PuzzleLevel::OnGameOverDelayEnded()
+{
     Simulation::Instance().Terminate();
 }

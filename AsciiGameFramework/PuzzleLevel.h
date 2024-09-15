@@ -10,5 +10,6 @@ public:
     static const unsigned int SCREEN_PADDING = 4;
 
     virtual void Load() override;
-    virtual void OnGameOver() override;
+    //virtual void OnGameOver() override;
+    virtual void OnGameOverDelayEnded() override;
 };

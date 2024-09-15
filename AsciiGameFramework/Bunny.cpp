@@ -74,8 +74,12 @@ void Bunny::Update()
         walkingModel = isTimeForLeftModel ? walkLeftModel : walkRightModel;
     }
 
-    HandleVerticalMovement();
-    HandleHorizontalMovement();
+    //prevent movement when game is over
+    if (level->IsGameOver() == false)
+    {
+        HandleVerticalMovement();
+        HandleHorizontalMovement();
+    }
 
     UpdateModel();
 }

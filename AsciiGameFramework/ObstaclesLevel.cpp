@@ -10,26 +10,16 @@
 #include "ObstaclesSpawner.h"
 #include "Frame.h"
 
-void ObstaclesLevel::Update()
+void ObstaclesLevel::OnGameOverDelayEnded()
 {
-    if (gameOverTime < 0)
-        return;
+    int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
+    int score = GetLevelTime();
 
-    if (IsShowGameoverDelayExpired() && isShowingGameOverScreen == false)
-    {
-        int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
-        int score = GetLevelTime();
+    if (score > bestScore)
+        Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
 
-        if (score > bestScore)
-            Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
-
-        if (isShowingGameOverScreen == false)
-            ShowGameOverScreen(score, bestScore);
-    }
-    else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
-    {
-        Simulation::Instance().Terminate();
-    }
+    ShowGameOverScreen(score, bestScore);
+    AudioManager::Instance().PlayFx("show-end-screen.wav");
 }
 
 void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore) 
@@ -46,7 +36,6 @@ void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore)
     gameEndUIMessage.ReplaceChar(message, '$');
 
     Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
-    isShowingGameOverScreen = true;
 }
 
 void ObstaclesLevel::OnGameOver()
