@@ -5,6 +5,7 @@
 #include "Simulation.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
+#include "RepeatedCollisionTestLevel.h"
 
 int main()
 {
@@ -16,27 +17,41 @@ int main()
     while (true)
     {
         AudioManager::Instance().StopMusic();
-        Level* level = MainMenuUtils::ShowLevelSelection();
-        returnToMainMenu = false;
 
-        while (returnToMainMenu == false)
+
+        //------
+        RepeatedCollisionTestLevel level;
+        level.Load();
+        while (true)
         {
-            level->Load();
-
-            //step simulation until it ends
-            while (level->IsTerminated() == false)
-            {
-                simulation.Step();
-
-                if (InputUtils::IsPressingEsc())
-                {
-                    returnToMainMenu = true;
-                    break;
-                }
-            }
+            simulation.Step();
         }
+        //------
 
-        delete(level);
+        //Level* level = MainMenuUtils::ShowLevelSelection();
+        //returnToMainMenu = false;
+
+       
+        //level->Load();
+
+        //while (returnToMainMenu == false)
+        //{
+        //    level->Load();
+
+        //    //step simulation until it ends
+        //    while (level->IsTerminated() == false)
+        //    {
+        //        simulation.Step();
+
+        //        if (InputUtils::IsPressingEsc())
+        //        {
+        //            returnToMainMenu = true;
+        //            break;
+        //        }
+        //    }
+        //}
+
+        //delete(level);
     }
 
     return 0;
