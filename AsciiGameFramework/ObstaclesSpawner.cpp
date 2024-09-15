@@ -1,8 +1,6 @@
 #include "ObstaclesSpawner.h"
 #include "Simulation.h"
 
-
-
 ObstaclesSpawner::ObstaclesSpawner
 (
     const int xPos,

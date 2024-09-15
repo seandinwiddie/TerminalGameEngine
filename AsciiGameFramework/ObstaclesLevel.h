@@ -9,6 +9,7 @@ private:
     const unsigned int WORLD_SIZE_Y = 24;
     const unsigned int SCREEN_PADDING = 4;
     const std::vector<string> BACKGROUND_FILES = { "background1.txt", "background2.txt" };
+    const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
 
 public:
     virtual void Load() override
@@ -80,12 +81,13 @@ public:
 
     virtual void OnGameOver() override
     {
-        if (gameOverTime > 0)
+        if (IsGameOver())
             return;
+
+        Level::OnGameOver();
 
         AudioManager::Instance().StopMusic();
         AudioManager::Instance().PlayFx("gameover.wav");
-        gameOverTime = TimeUtils::Instance().GetTime();
     }
 
 private:
@@ -96,13 +98,13 @@ private:
 
         if (IsShowGameoverDelayExpired() && isShowingGameOverScreen == false)
         {
-            int bestScore = Persistence::LoadBestScore();
+            int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
             int score = GetLevelTime();
 
-            Simulation::Instance().ShowGameOverScreen(score, bestScore);
-
             if (score > bestScore)
-                Persistence::SaveBestScore(score);
+                Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
+
+            Simulation::Instance().ShowGameOverScreen(score, bestScore);
 
             isShowingGameOverScreen = true;
         }
@@ -111,7 +113,4 @@ private:
             Simulation::Instance().Terminate();
         }
     }
-
-    
-
 };

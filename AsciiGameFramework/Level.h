@@ -24,8 +24,7 @@ protected:
     bool isShowingGameOverScreen = false;
 
 public:
-    virtual void OnGameOver() = 0;
-
+    virtual void OnGameOver();
     virtual void Load();
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }

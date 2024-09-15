@@ -11,7 +11,7 @@ double Level:: GetLevelTime() const
 void Level::Load()
 {
     gameOverTime = -1;
-    levelStartedTime = 0;
+    levelStartedTime = TimeUtils::Instance().GetTime();
     isShowingGameOverScreen = false;
 }
 
@@ -23,4 +23,12 @@ bool Level::IsShowGameoverDelayExpired() const
 bool Level::CanPlayerPressKeyToRestartGame() const
 {
     return  TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS + ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS;
+}
+
+void Level::OnGameOver()
+{
+    if (IsGameOver())
+        return;
+
+    gameOverTime = TimeUtils::Instance().GetTime();
 }

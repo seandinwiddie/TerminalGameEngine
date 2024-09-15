@@ -5,22 +5,20 @@
 
 namespace Persistence
 {
-	static const string PERSISTENCE_FILE_NAME = "persistence.txt";
-
-	static void SaveBestScore(const int bestScore)
+	static void SaveBestScore(const string& persistenceFile ,const int bestScore)
 	{
-		std::ofstream outStream(PERSISTENCE_FILE_NAME);
+		std::ofstream outStream(persistenceFile);
 		assert(outStream);
 		outStream << bestScore;
 	}
 
-	static int LoadBestScore()
+	static int LoadBestScore(const string& persistenceFile)
 	{
-		std::ifstream infile(PERSISTENCE_FILE_NAME);
+		std::ifstream infile(persistenceFile);
 
 		if (!infile)
 		{
-			SaveBestScore(-1);
+			SaveBestScore(persistenceFile, -1);
 			return -1;
 		}
 		
