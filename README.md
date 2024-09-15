@@ -1,7 +1,6 @@
 # AsciiGameFramework
 A simple framework for making ASCII terminal games.
 
-Available features:
 - Framerate-independent simulation
 - Collision system, objects expose 'OnCollisionEnter' and 'OnCollisionEnd' methods
 - Animated ASCII backgrounds can be loaded from files
