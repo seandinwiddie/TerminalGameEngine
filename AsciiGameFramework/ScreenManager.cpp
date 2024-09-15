@@ -1,8 +1,13 @@
 #include "ScreenManager.h"
 
-#include "GameObject.h"
+#include "TransformObject.h"
 #include "Simulation.h"
 #include "Config.h"
+#include "Level.h"
+#include "TimeUtils.h"
+
+#include "Windows.h"
+#include <cassert>
 
 ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, bool showLevelTime,const std::vector<string>& backgroundFileNames )
     : 
@@ -11,14 +16,12 @@ ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const i
     padding(padding), 
     showLevelTime(showLevelTime)
 {
-    frame.resize(screenSizeY);
-
-    // Resize each row (inner vector) to have SCREEN_X_DIM columns
-    for (int i = 0; i < screenSizeY; ++i)
-        frame[i].resize(screenSizeX);
+    UIMessage.Clear();
+    frame.ResizeY(screenSizeY);
+    frame.ResizeX(screenSizeX);
        
     InitBackgrounds(backgroundFileNames);      
-    ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
+    //FileUtils::ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
     Clear();
 
 #if DEBUG_MODE
@@ -37,17 +40,16 @@ void ScreenManager::Print()
 
     if (showLevelTime)
     {
-        double runTime = Simulation::Instance().GetLevelTime();
+        double runTime = Simulation::Instance().GetLevel()->GetLevelTime();
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
-    if (IsShowingGameOverScreen())
-        InsertGameOverScreenOverFrame();
+    InsertUIMessageOverFrame();
 
     // add frame
     for (int m = screenSizeY - 1; m >= 0; --m)
     {               
-        string rowString(frame[m].begin(), frame[m].end());
+        string rowString(frame.chars[m].begin(), frame.chars[m].end());
         frameString += rowString + '\n';
     }
 
@@ -57,47 +59,21 @@ void ScreenManager::Print()
     std::cout << frameString;
 }
 
-void ScreenManager::InsertGameOverScreenOverFrame()
+void ScreenManager::InsertUIMessageOverFrame()
 {
+    if (UIMessage.GetSizeY() == 0)
+        return;
+
     for (int y = 0; y < screenSizeY; ++y)
-    {
         for (int x = 0; x < screenSizeX; ++x)
         {
-            unsigned char gameOverChar = gameOverScreen[y][x];
-
-            // insert score message
-            if (gameOverChar == '$')
-            {
-                string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-                string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
-
-                //centers message
-                string leftSpacing = "";
-                for (int i = 0; i < (42 - message.size())/2; ++i)
-                    leftSpacing += " ";
-
-                message = leftSpacing + message;
-
-                InsertString(message, y, x);
-                x += message.size()-1;
-            }
-            //don't write over # characters
-            else if (gameOverChar != '#')
-                frame[y][x] = gameOverChar;
+            unsigned char c = UIMessage.chars[y][x];
+            if (c != '#')
+                frame.chars[y][x] = c;
         }
-    }
 }
 
-void ScreenManager::InsertString(const string& str, const int y, const int x)
-{
-    assert(x >= 0 && x < screenSizeX);
-    assert(y >= 0 && y < screenSizeY);
-
-    for (int i = 0; i < str.size(); ++i)
-        frame[y][x + i] = str[i];
-}
-
-void ScreenManager::InsertGameObject(GameObject* go)
+void ScreenManager::InsertGameObject(TransformObject* go)
 {
     std::vector<std::vector<unsigned char>> model = go->GetModel();
     if (model[0].size() == 0)
@@ -112,7 +88,7 @@ void ScreenManager::InsertGameObject(GameObject* go)
                 assert(yModel < go->GetModelHeight() && yModel >= 0);
                 unsigned char charToPrint = go->GetModel()[yModel][xModel];
                 if(charToPrint!=' ')
-                    frame[yScreen][xScreen] = charToPrint;
+                    frame.chars[yScreen][xScreen] = charToPrint;
             }      
 }
 
@@ -123,9 +99,9 @@ void ScreenManager::Clear()
         for (int n = 0; n < screenSizeX; ++n)
         {
             if (IsBackgroundEnabled())
-                frame[m][n] = GetCurrentBackground()[m][n];
+                frame.chars[m][n] = GetCurrentBackground().chars[m][n];
             else
-                frame[m][n] = ' ';
+                frame.chars[m][n] = ' ';
         }
     }
 }
@@ -141,56 +117,12 @@ void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNa
     backgrounds.resize(backgroundFilesNames.size());
 
     for (int i = 0; i < backgroundFilesNames.size(); i++)
-        ReadFrameFromFile(backgroundFilesNames[i], backgrounds[i]);
+        backgrounds[i].ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY);
 }
 
-void ScreenManager::ReadFrameFromFile(const string& fileName, std::vector<std::vector<unsigned char>>& frame)
-{
-    std::ifstream file(fileName, std::ios::binary);
-    if (!file)
-    {
-        std::cerr << "Error opening file." << std::endl;
-        return;
-    }
-
-    // Resize the vector to hold the rows
-    frame.resize(screenSizeY);
-
-    //Read the data into the vector
-    for (int m = 0; m < screenSizeY; ++m)
-    {
-        frame[m].resize(screenSizeX);
-
-        for (int n = 0; n < screenSizeX; ++n)
-        {
-            unsigned char c = file.get();
-
-            //ignore invisible characters
-            if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
-            {
-                --n;
-                continue;
-            }
-            frame[m][n] = c;
-        }
-    }
-
-    std::reverse(frame.begin(), frame.end());
-}
-
-std::vector<std::vector<unsigned char>> ScreenManager::GetCurrentBackground()const
+Frame ScreenManager::GetCurrentBackground()const
 {
     return  TimeUtils::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
-}
-
-void ScreenManager::ShowGameOverScreen(int score, int bestScore)
-{
-    if (IsShowingGameOverScreen())
-        return;
-
-    this->score = score;
-    this->bestScore = bestScore;
-    AudioManager::Instance().PlayFx("show-end-screen.wav", 0);
 }
 
 void ScreenManager::ClearScreen()

@@ -2,10 +2,11 @@
 
 #include <vector>
 #include "GridDirection.h"
+#include "SimulationObject.h"
 
 using namespace GridDirection;
 
-class GameObject
+class TransformObject : public SimulationObject
 {
 //---------------------------------------------------------- Fields
 public:
@@ -25,7 +26,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	GameObject(const int xPos, const int yPos);
+	TransformObject(const int xPos, const int yPos);
 
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
@@ -43,12 +44,10 @@ public:
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual float GetGravityScale() const = 0;
 
-	
-	virtual void Update();
-
 protected:
 	virtual void Move(const Direction direction, const float moveSpeed);
 	std::vector<std::vector<unsigned char>> CreteModelUsingChar(unsigned char c, const unsigned int sizeX, const unsigned int sizeY) const;
+	virtual void Update();
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }

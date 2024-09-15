@@ -1,7 +1,8 @@
 #include "Config.h"
 
-#include "ILevel.h";
+#include "Level.h";
 #include "MainMenuUtils.h"
+#include "Simulation.h"
 
 
 int main()
@@ -9,7 +10,7 @@ int main()
     system("COLOR 0A");
 
     Simulation& simulation = Simulation::Instance();
-    ILevel* level = MainMenuUtils::ShowLevelSelection();
+    Level* level = MainMenuUtils::ShowLevelSelection();
     
     while (true)
     {

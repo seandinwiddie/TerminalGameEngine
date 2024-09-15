@@ -1,4 +1,5 @@
 #include "Bunny.h"
+#include "Level.h"
 
 const std::vector<std::vector<unsigned char>> Bunny::walkLeftModel
 {
@@ -49,7 +50,7 @@ const std::vector<std::vector<unsigned char>> Bunny::idleModelLeft
     {'(', 92, '(', 92, ' '}
 };
 
-Bunny::Bunny (int xPos, int yPos) : CollidingObject(xPos, yPos)
+Bunny::Bunny(int xPos, int yPos, Level* level) : CollidingObject(xPos, yPos), level(level)
 {
     SetState(State::idle);
     jumpingModel = jumpLeftModel;
@@ -73,8 +74,12 @@ void Bunny::Update()
         walkingModel = isTimeForLeftModel ? walkLeftModel : walkRightModel;
     }
 
-    HandleVerticalMovement();
-    HandleHorizontalMovement();
+    //prevent movement when game is over
+    if (level->IsGameOver() == false)
+    {
+        HandleVerticalMovement();
+        HandleHorizontalMovement();
+    }
 
     UpdateModel();
 }
@@ -203,7 +208,7 @@ float Bunny::GetGravityScale() const
 
 void Bunny::Move(Direction direction, float moveSpeed)
 {
-    GameObject::Move(direction, moveSpeed);
+    TransformObject::Move(direction, moveSpeed);
     if (direction == Direction::right || direction == Direction::left)
         lastTimeMovedOnX = TimeUtils::Instance().GetTime();
 }
@@ -213,7 +218,7 @@ void Bunny::OnCollisionEnter(CollidingObject* other, Direction collisionDirectio
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
         SetState(State::defeated);
-        Simulation::Instance().NotifyGameOver(false);
+        level->OnGameOver();
         return;
     }
 

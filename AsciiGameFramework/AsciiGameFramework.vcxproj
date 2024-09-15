@@ -139,7 +139,11 @@
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="ObstaclesLevel.cpp" />
+    <ClCompile Include="PuzzleLevel.cpp" />
+    <ClCompile Include="TransformObject.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelEndFlag.cpp" />
     <ClCompile Include="LevelEndFlag.h" />
     <ClCompile Include="MovingStraightObject.cpp" />
@@ -161,10 +165,11 @@
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="TransformObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="ILevel.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="InputUtils.h" />
     <ClInclude Include="MainMenuUtils.h" />
     <ClInclude Include="ObstaclesLevel.h" />
@@ -174,6 +179,7 @@
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="SimulationObject.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Obstacle.h" />

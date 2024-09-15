@@ -1,27 +1,27 @@
 #pragma once
 #include "Config.h"
+#include "Frame.h"
 #include <vector>
 #include <list>
 #include <string>
 
 using string = std::string;
 
-class GameObject;
+class TransformObject;
 
 class ScreenManager
 {
 //---------------------------------------------------------- Fields
 private:
-	std::vector<std::vector<unsigned char>> frame;
-	std::vector<std::vector<std::vector<unsigned char>>> backgrounds;
-	std::vector<std::vector<unsigned char>> gameOverScreen;
+	Frame frame;
+	std::vector<Frame> backgrounds;
 
-	int screenSizeX;
+	int screenSizeX; //todo read from simulation
 	int screenSizeY;
 	int padding;
 	bool showLevelTime = false;
-	int score = -1;
-	int bestScore = -1;
+	bool isShowingUIMessage;
+	Frame UIMessage;
 
 #if DEBUG_MODE
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
@@ -35,21 +35,21 @@ public:
 	ScreenManager(const int sizeX, const int sizeY, const int padding, bool showGameTime,const std::vector<string>& backgroundFileNames = {});
 
 	void Print();
-	void InsertGameObject(GameObject* go);
-	void InsertString(const string& str, const int y, const int x);
+	void InsertGameObject(TransformObject* go);
 	void Clear();
-	bool IsShowingGameOverScreen() const { return score > -1; }
-	void ShowGameOverScreen(const int score, const int bestScore);
+	int GetScreenSizeX() const { return screenSizeX; }
+	int GetScreenSizeY() const { return screenSizeY; }
+	void SetUIMessage(Frame UIMessage){ this->UIMessage = UIMessage; }
 
 private:
+	void InsertUIMessageOverFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
-	void ReadFrameFromFile(const string& fileName, std::vector<std::vector<unsigned char>>& frame);
-	std::vector<std::vector<unsigned char>> GetCurrentBackground() const;
-	void InsertGameOverScreenOverFrame();
+	Frame GetCurrentBackground() const;
 	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
 	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 	void ClearScreen();
+
 
 #if DEBUG_MODE
 	void DEBUG_PrintAverageFps(string& frameString);

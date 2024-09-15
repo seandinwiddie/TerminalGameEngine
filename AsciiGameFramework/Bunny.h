@@ -9,6 +9,8 @@
 
 #include <string>
 
+class Level;
+
 class Bunny : public CollidingObject
 {
     enum class State
@@ -35,6 +37,8 @@ private:
     static const std::vector<std::vector<unsigned char>> idleModelRight;
     static const std::vector<std::vector<unsigned char>> idleModelLeft;
 
+    Level* level;
+
 //---------------------------------------------------------- Fields
 
     static constexpr unsigned int JUMP_HEIGHT = 10;
@@ -51,7 +55,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-    Bunny(int xPos, int yPos);
+    Bunny(int xPos, int yPos, Level* level);
     void Update() override;
 
     virtual bool CanExitScreenSpace() const override { return false; }

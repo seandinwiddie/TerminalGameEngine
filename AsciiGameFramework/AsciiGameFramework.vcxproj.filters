@@ -13,7 +13,7 @@
     <ClCompile Include="CollidingObject.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="TransformObject.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -47,13 +47,13 @@
       <Filter>Cpp</Filter>
     </ClCompile>
     <ClCompile Include="StaticCollider.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClCompile>
     <ClCompile Include="LevelEndFlag.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClCompile>
     <ClCompile Include="PushableObject.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClCompile>
     <ClCompile Include="RandomUtils.h">
       <Filter>Headers\Utility</Filter>
@@ -61,19 +61,31 @@
     <ClCompile Include="LevelEndFlag.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstaclesLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="Bunny.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="CollidingObject.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Headers\GameObjects</Filter>
+    <ClInclude Include="TransformObject.h">
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Headers\General</Filter>
@@ -85,7 +97,7 @@
       <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Headers\General</Filter>
@@ -97,19 +109,19 @@
       <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="MovingStraightObject.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="Obstacle.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="ObstaclesSpawner.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="Persistence.h">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="PressurePlate.h">
-      <Filter>Headers\GameObjects</Filter>
+      <Filter>Headers\TransformObjects</Filter>
     </ClInclude>
     <ClInclude Include="ScreenManager.h">
       <Filter>Headers\Simulation</Filter>
@@ -123,7 +135,7 @@
     <ClInclude Include="PuzzleLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="ILevel.h">
+    <ClInclude Include="Level.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
     <ClInclude Include="ObstaclesLevel.h">
@@ -131,6 +143,12 @@
     </ClInclude>
     <ClInclude Include="MainMenuUtils.h">
       <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationObject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +172,6 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\GameObjects">
-      <UniqueIdentifier>{2b8dc2b2-3b26-41cb-ba2d-aae18c8054ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\General">
       <UniqueIdentifier>{ebb07b12-15c9-4b45-bc4c-10bf6b665bf2}</UniqueIdentifier>
     </Filter>
@@ -168,6 +183,9 @@
     </Filter>
     <Filter Include="Headers\Levels">
       <UniqueIdentifier>{aafab2c1-bba3-4553-8da5-5c472f175f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\TransformObjects">
+      <UniqueIdentifier>{2b8dc2b2-3b26-41cb-ba2d-aae18c8054ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

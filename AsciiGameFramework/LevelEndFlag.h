@@ -1,14 +1,16 @@
 #pragma once
 #include "CollidingObject.h"
 
+class Level;
 
 class LevelEndFlag : public CollidingObject
 {
 private:
     static const std::vector<std::vector<unsigned char>> flagModel;
+    Level* level;
 
 public:
-    LevelEndFlag(const int x, const int y);
+    LevelEndFlag(Level* level, const int x, const int y);
 
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }

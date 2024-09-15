@@ -2,38 +2,21 @@
 
 #include "CollidingObject.h"
 #include "ScreenManager.h"
+#include "SimulationObject.h"
+#include "TransformObject.h"
+#include "Level.h"
+#include "TimeUtils.h"
+
+#include <Windows.h>
+#include <cassert>
 
 void Simulation::Step()
 {
 	if (hasTerminated)
 		return;
-
-	//todo this shouldn't be competence of simulation, should be of level
-	//handle gameover
-	if (gameOverTime > 0)
-	{
-		if (IsShowGameoverDelayExpired() && screenManager->IsShowingGameOverScreen() == false)
-		{
-			int bestScore = Persistence::LoadBestScore();
-			int score = GetLevelTime();
-
-			screenManager->ShowGameOverScreen(score, bestScore);
-
-			if (score > bestScore)
-				Persistence::SaveBestScore(score);
-		}
-		else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
-		{
-			hasTerminated = true;
-		}	
-	}
-
-	if (isGameStarting)
-	{
-		OnGameStart.Notify();
-		isGameStarting = false;
-	}
 		
+	level->Update();
+
 	//update all objects
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
 		(*it)->Update();
@@ -49,8 +32,13 @@ void Simulation::Step()
 	// print frame
 	if (++printFrameStep == STEPS_PER_FRAME)
 	{
-		for (GameObject* obj : simulationObjects)
-			screenManager->InsertGameObject(obj);
+		for (SimulationObject* obj : simulationObjects)
+		{
+			TransformObject* transformObj = dynamic_cast<TransformObject*>(obj);
+			if(transformObj != nullptr)
+				screenManager->InsertGameObject(transformObj);
+		}
+			
 
 		screenManager->Print();
 		screenManager->Clear();
@@ -107,7 +95,7 @@ bool Simulation::IsSpaceEmpty(const int startingX, const int startingY, const in
 	return true;
 }
 
-bool Simulation::TryAddGameObject(GameObject* obj)
+bool Simulation::TryAddGameObject(TransformObject* obj)
 {
 	if (CanObjectBeAdded(obj) == false)
 		return false;
@@ -125,7 +113,7 @@ bool Simulation::TryAddGameObject(GameObject* obj)
 	return true;
 }
 
-bool Simulation::CanObjectBeAdded(const GameObject* const obj) const
+bool Simulation::CanObjectBeAdded(const TransformObject* const obj) const
 {
 	if (IsInSimulation(obj))
 		return false;
@@ -143,16 +131,16 @@ bool Simulation::CanObjectBeAdded(const GameObject* const obj) const
 	return true;
 }
 
-bool Simulation::IsInSimulation(const GameObject* obj) const
+bool Simulation::IsInSimulation(const TransformObject* obj) const
 {
-	for (GameObject* simulationObj : simulationObjects)
+	for (SimulationObject* simulationObj : simulationObjects)
 		if (obj == simulationObj)
 			return true;
 
 	return false;
 }
 
-bool Simulation::TryMoveAtDirection(GameObject* obj, const Direction direction)
+bool Simulation::TryMoveAtDirection(TransformObject* obj, const Direction direction)
 {
 	assert(IsInSimulation(obj));
 
@@ -250,7 +238,7 @@ bool Simulation::TryMoveAtDirection(GameObject* obj, const Direction direction)
 
 bool Simulation::CanMoveAtDirection
 (
-	const GameObject* obj,
+	const TransformObject* obj,
 	Direction direction, 
 	CollidingObject*& outCollidingObject
 ) const
@@ -406,7 +394,7 @@ bool Simulation::CanMoveAtDirection
 	}
 }
 
-void Simulation::RemoveGameObject(GameObject* obj)
+void Simulation::RemoveGameObject(TransformObject* obj)
 {
 	assert(IsInSimulation(obj));
 
@@ -423,6 +411,7 @@ void Simulation::RemoveGameObject(GameObject* obj)
 
 void Simulation::Reset
 (
+Level* level,
 const unsigned int worldSizeX, 
 const unsigned int worldSizeY,
 const unsigned int screenPadding,
@@ -430,15 +419,16 @@ const bool showLevelTime,
 const const std::vector<string>& backgroundFileNames
 )
 {
+	this->level = level;
 	this->worldSizeX = worldSizeX;
 	this->worldSizeY = worldSizeY;
 	this->screenPadding = screenPadding;
-	isGameStarting = true;
+	//isGameStarting = true;
 
 	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
 	//clear simulation variables
-	for (GameObject* obj : simulationObjects)
+	for (SimulationObject* obj : simulationObjects)
 		delete(obj);
 	simulationObjects.clear();
 
@@ -454,27 +444,13 @@ const const std::vector<string>& backgroundFileNames
 	}
 
 	printFrameStep = 0;
-	hasTerminated = false;
-	gameOverTime = -1;
 	levelStartedTime = TimeUtils::Instance().GetTime();
-
-	OnGameStart.Clear();
-	OnGameOver.Clear();
+	hasTerminated = false;
 }
 
-void Simulation::NotifyGameOver(const bool terminateSimulationNow)
+void Simulation::Terminate()
 {
-	if (terminateSimulationNow)
-	{
-		hasTerminated = true;
-		return;
-	}
-
-	if (IsGameOver())
-		return;
-	
-	OnGameOver.Notify();
-	gameOverTime = TimeUtils::Instance().GetTime();
+	hasTerminated = true;
 }		
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
@@ -482,16 +458,6 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 	if (screenManager != nullptr)
 		delete(screenManager);
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
-}
-
-bool Simulation::IsShowGameoverDelayExpired() const
-{
-	return gameOverTime > 0 && TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS;
-}
-
-bool Simulation::CanPlayerPressKeyToRestartGame() const
-{
-	return  TimeUtils::Instance().GetTime() - gameOverTime > SHOW_GAMEOVER_SCREEN_AFTER_SECONDS + ALLOW_PRESSING_KEY_TO_RESTART_GAME_AFTER_SECONDS;
 }
 
 bool Simulation::IsCoordinateInsideGameSpace(const int x, const int y) const
@@ -508,12 +474,4 @@ bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
 		y < worldSizeY - screenPadding &&
 		x >= screenPadding &&
 		x < worldSizeX - screenPadding;
-}
-
-double Simulation::GetLevelTime() const
-{ 
-	if (IsGameOver())
-		return gameOverTime - levelStartedTime;
-	else
-		return TimeUtils::Instance().GetTime() - levelStartedTime;
 }
