@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject.h"
+#include "TransformObject.h"
 
 class CollidingObject : public TransformObject
 {

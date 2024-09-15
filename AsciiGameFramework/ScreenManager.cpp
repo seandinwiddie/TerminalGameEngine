@@ -1,6 +1,6 @@
 #include "ScreenManager.h"
 
-#include "GameObject.h"
+#include "TransformObject.h"
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"

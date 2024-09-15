@@ -1,6 +1,6 @@
 #pragma once
 #include "Obstacle.h"
-#include "GameObject.h"
+#include "TransformObject.h"
 
 class ObstaclesSpawner : public TransformObject
 {

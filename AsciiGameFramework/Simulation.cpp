@@ -3,7 +3,7 @@
 #include "CollidingObject.h"
 #include "ScreenManager.h"
 #include "SimulationObject.h"
-#include "GameObject.h"
+#include "TransformObject.h"
 #include "Level.h"
 
 void Simulation::Step()

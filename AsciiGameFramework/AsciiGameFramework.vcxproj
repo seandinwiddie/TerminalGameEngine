@@ -139,7 +139,7 @@
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="TransformObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelEndFlag.cpp" />
     <ClCompile Include="LevelEndFlag.h" />
@@ -162,7 +162,7 @@
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="TransformObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Level.h" />

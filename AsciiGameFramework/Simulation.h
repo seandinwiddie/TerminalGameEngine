@@ -15,7 +15,7 @@
 #include "Persistence.h"
 #include "GridDirection.h"
 #include "Singleton.h"
-#include "GameObject.h"
+#include "TransformObject.h"
 #include "Event.h"
 
 
