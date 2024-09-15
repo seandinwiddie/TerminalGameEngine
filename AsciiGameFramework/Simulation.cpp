@@ -75,18 +75,19 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	// Using collision COLLISION_END_DISTANCE = 2 prevents detecting repeated collisions if a faster object is pushing 
 	// a slower one. In the future the collision detection system could be improved in order to move faster 
 	// objects after slower ones during the same frame, doing this collision depth could be set to 1. (todo)
-	const int COLLISION_END_DISTANCE = 2;
+	const int COLLISION_END_DISTANCE_X = 2;
+	const int COLLISION_END_DISTANCE_Y = 1;
 	collidingDirections[static_cast<int>(Direction::up)] =
-		(!IsSpaceEmpty(x, yMax + 1, width, COLLISION_END_DISTANCE) || isCollidingWithScreenUp);
+		(!IsSpaceEmpty(x, yMax + 1, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenUp);
 
 	collidingDirections[static_cast<int>(Direction::down)] =
-		(!IsSpaceEmpty(x, y - COLLISION_END_DISTANCE, width, COLLISION_END_DISTANCE) || isCollidingWithScreenDown);
+		(!IsSpaceEmpty(x, y - COLLISION_END_DISTANCE_Y, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenDown);
 
 	collidingDirections[static_cast<int>(Direction::left)] =
-		(!IsSpaceEmpty(x - COLLISION_END_DISTANCE, y, COLLISION_END_DISTANCE, height) || isCollidingWithScreenRight);
+		(!IsSpaceEmpty(x - COLLISION_END_DISTANCE_X, y, COLLISION_END_DISTANCE_X, height) || isCollidingWithScreenRight);
 
 	collidingDirections[static_cast<int>(Direction::right)] =
-		(!IsSpaceEmpty(xMax + 1, y, COLLISION_END_DISTANCE, height) || isCollidingWithScreenLeft);
+		(!IsSpaceEmpty(xMax + 1, y, COLLISION_END_DISTANCE_X, height) || isCollidingWithScreenLeft);
 
 	obj->UpdateCollidingDirecitons(collidingDirections);
 } 
