@@ -10,27 +10,9 @@ void Simulation::Step()
 {
 	if (hasTerminated)
 		return;
-
-	//todo this shouldn't be competence of simulation, should be of level
-	//handle gameover
-	/*if (gameOverTime > 0)
-	{
-		if (IsShowGameoverDelayExpired() && screenManager->IsShowingGameOverScreen() == false)
-		{
-			int bestScore = Persistence::LoadBestScore();
-			int score = GetLevelTime();
-
-			screenManager->ShowGameOverScreen(score, bestScore);
-
-			if (score > bestScore)
-				Persistence::SaveBestScore(score);
-		}
-		else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
-		{
-			hasTerminated = true;
-		}	
-	}*/
 		
+	level->Update();
+
 	//update all objects
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
 		(*it)->Update();
@@ -458,17 +440,13 @@ const const std::vector<string>& backgroundFileNames
 	}
 
 	printFrameStep = 0;
-	hasTerminated = false;
 	levelStartedTime = TimeUtils::Instance().GetTime();
-	simulationObjects.push_back(level);
+	hasTerminated = false;
 }
 
 void Simulation::Terminate()
 {
 	hasTerminated = true;
-	return;
-	
-	
 }		
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
@@ -477,10 +455,6 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 		delete(screenManager);
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
-
-
-
-
 
 bool Simulation::IsCoordinateInsideGameSpace(const int x, const int y) const
 { 
@@ -496,11 +470,6 @@ bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
 		y < worldSizeY - screenPadding &&
 		x >= screenPadding &&
 		x < worldSizeX - screenPadding;
-}
-
-bool Simulation::IsShowingGameOverScreen() const
-{
-	return screenManager->IsShowingGameOverScreen();
 }
 
 //todo pass file name

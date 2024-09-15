@@ -61,7 +61,6 @@ public:
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }
 	unsigned int GetScreenPadding() const { return screenPadding; }
-	bool IsShowingGameOverScreen() const;
 	void ShowGameOverScreen(const int score, const int bestScore);
 	const Level* const GetLevel() { return level; }
 

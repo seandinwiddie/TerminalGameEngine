@@ -38,7 +38,7 @@ public:
 	void InsertGameObject(TransformObject* go);
 	void InsertString(const string& str, const int y, const int x);
 	void Clear();
-	bool IsShowingGameOverScreen() const { return score > -1; }
+	
 	void ShowGameOverScreen(const int score, const int bestScore);
 
 private:
@@ -49,7 +49,9 @@ private:
 	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
 	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
+	bool IsShowingGameOverScreen() const { return score > -1; }
 	void ClearScreen();
+
 
 #if DEBUG_MODE
 	void DEBUG_PrintAverageFps(string& frameString);

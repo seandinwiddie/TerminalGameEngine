@@ -11,6 +11,8 @@ public:
 
 	virtual void Load() override
 	{
+        Level::Load();
+
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
         //------------------------------- bunny setup
