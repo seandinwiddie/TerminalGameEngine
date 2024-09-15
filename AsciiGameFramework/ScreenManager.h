@@ -35,7 +35,6 @@ public:
 
 	void Print();
 	void InsertGameObject(TransformObject* go);
-	void InsertString(const string& str, const int y, const int x);
 	void Clear();
 	int GetScreenSizeX() const { return screenSizeX; }
 	int GetScreenSizeY() const { return screenSizeY; }

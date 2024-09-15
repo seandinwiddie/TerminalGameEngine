@@ -17,6 +17,7 @@ ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const i
     padding(padding), 
     showLevelTime(showLevelTime)
 {
+    UIMessage.clear();
     frame.resize(screenSizeY);
 
     // Resize each row (inner vector) to have SCREEN_X_DIM columns
@@ -74,44 +75,6 @@ void ScreenManager::InsertUIMessageOverFrame()
             if (c != '#')
                 frame[y][x] = c;
         }
-            
-
-    //for (int y = 0; y < screenSizeY; ++y)
-    //{
-    //    for (int x = 0; x < screenSizeX; ++x)
-    //    {
-    //        unsigned char gameOverChar = gameOverScreen[y][x];
-
-    //        // insert score message
-    //        if (gameOverChar == '$')
-    //        {
-    //            string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-    //            string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
-
-    //            //centers message
-    //            string leftSpacing = "";
-    //            for (int i = 0; i < (42 - message.size())/2; ++i)
-    //                leftSpacing += " ";
-
-    //            message = leftSpacing + message;
-
-    //            InsertString(message, y, x);
-    //            x += message.size()-1;
-    //        }
-    //        //don't write over # characters
-    //        else if (gameOverChar != '#')
-    //            frame[y][x] = gameOverChar;
-    //    }
-    //}
-}
-
-void ScreenManager::InsertString(const string& str, const int y, const int x)
-{
-    assert(x >= 0 && x < screenSizeX);
-    assert(y >= 0 && y < screenSizeY);
-
-    for (int i = 0; i < str.size(); ++i)
-        frame[y][x + i] = str[i];
 }
 
 void ScreenManager::InsertGameObject(TransformObject* go)
@@ -145,7 +108,6 @@ void ScreenManager::Clear()
                 frame[m][n] = ' ';
         }
     }
-    UIMessage.clear();
 }
 
 void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNames)

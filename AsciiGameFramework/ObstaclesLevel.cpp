@@ -25,6 +25,17 @@ void ObstaclesLevel::Update()
 
         if (isShowingGameOverScreen == false)
         {
+            //setup gameover message
+            string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+            string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+            //centers message
+            string leftSpacing = "";
+            for (int i = 0; i < (42 - message.size()) / 2; ++i)
+                leftSpacing += " ";
+            message = leftSpacing + message;
+
+            FileUtils::ReplaceChar(gameEndUIMessage,message,'$');
+
             Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
             isShowingGameOverScreen = true;
         }
@@ -41,7 +52,6 @@ void ObstaclesLevel::OnGameOver()
         return;
 
     Level::OnGameOver();
-
     AudioManager::Instance().StopMusic();
     AudioManager::Instance().PlayFx("gameover.wav");
 }
