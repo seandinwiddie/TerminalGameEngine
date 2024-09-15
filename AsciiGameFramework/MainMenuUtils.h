@@ -11,7 +11,7 @@ namespace MainMenuUtils
 {
     static Level* ShowLevelSelection()
     {
-        std::cout << "Press:" << std::endl << "1 -> play game" << std::endl << "2 -> enter test room" << std::endl;
+        std::cout << "Press:" << std::endl << "1 -> play endless runner demo" << std::endl << "2 -> play puzzle game demo" << std::endl;
 
         while (true)
         {

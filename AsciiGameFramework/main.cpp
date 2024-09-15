@@ -4,7 +4,6 @@
 #include "MainMenuUtils.h"
 #include "Simulation.h"
 
-
 int main()
 {
     system("COLOR 0A");

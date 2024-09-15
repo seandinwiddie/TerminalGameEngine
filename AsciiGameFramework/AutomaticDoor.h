@@ -6,8 +6,8 @@ class AutomaticDoor : public VariableSizeCollider
 //---------------------------------------------------------- Fields
 private:
     static constexpr float MOVE_SPEED = 0.4;
-    bool isOpen = false;
     int startingY = -1;
+    int openingSourcesCount = 0;
 
 //---------------------------------------------------------- Methods
 public:
@@ -20,8 +20,9 @@ public:
         const unsigned char modelChar
     );
 
-    void SetOpen() { isOpen = true; }
-    void SetClosed() { isOpen = false; }
+    bool IsOpen() { return openingSourcesCount > 0; }
+    void SetOpen() { ++openingSourcesCount; }
+    void SetClosed() { --openingSourcesCount; }
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
     virtual void Update() override;
