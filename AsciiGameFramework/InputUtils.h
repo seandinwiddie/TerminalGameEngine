@@ -17,5 +17,7 @@ namespace InputUtils
 	static bool IsPressingD() { return GetAsyncKeyState(0x44) & 0x8000; }
 	static bool IsPressing1() { return GetAsyncKeyState(0x31) & 0x8000; }
 	static bool IsPressing2() { return GetAsyncKeyState(0x32) & 0x8000; }
+	static bool IsPressing0() { return GetAsyncKeyState(0x30) & 0x8000; }
+	static bool IsPressing9() { return GetAsyncKeyState(0x39) & 0x8000; }
 	static bool IsPressingEsc() { return GetAsyncKeyState(0x1B) & 0x8000; }
 }
