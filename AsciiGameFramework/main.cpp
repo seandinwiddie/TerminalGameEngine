@@ -15,9 +15,9 @@ int main()
     while (true)
     {
         level->Load();
-        
+
         //step simulation until it ends
-        while (simulation.HasTerminated() == false)
+        while (level->IsTerminated() == false)
             simulation.Step();
     }
     return 0;

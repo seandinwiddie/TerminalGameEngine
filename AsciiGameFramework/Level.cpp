@@ -21,6 +21,7 @@ double Level:: GetLevelTime() const
 
 void Level::Load()
 {
+    isTerminated = false;
     gameOverTime = -1;
     levelStartedTime = TimeUtils::Instance().GetTime();
     isGameOverDelayEnded = false;
@@ -56,6 +57,6 @@ void Level::Update()
     }
     else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
     {
-        Simulation::Instance().Terminate();
+        Terminate();
     }
 }

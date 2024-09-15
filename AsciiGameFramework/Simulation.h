@@ -29,7 +29,6 @@ private:
 	unsigned int worldSizeY;
 	unsigned int screenPadding;
 	int printFrameStep;
-	bool hasTerminated = false;
 
 	double levelStartedTime = 0;
 
@@ -43,8 +42,7 @@ public:
 	bool TryAddGameObject(TransformObject* obj);
 	bool TryMoveAtDirection(TransformObject* obj, const Direction direction);
 	void RemoveGameObject(TransformObject* obj);
-	bool HasTerminated() const { return hasTerminated; }
-	void Terminate();
+
 	//double GetLevelTime() const;
 	unsigned int GetWorldSizeX() const { return worldSizeX; }
 	unsigned int GetWorldSizeY() const { return worldSizeY; }

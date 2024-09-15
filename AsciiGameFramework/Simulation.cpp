@@ -12,7 +12,7 @@
 
 void Simulation::Step()
 {
-	if (hasTerminated)
+	if (level->IsTerminated())
 		return;
 		
 	level->Update();
@@ -445,13 +445,7 @@ const const std::vector<string>& backgroundFileNames
 
 	printFrameStep = 0;
 	levelStartedTime = TimeUtils::Instance().GetTime();
-	hasTerminated = false;
 }
-
-void Simulation::Terminate()
-{
-	hasTerminated = true;
-}		
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
 {

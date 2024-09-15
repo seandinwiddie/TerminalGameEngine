@@ -16,6 +16,7 @@ private:
     bool isGameOverDelayEnded = false;
     double gameOverTime = -1;
     double levelStartedTime = 0;
+    bool isTerminated = false;
 
 protected:
     Frame gameEndUIMessage;
@@ -25,10 +26,12 @@ public:
     virtual void Load();
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }
+    bool IsTerminated() { return isTerminated; }
 
 protected:
     virtual void Update()override;
     virtual void OnGameOverDelayEnded() = 0;
     bool IsShowGameoverDelayExpired() const;
     bool CanPlayerPressKeyToRestartGame() const;
+    void Terminate() { isTerminated = true; }
 };

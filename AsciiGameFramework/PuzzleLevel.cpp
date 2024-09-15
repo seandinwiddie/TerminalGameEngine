@@ -16,7 +16,7 @@ void PuzzleLevel::Load()
     Simulation& simulation = Simulation::Instance();
     simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
     //------------------------------- bunny setup
-    Bunny* bunny = new Bunny(4, 4, this);
+    Bunny* bunny = new Bunny(6, 4, this);
     simulation.TryAddGameObject(bunny);
 
     //------------------------------- left platform
@@ -68,5 +68,5 @@ void PuzzleLevel::OnGameOver()
 
 void PuzzleLevel::OnGameOverDelayEnded()
 {
-    Simulation::Instance().Terminate();
+    Terminate();
 }
