@@ -6,6 +6,7 @@
 #include "AutomaticDoor.h"
 #include "PressurePlate.h"
 #include "PushableObject.h"
+#include "AudioManager.h"
 
 
 void PuzzleLevel::Load()
@@ -15,7 +16,7 @@ void PuzzleLevel::Load()
     Simulation& simulation = Simulation::Instance();
     simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
     //------------------------------- bunny setup
-    Bunny* bunny = new Bunny(4, 16, this);
+    Bunny* bunny = new Bunny(4, 4, this);
     simulation.TryAddGameObject(bunny);
 
     //------------------------------- left platform
@@ -57,6 +58,12 @@ void PuzzleLevel::Load()
     pressurePlate2->OnPress.Subscribe([automaticDoor]() { automaticDoor->SetOpen(); });
     pressurePlate2->OnRelease.Subscribe([automaticDoor]() { automaticDoor->SetClosed(); });
     simulation.TryAddGameObject(pressurePlate2);
+}
+
+void PuzzleLevel::OnGameOver()
+{
+    Level::OnGameOver();
+    AudioManager::Instance().PlayFx("levelWon.wav");
 }
 
 void PuzzleLevel::OnGameOverDelayEnded()
