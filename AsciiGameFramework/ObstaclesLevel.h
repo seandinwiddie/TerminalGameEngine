@@ -4,16 +4,14 @@
 #include "Level.h";
 #include <string>
 
-using string = std::string;
-
 class ObstaclesLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    const unsigned int WORLD_SIZE_X = 90;
-    const unsigned int WORLD_SIZE_Y = 24;
-    const unsigned int SCREEN_PADDING = 4;
-    const std::vector<string> BACKGROUND_FILES = { "background1.txt", "background2.txt" };
+    const uint WORLD_SIZE_X = 90;
+    const uint WORLD_SIZE_Y = 24;
+    const uint SCREEN_PADDING = 4;
+    const std::vector<string> BACKGROUND_FILES = {"background1.txt", "background2.txt"};
     const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
 
 //---------------------------------------------------------- Methods

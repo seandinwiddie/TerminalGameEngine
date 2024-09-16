@@ -5,9 +5,9 @@ class PuzzleLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    static const unsigned int WORLD_SIZE_X = 120;
-    static const unsigned int WORLD_SIZE_Y = 30;
-    static const unsigned int SCREEN_PADDING = 4;
+    static const uint WORLD_SIZE_X = 120;
+    static const uint WORLD_SIZE_Y = 30;
+    static const uint SCREEN_PADDING = 4;
 
 //---------------------------------------------------------- Methods
 public:
