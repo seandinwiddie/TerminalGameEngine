@@ -16,10 +16,10 @@ private:
 	Frame frame;
 	std::vector<Frame> backgrounds;
 
-	int screenSizeX; //todo read from simulation
-	int screenSizeY;
-	int padding;
-	bool showLevelTime = false;
+	uint screenSizeX;
+	uint screenSizeY;
+	uint padding;
+	bool showTimeUI = false;
 	bool isShowingUIMessage;
 	Frame UIMessage;
 
@@ -32,7 +32,14 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	ScreenManager(const int sizeX, const int sizeY, const int padding, bool showGameTime,const std::vector<string>& backgroundFileNames = {});
+	ScreenManager
+	(
+		const uint worldSizeX,
+		const uint worldSizeY,
+		const uint padding, 
+		bool showTimeUI,
+		const std::vector<string>& backgroundFileNames = {}
+	);
 
 	void Print();
 	void InsertGameObject(TransformObject* go);

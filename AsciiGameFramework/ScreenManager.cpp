@@ -9,12 +9,19 @@
 #include "Windows.h"
 #include <cassert>
 
-ScreenManager::ScreenManager(const int worldSizeX, const int worldSizeY, const int padding, bool showLevelTime,const std::vector<string>& backgroundFileNames )
+ScreenManager::ScreenManager
+(
+    const uint worldSizeX, 
+    const uint worldSizeY, 
+    const uint padding, 
+    bool showTimeUI,
+    const std::vector<string>& backgroundFileNames 
+)
     : 
     screenSizeX(worldSizeX - 2 * padding), 
     screenSizeY(worldSizeY - 2 * padding), 
     padding(padding), 
-    showLevelTime(showLevelTime)
+    showTimeUI(showTimeUI)
 {
     UIMessage.Clear();
     frame.ResizeY(screenSizeY);
@@ -38,7 +45,7 @@ void ScreenManager::Print()
     DEBUG_PrintAverageFps(frameString);
 #endif
 
-    if (showLevelTime)
+    if (showTimeUI)
     {
         double runTime = Simulation::Instance().GetLevel()->GetLevelTime();
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
