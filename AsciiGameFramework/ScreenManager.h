@@ -27,13 +27,6 @@ private:
 	bool isShowingUIMessage;
 	Frame frameUIMessage;
 
-#if DEBUG_MODE
-	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
-	std::list<double> fpsRecord;
-	double lastTimePrintedFps = 0;
-	double shownAverageFps = 0;
-#endif
-
 //---------------------------------------------------------- Methods
 public:
 	ScreenManager
@@ -61,7 +54,14 @@ private:
 	bool IsInsideScreenX(const uint x) const { return ( x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
+//---------------------------------------------------------- Debug
 #if DEBUG_MODE
+private:
+	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
+	std::list<double> fpsRecord;
+	double lastTimePrintedFps = 0;
+	double shownAverageFps = 0;
+
 	void DEBUG_PrintAverageFps(string& frameString);
 #endif
 
