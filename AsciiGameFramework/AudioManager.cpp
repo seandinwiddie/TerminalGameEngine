@@ -36,7 +36,8 @@ void AudioManager::PlayFx(const string& fileName, const float randomPitch)
 void AudioManager::PlayRandomMusic()
 {
 	StopMusic();
-	string randomMusicFile = MUSIC_TRACKS[RandomUtils::GetRandomIntBetween(0, MUSIC_TRACKS.size() - 1)];
+	int randomIndex = RandomUtils::GetRandomIntBetween(0, MUSIC_TRACKS.size() - 1);
+	string randomMusicFile = MUSIC_TRACKS[randomIndex];
 	randomMusicFile = "Music/" + randomMusicFile;
 	if (music.openFromFile(randomMusicFile) == false)
 		return;
