@@ -23,13 +23,13 @@ ScreenManager::ScreenManager
     padding(padding), 
     showTimeUI(showTimeUI)
 {
-    UIMessage.Clear();
+    frameUIMessage.Clear();
     frame.ResizeY(screenSizeY);
     frame.ResizeX(screenSizeX);
        
     InitBackgrounds(backgroundFileNames);      
     //FileUtils::ReadFrameFromFile("gameover-screen.txt", gameOverScreen);
-    Clear();
+    ClearFrame();
 
 #if DEBUG_MODE
     fpsRecord.clear();
@@ -37,7 +37,7 @@ ScreenManager::ScreenManager
 #endif
 }
 
-void ScreenManager::Print()
+void ScreenManager::PrintFrameOnTerminal()
 {
     string frameString = "";
 
@@ -60,22 +60,21 @@ void ScreenManager::Print()
         frameString += rowString + '\n';
     }
 
-    //clear terminal
-    ClearScreen();
+    ClearTerminal();
 
     std::cout << frameString;
 }
 
 void ScreenManager::InsertUIMessageOverFrame()
 {
-    if (UIMessage.GetSizeY() == 0)
+    if (frameUIMessage.GetSizeY() == 0)
         return;
 
     for (int y = 0; y < screenSizeY; ++y)
         for (int x = 0; x < screenSizeX; ++x)
         {
-            char c = UIMessage.chars[y][x];
-            if (c != '#')
+            char c = frameUIMessage.chars[y][x];
+            if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
                 frame.chars[y][x] = c;
         }
 }
@@ -99,7 +98,7 @@ void ScreenManager::InsertGameObject(TransformObject* go)
             }      
 }
 
-void ScreenManager::Clear()
+void ScreenManager::ClearFrame()
 {
     for (int m = 0; m < screenSizeY; ++m)
     {
@@ -132,7 +131,7 @@ Frame ScreenManager::GetCurrentBackground()const
     return  TimeUtils::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
 }
 
-void ScreenManager::ClearScreen()
+void ScreenManager::ClearTerminal()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { 0, 0 };  // Top left corner
@@ -172,13 +171,13 @@ void ScreenManager::DEBUG_PrintAverageFps(string& frameString)
         shownAverageFps /= fpsRecord.size();
 
         if (static_cast<int>(shownAverageFps) < 0)
-            cout << "a";
+            std::cout << "a";
 
         fpsRecord.clear();
         lastTimePrintedFps = TimeUtils::Instance().GetTime();
     }
 
-    frameString += "FPS: " + to_string(static_cast<int>(shownAverageFps)) + '\n';
+    frameString += "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
 }
 
 #endif

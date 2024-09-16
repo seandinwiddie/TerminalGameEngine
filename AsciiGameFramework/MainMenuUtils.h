@@ -47,7 +47,7 @@ namespace MainMenuUtils
 
     static Level* ShowLevelSelection()
     {
-        ScreenManager::ClearScreen();
+        ScreenManager::ClearTerminal();
         cout
             << "Press:" << endl
             << "1 -> play endless runner demo" << endl

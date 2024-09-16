@@ -11,6 +11,10 @@ class TransformObject;
 
 class ScreenManager
 {
+//---------------------------------------------------------- Settings
+private:
+	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
+
 //---------------------------------------------------------- Fields
 private:
 	Frame frame;
@@ -21,11 +25,11 @@ private:
 	uint padding;
 	bool showTimeUI = false;
 	bool isShowingUIMessage;
-	Frame UIMessage;
+	Frame frameUIMessage;
 
 #if DEBUG_MODE
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
-	list<double> fpsRecord;
+	std::list<double> fpsRecord;
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 #endif
@@ -41,20 +45,20 @@ public:
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
-	void Print();
+	void PrintFrameOnTerminal();
+	static void ClearTerminal();
 	void InsertGameObject(TransformObject* go);
-	void Clear();
+	void ClearFrame();
 	int GetScreenSizeX() const { return screenSizeX; }
 	int GetScreenSizeY() const { return screenSizeY; }
-	void SetUIMessage(Frame UIMessage){ this->UIMessage = UIMessage; }
-	static void ClearScreen();
+	void SetUIMessage(Frame UIMessage){ this->frameUIMessage = UIMessage; }
 
 private:
 	void InsertUIMessageOverFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
 	Frame GetCurrentBackground() const;
-	bool IsInsideScreenY(const int y) const { return (y >= 0 && y < screenSizeY); }
-	bool IsInsideScreenX(const int x) const { return (x >= 0 && x < screenSizeX); }
+	bool IsInsideScreenY(const uint y) const { return ( y < screenSizeY); }
+	bool IsInsideScreenX(const uint x) const { return ( x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
 #if DEBUG_MODE

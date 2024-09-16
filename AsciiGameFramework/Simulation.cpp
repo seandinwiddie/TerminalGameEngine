@@ -40,8 +40,8 @@ void Simulation::Step()
 		}
 			
 
-		screenManager->Print();
-		screenManager->Clear();
+		screenManager->PrintFrameOnTerminal();
+		screenManager->ClearFrame();
 		printFrameStep = 0;
 
 		TimeUtils::Instance().NotifyFrameGenerated();
