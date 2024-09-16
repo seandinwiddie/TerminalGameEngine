@@ -32,7 +32,7 @@ void Frame::ReadFrameFromFile(const string& fileName, const int screenSizeX, con
     {
         for (int x = 0; x < screenSizeX; ++x)
         {
-            unsigned char c = file.get();
+            char c = file.get();
 
             //ignore invisible characters
             if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
@@ -48,13 +48,13 @@ void Frame::ReadFrameFromFile(const string& fileName, const int screenSizeX, con
     return;
 }
 
-void Frame::ReplaceChar(const string& writenString, const unsigned char writeOverChar)
+void Frame::ReplaceChar(const string& writenString, const char writeOverChar)
 {
     for (int y = 0; y < GetSizeY(); ++y)
     {
         for (int x = 0; x < GetSizeX(); ++x)
         {
-            unsigned char c = chars[y][x];
+            char c = chars[y][x];
 
             // insert score message
             if (c == writeOverChar)

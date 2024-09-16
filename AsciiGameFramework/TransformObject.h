@@ -22,7 +22,7 @@ private:
 protected:
 	bool canMove = true;
 	float lastTimeMovedInGrid = 0;
-	std::vector<std::vector<unsigned char>> model = { {} };
+	std::vector<std::vector<char>> model = { {} };
 
 //---------------------------------------------------------- Methods
 public:
@@ -39,14 +39,14 @@ public:
 
 	int GetModelWidth() const;
 	int GetModelHeight() const { return model.size(); }
-	const std::vector<std::vector<unsigned char>>& GetModel() const { return model; }
+	const std::vector<std::vector<char>>& GetModel() const { return model; }
 
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual float GetGravityScale() const = 0;
 
 protected:
 	virtual void Move(const Direction direction, const float moveSpeed);
-	std::vector<std::vector<unsigned char>> CreteModelUsingChar(unsigned char c, const unsigned int sizeX, const unsigned int sizeY) const;
+	std::vector<std::vector<char>> CreteModelUsingChar(char c, const unsigned int sizeX, const unsigned int sizeY) const;
 	virtual void Update();
 
 private:

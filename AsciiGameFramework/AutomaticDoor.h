@@ -17,7 +17,7 @@ public:
         const int yPos,
         const int sizeX,
         const int sizeY,
-        const unsigned char modelChar
+        const char modelChar
     );
 
     bool IsOpen() { return openingSourcesCount > 0; }

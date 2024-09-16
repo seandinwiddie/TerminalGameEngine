@@ -1,49 +1,49 @@
 #include "Bunny.h"
 #include "Level.h"
 
-const std::vector<std::vector<unsigned char>> Bunny::walkLeftModel
+const std::vector<std::vector<char>> Bunny::walkLeftModel
 {
-    {'/',220, CHEST_CHAR, '_', '|'},
+    {'/',-36, CHEST_CHAR, '_', '|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR, ')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::walkRightModel
+const std::vector<std::vector<char>> Bunny::walkRightModel
 {
-     { '|','_',CHEST_CHAR,220,92},
+     { '|','_',CHEST_CHAR,-36,92},
      { '(',EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},
      { ' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::jumpRightModel
+const std::vector<std::vector<char>> Bunny::jumpRightModel
 {
-    {92,220,CHEST_CHAR,220,'/'},
+    {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::jumpLeftModel
+const std::vector<std::vector<char>> Bunny::jumpLeftModel
 {
-    {92,220,CHEST_CHAR,220,'/'},
+    {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR,NOSE_CHAR, EYE_CHAR,')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::defeatedModel
+const std::vector<std::vector<char>> Bunny::defeatedModel
 {
-    {'|',220,CHEST_CHAR,220,'|'},
+    {'|',-36,CHEST_CHAR,-36,'|'},
     {'(',GAMEOVER_EYE_CHAR,NOSE_CHAR,GAMEOVER_EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::idleModelRight
+const std::vector<std::vector<char>> Bunny::idleModelRight
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<unsigned char>> Bunny::idleModelLeft
+const std::vector<std::vector<char>> Bunny::idleModelLeft
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},

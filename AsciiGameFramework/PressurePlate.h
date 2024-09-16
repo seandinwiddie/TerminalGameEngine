@@ -10,8 +10,8 @@ public:
     Event<> OnRelease;
 
 private:
-    std::vector<std::vector<unsigned char>> pressedModel;
-    std::vector<std::vector<unsigned char>> unpressedModel;
+    std::vector<std::vector<char>> pressedModel;
+    std::vector<std::vector<char>> unpressedModel;
 
 //---------------------------------------------------------- Methods
 public:

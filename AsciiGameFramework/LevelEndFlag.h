@@ -6,7 +6,7 @@ class Level;
 class LevelEndFlag : public CollidingObject
 {
 private:
-    static const std::vector<std::vector<unsigned char>> flagModel;
+    static const std::vector<std::vector<char>> flagModel;
     Level* level;
 
 public:

@@ -24,18 +24,18 @@ class Bunny : public CollidingObject
     
 //---------------------------------------------------------- Model
 private:
-    static const unsigned char NOSE_CHAR = '.';
-    static const unsigned char EYE_CHAR = 'O';
-    static const unsigned char GAMEOVER_EYE_CHAR = '*';
-    static const unsigned char CHEST_CHAR = ':';
+    static const char NOSE_CHAR = '.';
+    static const char EYE_CHAR = 'O';
+    static const char GAMEOVER_EYE_CHAR = '*';
+    static const char CHEST_CHAR = ':';
 
-    static const std::vector<std::vector<unsigned char>> walkLeftModel;
-    static const std::vector<std::vector<unsigned char>> walkRightModel;
-    static const std::vector<std::vector<unsigned char>> jumpRightModel;
-    static const std::vector<std::vector<unsigned char>> jumpLeftModel;
-    static const std::vector<std::vector<unsigned char>> defeatedModel;
-    static const std::vector<std::vector<unsigned char>> idleModelRight;
-    static const std::vector<std::vector<unsigned char>> idleModelLeft;
+    static const std::vector<std::vector<char>> walkLeftModel;
+    static const std::vector<std::vector<char>> walkRightModel;
+    static const std::vector<std::vector<char>> jumpRightModel;
+    static const std::vector<std::vector<char>> jumpLeftModel;
+    static const std::vector<std::vector<char>> defeatedModel;
+    static const std::vector<std::vector<char>> idleModelRight;
+    static const std::vector<std::vector<char>> idleModelLeft;
 
     Level* level;
 
@@ -67,9 +67,9 @@ protected:
     virtual void OnCollisionExit(Direction collisionDirection) override {}
 
 private:
-    std::vector<std::vector<unsigned char>> jumpingModel;
-    std::vector<std::vector<unsigned char>> idleModel;
-    std::vector<std::vector<unsigned char>> walkingModel;
+    std::vector<std::vector<char>> jumpingModel;
+    std::vector<std::vector<char>> idleModel;
+    std::vector<std::vector<char>> walkingModel;
 
     bool IsJumping() const { return state == State::jumpingDown || state == State::jumpingUp; }
     void SetState(State newState);

@@ -2,7 +2,7 @@
 #include "Bunny.h"
 #include "Level.h"
 
-const std::vector<std::vector<unsigned char>> LevelEndFlag::flagModel
+const std::vector<std::vector<char>> LevelEndFlag::flagModel
 {
      {'|',' '},
      {'|','/'},

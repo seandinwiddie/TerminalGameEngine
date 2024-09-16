@@ -67,7 +67,7 @@ void ScreenManager::InsertUIMessageOverFrame()
     for (int y = 0; y < screenSizeY; ++y)
         for (int x = 0; x < screenSizeX; ++x)
         {
-            unsigned char c = UIMessage.chars[y][x];
+            char c = UIMessage.chars[y][x];
             if (c != '#')
                 frame.chars[y][x] = c;
         }
@@ -75,7 +75,7 @@ void ScreenManager::InsertUIMessageOverFrame()
 
 void ScreenManager::InsertGameObject(TransformObject* go)
 {
-    std::vector<std::vector<unsigned char>> model = go->GetModel();
+    std::vector<std::vector<char>> model = go->GetModel();
     if (model[0].size() == 0)
         return;
 
@@ -86,7 +86,7 @@ void ScreenManager::InsertGameObject(TransformObject* go)
                 auto a = go->GetModelHeight();
                 assert(xModel < go->GetModelWidth() && xModel >= 0);
                 assert(yModel < go->GetModelHeight() && yModel >= 0);
-                unsigned char charToPrint = go->GetModel()[yModel][xModel];
+                char charToPrint = go->GetModel()[yModel][xModel];
                 if(charToPrint!=' ')
                     frame.chars[yScreen][xScreen] = charToPrint;
             }      

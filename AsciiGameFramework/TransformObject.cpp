@@ -74,14 +74,14 @@ void TransformObject::Move(Direction direction, float moveSpeed)
 	}
 }
 
-std::vector<std::vector<unsigned char>> TransformObject::CreteModelUsingChar
+std::vector<std::vector<char>> TransformObject::CreteModelUsingChar
 (
-	unsigned char c, 
+	char c, 
 	const unsigned int sizeX, 
 	const unsigned int sizeY
 ) const
 {
-	std::vector<std::vector<unsigned char>> result;
+	std::vector<std::vector<char>> result;
 	result.resize(sizeY);
 	for (int y = 0; y < sizeY; ++y)
 	{
