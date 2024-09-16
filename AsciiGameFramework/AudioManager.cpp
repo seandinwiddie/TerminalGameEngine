@@ -46,3 +46,8 @@ bool AudioManager::TryGetBufferAndSound(SoundBuffer*& outBuffer, Sound*& outSoun
 	return false;
 }
 
+void AudioManager::StopMusic()
+{
+	if (music.getStatus() == sf::SoundSource::Playing)
+		music.stop();
+}
