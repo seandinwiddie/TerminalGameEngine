@@ -22,7 +22,7 @@ void ObstaclesLevel::OnGameOverDelayEnded()
     AudioManager::Instance().PlayFx("show-end-screen.wav");
 }
 
-void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore) 
+void ObstaclesLevel::ShowGameOverScreen(const uint score, const uint bestScore)
 {
     //setup gameover message
     string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));

@@ -4,11 +4,13 @@
 #include <vector>
 #include "Frame.h"
 
-constexpr static float SECONDS_PLAYER_MUST_WAIT_BEFORE_RESTARTING_PRESSING_ANY_KEY = 1.5;
-
 class Level : public SimulationObject
 {
     friend class Simulation;
+
+ //---------------------------------------------------------- Settings
+private:
+    constexpr static float SECONDS_PLAYER_MUST_WAIT_BEFORE_RESTARTING_PRESSING_ANY_KEY = 1.5;
 
 //---------------------------------------------------------- Fields
 private:

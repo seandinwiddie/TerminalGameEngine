@@ -3,12 +3,14 @@
 
 class PuzzleLevel : public Level
 {
-public:
-
+//---------------------------------------------------------- Settings
+private:
     static const unsigned int WORLD_SIZE_X = 120;
     static const unsigned int WORLD_SIZE_Y = 30;
     static const unsigned int SCREEN_PADDING = 4;
 
+//---------------------------------------------------------- Methods
+public:
     virtual void Load() override;
     virtual void OnGameOver() override;
     virtual void OnGameOverDelayEnded() override;
