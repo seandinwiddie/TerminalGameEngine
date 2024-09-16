@@ -1,4 +1,4 @@
-// This is a debug level
+// Debug only
 #pragma once
 
 #include "Config.h"
