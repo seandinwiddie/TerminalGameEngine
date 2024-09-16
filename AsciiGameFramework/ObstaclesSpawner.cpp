@@ -1,5 +1,8 @@
 #include "ObstaclesSpawner.h"
+#include "Obstacle.h"
 #include "Simulation.h"
+#include "TimeUtils.h"
+#include "RandomUtils.h"
 
 ObstaclesSpawner::ObstaclesSpawner
 (

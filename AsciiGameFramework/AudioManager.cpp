@@ -1,4 +1,16 @@
 #include "AudioManager.h"
+#include "RandomUtils.h"
+
+AudioManager::AudioManager()
+{
+	sounds.resize(SOUND_SOURCES_SIZE);
+	buffers.resize(SOUND_SOURCES_SIZE);
+	for (int i = 0; i < sounds.size(); ++i)
+	{
+		sounds[i].setBuffer(buffers[i]);
+		sounds[i].stop();
+	}
+}
 
 void AudioManager::PlayFx(const string& fileName, const float randomPitch)
 {

@@ -1,12 +1,8 @@
 #pragma once
 
 #include "Config.h"
-#include "RandomUtils.h"
 #include "Singleton.h"
-#include <windows.h>
-#include <string>
 #include <SFML/Audio.hpp>
-#include <vector>
 
 #pragma comment(lib,"winmm.lib")
 
@@ -32,15 +28,6 @@ public:
 	void StopMusic();
 
 private:
+	AudioManager();
 	bool TryGetBufferAndSound(SoundBuffer*& outBuffer, Sound*& outSound);
-	AudioManager()
-	{
-		sounds.resize(SOUND_SOURCES_SIZE);
-		buffers.resize(SOUND_SOURCES_SIZE);
-		for (int i = 0; i < sounds.size(); ++i)
-		{
-			sounds[i].setBuffer(buffers[i]);
-			sounds[i].stop();
-		}
-	}
 };

@@ -1,4 +1,6 @@
 #include "Obstacle.h"
+#include "AudioManager.h"
+#include "TimeUtils.h"
 
 Obstacle::Obstacle(const int xPos, const int yPos, const Direction moveDir, const float moveSpeed)
     : MovingStraightObject(xPos, yPos, moveDir, moveSpeed)

@@ -1,5 +1,4 @@
 #pragma once
-#include "Obstacle.h"
 #include "TransformObject.h"
 
 class ObstaclesSpawner : public TransformObject
