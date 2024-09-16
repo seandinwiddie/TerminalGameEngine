@@ -23,5 +23,4 @@ protected:
     // prevent direct instantiation
     Singleton() = default;
     virtual ~Singleton() = default;
-
 };

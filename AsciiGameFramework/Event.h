@@ -25,7 +25,8 @@ public:
             handler(args...);
     }
 
-    void Clear() { 
+    void Clear() 
+    { 
         handlers.clear();
     }
 };
