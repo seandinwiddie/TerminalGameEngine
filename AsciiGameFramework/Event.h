@@ -14,7 +14,10 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-    void Subscribe(EventHandler handler) { handlers.push_back(handler); }
+    void Subscribe(EventHandler handler)
+    { 
+        handlers.push_back(handler);
+    }
 
     void Notify(Args... args)
     {
@@ -22,5 +25,7 @@ public:
             handler(args...);
     }
 
-    void Clear() { handlers.clear(); }
+    void Clear() { 
+        handlers.clear();
+    }
 };
