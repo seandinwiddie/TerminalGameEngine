@@ -1,7 +1,6 @@
 #include "Frame.h"
 
-
-unsigned int Frame::GetSizeX() const
+uint Frame::GetSizeX() const
 {
     if (chars.size() == 0)
         return 0;
@@ -9,13 +8,13 @@ unsigned int Frame::GetSizeX() const
     return chars[0].size();
 }
 
-void Frame::ResizeX(const unsigned int size)
+void Frame::ResizeX(const uint size)
 {
     for (int y = 0; y < chars.size(); ++y)
         chars[y].resize(size);
 }
 
-void Frame::ReadFrameFromFile(const string& fileName, const int screenSizeX, const int screenSizeY)
+void Frame::ReadFrameFromFile(const string& fileName, const uint screenSizeX, const uint screenSizeY)
 {
     std::ifstream file(fileName, std::ios::binary);
     if (!file)
@@ -66,10 +65,10 @@ void Frame::ReplaceChar(const string& writenString, const char writeOverChar)
     }
 }
 
-void Frame::InsertString(const string& str, const int x, const int y)
+void Frame::InsertString(const string& str, const uint x, const uint y)
 {
-    assert(y >= 0 && y < GetSizeY());
-    assert(x >= 0 && x < GetSizeX());
+    assert(y < GetSizeY());
+    assert(x < GetSizeX());
 
     for (int i = 0; i < str.size(); ++i)
         chars[y][x + i] = str[i];

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Config.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -14,12 +15,12 @@ public:
     std::vector<std::vector<char>> chars;
 
 public:
-    unsigned int GetSizeY() const { return chars.size(); }
-    unsigned int GetSizeX() const;
-    void ResizeY(const unsigned int size) { chars.resize(size); }
-    void ResizeX(const unsigned int size);
-    void ReadFrameFromFile(const string& fileName, const int screenSizeX, const int screenSizeY);
+    uint GetSizeY() const { return chars.size(); }
+    uint GetSizeX() const;
+    void ResizeY(const uint size) { chars.resize(size); }
+    void ResizeX(const uint size);
+    void ReadFrameFromFile(const string& fileName, const uint screenSizeX, const uint screenSizeY);
     void ReplaceChar(const string& writenString, const char writeOverChar);
-    void InsertString(const string& str, const int x, const int y);
+    void InsertString(const string& str, const uint xPos, const uint yPos);
     void Clear() { chars.clear(); }
 };
