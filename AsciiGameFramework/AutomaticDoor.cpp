@@ -26,3 +26,9 @@ AutomaticDoor::AutomaticDoor
 {
     startingPosY = yPos;
 }
+
+void AutomaticDoor::RemoveEnergySource()
+{ 
+    if(energySourcesCounter > 0)
+        --energySourcesCounter; 
+}
