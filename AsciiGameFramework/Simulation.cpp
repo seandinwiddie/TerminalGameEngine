@@ -138,7 +138,7 @@ bool Simulation::CanObjectBeAdded(const TransformObject* const obj) const
 	return true;
 }
 
-bool Simulation::IsInSimulation(const TransformObject* obj) const
+bool Simulation::IsInSimulation(const SimulationObject* obj) const
 {
 	for (SimulationObject* simulationObj : simulationObjects)
 		if (obj == simulationObj)
@@ -461,16 +461,35 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
-bool Simulation::IsCoordinateInsideGameSpace(const uint x, const uint y) const
-{ 
-	return y < worldSizeY && x < worldSizeX;
+bool Simulation::IsInsideGameSpaceX(const int x) const
+{
+	return x >= 0 && x < worldSizeX;
 }
 
-bool Simulation::IsCoordinateInsideScreenSpace(const uint x, const uint y) const
+bool Simulation::IsInsideGameSpaceY(const int y) const
+{
+	return y >= 0 && y < worldSizeY;
+}
+
+bool Simulation::IsCoordinateInsideGameSpace(const int x, const int y) const
+{ 
+	return IsInsideGameSpaceX(x) && IsInsideGameSpaceY(y);
+}
+
+bool Simulation::IsInsideScreenY(const int y) const
 {
 	return
 		y >= screenPadding &&
-		y < worldSizeY - screenPadding &&
+		y < worldSizeY - screenPadding;
+}
+bool Simulation::IsInsideScreenX(const int x) const
+{
+	return 
 		x >= screenPadding &&
 		x < worldSizeX - screenPadding;
+}
+
+bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
+{
+	return IsInsideScreenX(x) && IsInsideScreenY(y);
 }

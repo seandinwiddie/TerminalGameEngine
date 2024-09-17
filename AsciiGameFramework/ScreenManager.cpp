@@ -87,15 +87,14 @@ void ScreenManager::InsertGameObject(TransformObject* go)
 
     for (int yScreen = go->GetScreenPosY(padding), yModel = 0; yModel < go->GetModelHeight(); ++yScreen, ++yModel)
         for (int xScreen = go->GetScreenPosX(padding), xModel = 0; xModel < go->GetModelWidth(); ++xScreen, ++xModel)
-            if (IsInsideScreenX(xScreen) && IsInsideScreenY(yScreen))
+        {
+            if (yScreen < screenSizeY && xScreen < screenSizeX)
             {
-                auto a = go->GetModelHeight();
-                assert(xModel < go->GetModelWidth() && xModel >= 0);
-                assert(yModel < go->GetModelHeight() && yModel >= 0);
                 char charToPrint = go->GetModel()[yModel][xModel];
-                if(charToPrint!=' ')
+                if (charToPrint != ' ')
                     frame.chars[yScreen][xScreen] = charToPrint;
-            }      
+            }
+        }
 }
 
 void ScreenManager::ClearFrame()

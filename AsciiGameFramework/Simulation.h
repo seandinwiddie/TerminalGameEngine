@@ -46,6 +46,15 @@ public:
 	uint GetWorldSizeX() const { return worldSizeX; }
 	uint GetWorldSizeY() const { return worldSizeY; }
 	uint GetScreenPadding() const { return screenPadding; }
+	
+	bool IsInsideScreenX(const int x) const;
+	bool IsInsideScreenY(const int y) const;
+	bool IsCoordinateInsideScreenSpace(const int x, const int y) const;
+
+	bool IsInsideGameSpaceX(const int x) const;
+	bool IsInsideGameSpaceY(const int y) const;
+	bool IsCoordinateInsideGameSpace(const int x, const int y) const;
+
 	const Level* const GetLevel() { return level; }
 	ScreenManager* GetScreenManager() { return screenManager; }
 
@@ -61,10 +70,9 @@ public:
 
 private:
 	bool CanObjectBeAdded(const TransformObject* obj) const;
-	bool IsInSimulation(const TransformObject* obj) const;
+	bool IsInSimulation(const SimulationObject* obj) const;
 	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
-	bool IsCoordinateInsideGameSpace(const uint x, const uint y) const;
-	bool IsCoordinateInsideScreenSpace(const uint x, const uint y) const;
+	
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 	bool IsSpaceEmpty(const uint startingY, const uint startingX, const uint width, const uint height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);

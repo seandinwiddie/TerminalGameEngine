@@ -50,8 +50,6 @@ private:
 	void InsertUIMessageOverFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
 	Frame GetCurrentBackground() const;
-	bool IsInsideScreenY(const uint y) const { return ( y < screenSizeY); }
-	bool IsInsideScreenX(const uint x) const { return ( x < screenSizeX); }
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
 //---------------------------------------------------------- Debug
