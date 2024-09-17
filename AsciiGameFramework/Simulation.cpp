@@ -419,9 +419,9 @@ void Simulation::RemoveGameObject(TransformObject* obj)
 void Simulation::Reset
 (
 Level* level,
-const unsigned int worldSizeX, 
-const unsigned int worldSizeY,
-const unsigned int screenPadding,
+const uint worldSizeX, 
+const uint worldSizeY,
+const uint screenPadding,
 const bool showLevelTime,
 const const std::vector<string>& backgroundFileNames
 )
