@@ -24,7 +24,7 @@ public:
 
     bool IsOpen() const { return energySourcesCounter > 0; }
     void AddEnergySource() { ++energySourcesCounter; }
-    void RemoveEnergySource() { --energySourcesCounter; }
+    void RemoveEnergySource();
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
     virtual void Update() override;
