@@ -92,7 +92,7 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	obj->UpdateCollidingDirecitons(collidingDirections);
 } 
 
-bool Simulation::IsSpaceEmpty(const int startingX, const int startingY, const int width, const int height) const
+bool Simulation::IsSpaceEmpty(const uint startingX, const uint startingY, const uint width, const uint height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
@@ -461,14 +461,12 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
-bool Simulation::IsCoordinateInsideGameSpace(const int x, const int y) const
+bool Simulation::IsCoordinateInsideGameSpace(const uint x, const uint y) const
 { 
-	return
-		y >= 0 && y < worldSizeY &&
-		x >= 0 && x < worldSizeX;
+	return y < worldSizeY && x < worldSizeX;
 }
 
-bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
+bool Simulation::IsCoordinateInsideScreenSpace(const uint x, const uint y) const
 {
 	return
 		y >= screenPadding &&

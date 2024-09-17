@@ -63,9 +63,9 @@ private:
 	bool CanObjectBeAdded(const TransformObject* obj) const;
 	bool IsInSimulation(const TransformObject* obj) const;
 	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
-	bool IsCoordinateInsideGameSpace(const int x, const int y) const;
-	bool IsCoordinateInsideScreenSpace(const int x, const int y) const;
+	bool IsCoordinateInsideGameSpace(const uint x, const uint y) const;
+	bool IsCoordinateInsideScreenSpace(const uint x, const uint y) const;
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
-	bool IsSpaceEmpty(const int startingY, const int startingX, const int width, const int height) const;
+	bool IsSpaceEmpty(const uint startingY, const uint startingX, const uint width, const uint height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
 };
