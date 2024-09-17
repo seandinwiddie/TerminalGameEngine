@@ -42,8 +42,8 @@ public:
 	static void ClearTerminal();
 	void InsertGameObject(TransformObject* go);
 	void ClearFrame();
-	int GetScreenSizeX() const { return screenSizeX; }
-	int GetScreenSizeY() const { return screenSizeY; }
+	uint GetScreenSizeX() const { return screenSizeX; }
+	uint GetScreenSizeY() const { return screenSizeY; }
 	void SetUIMessage(Frame UIMessage){ this->frameUIMessage = UIMessage; }
 
 private:

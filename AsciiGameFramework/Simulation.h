@@ -47,13 +47,13 @@ public:
 	uint GetWorldSizeY() const { return worldSizeY; }
 	uint GetScreenPadding() const { return screenPadding; }
 	
-	bool IsInsideScreenX(const int x) const;
-	bool IsInsideScreenY(const int y) const;
-	bool IsCoordinateInsideScreenSpace(const int x, const int y) const;
+	bool IsInsideScreenX(const int xPos) const;
+	bool IsInsideScreenY(const int yPos) const;
+	bool IsCoordinateInsideScreenSpace(const int xPos, const int yPos) const;
 
-	bool IsInsideGameSpaceX(const int x) const;
-	bool IsInsideGameSpaceY(const int y) const;
-	bool IsCoordinateInsideGameSpace(const int x, const int y) const;
+	bool IsInsideGameSpaceX(const int xPos) const;
+	bool IsInsideGameSpaceY(const int yPos) const;
+	bool IsCoordinateInsideGameSpace(const int xPos, const int yPos) const;
 
 	const Level* const GetLevel() { return level; }
 	ScreenManager* GetScreenManager() { return screenManager; }

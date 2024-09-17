@@ -461,35 +461,35 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
-bool Simulation::IsInsideGameSpaceX(const int x) const
+bool Simulation::IsInsideGameSpaceX(const int xPos) const
 {
-	return x >= 0 && x < worldSizeX;
+	return xPos >= 0 && xPos < worldSizeX;
 }
 
-bool Simulation::IsInsideGameSpaceY(const int y) const
+bool Simulation::IsInsideGameSpaceY(const int yPos) const
 {
-	return y >= 0 && y < worldSizeY;
+	return yPos >= 0 && yPos < worldSizeY;
 }
 
-bool Simulation::IsCoordinateInsideGameSpace(const int x, const int y) const
+bool Simulation::IsCoordinateInsideGameSpace(const int xPos, const int yPos) const
 { 
-	return IsInsideGameSpaceX(x) && IsInsideGameSpaceY(y);
+	return IsInsideGameSpaceX(xPos) && IsInsideGameSpaceY(yPos);
 }
 
-bool Simulation::IsInsideScreenY(const int y) const
+bool Simulation::IsInsideScreenY(const int yPos) const
 {
 	return
-		y >= screenPadding &&
-		y < worldSizeY - screenPadding;
+		yPos >= screenPadding &&
+		yPos < worldSizeY - screenPadding;
 }
-bool Simulation::IsInsideScreenX(const int x) const
+bool Simulation::IsInsideScreenX(const int xPos) const
 {
 	return 
-		x >= screenPadding &&
-		x < worldSizeX - screenPadding;
+		xPos >= screenPadding &&
+		xPos < worldSizeX - screenPadding;
 }
 
-bool Simulation::IsCoordinateInsideScreenSpace(const int x, const int y) const
+bool Simulation::IsCoordinateInsideScreenSpace(const int xPos, const int yPos) const
 {
-	return IsInsideScreenX(x) && IsInsideScreenY(y);
+	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }
