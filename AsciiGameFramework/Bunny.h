@@ -57,8 +57,8 @@ private:
 //---------------------------------------------------------- Methods
 public:
     Bunny(int xPos, int yPos, Level* level);
-    void Update() override;
 
+    void Update() override;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SimulationObject.h"
+#include "ISimulationObject.h"
 #include <vector>
 #include "Frame.h"
 

@@ -2,7 +2,7 @@
 
 #include "Config.h"
 #include "GridDirection.h"
-#include "SimulationObject.h"
+#include "ISimulationObject.h"
 #include <vector>
 
 using namespace GridDirection;
@@ -16,7 +16,6 @@ public:
 private:
 	int xPos;
 	int yPos;
-
 	float xPosContinuous;
 	float yPosContinuous;
 
@@ -35,8 +34,8 @@ public:
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
 
-	int GetScreenPosX(int padding) { return xPos - padding; }
-	int GetScreenPosY(int padding) { return yPos - padding; }
+	int GetScreenPosX(int padding) const { return xPos - padding; }
+	int GetScreenPosY(int padding) const { return yPos - padding; }
 
 	uint GetModelWidth() const;
 	uint GetModelHeight() const { return model.size(); }

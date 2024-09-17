@@ -2,7 +2,7 @@
 
 #include "CollidingObject.h"
 #include "ScreenManager.h"
-#include "SimulationObject.h"
+#include "ISimulationObject.h"
 #include "TransformObject.h"
 #include "Level.h"
 #include "TimeUtils.h"

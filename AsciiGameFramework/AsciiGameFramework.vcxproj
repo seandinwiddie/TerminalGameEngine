@@ -180,7 +180,7 @@
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="SimulationObject.h" />
+    <ClInclude Include="ISimulationObject.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Obstacle.h" />

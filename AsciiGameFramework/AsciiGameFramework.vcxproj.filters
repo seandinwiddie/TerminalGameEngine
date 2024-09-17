@@ -147,7 +147,7 @@
     <ClInclude Include="Frame.h">
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationObject.h">
+    <ClInclude Include="ISimulationObject.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="RepeatedCollisionTestLevel.h">
