@@ -40,7 +40,7 @@ void ObstaclesSpawner::Update()
 
         spawnNextProjectileTime = GetNextSpawnObstacleTime();
 
-        int randomPosY = ySpawnPoints[RandomUtils::GetRandomIntBetween(0, ySpawnPoints.size() - 1)];
+        int randomPosY = ySpawnPoints[RandomUtils::GetRandomInt(0, ySpawnPoints.size() - 1)];
         Obstacle* obstacle = new Obstacle(GetPosX(), randomPosY, Direction::left, GetCurrentObstaclesSpeed());
 
         Simulation::Instance().TryAddGameObject(dynamic_cast<TransformObject*>(obstacle));

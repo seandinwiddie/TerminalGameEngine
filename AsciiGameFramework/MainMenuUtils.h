@@ -33,7 +33,7 @@ namespace MainMenuUtils
     {
         int previousColorId = backgroundColorId;
         while (backgroundColorId == foregroundColorId || backgroundColorId == previousColorId)
-            backgroundColorId = RandomUtils::GetRandomIntBetween(0, 15);
+            backgroundColorId = RandomUtils::GetRandomInt(0, 15);
         RefreshTerminalColor();
     }
 
@@ -41,7 +41,7 @@ namespace MainMenuUtils
     {
         int previousColorId = foregroundColorId;
         while (foregroundColorId == backgroundColorId || foregroundColorId == previousColorId)
-            foregroundColorId = RandomUtils::GetRandomIntBetween(0, 15);
+            foregroundColorId = RandomUtils::GetRandomInt(0, 15);
         RefreshTerminalColor();
     }
 
