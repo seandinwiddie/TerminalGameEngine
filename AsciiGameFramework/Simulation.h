@@ -10,7 +10,7 @@
 using namespace GridDirection;
 using string = std::string;
 
-const class Level;
+class Level;
 class ScreenManager;
 class CollidingObject;
 class SimulationObject;

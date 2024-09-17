@@ -56,14 +56,14 @@ void PuzzleLevel::Load()
 
     //------------------------------- open door pressure plate left
     PressurePlate* openDoorPressurePlateLeft = new PressurePlate(36, 4);
-    openDoorPressurePlateLeft->OnPress.Subscribe([automaticDoor]() { automaticDoor->SetOpen(); });
-    openDoorPressurePlateLeft->OnRelease.Subscribe([automaticDoor]() { automaticDoor->SetClosed(); });
+    openDoorPressurePlateLeft->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
+    openDoorPressurePlateLeft->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
     simulation.TryAddGameObject(openDoorPressurePlateLeft);
 
     //------------------------------- open door pressure plate right
     PressurePlate* openDoorPressurePlateRight = new PressurePlate(86, 4);
-    openDoorPressurePlateRight->OnPress.Subscribe([automaticDoor]() { automaticDoor->SetOpen(); });
-    openDoorPressurePlateRight->OnRelease.Subscribe([automaticDoor]() { automaticDoor->SetClosed(); });
+    openDoorPressurePlateRight->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
+    openDoorPressurePlateRight->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
     simulation.TryAddGameObject(openDoorPressurePlateRight);
 }
 

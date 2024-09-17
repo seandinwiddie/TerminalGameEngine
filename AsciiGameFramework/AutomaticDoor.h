@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Config.h"
 #include "VariableSizeCollider.h"
 
 class AutomaticDoor : public VariableSizeCollider
@@ -6,8 +8,8 @@ class AutomaticDoor : public VariableSizeCollider
 //---------------------------------------------------------- Fields
 private:
     static constexpr float MOVE_SPEED = 0.4;
-    int startingY = -1;
-    int openingSourcesCount = 0;
+    int startingPosY = -1;
+    int energySourcesCounter = 0;
 
 //---------------------------------------------------------- Methods
 public:
@@ -15,14 +17,14 @@ public:
     (
         const int xPos,
         const int yPos,
-        const int sizeX,
-        const int sizeY,
+        const uint sizeX,
+        const uint sizeY,
         const char modelChar
     );
 
-    bool IsOpen() { return openingSourcesCount > 0; }
-    void SetOpen() { ++openingSourcesCount; }
-    void SetClosed() { --openingSourcesCount; }
+    bool IsOpen() const { return energySourcesCounter > 0; }
+    void AddEnergySource() { ++energySourcesCounter; }
+    void RemoveEnergySource() { --energySourcesCounter; }
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
     virtual void Update() override;

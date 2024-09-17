@@ -1,8 +1,9 @@
 #pragma once
 
-#include <vector>
+#include "Config.h"
 #include "GridDirection.h"
 #include "SimulationObject.h"
+#include <vector>
 
 using namespace GridDirection;
 
@@ -46,7 +47,7 @@ public:
 
 protected:
 	virtual void Move(const Direction direction, const float moveSpeed);
-	std::vector<std::vector<char>> CreteModelUsingChar(char c, const unsigned int sizeX, const unsigned int sizeY) const;
+	std::vector<std::vector<char>> CreteModelUsingChar(char c, const uint sizeX, const uint sizeY) const;
 	virtual void Update();
 
 private:
