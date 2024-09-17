@@ -38,8 +38,8 @@ public:
 	int GetScreenPosX(const int padding) { return xPos - padding; }
 	int GetScreenPosY(const int padding) { return yPos - padding; }
 
-	int GetModelWidth() const;
-	int GetModelHeight() const { return model.size(); }
+	uint GetModelWidth() const;
+	uint GetModelHeight() const { return model.size(); }
 	const std::vector<std::vector<char>>& GetModel() const { return model; }
 
 	virtual bool CanExitScreenSpace() const = 0;

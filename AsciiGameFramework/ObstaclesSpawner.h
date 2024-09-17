@@ -9,7 +9,7 @@ private:
     std::vector<float> maxSpawnDelays;
     std::vector<float> speeds;
     std::vector<int> ySpawnPoints;
-    int spawnIntensity = 0;
+    uint spawnIntensity = 0;
     float stopSpawningWhenPhaseChangesDuration;
     float increaseIntensityEverySeconds;
     double spawnNextProjectileTime;

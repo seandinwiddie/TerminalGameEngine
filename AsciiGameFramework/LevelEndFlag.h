@@ -10,7 +10,7 @@ private:
     Level* level;
 
 public:
-    LevelEndFlag(Level* level, const int x, const int y);
+    LevelEndFlag(Level* level, int xPos, int yPos);
 
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }

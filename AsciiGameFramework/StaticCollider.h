@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Config.h"
 #include "VariableSizeCollider.h"
 
 class StaticCollider : public VariableSizeCollider
@@ -9,8 +11,8 @@ public:
     (
         const int xPos,
         const int yPos,
-        const int sizeX,
-        const int sizeY,
+        const uint sizeX,
+        const uint sizeY,
         const char modelChar
     );
 

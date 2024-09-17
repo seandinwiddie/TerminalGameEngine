@@ -1,6 +1,6 @@
 #include "MovingStraightObject.h"
 
-MovingStraightObject::MovingStraightObject(const int xPos, const int yPos, const Direction moveDir, const float moveSpeed) :
+MovingStraightObject::MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed) :
 	CollidingObject(xPos, yPos), moveDirection(moveDir), moveSpeed(moveSpeed)
 {
 	canMove = true;

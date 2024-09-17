@@ -12,7 +12,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	CollidingObject(const int xPos, const int yPos) : TransformObject(xPos, yPos) {};
+	CollidingObject(int xPos, int yPos) : TransformObject(xPos, yPos) {};
 
 private:
 	//called by simulation

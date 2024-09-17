@@ -19,7 +19,7 @@ private:
 	//---------------------------------------------------------- Methods
 public:
 
-	MovingStraightObject(const int xPos, const int yPos, const Direction moveDir, const float moveSpeed);
+	MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed);
 	void Update() override;
 
 };

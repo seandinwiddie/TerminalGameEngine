@@ -2,7 +2,7 @@
 #include "TimeUtils.h"
 #include "Simulation.h"
 
-TransformObject::TransformObject(const int xPos, const int yPos) : 
+TransformObject::TransformObject(int xPos, int yPos) : 
 	xPos(xPos), 
 	yPos(yPos), 
 	xPosContinuous(xPos), 
@@ -11,7 +11,7 @@ TransformObject::TransformObject(const int xPos, const int yPos) :
 	ResetPartialMovement();
 }
 
-int TransformObject::GetModelWidth() const
+uint TransformObject::GetModelWidth() const
 {
 	if (model.size() == 0)
 		return 0;

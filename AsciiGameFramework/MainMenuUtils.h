@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Config.h"
 #include "Level.h";
 #include "PuzzleLevel.h"
 #include "ObstaclesLevel.h"
@@ -16,8 +17,8 @@ using namespace std;
 namespace MainMenuUtils
 {
     static const char* colorCodes = "0123456789ABCDEF";
-    static int backgroundColorId;
-    static int foregroundColorId;
+    static uint backgroundColorId;
+    static uint foregroundColorId;
 
     static void RefreshTerminalColor()
     {
@@ -31,7 +32,7 @@ namespace MainMenuUtils
 
     static void ChangeBackgroundColor()
     {
-        int previousColorId = backgroundColorId;
+        uint previousColorId = backgroundColorId;
         while (backgroundColorId == foregroundColorId || backgroundColorId == previousColorId)
             backgroundColorId = RandomUtils::GetRandomInt(0, 15);
         RefreshTerminalColor();
@@ -39,7 +40,7 @@ namespace MainMenuUtils
 
     static void ChangeForegroundColor()
     {
-        int previousColorId = foregroundColorId;
+        uint previousColorId = foregroundColorId;
         while (foregroundColorId == backgroundColorId || foregroundColorId == previousColorId)
             foregroundColorId = RandomUtils::GetRandomInt(0, 15);
         RefreshTerminalColor();

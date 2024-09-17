@@ -9,7 +9,7 @@ const std::vector<std::vector<char>> LevelEndFlag::flagModel
      {'|','\\'}
 };
 
-LevelEndFlag::LevelEndFlag(Level* level, const int x, const int y) : CollidingObject(x, y), level(level)
+LevelEndFlag::LevelEndFlag(Level* level, const int xPos, const int yPos) : CollidingObject(xPos, yPos), level(level)
 {
     model = flagModel;
 }

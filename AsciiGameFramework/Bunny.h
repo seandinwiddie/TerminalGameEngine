@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Config.h"
 #include "CollidingObject.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
@@ -41,7 +42,7 @@ private:
 
 //---------------------------------------------------------- Fields
 
-    static constexpr unsigned int JUMP_HEIGHT = 10;
+    static constexpr uint JUMP_HEIGHT = 10;
     static constexpr float MOVE_UP_SPEED = 3;
     static constexpr float MOVE_DOWN_SPEED = 3;
     static constexpr float MOVE_DOWN_CONTROLLED_SPEED = 0.8;

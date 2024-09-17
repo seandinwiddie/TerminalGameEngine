@@ -56,12 +56,12 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 {
 	std::vector<bool> collidingDirections(4);
 
-	unsigned int x = obj->GetPosX();
-	unsigned int y = obj->GetPosY();
-	unsigned int xMax = obj->GetMaxPosX();
-	unsigned int yMax = obj->GetMaxPosY();
-	unsigned int width = obj->GetModelWidth();
-	unsigned int height = obj->GetModelHeight();
+	int x = obj->GetPosX();
+	int y = obj->GetPosY();
+	int xMax = obj->GetMaxPosX();
+	int yMax = obj->GetMaxPosY();
+	uint width = obj->GetModelWidth();
+	uint height = obj->GetModelHeight();
 	bool canExitScreen = obj->CanExitScreenSpace();
 
 	// object - screen margin collisions
@@ -75,8 +75,8 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	// Using collision COLLISION_END_DISTANCE = 2 prevents detecting repeated collisions if a faster object is pushing 
 	// a slower one. In the future the collision detection system could be improved in order to move faster 
 	// objects after slower ones during the same frame, doing this collision depth could be set to 1. (todo)
-	const int COLLISION_END_DISTANCE_X = 2;
-	const int COLLISION_END_DISTANCE_Y = 1;
+	const uint COLLISION_END_DISTANCE_X = 2;
+	const uint COLLISION_END_DISTANCE_Y = 1;
 	collidingDirections[static_cast<int>(Direction::up)] =
 		(!IsSpaceEmpty(x, yMax + 1, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenUp);
 
