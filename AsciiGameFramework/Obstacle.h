@@ -11,7 +11,7 @@ class Obstacle : public MovingStraightObject
 {
 //---------------------------------------------------------- Fields
 public:
-    Obstacle(const int xPos, const int yPos, const Direction moveDir, const float moveSpeed);
+    Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed);
 
 //---------------------------------------------------------- Methods
 public:

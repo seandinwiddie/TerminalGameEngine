@@ -8,7 +8,7 @@ class CollidingObject : public TransformObject
 
 //---------------------------------------------------------- Fields
 protected:
-	std::vector<bool> collidingDirections = { false,false,false,false };
+	std::vector<bool> collidingDirections = {false,false,false,false};
 
 //---------------------------------------------------------- Methods
 public:
@@ -16,7 +16,7 @@ public:
 
 private:
 	//called by simulation
-	void NotifyCollision(CollidingObject* other, const Direction collisionDirection);
+	void NotifyCollision(CollidingObject* other, Direction collisionDirection);
 	//called by simulation
 	void UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
 

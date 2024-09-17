@@ -11,9 +11,9 @@
 
 ScreenManager::ScreenManager
 (
-    const uint worldSizeX, 
-    const uint worldSizeY, 
-    const uint padding, 
+    uint worldSizeX, 
+    uint worldSizeY, 
+    uint padding, 
     bool showTimeUI,
     const std::vector<string>& backgroundFileNames 
 )

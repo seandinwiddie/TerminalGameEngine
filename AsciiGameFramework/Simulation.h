@@ -40,31 +40,31 @@ private:
 public:
 	void Step();
 	bool TryAddGameObject(TransformObject* obj);
-	bool TryMoveAtDirection(TransformObject* obj, const Direction direction);
+	bool TryMoveAtDirection(TransformObject* obj, Direction direction);
 	void RemoveGameObject(TransformObject* obj);
 
 	uint GetWorldSizeX() const { return worldSizeX; }
 	uint GetWorldSizeY() const { return worldSizeY; }
 	uint GetScreenPadding() const { return screenPadding; }
 	
-	bool IsInsideScreenX(const int xPos) const;
-	bool IsInsideScreenY(const int yPos) const;
-	bool IsCoordinateInsideScreenSpace(const int xPos, const int yPos) const;
+	bool IsInsideScreenX(int xPos) const;
+	bool IsInsideScreenY(int yPos) const;
+	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const;
 
-	bool IsInsideGameSpaceX(const int xPos) const;
-	bool IsInsideGameSpaceY(const int yPos) const;
-	bool IsCoordinateInsideGameSpace(const int xPos, const int yPos) const;
+	bool IsInsideGameSpaceX(int xPos) const;
+	bool IsInsideGameSpaceY(int yPos) const;
+	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 
-	const Level* const GetLevel() { return level; }
+	const Level* GetLevel() { return level; }
 	ScreenManager* GetScreenManager() { return screenManager; }
 
 	void Reset
 	(
 		Level* level,
-		const uint worldSizeX,
-		const uint worldSizeY,
-		const uint screenPadding,
-		const bool showLevelTime,
+		uint worldSizeX,
+		uint worldSizeY,
+		uint screenPadding,
+		bool showLevelTime,
 		const std::vector<string>& backgroundFileNames
 	);
 
@@ -74,6 +74,6 @@ private:
 	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
 	
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
-	bool IsSpaceEmpty(const uint startingY, const uint startingX, const uint width, const uint height) const;
+	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
 };

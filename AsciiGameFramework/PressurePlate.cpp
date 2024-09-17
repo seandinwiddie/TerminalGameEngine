@@ -1,7 +1,7 @@
 #include "PressurePlate.h"
 #include "AudioManager.h"
 
-PressurePlate::PressurePlate(const int xPos, const int yPos) : CollidingObject(xPos, yPos)
+PressurePlate::PressurePlate(int xPos, int yPos) : CollidingObject(xPos, yPos)
 { 
     unpressedModel = CreteModelUsingChar('=',6,1);
     pressedModel = CreteModelUsingChar('_',6,1);

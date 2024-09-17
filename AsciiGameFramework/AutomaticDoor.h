@@ -15,11 +15,11 @@ private:
 public:
     AutomaticDoor
     (
-        const int xPos,
-        const int yPos,
-        const uint sizeX,
-        const uint sizeY,
-        const char modelChar
+        int xPos,
+        int yPos,
+        uint sizeX,
+        uint sizeY,
+        char modelChar
     );
 
     bool IsOpen() const { return energySourcesCounter > 0; }

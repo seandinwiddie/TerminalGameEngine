@@ -15,7 +15,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-    PressurePlate(const int xPos, const int yPos);
+    PressurePlate(int xPos, int yPos);
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }

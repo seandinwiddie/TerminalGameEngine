@@ -8,13 +8,13 @@ uint Frame::GetSizeX() const
     return chars[0].size();
 }
 
-void Frame::ResizeX(const uint size)
+void Frame::ResizeX(uint size)
 {
     for (int y = 0; y < chars.size(); ++y)
         chars[y].resize(size);
 }
 
-void Frame::ReadFrameFromFile(const string& fileName, const uint screenSizeX, const uint screenSizeY)
+void Frame::ReadFrameFromFile(const string& fileName, uint screenSizeX, uint screenSizeY)
 {
     std::ifstream file(fileName, std::ios::binary);
     if (!file)
@@ -47,7 +47,7 @@ void Frame::ReadFrameFromFile(const string& fileName, const uint screenSizeX, co
     return;
 }
 
-void Frame::ReplaceChar(const string& writenString, const char writeOverChar)
+void Frame::ReplaceChar(const string& writenString, char writeOverChar)
 {
     for (int y = 0; y < GetSizeY(); ++y)
     {
@@ -65,7 +65,7 @@ void Frame::ReplaceChar(const string& writenString, const char writeOverChar)
     }
 }
 
-void Frame::InsertString(const string& str, const uint x, const uint y)
+void Frame::InsertString(const string& str, uint x, uint y)
 {
     assert(y < GetSizeY());
     assert(x < GetSizeX());

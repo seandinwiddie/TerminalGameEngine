@@ -42,7 +42,7 @@ private:
 
 //---------------------------------------------------------- Fields
 
-    static constexpr uint JUMP_HEIGHT = 10;
+    static const uint JUMP_HEIGHT = 10;
     static constexpr float MOVE_UP_SPEED = 3;
     static constexpr float MOVE_DOWN_SPEED = 3;
     static constexpr float MOVE_DOWN_CONTROLLED_SPEED = 0.8;

@@ -92,7 +92,7 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	obj->UpdateCollidingDirecitons(collidingDirections);
 } 
 
-bool Simulation::IsSpaceEmpty(const uint startingX, const uint startingY, const uint width, const uint height) const
+bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
@@ -120,7 +120,7 @@ bool Simulation::TryAddGameObject(TransformObject* obj)
 	return true;
 }
 
-bool Simulation::CanObjectBeAdded(const TransformObject* const obj) const
+bool Simulation::CanObjectBeAdded(const TransformObject* obj) const
 {
 	if (IsInSimulation(obj))
 		return false;
@@ -147,7 +147,7 @@ bool Simulation::IsInSimulation(const SimulationObject* obj) const
 	return false;
 }
 
-bool Simulation::TryMoveAtDirection(TransformObject* obj, const Direction direction)
+bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 {
 	assert(IsInSimulation(obj));
 
@@ -419,11 +419,11 @@ void Simulation::RemoveGameObject(TransformObject* obj)
 void Simulation::Reset
 (
 Level* level,
-const uint worldSizeX, 
-const uint worldSizeY,
-const uint screenPadding,
-const bool showLevelTime,
-const const std::vector<string>& backgroundFileNames
+uint worldSizeX, 
+uint worldSizeY,
+uint screenPadding,
+bool showLevelTime,
+const std::vector<string>& backgroundFileNames
 )
 {
 	this->level = level;
@@ -461,35 +461,35 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
-bool Simulation::IsInsideGameSpaceX(const int xPos) const
+bool Simulation::IsInsideGameSpaceX(int xPos) const
 {
 	return xPos >= 0 && xPos < worldSizeX;
 }
 
-bool Simulation::IsInsideGameSpaceY(const int yPos) const
+bool Simulation::IsInsideGameSpaceY(int yPos) const
 {
 	return yPos >= 0 && yPos < worldSizeY;
 }
 
-bool Simulation::IsCoordinateInsideGameSpace(const int xPos, const int yPos) const
+bool Simulation::IsCoordinateInsideGameSpace(int xPos, int yPos) const
 { 
 	return IsInsideGameSpaceX(xPos) && IsInsideGameSpaceY(yPos);
 }
 
-bool Simulation::IsInsideScreenY(const int yPos) const
+bool Simulation::IsInsideScreenY(int yPos) const
 {
 	return
 		yPos >= screenPadding &&
 		yPos < worldSizeY - screenPadding;
 }
-bool Simulation::IsInsideScreenX(const int xPos) const
+bool Simulation::IsInsideScreenX(int xPos) const
 {
 	return 
 		xPos >= screenPadding &&
 		xPos < worldSizeX - screenPadding;
 }
 
-bool Simulation::IsCoordinateInsideScreenSpace(const int xPos, const int yPos) const
+bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 {
 	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }

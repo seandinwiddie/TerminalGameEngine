@@ -16,5 +16,5 @@ public:
     virtual void Load() override;
     virtual void OnGameOver() override;
     virtual void OnGameOverDelayEnded() override;
-    virtual double ShowGameOverScreenDelay()const { return 1.5; }
+    virtual double ShowGameOverScreenDelay() const { return 1.5; }
 };

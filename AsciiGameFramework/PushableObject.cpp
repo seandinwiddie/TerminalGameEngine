@@ -1,7 +1,7 @@
 #include "PushableObject.h"
 #include "Bunny.h"
 
-PushableObject::PushableObject(const int xPos, const int yPos) : CollidingObject(xPos, yPos)
+PushableObject::PushableObject(int xPos, int yPos) : CollidingObject(xPos, yPos)
 { 
     model = CreteModelUsingChar('@',4,2);
 }

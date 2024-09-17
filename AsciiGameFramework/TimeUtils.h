@@ -23,7 +23,7 @@ public:
     double GetFPS() const { return 1.0 / GetDeltaTime(); }
 
     void NotifyFrameGenerated ();
-    bool IsTimeForFirstOfTwoModels (const float changeModelEverySeconds) const;
+    bool IsTimeForFirstOfTwoModels (float changeModelEverySeconds) const;
     double GetTime() const;
 
 private:

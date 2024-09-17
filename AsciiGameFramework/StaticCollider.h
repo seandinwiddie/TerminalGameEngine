@@ -9,11 +9,11 @@ class StaticCollider : public VariableSizeCollider
 public:
     StaticCollider
     (
-        const int xPos,
-        const int yPos,
-        const uint sizeX,
-        const uint sizeY,
-        const char modelChar
+        int xPos,
+        int yPos,
+        uint sizeX,
+        uint sizeY,
+        char modelChar
     );
 
     virtual bool CanExitScreenSpace() const override { return true; }

@@ -20,13 +20,13 @@ public:
 
     ObstaclesSpawner
     (
-        const int xPos,
-        const int yPos,
+        int xPos,
+        int yPos,
         const std::vector<float>& minSpawnDelays,
         const std::vector<float>& maxSpawnDelays,
         const std::vector<float>& speeds,
-        const float increaseIntensityEverySeconds,
-        const float stopSpawningWhenPhaseChangesDuration,
+        float increaseIntensityEverySeconds,
+        float stopSpawningWhenPhaseChangesDuration,
         const std::vector<int>& ySpawnPoints
     );
 
@@ -39,5 +39,5 @@ private:
     float GetCurrentMaxSpawnDelay() const { return maxSpawnDelays[spawnIntensity]; }
     float GetCurrentObstaclesSpeed() const { return speeds[spawnIntensity]; }
     float GetNextSpawnObstacleTime() const;
-    void TryIncreaseIntensity(const float time);
+    void TryIncreaseIntensity(float time);
 };

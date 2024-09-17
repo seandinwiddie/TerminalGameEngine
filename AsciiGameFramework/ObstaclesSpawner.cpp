@@ -6,13 +6,13 @@
 
 ObstaclesSpawner::ObstaclesSpawner
 (
-    const int xPos,
-    const int yPos,
+    int xPos,
+    int yPos,
     const std::vector<float>& minSpawnDelays,
     const std::vector<float>& maxSpawnDelays,
     const std::vector<float>& speeds,
-    const float increaseIntensityEverySeconds,
-    const float stopSpawningWhenPhaseChangesDuration,
+    float increaseIntensityEverySeconds,
+    float stopSpawningWhenPhaseChangesDuration,
     const std::vector<int>& ySpawnPoints
 ) :
     TransformObject(xPos, yPos),

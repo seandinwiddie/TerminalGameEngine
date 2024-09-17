@@ -27,7 +27,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	TransformObject(const int xPos, const int yPos);
+	TransformObject(int xPos, int yPos);
 
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
@@ -35,8 +35,8 @@ public:
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
 
-	int GetScreenPosX(const int padding) { return xPos - padding; }
-	int GetScreenPosY(const int padding) { return yPos - padding; }
+	int GetScreenPosX(int padding) { return xPos - padding; }
+	int GetScreenPosY(int padding) { return yPos - padding; }
 
 	uint GetModelWidth() const;
 	uint GetModelHeight() const { return model.size(); }
@@ -46,8 +46,8 @@ public:
 	virtual float GetGravityScale() const = 0;
 
 protected:
-	virtual void Move(const Direction direction, const float moveSpeed);
-	std::vector<std::vector<char>> CreteModelUsingChar(char c, const uint sizeX, const uint sizeY) const;
+	virtual void Move(Direction direction, float moveSpeed);
+	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
 
 private:

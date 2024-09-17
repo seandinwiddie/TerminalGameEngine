@@ -1,6 +1,6 @@
 #include "CollidingObject.h"
 
-void CollidingObject::NotifyCollision(CollidingObject* other, const Direction collisionDirection)
+void CollidingObject::NotifyCollision(CollidingObject* other, Direction collisionDirection)
 {
 	int directionIndex = static_cast<int>(collisionDirection);
 	if (collidingDirections[directionIndex] == false)

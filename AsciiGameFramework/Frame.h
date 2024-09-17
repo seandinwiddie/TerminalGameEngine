@@ -17,10 +17,10 @@ public:
 public:
     uint GetSizeY() const { return chars.size(); }
     uint GetSizeX() const;
-    void ResizeY(const uint size) { chars.resize(size); }
-    void ResizeX(const uint size);
-    void ReadFrameFromFile(const string& fileName, const uint screenSizeX, const uint screenSizeY);
-    void ReplaceChar(const string& writenString, const char writeOverChar);
-    void InsertString(const string& str, const uint xPos, const uint yPos);
+    void ResizeY(uint size) { chars.resize(size); }
+    void ResizeX(uint size);
+    void ReadFrameFromFile(const string& fileName, uint screenSizeX, uint screenSizeY);
+    void ReplaceChar(const string& writenString, char writeOverChar);
+    void InsertString(const string& str, uint xPos, uint yPos);
     void Clear() { chars.clear(); }
 };

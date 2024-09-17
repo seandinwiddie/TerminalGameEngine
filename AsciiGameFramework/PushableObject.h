@@ -7,7 +7,7 @@ class PushableObject : public CollidingObject
 //---------------------------------------------------------- Methods
 public:
 
-    PushableObject(const int xPos, const int yPos);
+    PushableObject(int xPos, int yPos);
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 1; }
