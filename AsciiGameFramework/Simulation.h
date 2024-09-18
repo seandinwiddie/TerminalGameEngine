@@ -11,7 +11,7 @@ using namespace GridDirection;
 using string = std::string;
 
 class Level;
-class ScreenManager;
+class SimulationScreenManager;
 class CollidingObject;
 class SimulationObject;
 
@@ -31,7 +31,7 @@ private:
 	uint screenPadding;
 	uint printFrameStep;
 	double levelStartedTime = 0;
-	ScreenManager* screenManager;
+	SimulationScreenManager* screenManager;
 	std::vector<std::vector<CollidingObject*>> gameSpace;
 	std::list<SimulationObject*> simulationObjects;
 	Level* level;
@@ -56,7 +56,7 @@ public:
 	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 
 	const Level* GetLevel() { return level; }
-	ScreenManager* GetScreenManager() { return screenManager; }
+	SimulationScreenManager* GetScreenManager() { return screenManager; }
 
 	void Reset
 	(

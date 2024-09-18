@@ -1,7 +1,7 @@
 #include "Simulation.h"
 
 #include "CollidingObject.h"
-#include "ScreenManager.h"
+#include "SimulationScreenManager.h"
 #include "ISimulationObject.h"
 #include "TransformObject.h"
 #include "Level.h"
@@ -458,7 +458,7 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 {
 	if (screenManager != nullptr)
 		delete(screenManager);
-	screenManager = new ScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
+	screenManager = new SimulationScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const

@@ -5,14 +5,14 @@
 
 namespace Persistence
 {
-	static void SaveBestScore(const string& persistenceFile , int bestScore)
+	inline void SaveBestScore(const string& persistenceFile , int bestScore)
 	{
 		std::ofstream outStream(persistenceFile);
 		assert(outStream);
 		outStream << bestScore;
 	}
 
-	static int LoadBestScore(const string& persistenceFile)
+	inline int LoadBestScore(const string& persistenceFile)
 	{
 		std::ifstream infile(persistenceFile);
 

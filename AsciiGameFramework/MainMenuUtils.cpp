@@ -4,7 +4,7 @@
 #include "PuzzleLevel.h"
 #include "ObstaclesLevel.h"
 #include "InputUtils.h"
-#include "ScreenManager.h"
+#include "SimulationScreenManager.h"
 #include "RandomUtils.h"
 
 #include <iostream>
@@ -41,7 +41,7 @@
 
     Level* MainMenuUtils::ShowLevelSelection()
     {
-        ScreenManager::ClearTerminal();
+        SimulationScreenManager::ClearTerminal();
         std::cout
             << "Press:" << std::endl
             << "1 -> play endless runner demo" << std::endl

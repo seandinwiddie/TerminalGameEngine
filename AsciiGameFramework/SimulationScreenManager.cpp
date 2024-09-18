@@ -1,4 +1,4 @@
-#include "ScreenManager.h"
+#include "SimulationScreenManager.h"
 
 #include "TransformObject.h"
 #include "Simulation.h"
@@ -9,7 +9,7 @@
 #include "Windows.h"
 #include <cassert>
 
-ScreenManager::ScreenManager
+SimulationScreenManager::SimulationScreenManager
 (
     uint worldSizeX, 
     uint worldSizeY, 
@@ -37,7 +37,7 @@ ScreenManager::ScreenManager
 #endif
 }
 
-void ScreenManager::PrintFrameOnTerminal()
+void SimulationScreenManager::PrintFrameOnTerminal()
 {
     string frameString = "";
 
@@ -65,7 +65,7 @@ void ScreenManager::PrintFrameOnTerminal()
     std::cout << frameString;
 }
 
-void ScreenManager::InsertUIMessageOverFrame()
+void SimulationScreenManager::InsertUIMessageOverFrame()
 {
     if (frameUIMessage.GetSizeY() == 0)
         return;
@@ -79,7 +79,7 @@ void ScreenManager::InsertUIMessageOverFrame()
         }
 }
 
-void ScreenManager::InsertGameObject(TransformObject* go)
+void SimulationScreenManager::InsertGameObject(TransformObject* go)
 {
     std::vector<std::vector<char>> model = go->GetModel();
     if (model[0].size() == 0)
@@ -97,7 +97,7 @@ void ScreenManager::InsertGameObject(TransformObject* go)
         }
 }
 
-void ScreenManager::ClearFrame()
+void SimulationScreenManager::ClearFrame()
 {
     for (int m = 0; m < screenSizeY; ++m)
     {
@@ -111,7 +111,7 @@ void ScreenManager::ClearFrame()
     }
 }
 
-void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
+void SimulationScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
 {
     if (backgroundFilesNames.size() == 0)
     {
@@ -125,12 +125,12 @@ void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNa
         backgrounds[i].ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY);
 }
 
-Frame ScreenManager::GetCurrentBackground()const
+Frame SimulationScreenManager::GetCurrentBackground()const
 {
     return  TimeHelper::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
 }
 
-void ScreenManager::ClearTerminal()
+void SimulationScreenManager::ClearTerminal()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { 0, 0 };  // Top left corner

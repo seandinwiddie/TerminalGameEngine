@@ -17,7 +17,7 @@
       <Filter>Headers\Utils</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
-      <Filter>Cpp\Managers</Filter>
+      <Filter>Cpp\Managers/Helpers</Filter>
     </ClCompile>
     <ClCompile Include="AutomaticDoor.cpp">
       <Filter>Cpp\SimulationObjects</Filter>
@@ -52,9 +52,6 @@
     <ClCompile Include="PuzzleLevel.cpp">
       <Filter>Cpp\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenManager.cpp">
-      <Filter>Cpp\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="StaticCollider.cpp">
       <Filter>Cpp\SimulationObjects</Filter>
     </ClCompile>
@@ -70,9 +67,14 @@
     <ClCompile Include="ObstaclesLevel.cpp">
       <Filter>Cpp\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="TimeHelper.cpp" />
     <ClCompile Include="MainMenuUtils.cpp">
       <Filter>Cpp\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeHelper.cpp">
+      <Filter>Cpp\Managers/Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationScreenManager.cpp">
+      <Filter>Cpp\Simulation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,17 +93,11 @@
     <ClInclude Include="Event.h">
       <Filter>Headers\General</Filter>
     </ClInclude>
-    <ClInclude Include="Simulation.h">
-      <Filter>Headers\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Headers\General</Filter>
-    </ClInclude>
-    <ClInclude Include="GridDirection.h">
-      <Filter>Headers\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="InputUtils.h">
       <Filter>Headers\Utils</Filter>
@@ -121,11 +117,8 @@
     <ClInclude Include="PressurePlate.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenManager.h">
-      <Filter>Headers\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="AudioManager.h">
-      <Filter>Headers\Simulation</Filter>
+      <Filter>Headers\Managers/Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Headers</Filter>
@@ -139,18 +132,29 @@
     <ClInclude Include="ObstaclesLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="Frame.h">
-      <Filter>Headers\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="ISimulationObject.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="RepeatedCollisionTestLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="MainMenuUtils.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeHelper.h">
+      <Filter>Headers\Managers/Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="GridDirection.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationScreenManager.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +181,6 @@
     <Filter Include="Headers\General">
       <UniqueIdentifier>{ebb07b12-15c9-4b45-bc4c-10bf6b665bf2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Simulation">
-      <UniqueIdentifier>{d30d73f0-056c-4c66-b806-9a400568a9de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Levels">
       <UniqueIdentifier>{aafab2c1-bba3-4553-8da5-5c472f175f72}</UniqueIdentifier>
     </Filter>
@@ -188,9 +189,6 @@
     </Filter>
     <Filter Include="Cpp\Simulation">
       <UniqueIdentifier>{7c906cfe-4c65-4547-be46-db10a55b182b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cpp\Managers">
-      <UniqueIdentifier>{8c506f81-f7cf-48f2-b334-d6466a7590f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cpp\Utils">
       <UniqueIdentifier>{b6bef61a-64bb-4307-be1a-1556a227cd2a}</UniqueIdentifier>
@@ -203,6 +201,15 @@
     </Filter>
     <Filter Include="Headers\Utils">
       <UniqueIdentifier>{a8b72d00-09fb-42d0-aa94-da70f2b6a4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Managers/Helpers">
+      <UniqueIdentifier>{d30d73f0-056c-4c66-b806-9a400568a9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cpp\Managers/Helpers">
+      <UniqueIdentifier>{8c506f81-f7cf-48f2-b334-d6466a7590f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Simulation">
+      <UniqueIdentifier>{d0e47c02-7222-435f-aea1-f8f088c2c7d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

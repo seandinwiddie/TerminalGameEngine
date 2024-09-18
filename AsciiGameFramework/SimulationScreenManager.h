@@ -9,7 +9,7 @@ using string = std::string;
 
 class TransformObject;
 
-class ScreenManager
+class SimulationScreenManager
 {
 //---------------------------------------------------------- Settings
 private:
@@ -29,7 +29,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	ScreenManager
+	SimulationScreenManager
 	(
 		uint worldSizeX,
 		uint worldSizeY,

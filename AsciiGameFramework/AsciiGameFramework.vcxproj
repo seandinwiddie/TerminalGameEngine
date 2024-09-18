@@ -154,7 +154,7 @@
     <ClCompile Include="RandomUtils.h" />
     <ClCompile Include="ObstaclesSpawner.cpp" />
     <ClCompile Include="PushableObject.h" />
-    <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="SimulationScreenManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="StaticCollider.cpp" />
@@ -178,7 +178,7 @@
     <ClInclude Include="Persistence.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PuzzleLevel.h" />
-    <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="SimulationScreenManager.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ISimulationObject.h" />
