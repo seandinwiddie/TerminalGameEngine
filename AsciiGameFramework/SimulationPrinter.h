@@ -31,9 +31,9 @@ private:
 public:
 	SimulationPrinter
 	(
-		uint worldSizeX,
-		uint worldSizeY,
-		uint padding, 
+		uint screenSizeX,
+		uint screenSizeY,
+		uint screenPadding,
 		bool showTimeUI,
 		const std::vector<string>& backgroundFileNames = {}
 	);

@@ -11,16 +11,16 @@
 
 SimulationPrinter::SimulationPrinter
 (
-    uint worldSizeX, 
-    uint worldSizeY, 
-    uint padding, 
+    uint screenSizeX, 
+    uint screenSizeY, 
+    uint screenPadding, 
     bool showTimeUI,
     const std::vector<string>& backgroundFileNames 
 )
     : 
-    screenSizeX(worldSizeX - 2 * padding), 
-    screenSizeY(worldSizeY - 2 * padding), 
-    padding(padding), 
+    screenSizeX(screenSizeX),
+    screenSizeY(screenSizeY),
+    padding(screenPadding),
     showTimeUI(showTimeUI)
 {
     frameUIMessage.Clear();

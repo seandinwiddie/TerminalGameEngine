@@ -458,7 +458,7 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 {
 	if (screenManager != nullptr)
 		delete(screenManager);
-	screenManager = new SimulationPrinter(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
+	screenManager = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), screenPadding, showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const

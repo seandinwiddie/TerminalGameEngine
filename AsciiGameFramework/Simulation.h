@@ -50,6 +50,8 @@ public:
 	bool IsInsideScreenX(int xPos) const;
 	bool IsInsideScreenY(int yPos) const;
 	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const;
+	uint GetScreenSizeX() const { return worldSizeX - 2 * screenPadding; }
+	uint GetScreenSizeY() const { return worldSizeY - 2 * screenPadding; }
 
 	bool IsInsideGameSpaceX(int xPos) const;
 	bool IsInsideGameSpaceY(int yPos) const;
