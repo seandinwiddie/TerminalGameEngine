@@ -14,7 +14,7 @@
       <Filter>Headers\SimulationObjects</Filter>
     </ClCompile>
     <ClCompile Include="RandomUtils.h">
-      <Filter>Headers\Utility</Filter>
+      <Filter>Headers\Utils</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Cpp\Managers</Filter>
@@ -58,9 +58,6 @@
     <ClCompile Include="StaticCollider.cpp">
       <Filter>Cpp\SimulationObjects</Filter>
     </ClCompile>
-    <ClCompile Include="TimeUtils.cpp">
-      <Filter>Cpp\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Frame.cpp">
       <Filter>Cpp\Simulation</Filter>
     </ClCompile>
@@ -72,6 +69,10 @@
     </ClCompile>
     <ClCompile Include="ObstaclesLevel.cpp">
       <Filter>Cpp\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="MainMenuUtils.cpp">
+      <Filter>Cpp\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +94,6 @@
     <ClInclude Include="Simulation.h">
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="TimeUtils.h">
-      <Filter>Headers\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
@@ -106,7 +104,7 @@
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="InputUtils.h">
-      <Filter>Headers\Utility</Filter>
+      <Filter>Headers\Utils</Filter>
     </ClInclude>
     <ClInclude Include="MovingStraightObject.h">
       <Filter>Headers\SimulationObjects</Filter>
@@ -118,7 +116,7 @@
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="Persistence.h">
-      <Filter>Headers\Utility</Filter>
+      <Filter>Headers\Utils</Filter>
     </ClInclude>
     <ClInclude Include="PressurePlate.h">
       <Filter>Headers\SimulationObjects</Filter>
@@ -141,9 +139,6 @@
     <ClInclude Include="ObstaclesLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuUtils.h">
-      <Filter>Headers\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
@@ -152,6 +147,10 @@
     </ClInclude>
     <ClInclude Include="RepeatedCollisionTestLevel.h">
       <Filter>Headers\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeHelper.h" />
+    <ClInclude Include="MainMenuUtils.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +177,6 @@
     <Filter Include="Headers\General">
       <UniqueIdentifier>{ebb07b12-15c9-4b45-bc4c-10bf6b665bf2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Utility">
-      <UniqueIdentifier>{a8b72d00-09fb-42d0-aa94-da70f2b6a4c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Simulation">
       <UniqueIdentifier>{d30d73f0-056c-4c66-b806-9a400568a9de}</UniqueIdentifier>
     </Filter>
@@ -204,6 +200,9 @@
     </Filter>
     <Filter Include="Cpp\SimulationObjects">
       <UniqueIdentifier>{61118337-1f60-4a87-a20a-fbc8c8f98c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Utils">
+      <UniqueIdentifier>{a8b72d00-09fb-42d0-aa94-da70f2b6a4c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

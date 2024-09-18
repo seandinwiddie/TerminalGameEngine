@@ -26,8 +26,6 @@ int main()
     {
         AudioManager::Instance().StopMusic();
 
-        
-
         Level* level = MainMenuUtils::ShowLevelSelection();
         returnToMainMenu = false;
 
