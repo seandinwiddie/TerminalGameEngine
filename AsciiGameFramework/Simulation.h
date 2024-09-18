@@ -24,7 +24,6 @@ class Simulation : public Singleton<Simulation>
 //------------------------------------------------------------------------------------ Settings
 private:
 	const static uint STEPS_PER_FRAME = 8;
-	const static uint PREVENT_SCEEN_REFRESH_BEFORE_MILLISECONDS = 15;
 
 //------------------------------------------------------------------------------------ Fields
 	uint worldSizeX;

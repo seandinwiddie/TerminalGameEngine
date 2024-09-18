@@ -45,10 +45,6 @@ void Simulation::Step()
 		printFrameStep = 0;
 
 		TimeHelper::Instance().NotifyFrameGenerated();
-
-		double deltaTimeMilliseconds = TimeHelper::Instance().GetDeltaTime() * 1000;
-		if(deltaTimeMilliseconds < PREVENT_SCEEN_REFRESH_BEFORE_MILLISECONDS)
-			Sleep(PREVENT_SCEEN_REFRESH_BEFORE_MILLISECONDS - deltaTimeMilliseconds);
 	}
 }
 
