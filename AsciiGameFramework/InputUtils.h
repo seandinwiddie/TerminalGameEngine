@@ -3,15 +3,7 @@
 
 namespace InputUtils
 {
-	static bool IsAnyKeyPressed()
-	{
-		for (int i = 0; i < 256; ++i)
-			if (GetAsyncKeyState(i) & 0x8000)
-				return true;
-
-		return false;
-	}
-
+	static bool IsAnyKeyPressed();
 	static bool IsPressingSpace() { return GetAsyncKeyState(VK_SPACE) & 0x8000; }
 	static bool IsPressingA() { return GetAsyncKeyState(0x41) & 0x8000; }
 	static bool IsPressingD() { return GetAsyncKeyState(0x44) & 0x8000; }
@@ -20,4 +12,13 @@ namespace InputUtils
 	static bool IsPressing0() { return GetAsyncKeyState(0x30) & 0x8000; }
 	static bool IsPressing9() { return GetAsyncKeyState(0x39) & 0x8000; }
 	static bool IsPressingEsc() { return GetAsyncKeyState(0x1B) & 0x8000; }
+}
+
+bool InputUtils::IsAnyKeyPressed()
+{
+	for (int i = 0; i < 256; ++i)
+		if (GetAsyncKeyState(i) & 0x8000)
+			return true;
+
+	return false;
 }
