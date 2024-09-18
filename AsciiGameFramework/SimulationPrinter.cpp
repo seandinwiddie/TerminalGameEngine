@@ -156,7 +156,7 @@ void SimulationPrinter::ClearTerminal()
 #pragma region ======================================================================== DEBUG
 #if DEBUG_MODE
 
-void ScreenManager::DEBUG_PrintAverageFps(string& frameString)
+void SimulationPrinter::DEBUG_PrintAverageFps(string& frameString)
 {
     double fps = TimeHelper::Instance().GetFPS();
     fpsRecord.push_back(fps);
