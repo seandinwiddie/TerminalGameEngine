@@ -60,7 +60,7 @@ public:
 
 	const Level* GetActiveLevel() { return level; }
 
-	void ShowUIFrame(Frame UIMessage);
+	void ShowUIFrame(const Frame& UIMessage);
 
 	void Reset
 	(

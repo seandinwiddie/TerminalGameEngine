@@ -494,4 +494,4 @@ bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }
 
-void Simulation::ShowUIFrame(Frame UIMessage) { simulationPrinter->ShowUIFrame(UIMessage); }
+void Simulation::ShowUIFrame(const Frame& UIMessage) { simulationPrinter->ShowUIFrame(UIMessage); }

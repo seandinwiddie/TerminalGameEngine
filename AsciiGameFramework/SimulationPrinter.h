@@ -44,7 +44,7 @@ public:
 	void PrintObjectOnFrame(TransformObject* go);
 	void ClearFrame();
 
-	void ShowUIFrame(Frame UIMessage){ this->frameUIMessage = UIMessage; }
+	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }
 
 	uint GetScreenSizeX() const { return screenSizeX; }
 	uint GetScreenSizeY() const { return screenSizeY; }
