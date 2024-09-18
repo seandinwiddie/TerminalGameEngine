@@ -14,6 +14,7 @@ class Level;
 class SimulationPrinter;
 class CollidingObject;
 class SimulationObject;
+class Frame;
 
 class Simulation : public Singleton<Simulation>
 {
@@ -31,7 +32,7 @@ private:
 	uint screenPadding;
 	uint printFrameStep;
 	double levelStartedTime = 0;
-	SimulationPrinter* screenManager;
+	SimulationPrinter* simulationPrinter;
 	std::vector<std::vector<CollidingObject*>> gameSpace;
 	std::list<SimulationObject*> simulationObjects;
 	Level* level;
@@ -57,8 +58,9 @@ public:
 	bool IsInsideGameSpaceY(int yPos) const;
 	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 
-	const Level* GetLevel() { return level; }
-	SimulationPrinter* GetScreenManager() { return screenManager; }
+	const Level* GetActiveLevel() { return level; }
+
+	void ShowUIFrame(Frame UIMessage);
 
 	void Reset
 	(

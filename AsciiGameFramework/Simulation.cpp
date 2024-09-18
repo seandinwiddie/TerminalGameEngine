@@ -36,12 +36,12 @@ void Simulation::Step()
 		{
 			TransformObject* transformObj = dynamic_cast<TransformObject*>(obj);
 			if(transformObj != nullptr)
-				screenManager->PrintObjectOnFrame(transformObj);
+				simulationPrinter->PrintObjectOnFrame(transformObj);
 		}
 			
 
-		screenManager->ShowFrameInTerminal();
-		screenManager->ClearFrame();
+		simulationPrinter->ShowFrameInTerminal();
+		simulationPrinter->ClearFrame();
 		printFrameStep = 0;
 
 		TimeHelper::Instance().NotifyFrameGenerated();
@@ -456,9 +456,9 @@ const std::vector<string>& backgroundFileNames
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
 {
-	if (screenManager != nullptr)
-		delete(screenManager);
-	screenManager = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), screenPadding, showLevelTime, backgroundFileNames);
+	if (simulationPrinter != nullptr)
+		delete(simulationPrinter);
+	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), screenPadding, showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const
@@ -493,3 +493,5 @@ bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 {
 	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }
+
+void Simulation::ShowUIFrame(Frame UIMessage) { simulationPrinter->ShowUIFrame(UIMessage); }

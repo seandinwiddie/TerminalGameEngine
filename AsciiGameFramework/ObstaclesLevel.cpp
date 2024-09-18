@@ -35,7 +35,7 @@ void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameEndUIMessage.ReplaceChar(message, '$');
 
-    Simulation::Instance().GetScreenManager()->SetUIMessage(gameEndUIMessage);
+    Simulation::Instance().ShowUIFrame(gameEndUIMessage);
 }
 
 void ObstaclesLevel::OnGameOver()
@@ -55,9 +55,7 @@ void ObstaclesLevel::Load()
     Simulation& simulation = Simulation::Instance();
     simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
 
-    const SimulationPrinter* screenManager = simulation.GetScreenManager();
-
-    gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", screenManager->GetScreenSizeX(), screenManager->GetScreenSizeY());
+    gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);

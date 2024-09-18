@@ -47,7 +47,7 @@ void SimulationPrinter::ShowFrameInTerminal()
 
     if (showTimeUI)
     {
-        double runTime = Simulation::Instance().GetLevel()->GetLevelTime();
+        double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
