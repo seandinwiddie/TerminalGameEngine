@@ -1,6 +1,6 @@
 #include "Level.h"
 
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 #include "InputUtils.h"
 
 double Level:: GetLevelTime() const
@@ -8,14 +8,14 @@ double Level:: GetLevelTime() const
     if (IsGameOver())
         return gameOverTime - levelStartedTime;
     else
-        return TimeUtils::Instance().GetTime() - levelStartedTime;
+        return TimeHelper::Instance().GetTime() - levelStartedTime;
 }
 
 void Level::Load()
 {
     isTerminated = false;
     gameOverTime = -1;
-    levelStartedTime = TimeUtils::Instance().GetTime();
+    levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnGameOverDelayEnded = false;
 }
 
@@ -23,14 +23,14 @@ bool Level::IsPostGameOverDelayEnded() const
 {
     return
         gameOverTime > 0 &&
-        TimeUtils::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() &&
+        TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() &&
         hasCalledOnGameOverDelayEnded == false;
 }
 
 bool Level::CanPlayerPressKeyToRestartGame() const
 {
     return  
-        TimeUtils::Instance().GetTime() - gameOverTime > 
+        TimeHelper::Instance().GetTime() - gameOverTime > 
         ShowGameOverScreenDelay() + SECONDS_PLAYER_MUST_WAIT_BEFORE_RESTARTING_PRESSING_ANY_KEY;
 }
 
@@ -39,7 +39,7 @@ void Level::OnGameOver()
     if (IsGameOver())
         return;
 
-    gameOverTime = TimeUtils::Instance().GetTime();
+    gameOverTime = TimeHelper::Instance().GetTime();
 }
 
 void Level::Update()

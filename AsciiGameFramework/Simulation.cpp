@@ -5,7 +5,7 @@
 #include "ISimulationObject.h"
 #include "TransformObject.h"
 #include "Level.h"
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 
 #include <Windows.h>
 #include <cassert>
@@ -44,9 +44,9 @@ void Simulation::Step()
 		screenManager->ClearFrame();
 		printFrameStep = 0;
 
-		TimeUtils::Instance().NotifyFrameGenerated();
+		TimeHelper::Instance().NotifyFrameGenerated();
 
-		double deltaTimeMilliseconds = TimeUtils::Instance().GetDeltaTime() * 1000;
+		double deltaTimeMilliseconds = TimeHelper::Instance().GetDeltaTime() * 1000;
 		if(deltaTimeMilliseconds < PREVENT_SCEEN_REFRESH_BEFORE_MILLISECONDS)
 			Sleep(PREVENT_SCEEN_REFRESH_BEFORE_MILLISECONDS - deltaTimeMilliseconds);
 	}
@@ -451,7 +451,7 @@ const std::vector<string>& backgroundFileNames
 	}
 
 	printFrameStep = 0;
-	levelStartedTime = TimeUtils::Instance().GetTime();
+	levelStartedTime = TimeHelper::Instance().GetTime();
 }
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)

@@ -68,7 +68,7 @@ void Bunny::Update()
     if (state == State::walking && GetPosX() != previousPositionX)
     {
         previousPositionX = GetPosX();
-        bool isTimeForLeftModel = TimeUtils::Instance().IsTimeForFirstOfTwoModels(STEP_ANIM_EVERY_SECONDS);
+        bool isTimeForLeftModel = TimeHelper::Instance().IsTimeForFirstOfTwoModels(STEP_ANIM_EVERY_SECONDS);
         jumpingModel = isTimeForLeftModel ? jumpLeftModel : jumpRightModel;
         idleModel = isTimeForLeftModel ? idleModelLeft : idleModelRight;
         walkingModel = isTimeForLeftModel ? walkLeftModel : walkRightModel;
@@ -109,8 +109,8 @@ void Bunny::UpdateModel()
 
 void Bunny::HandleIdleWalkState()
 {
-    auto debugTime = TimeUtils::Instance().GetTime();
-    if (TimeUtils::Instance().GetTime() - lastTimeMovedOnX > 0.2)
+    auto debugTime = TimeHelper::Instance().GetTime();
+    if (TimeHelper::Instance().GetTime() - lastTimeMovedOnX > 0.2)
     {
         if (state == State::walking)
             SetState(State::idle);
@@ -210,7 +210,7 @@ void Bunny::Move(Direction direction, float moveSpeed)
 {
     TransformObject::Move(direction, moveSpeed);
     if (direction == Direction::right || direction == Direction::left)
-        lastTimeMovedOnX = TimeUtils::Instance().GetTime();
+        lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }
 
 void Bunny::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)

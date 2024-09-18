@@ -1,7 +1,7 @@
 #include "ObstaclesSpawner.h"
 #include "Obstacle.h"
 #include "Simulation.h"
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 #include "RandomUtils.h"
 
 ObstaclesSpawner::ObstaclesSpawner
@@ -25,12 +25,12 @@ ObstaclesSpawner::ObstaclesSpawner
 {
     assert(maxSpawnDelays.size() == speeds.size());
     spawnNextProjectileTime = GetNextSpawnObstacleTime();
-    lastTimeIncreasedIntensity = TimeUtils::Instance().GetTime();
+    lastTimeIncreasedIntensity = TimeHelper::Instance().GetTime();
 }
 
 void ObstaclesSpawner::Update()
 {
-    double time = TimeUtils::Instance().GetTime();
+    double time = TimeHelper::Instance().GetTime();
     if (time >= spawnNextProjectileTime)
     {
         TryIncreaseIntensity(time);
@@ -58,5 +58,5 @@ void ObstaclesSpawner::TryIncreaseIntensity(float time)
 
 float ObstaclesSpawner::GetNextSpawnObstacleTime() const
 {
-    return TimeUtils::Instance().GetTime() +RandomUtils::GetRandomFloatBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
+    return TimeHelper::Instance().GetTime() +RandomUtils::GetRandomFloatBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
 }

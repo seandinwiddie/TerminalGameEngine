@@ -158,7 +158,7 @@
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="StaticCollider.h" />
-    <ClCompile Include="TimeUtils.cpp" />
+    <ClCompile Include="TimeHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h" />
@@ -182,7 +182,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ISimulationObject.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="TimeUtils.h" />
+    <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstaclesSpawner.h" />
     <ClInclude Include="MovingStraightObject.h" />

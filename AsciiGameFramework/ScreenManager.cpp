@@ -4,7 +4,7 @@
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 
 #include "Windows.h"
 #include <cassert>
@@ -127,7 +127,7 @@ void ScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNa
 
 Frame ScreenManager::GetCurrentBackground()const
 {
-    return  TimeUtils::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
+    return  TimeHelper::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
 }
 
 void ScreenManager::ClearTerminal()
@@ -158,10 +158,10 @@ void ScreenManager::ClearTerminal()
 
 void ScreenManager::DEBUG_PrintAverageFps(string& frameString)
 {
-    double fps = TimeUtils::Instance().GetFPS();
+    double fps = TimeHelper::Instance().GetFPS();
     fpsRecord.push_back(fps);
 
-    if (TimeUtils::Instance().GetTime() - lastTimePrintedFps > REFRESH_FPS_EVERY_SECONDS)
+    if (TimeHelper::Instance().GetTime() - lastTimePrintedFps > REFRESH_FPS_EVERY_SECONDS)
     {
         shownAverageFps = 0;
 
@@ -173,7 +173,7 @@ void ScreenManager::DEBUG_PrintAverageFps(string& frameString)
             std::cout << "a";
 
         fpsRecord.clear();
-        lastTimePrintedFps = TimeUtils::Instance().GetTime();
+        lastTimePrintedFps = TimeHelper::Instance().GetTime();
     }
 
     frameString += "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';

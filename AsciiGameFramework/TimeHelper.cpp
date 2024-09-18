@@ -1,15 +1,15 @@
 #pragma once
 
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 
-void TimeUtils::NotifyFrameGenerated()
+void TimeHelper::NotifyFrameGenerated()
 {
     double currentTime = GetTime();
     deltaTime = currentTime - lastTimeFrameGenerated;
     lastTimeFrameGenerated = currentTime;
 }
 
-bool TimeUtils::IsTimeForFirstOfTwoModels(float changeModelEverySeconds) const
+bool TimeHelper::IsTimeForFirstOfTwoModels(float changeModelEverySeconds) const
 {
     double time = GetTime();
 
@@ -19,7 +19,7 @@ bool TimeUtils::IsTimeForFirstOfTwoModels(float changeModelEverySeconds) const
     return fmod(time, changeModelEverySeconds) < changeModelEverySeconds / 2;
 }
 
-double TimeUtils::GetTime() const
+double TimeHelper::GetTime() const
 {
     // Get the current time
     TimePoint now = std::chrono::high_resolution_clock::now();

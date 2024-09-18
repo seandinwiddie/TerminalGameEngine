@@ -1,5 +1,5 @@
 #include "TransformObject.h"
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 #include "Simulation.h"
 
 TransformObject::TransformObject(int xPos, int yPos) : 
@@ -35,7 +35,7 @@ void TransformObject::Move(Direction direction, float moveSpeed)
 	if (canMove == false)
 		return;
 
-	double deltaTime = TimeUtils::Instance().GetDeltaTime();
+	double deltaTime = TimeHelper::Instance().GetDeltaTime();
 	switch (direction)
 	{
 	case Direction::up:
@@ -57,7 +57,7 @@ void TransformObject::Move(Direction direction, float moveSpeed)
 		if (round(xPosContinuous) != xPos)
 		{
 			if (Simulation::Instance().TryMoveAtDirection(this, direction))
-				lastTimeMovedInGrid = TimeUtils::Instance().GetTime();
+				lastTimeMovedInGrid = TimeHelper::Instance().GetTime();
 
 			xPosContinuous = xPos;
 		}
@@ -67,7 +67,7 @@ void TransformObject::Move(Direction direction, float moveSpeed)
 		if (round(yPosContinuous) != yPos)
 		{
 			if (Simulation::Instance().TryMoveAtDirection(this, direction))
-				lastTimeMovedInGrid = TimeUtils::Instance().GetTime();
+				lastTimeMovedInGrid = TimeHelper::Instance().GetTime();
 
 			yPosContinuous = yPos;
 		}

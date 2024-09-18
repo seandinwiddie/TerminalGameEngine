@@ -4,7 +4,7 @@
 #include "CollidingObject.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
-#include "TimeUtils.h"
+#include "TimeHelper.h"
 #include "Obstacle.h"
 #include "Simulation.h"
 

@@ -6,7 +6,7 @@
 
 using TimePoint = std::chrono::steady_clock::time_point;
 
-class TimeUtils : public Singleton<TimeUtils>
+class TimeHelper : public Singleton<TimeHelper>
 {
     friend class Singleton;
 
@@ -26,5 +26,5 @@ public:
     double GetTime() const;
 
 private:
-    TimeUtils() {startTime = std::chrono::high_resolution_clock::now(); }
+    TimeHelper() {startTime = std::chrono::high_resolution_clock::now(); }
 };
