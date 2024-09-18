@@ -1,7 +1,7 @@
 #include "Simulation.h"
 
 #include "CollidingObject.h"
-#include "SimulationScreenManager.h"
+#include "SimulationPrinter.h"
 #include "ISimulationObject.h"
 #include "TransformObject.h"
 #include "Level.h"
@@ -36,11 +36,11 @@ void Simulation::Step()
 		{
 			TransformObject* transformObj = dynamic_cast<TransformObject*>(obj);
 			if(transformObj != nullptr)
-				screenManager->InsertGameObject(transformObj);
+				screenManager->PrintObjectOnFrame(transformObj);
 		}
 			
 
-		screenManager->PrintFrameOnTerminal();
+		screenManager->ShowFrameInTerminal();
 		screenManager->ClearFrame();
 		printFrameStep = 0;
 
@@ -458,7 +458,7 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 {
 	if (screenManager != nullptr)
 		delete(screenManager);
-	screenManager = new SimulationScreenManager(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
+	screenManager = new SimulationPrinter(worldSizeX, worldSizeY, screenPadding, showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const

@@ -1,7 +1,7 @@
 #include "ObstaclesLevel.h"
 
 #include "Simulation.h"
-#include "SimulationScreenManager.h"
+#include "SimulationPrinter.h"
 #include "StaticCollider.h"
 #include "Persistence.h"
 #include "InputUtils.h"
@@ -55,7 +55,7 @@ void ObstaclesLevel::Load()
     Simulation& simulation = Simulation::Instance();
     simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
 
-    const SimulationScreenManager* screenManager = simulation.GetScreenManager();
+    const SimulationPrinter* screenManager = simulation.GetScreenManager();
 
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", screenManager->GetScreenSizeX(), screenManager->GetScreenSizeY());
 

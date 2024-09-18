@@ -73,7 +73,7 @@
     <ClCompile Include="TimeHelper.cpp">
       <Filter>Cpp\Managers/Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationScreenManager.cpp">
+    <ClCompile Include="SimulationPrinter.cpp">
       <Filter>Cpp\Simulation</Filter>
     </ClCompile>
   </ItemGroup>
@@ -153,7 +153,7 @@
     <ClInclude Include="GridDirection.h">
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationScreenManager.h">
+    <ClInclude Include="SimulationPrinter.h">
       <Filter>Headers\Simulation</Filter>
     </ClInclude>
   </ItemGroup>

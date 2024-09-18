@@ -9,7 +9,7 @@ using string = std::string;
 
 class TransformObject;
 
-class SimulationScreenManager
+class SimulationPrinter
 {
 //---------------------------------------------------------- Settings
 private:
@@ -29,7 +29,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	SimulationScreenManager
+	SimulationPrinter
 	(
 		uint worldSizeX,
 		uint worldSizeY,
@@ -38,16 +38,19 @@ public:
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
-	void PrintFrameOnTerminal();
+	void ShowFrameInTerminal();
 	static void ClearTerminal();
-	void InsertGameObject(TransformObject* go);
+
+	void PrintObjectOnFrame(TransformObject* go);
 	void ClearFrame();
-	uint GetScreenSizeX() const { return screenSizeX; }
-	uint GetScreenSizeY() const { return screenSizeY; }
+
 	void SetUIMessage(Frame UIMessage){ this->frameUIMessage = UIMessage; }
 
+	uint GetScreenSizeX() const { return screenSizeX; }
+	uint GetScreenSizeY() const { return screenSizeY; }
+
 private:
-	void InsertUIMessageOverFrame();
+	void PrintUIMessageOnFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
 	Frame GetCurrentBackground() const;
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }

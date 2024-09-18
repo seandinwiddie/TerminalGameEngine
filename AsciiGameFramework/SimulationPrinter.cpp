@@ -1,4 +1,4 @@
-#include "SimulationScreenManager.h"
+#include "SimulationPrinter.h"
 
 #include "TransformObject.h"
 #include "Simulation.h"
@@ -9,7 +9,7 @@
 #include "Windows.h"
 #include <cassert>
 
-SimulationScreenManager::SimulationScreenManager
+SimulationPrinter::SimulationPrinter
 (
     uint worldSizeX, 
     uint worldSizeY, 
@@ -37,7 +37,7 @@ SimulationScreenManager::SimulationScreenManager
 #endif
 }
 
-void SimulationScreenManager::PrintFrameOnTerminal()
+void SimulationPrinter::ShowFrameInTerminal()
 {
     string frameString = "";
 
@@ -51,7 +51,7 @@ void SimulationScreenManager::PrintFrameOnTerminal()
         frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
-    InsertUIMessageOverFrame();
+    PrintUIMessageOnFrame();
 
     // add frame
     for (int m = screenSizeY - 1; m >= 0; --m)
@@ -65,7 +65,7 @@ void SimulationScreenManager::PrintFrameOnTerminal()
     std::cout << frameString;
 }
 
-void SimulationScreenManager::InsertUIMessageOverFrame()
+void SimulationPrinter::PrintUIMessageOnFrame()
 {
     if (frameUIMessage.GetSizeY() == 0)
         return;
@@ -79,7 +79,7 @@ void SimulationScreenManager::InsertUIMessageOverFrame()
         }
 }
 
-void SimulationScreenManager::InsertGameObject(TransformObject* go)
+void SimulationPrinter::PrintObjectOnFrame(TransformObject* go)
 {
     std::vector<std::vector<char>> model = go->GetModel();
     if (model[0].size() == 0)
@@ -97,7 +97,7 @@ void SimulationScreenManager::InsertGameObject(TransformObject* go)
         }
 }
 
-void SimulationScreenManager::ClearFrame()
+void SimulationPrinter::ClearFrame()
 {
     for (int m = 0; m < screenSizeY; ++m)
     {
@@ -111,7 +111,7 @@ void SimulationScreenManager::ClearFrame()
     }
 }
 
-void SimulationScreenManager::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
+void SimulationPrinter::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
 {
     if (backgroundFilesNames.size() == 0)
     {
@@ -125,12 +125,12 @@ void SimulationScreenManager::InitBackgrounds(const std::vector<string>& backgro
         backgrounds[i].ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY);
 }
 
-Frame SimulationScreenManager::GetCurrentBackground()const
+Frame SimulationPrinter::GetCurrentBackground()const
 {
     return  TimeHelper::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
 }
 
-void SimulationScreenManager::ClearTerminal()
+void SimulationPrinter::ClearTerminal()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { 0, 0 };  // Top left corner
