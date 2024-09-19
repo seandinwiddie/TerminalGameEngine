@@ -7,20 +7,24 @@
 #include "AudioManager.h"
 #include "RepeatedCollisionTestLevel.h"
 
-//void FastCollisionsTest()
-//{
-//        RepeatedCollisionTestLevel level;
-//        level.Load();
-//        while (true)
-//            Simulation::Instance().Step();
-//}
+void ObjectPushingAnotherTest()
+{
+        RepeatedCollisionTestLevel level;
+        level.Load();
+        while (true)
+            Simulation::Instance().Step();
+}
 
 int main()
 {
     system("COLOR 0A");
+    AudioManager::Instance().StopMusic();
 
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
+
+    //ObjectPushingAnotherTest();
+    //return 0;
 
     while (true)
     {

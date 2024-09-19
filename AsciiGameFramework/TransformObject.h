@@ -21,7 +21,6 @@ private:
 
 protected:
 	bool canMove = true;
-	float lastTimeMovedInGrid = 0;
 	std::vector<std::vector<char>> model = { {} };
 
 //---------------------------------------------------------- Methods
@@ -45,10 +44,12 @@ public:
 	virtual float GetGravityScale() const = 0;
 
 protected:
-	virtual void Move(Direction direction, float moveSpeed);
+	virtual void MoveContinuous(Direction direction, float moveSpeed);
 	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
 
 private:
+	//must only be called from simulation
+	void SIM_MoveDiscrete(Direction direction);
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 };

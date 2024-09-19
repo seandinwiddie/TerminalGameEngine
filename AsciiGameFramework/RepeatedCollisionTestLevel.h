@@ -23,7 +23,7 @@ public:
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, {});
 
-        Obstacle* obstacleSlow = new Obstacle(90,5, Direction::left, 1);
+        Obstacle* obstacleSlow = new Obstacle(50,5, Direction::left, 1);
         Simulation::Instance().TryAddGameObject(dynamic_cast<TransformObject*>(obstacleSlow));
 
         Obstacle* obstacleFast = new Obstacle(95, 5, Direction::left, 8);

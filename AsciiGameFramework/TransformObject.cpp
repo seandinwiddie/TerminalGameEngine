@@ -25,12 +25,12 @@ void TransformObject::Update()
 	if (gravityScale == 0)
 		return;
 	if (gravityScale > 0)
-		Move(Direction::down, gravityScale);
+		MoveContinuous(Direction::down, gravityScale);
 	else
-		Move(Direction::up, gravityScale);
+		MoveContinuous(Direction::up, gravityScale);
 }
 
-void TransformObject::Move(Direction direction, float moveSpeed)
+void TransformObject::MoveContinuous(Direction direction, float moveSpeed)
 {
 	if (canMove == false)
 		return;
@@ -55,22 +55,33 @@ void TransformObject::Move(Direction direction, float moveSpeed)
 	if (direction == Direction::left || direction == Direction::right)
 	{
 		if (round(xPosContinuous) != xPos)
-		{
-			if (Simulation::Instance().TryMoveAtDirection(this, direction))
-				lastTimeMovedInGrid = TimeHelper::Instance().GetTime();
-
-			xPosContinuous = xPos;
-		}
+			Simulation::Instance().RequestDiscreteMovement(this, direction, moveSpeed);
 	}
-	else
-	{
-		if (round(yPosContinuous) != yPos)
-		{
-			if (Simulation::Instance().TryMoveAtDirection(this, direction))
-				lastTimeMovedInGrid = TimeHelper::Instance().GetTime();
+	else if (round(yPosContinuous) != yPos)
+		Simulation::Instance().RequestDiscreteMovement(this, direction, moveSpeed);
+}
 
-			yPosContinuous = yPos;
-		}
+//todo discrete position could be saved inside simulation so objects cannot modify it
+void TransformObject::SIM_MoveDiscrete(Direction direction)
+{
+	switch (direction)
+	{
+	case Direction::up:
+		++yPos;
+		yPosContinuous = yPos;
+		break;
+	case Direction::down:
+		--yPos;
+		yPosContinuous = yPos;
+		break;
+	case Direction::right:
+		++xPos;
+		xPosContinuous = xPos;
+		break;
+	case Direction::left:
+		--xPos;
+		xPosContinuous = xPos;
+		break;
 	}
 }
 
