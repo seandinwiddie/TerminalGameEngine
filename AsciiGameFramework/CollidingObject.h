@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TransformObject.h"
+#include "GameObject.h"
 
-class CollidingObject : public TransformObject
+class CollidingObject : public GameObject
 {
 	friend class Simulation;
 
@@ -12,7 +12,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	CollidingObject(int xPos, int yPos) : TransformObject(xPos, yPos) {};
+	CollidingObject(int xPos, int yPos) : GameObject(xPos, yPos) {};
 
 private:
 	//called by simulation

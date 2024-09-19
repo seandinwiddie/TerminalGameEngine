@@ -59,11 +59,11 @@ void ObstaclesLevel::Load()
 
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
-    Simulation::Instance().TryAddGameObject(bunny);
+    Simulation::Instance().TryAddObject(bunny);
 
     //------------------------------- floor setup
     StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
-    simulation.TryAddGameObject(floor);
+    simulation.TryAddObject(floor);
 
     //------------------------------- spawner setup
     int spawnerPosX = WORLD_SIZE_X - SCREEN_PADDING;
@@ -114,6 +114,6 @@ void ObstaclesLevel::Load()
         ySpawnPoints
     );
 
-    simulation.TryAddGameObject(spawner);
+    simulation.TryAddObject(spawner);
     AudioManager::Instance().PlayRandomMusic();
 }

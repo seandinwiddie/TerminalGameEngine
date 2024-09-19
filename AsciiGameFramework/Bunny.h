@@ -63,7 +63,7 @@ public:
     virtual float GetGravityScale() const override;
 
 protected:
-    virtual void MoveContinuous(Direction direction, float moveSpeed) override;
+    virtual void Move(Direction direction, float moveSpeed) override;
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
 

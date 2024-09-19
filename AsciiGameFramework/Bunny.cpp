@@ -144,7 +144,7 @@ void  Bunny::HandleVerticalMovement()
     case State::jumpingUp:
         if (isPressingSpace)
         {
-            MoveContinuous(Direction::up, MOVE_UP_SPEED);
+            Move(Direction::up, MOVE_UP_SPEED);
         }
         else
         {
@@ -168,9 +168,9 @@ void Bunny::HandleHorizontalMovement()
         return;
 
     if (isPressingA)
-        MoveContinuous(Direction::left, SIDE_MOVEMENT_SPEED);
+        Move(Direction::left, SIDE_MOVEMENT_SPEED);
     if (isPressingD)
-        MoveContinuous(Direction::right, SIDE_MOVEMENT_SPEED);
+        Move(Direction::right, SIDE_MOVEMENT_SPEED);
 }
 
 void Bunny::SetState(State newState)
@@ -206,9 +206,9 @@ float Bunny::GetGravityScale() const
     return MOVE_DOWN_SPEED;
 }
 
-void Bunny::MoveContinuous(Direction direction, float moveSpeed)
+void Bunny::Move(Direction direction, float moveSpeed)
 {
-    TransformObject::MoveContinuous(direction, moveSpeed);
+    GameObject::Move(direction, moveSpeed);
     if (direction == Direction::right || direction == Direction::left)
         lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }

@@ -2,20 +2,22 @@
 
 #include "Config.h"
 #include "GridDirection.h"
-#include "ISimulationObject.h"
+#include "ISimulationUpdatable.h"
 #include <vector>
 
 using namespace GridDirection;
 
-class TransformObject : public SimulationObject
+class GameObject : public ISimulationUpdatable
 {
 //---------------------------------------------------------- Fields
 public:
 	friend class Simulation;
 
 private:
+	//must be modified only by simulation
 	int xPos;
 	int yPos;
+
 	float xPosContinuous;
 	float yPosContinuous;
 
@@ -25,7 +27,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	TransformObject(int xPos, int yPos);
+	GameObject(int xPos, int yPos);
 
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
@@ -44,12 +46,10 @@ public:
 	virtual float GetGravityScale() const = 0;
 
 protected:
-	virtual void MoveContinuous(Direction direction, float moveSpeed);
+	virtual void Move(Direction direction, float moveSpeed);
 	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
 
 private:
-	//must only be called from simulation
-	void SIM_MoveDiscrete(Direction direction);
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 };

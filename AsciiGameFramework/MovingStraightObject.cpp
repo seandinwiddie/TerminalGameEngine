@@ -11,5 +11,5 @@ void MovingStraightObject::Update()
 	CollidingObject::Update();
 
 	if (canMove)
-		MoveContinuous(moveDirection, moveSpeed);
+		Move(moveDirection, moveSpeed);
 }

@@ -143,7 +143,7 @@
     <ClCompile Include="MainMenuUtils.cpp" />
     <ClCompile Include="ObstaclesLevel.cpp" />
     <ClCompile Include="PuzzleLevel.cpp" />
-    <ClCompile Include="TransformObject.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelEndFlag.cpp" />
     <ClCompile Include="LevelEndFlag.h" />
@@ -168,7 +168,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="RepeatedCollisionTestLevel.h" />
-    <ClInclude Include="TransformObject.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Level.h" />
@@ -181,7 +181,7 @@
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="ISimulationObject.h" />
+    <ClInclude Include="ISimulationUpdatable.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />

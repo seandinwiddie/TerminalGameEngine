@@ -1,6 +1,6 @@
 #include "SimulationPrinter.h"
 
-#include "TransformObject.h"
+#include "GameObject.h"
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"
@@ -79,7 +79,7 @@ void SimulationPrinter::PrintUIMessageOnFrame()
         }
 }
 
-void SimulationPrinter::PrintObjectOnFrame(TransformObject* go)
+void SimulationPrinter::PrintObjectOnFrame(GameObject* go)
 {
     std::vector<std::vector<char>> model = go->GetModel();
     if (model[0].size() == 0)

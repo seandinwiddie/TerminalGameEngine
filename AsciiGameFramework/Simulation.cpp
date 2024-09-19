@@ -2,8 +2,8 @@
 
 #include "CollidingObject.h"
 #include "SimulationPrinter.h"
-#include "ISimulationObject.h"
-#include "TransformObject.h"
+#include "ISimulationUpdatable.h"
+#include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
 
@@ -11,7 +11,7 @@
 #include <cassert>
 
 
-void Simulation::RequestDiscreteMovement(TransformObject* object, Direction direction, float speed)
+void Simulation::RequestMovement(GameObject* object, Direction direction, float speed)
 {
 	MoveRequest request(object, direction, speed);
 
@@ -51,11 +51,11 @@ void Simulation::Step()
 	//---------------- print frame
 	if (++printFrameStep == STEPS_PER_FRAME)
 	{
-		for (SimulationObject* obj : simulationObjects)
+		for (ISimulationUpdatable* simUpdatable : simulationObjects)
 		{
-			TransformObject* transformObj = dynamic_cast<TransformObject*>(obj);
-			if(transformObj != nullptr)
-				simulationPrinter->PrintObjectOnFrame(transformObj);
+			GameObject* obj = dynamic_cast<GameObject*>(simUpdatable);
+			if(obj != nullptr)
+				simulationPrinter->PrintObjectOnFrame(obj);
 		}
 			
 
@@ -117,7 +117,7 @@ bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint h
 	return true;
 }
 
-bool Simulation::TryAddGameObject(TransformObject* obj)
+bool Simulation::TryAddObject(GameObject* obj)
 {
 	if (CanObjectBeAdded(obj) == false)
 		return false;
@@ -135,7 +135,7 @@ bool Simulation::TryAddGameObject(TransformObject* obj)
 	return true;
 }
 
-bool Simulation::CanObjectBeAdded(const TransformObject* obj) const
+bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 {
 	if (IsInSimulation(obj))
 		return false;
@@ -153,16 +153,16 @@ bool Simulation::CanObjectBeAdded(const TransformObject* obj) const
 	return true;
 }
 
-bool Simulation::IsInSimulation(const SimulationObject* obj) const
+bool Simulation::IsInSimulation(const ISimulationUpdatable* obj) const
 {
-	for (SimulationObject* simulationObj : simulationObjects)
+	for (ISimulationUpdatable* simulationObj : simulationObjects)
 		if (obj == simulationObj)
 			return true;
 
 	return false;
 }
 
-bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
+bool Simulation::TryMoveAtDirection(GameObject* obj, Direction direction)
 {
 	assert(IsInSimulation(obj));
 
@@ -175,7 +175,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 		if (outOtherObj == nullptr)
 		{
 			if(obj->CanExitScreenSpace())
-				RemoveGameObject(obj);
+				RemoveObject(obj);
 			else
 				collidingObj->NotifyCollision(nullptr, direction); //notify collision with screen margin
 		}
@@ -205,7 +205,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[yClear][x] = nullptr;
 				}
 			}
-			obj->SIM_MoveDiscrete(direction);
+			MoveObject(obj, direction);
 			break;
 		}
 		case Direction::down:
@@ -220,7 +220,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[yClear][x] = nullptr;
 				}
 			}
-			obj->SIM_MoveDiscrete(direction);
+			MoveObject(obj, direction);
 			break;
 		}
 		case Direction::right:
@@ -235,7 +235,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[y][xClear] = nullptr;
 				}
 			}
-			obj->SIM_MoveDiscrete(direction);
+			MoveObject(obj, direction);
 			break;
 		}
 
@@ -251,7 +251,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[y][xClear] = nullptr;
 				}
 			}
-			obj->SIM_MoveDiscrete(direction);
+			MoveObject(obj, direction);
 			break;
 		}
 
@@ -261,7 +261,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 
 bool Simulation::CanMoveAtDirection
 (
-	const TransformObject* obj,
+	const GameObject* obj,
 	Direction direction, 
 	CollidingObject*& outCollidingObject
 ) const
@@ -417,7 +417,7 @@ bool Simulation::CanMoveAtDirection
 	}
 }
 
-void Simulation::RemoveGameObject(TransformObject* obj)
+void Simulation::RemoveObject(GameObject* obj)
 {
 	assert(IsInSimulation(obj));
 
@@ -451,7 +451,7 @@ const std::vector<string>& backgroundFileNames
 	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
 	//clear simulation variables
-	for (SimulationObject* obj : simulationObjects)
+	for (ISimulationUpdatable* obj : simulationObjects)
 		delete(obj);
 	simulationObjects.clear();
 
@@ -468,6 +468,29 @@ const std::vector<string>& backgroundFileNames
 
 	printFrameStep = 0;
 	levelStartedTime = TimeHelper::Instance().GetTime();
+}
+
+void Simulation::MoveObject(GameObject* obj, Direction direction)
+{
+	switch (direction)
+	{
+	case Direction::up:
+		++obj->yPos;
+		obj->yPosContinuous = obj->yPos;
+		break;
+	case Direction::down:
+		--obj->yPos;
+		obj->yPosContinuous = obj->yPos;
+		break;
+	case Direction::right:
+		++obj->xPos;
+		obj->xPosContinuous = obj->xPos;
+		break;
+	case Direction::left:
+		--obj->xPos;
+		obj->xPosContinuous = obj->xPos;
+		break;
+	}
 }
 
 void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)

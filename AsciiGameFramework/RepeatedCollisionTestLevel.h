@@ -24,10 +24,10 @@ public:
         simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, {});
 
         Obstacle* obstacleSlow = new Obstacle(50,5, Direction::left, 1);
-        Simulation::Instance().TryAddGameObject(dynamic_cast<TransformObject*>(obstacleSlow));
+        Simulation::Instance().TryAddObject(dynamic_cast<GameObject*>(obstacleSlow));
 
         Obstacle* obstacleFast = new Obstacle(95, 5, Direction::left, 8);
-        Simulation::Instance().TryAddGameObject(dynamic_cast<TransformObject*>(obstacleFast));
+        Simulation::Instance().TryAddObject(dynamic_cast<GameObject*>(obstacleFast));
     }
 
     virtual double ShowGameOverScreenDelay()const { return 5; }

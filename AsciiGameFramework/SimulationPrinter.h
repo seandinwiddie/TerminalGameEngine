@@ -7,7 +7,7 @@
 
 using string = std::string;
 
-class TransformObject;
+class GameObject;
 
 class SimulationPrinter
 {
@@ -41,7 +41,7 @@ public:
 	void ShowFrameInTerminal();
 	static void ClearTerminal();
 
-	void PrintObjectOnFrame(TransformObject* go);
+	void PrintObjectOnFrame(GameObject* go);
 	void ClearFrame();
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }

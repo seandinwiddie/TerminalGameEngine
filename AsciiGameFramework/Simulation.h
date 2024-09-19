@@ -5,7 +5,6 @@
 #include "Singleton.h"
 #include <list>
 #include <vector>
-//#include <string>
 
 using namespace GridDirection;
 using string = std::string;
@@ -13,22 +12,22 @@ using string = std::string;
 class Level;
 class SimulationPrinter;
 class CollidingObject;
-class SimulationObject;
+class ISimulationUpdatable;
 class Frame;
 
 class Simulation : public Singleton<Simulation>
 {
 	friend class Singleton;
-	friend class TransformObject;
+	friend class GameObject;
 	friend class CollidingObject;
 
 	struct MoveRequest
 	{
-		TransformObject* object;
+		GameObject* object;
 		Direction direction;
 		float speed;
 
-		MoveRequest(TransformObject* object, Direction direction, float speed)
+		MoveRequest(GameObject* object, Direction direction, float speed)
 			:object(object),direction(direction), speed(speed){}
 	};
 
@@ -48,14 +47,14 @@ private:
 	Level* level;
 
 	std::vector<std::vector<CollidingObject*>> gameSpace;
-	std::list<SimulationObject*> simulationObjects;
+	std::list<ISimulationUpdatable*> simulationObjects;
 	std::list<MoveRequest> moveRequests;
 //------------------------------------------------------------------------------------ Methods
 public:
 	void Step();
-	bool TryAddGameObject(TransformObject* obj);
-	void RequestDiscreteMovement(TransformObject* obj, Direction direction, float speed);
-	void RemoveGameObject(TransformObject* obj);
+	bool TryAddObject(GameObject* obj);
+	void RequestMovement(GameObject* obj, Direction direction, float speed);
+	void RemoveObject(GameObject* obj);
 
 	uint GetWorldSizeX() const { return worldSizeX; }
 	uint GetWorldSizeY() const { return worldSizeY; }
@@ -86,12 +85,14 @@ public:
 	);
 
 private:
-	bool TryMoveAtDirection(TransformObject* obj, Direction direction);
-	bool CanObjectBeAdded(const TransformObject* obj) const;
-	bool IsInSimulation(const SimulationObject* obj) const;
-	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
+
+	bool TryMoveAtDirection(GameObject* obj, Direction direction);
+	bool CanObjectBeAdded(const GameObject* obj) const;
+	bool IsInSimulation(const ISimulationUpdatable* obj) const;
+	bool CanMoveAtDirection(const GameObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
 	
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
+	void MoveObject(GameObject* obj, Direction direction);
 };

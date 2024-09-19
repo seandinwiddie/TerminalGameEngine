@@ -10,7 +10,7 @@ void PushableObject::OnCollisionEnter(CollidingObject* other, Direction collisio
 {
     if (collisionDirection == Direction::right || collisionDirection == Direction::left)
     {
-        MoveContinuous(GetInverseDirection(collisionDirection), 9999);
+        Move(GetInverseDirection(collisionDirection), 9999);
         collidingDirections[static_cast<int>(collisionDirection)] = false;
     }
     else if (dynamic_cast<Bunny*>(other) == nullptr)

@@ -61,7 +61,7 @@
     <ClCompile Include="Simulation.cpp">
       <Filter>Cpp\Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="TransformObject.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Cpp\SimulationObjects</Filter>
     </ClCompile>
     <ClCompile Include="ObstaclesLevel.cpp">
@@ -87,7 +87,7 @@
     <ClInclude Include="CollidingObject.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
-    <ClInclude Include="TransformObject.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
@@ -132,7 +132,7 @@
     <ClInclude Include="ObstaclesLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="ISimulationObject.h">
+    <ClInclude Include="ISimulationUpdatable.h">
       <Filter>Headers\SimulationObjects</Filter>
     </ClInclude>
     <ClInclude Include="RepeatedCollisionTestLevel.h">

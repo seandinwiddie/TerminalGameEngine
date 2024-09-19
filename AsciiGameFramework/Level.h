@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ISimulationObject.h"
+#include "ISimulationUpdatable.h"
 #include <vector>
 #include "Frame.h"
 
-class Level : public SimulationObject
+class Level : public ISimulationUpdatable
 {
     friend class Simulation;
 

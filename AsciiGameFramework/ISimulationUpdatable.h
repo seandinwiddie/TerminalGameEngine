@@ -1,6 +1,6 @@
 #pragma once
 
-class SimulationObject
+class ISimulationUpdatable
 {
 	friend class Simulation;
 

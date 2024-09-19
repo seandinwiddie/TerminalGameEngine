@@ -1,7 +1,7 @@
 #pragma once
-#include "TransformObject.h"
+#include "GameObject.h"
 
-class ObstaclesSpawner : public TransformObject
+class ObstaclesSpawner : public GameObject
 {
 //---------------------------------------------------------- Fields
 private:

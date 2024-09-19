@@ -1,8 +1,8 @@
-#include "TransformObject.h"
+#include "GameObject.h"
 #include "TimeHelper.h"
 #include "Simulation.h"
 
-TransformObject::TransformObject(int xPos, int yPos) : 
+GameObject::GameObject(int xPos, int yPos) : 
 	xPos(xPos), 
 	yPos(yPos), 
 	xPosContinuous(xPos), 
@@ -11,7 +11,7 @@ TransformObject::TransformObject(int xPos, int yPos) :
 	ResetPartialMovement();
 }
 
-uint TransformObject::GetModelWidth() const
+uint GameObject::GetModelWidth() const
 {
 	if (model.size() == 0)
 		return 0;
@@ -19,18 +19,18 @@ uint TransformObject::GetModelWidth() const
 	return model[0].size();
 }
 
-void TransformObject::Update()
+void GameObject::Update()
 {
 	float gravityScale = GetGravityScale();
 	if (gravityScale == 0)
 		return;
 	if (gravityScale > 0)
-		MoveContinuous(Direction::down, gravityScale);
+		Move(Direction::down, gravityScale);
 	else
-		MoveContinuous(Direction::up, gravityScale);
+		Move(Direction::up, gravityScale);
 }
 
-void TransformObject::MoveContinuous(Direction direction, float moveSpeed)
+void GameObject::Move(Direction direction, float moveSpeed)
 {
 	if (canMove == false)
 		return;
@@ -55,37 +55,13 @@ void TransformObject::MoveContinuous(Direction direction, float moveSpeed)
 	if (direction == Direction::left || direction == Direction::right)
 	{
 		if (round(xPosContinuous) != xPos)
-			Simulation::Instance().RequestDiscreteMovement(this, direction, moveSpeed);
+			Simulation::Instance().RequestMovement(this, direction, moveSpeed);
 	}
 	else if (round(yPosContinuous) != yPos)
-		Simulation::Instance().RequestDiscreteMovement(this, direction, moveSpeed);
+		Simulation::Instance().RequestMovement(this, direction, moveSpeed);
 }
 
-//todo discrete position could be saved inside simulation so objects cannot modify it
-void TransformObject::SIM_MoveDiscrete(Direction direction)
-{
-	switch (direction)
-	{
-	case Direction::up:
-		++yPos;
-		yPosContinuous = yPos;
-		break;
-	case Direction::down:
-		--yPos;
-		yPosContinuous = yPos;
-		break;
-	case Direction::right:
-		++xPos;
-		xPosContinuous = xPos;
-		break;
-	case Direction::left:
-		--xPos;
-		xPosContinuous = xPos;
-		break;
-	}
-}
-
-std::vector<std::vector<char>> TransformObject::CreteModelUsingChar
+std::vector<std::vector<char>> GameObject::CreteModelUsingChar
 (
 	char c, 
 	uint sizeX, 
