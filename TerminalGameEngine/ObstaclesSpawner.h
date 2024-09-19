@@ -1,10 +1,11 @@
 #pragma once
 #include "GameObject.h"
 
-class ObstaclesSpawner : public GameObject
+class ObstaclesSpawner : public ISimulationUpdatingEntity
 {
 //---------------------------------------------------------- Fields
 private:
+    int xPos;
     std::vector<float> minSpawnDelays;
     std::vector<float> maxSpawnDelays;
     std::vector<float> speeds;
@@ -21,18 +22,24 @@ public:
     ObstaclesSpawner
     (
         int xPos,
-        int yPos,
         const std::vector<float>& minSpawnDelays,
         const std::vector<float>& maxSpawnDelays,
         const std::vector<float>& speeds,
-        float increaseIntensityEverySeconds,
-        float stopSpawningWhenPhaseChangesDuration,
+        const std::vector<int>& ySpawnPoints,
+        float increaseIntensityEverySeconds = -1,
+        float stopSpawningWhenPhaseChangesDuration = 0
+    );
+
+    ObstaclesSpawner
+    (
+        int xPos,
+        float spawnDelay,
+        float speed,
         const std::vector<int>& ySpawnPoints
     );
 
+
     void Update() override;
-    virtual bool CanExitScreenSpace() const override { return true; }
-    virtual float GetGravityScale() const override { return 0; }
 
 private:
     float GetCurrentMinSpawnDelay() const { return minSpawnDelays[spawnIntensity]; }

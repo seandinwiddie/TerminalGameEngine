@@ -3,19 +3,19 @@
 #include "Simulation.h"
 #include "TimeHelper.h"
 #include "RandomUtils.h"
+#include <cstdlib>
 
 ObstaclesSpawner::ObstaclesSpawner
 (
     int xPos,
-    int yPos,
     const std::vector<float>& minSpawnDelays,
     const std::vector<float>& maxSpawnDelays,
     const std::vector<float>& speeds,
+    const std::vector<int>& ySpawnPoints,
     float increaseIntensityEverySeconds,
-    float stopSpawningWhenPhaseChangesDuration,
-    const std::vector<int>& ySpawnPoints
+    float stopSpawningWhenPhaseChangesDuration
 ) :
-    GameObject(xPos, yPos),
+    xPos(xPos),
     minSpawnDelays(minSpawnDelays),
     maxSpawnDelays(maxSpawnDelays),
     speeds(speeds),
@@ -23,10 +23,26 @@ ObstaclesSpawner::ObstaclesSpawner
     stopSpawningWhenPhaseChangesDuration(stopSpawningWhenPhaseChangesDuration),
     ySpawnPoints(ySpawnPoints)
 {
-    assert(maxSpawnDelays.size() == speeds.size());
+    assert(maxSpawnDelays.size() == speeds.size() && minSpawnDelays.size() == speeds.size());
     spawnNextProjectileTime = GetNextSpawnObstacleTime();
     lastTimeIncreasedIntensity = TimeHelper::Instance().GetTime();
 }
+
+ObstaclesSpawner::ObstaclesSpawner
+(
+    int xPos,
+    float spawnDelay,
+    float speed,
+    const std::vector<int>& ySpawnPoints
+) :
+    ObstaclesSpawner(
+        xPos,
+        std::vector<float>{spawnDelay},
+        std::vector<float>{spawnDelay},
+        std::vector<float>{speed},
+        ySpawnPoints
+    )
+{ }
 
 void ObstaclesSpawner::Update()
 {
@@ -41,7 +57,11 @@ void ObstaclesSpawner::Update()
         spawnNextProjectileTime = GetNextSpawnObstacleTime();
 
         int randomPosY = ySpawnPoints[RandomUtils::GetRandomInt(0, ySpawnPoints.size() - 1)];
-        Obstacle* obstacle = new Obstacle(GetPosX(), randomPosY, Direction::left, GetCurrentObstaclesSpeed());
+
+        float obstacleSpeed = GetCurrentObstaclesSpeed();
+        Direction direction = obstacleSpeed > 0 ? Direction::right : Direction::left;
+        obstacleSpeed = abs(obstacleSpeed);
+        Obstacle* obstacle = new Obstacle(xPos, randomPosY, direction, obstacleSpeed);
 
         Simulation::Instance().TryAddObject(dynamic_cast<GameObject*>(obstacle));
     }
@@ -49,6 +69,9 @@ void ObstaclesSpawner::Update()
 
 void ObstaclesSpawner::TryIncreaseIntensity(float time)
 {
+    if (increaseIntensityEverySeconds == -1)
+        return;
+
     if (spawnIntensity < speeds.size() - 1 && (time - lastTimeIncreasedIntensity) > increaseIntensityEverySeconds + stopSpawningWhenPhaseChangesDuration)
     {
         ++spawnIntensity;

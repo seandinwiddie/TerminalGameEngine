@@ -89,12 +89,12 @@ void ObstaclesLevel::Load()
     };
     std::vector<float> moveSpeeds
     {
-        1,
-        2,
-        4,
-        5,
-        6,
-        6
+        -1,
+        -2,
+        -4,
+        -5,
+        -6,
+        -6
     };
 
     float increaseIntensityEverySeconds = 10;
@@ -105,15 +105,14 @@ void ObstaclesLevel::Load()
     ObstaclesSpawner* spawner = new ObstaclesSpawner
     (
         spawnerPosX,
-        spawnerPosY,
         minSpawnDelays,
         maxSpawnDelays,
         moveSpeeds,
+        ySpawnPoints,
         increaseIntensityEverySeconds,
-        stopSpawningWhenPhaseChangesDuration,
-        ySpawnPoints
+        stopSpawningWhenPhaseChangesDuration
     );
 
-    simulation.TryAddObject(spawner);
+    simulation.AddUpdatable(spawner);
     AudioManager::Instance().PlayRandomMusic();
 }

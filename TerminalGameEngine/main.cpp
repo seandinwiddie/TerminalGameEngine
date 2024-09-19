@@ -5,15 +5,20 @@
 #include "Simulation.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
-#include "RepeatedCollisionTestLevel.h"
+#include "CollisionsTestLevel.h"
 
-void ObjectPushingAnotherTest()
+
+#if DEBUG_MODE
+void DEBUG_LoadTestLevel()
 {
-        RepeatedCollisionTestLevel level;
-        level.Load();
-        while (true)
-            Simulation::Instance().Step();
+    RepeatedCollisionTestLevel level;
+    level.Load();
+    while (true)
+        Simulation::Instance().Step();
 }
+#endif
+
+
 
 int main()
 {
@@ -23,7 +28,7 @@ int main()
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
 
-    //ObjectPushingAnotherTest();
+    //DEBUG_LoadTestLevel();
     //return 0;
 
     while (true)

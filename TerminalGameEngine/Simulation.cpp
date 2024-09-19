@@ -2,7 +2,7 @@
 
 #include "CollidingObject.h"
 #include "SimulationPrinter.h"
-#include "ISimulationUpdatable.h"
+#include "ISimulationUpdatingEntity.h"
 #include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
@@ -31,8 +31,12 @@ void Simulation::Step()
 	moveRequests.clear();
 
 	//---------------- update all objects
+
+	for (ISimulationUpdatingEntity* updatable : updatingEntities)
+		updatable->Update();
+
 	level->Update();
-	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
+	for (auto it = objects.rbegin(); it != objects.rend(); ++it)
 		(*it)->Update();
 
 	//---------------- move objects (slower ones first)
@@ -41,7 +45,7 @@ void Simulation::Step()
 
 
 	//---------------- detect end of collisions
-	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
+	for (auto it = objects.rbegin(); it != objects.rend(); ++it)
 	{
 		CollidingObject* collidingObj = dynamic_cast<CollidingObject*>((*it));
 		if (collidingObj != nullptr)
@@ -51,7 +55,7 @@ void Simulation::Step()
 	//---------------- print frame
 	if (++printFrameStep == STEPS_PER_FRAME)
 	{
-		for (ISimulationUpdatable* simUpdatable : simulationObjects)
+		for (ISimulationUpdatingEntity* simUpdatable : objects)
 		{
 			GameObject* obj = dynamic_cast<GameObject*>(simUpdatable);
 			if(obj != nullptr)
@@ -111,6 +115,11 @@ bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint h
 	return true;
 }
 
+void Simulation::AddUpdatable(ISimulationUpdatingEntity* updatable)
+{
+	updatingEntities.push_back(updatable);
+}
+
 bool Simulation::TryAddObject(GameObject* obj)
 {
 	if (CanObjectBeAdded(obj) == false)
@@ -124,7 +133,7 @@ bool Simulation::TryAddObject(GameObject* obj)
 				gameSpace[y][x] = collidingObj;
 	}
 
-	simulationObjects.push_back(obj);
+	objects.push_back(obj);
 
 	return true;
 }
@@ -147,9 +156,9 @@ bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 	return true;
 }
 
-bool Simulation::IsObjectInSimulation(const ISimulationUpdatable* obj) const
+bool Simulation::IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const
 {
-	for (ISimulationUpdatable* simulationObj : simulationObjects)
+	for (ISimulationUpdatingEntity* simulationObj : objects)
 		if (obj == simulationObj)
 			return true;
 
@@ -422,7 +431,7 @@ void Simulation::RemoveObject(GameObject* obj)
 			gameSpace[y][x] = nullptr;
 		}
 			
-	simulationObjects.remove(obj);
+	objects.remove(obj);
 	delete(obj);
 }
 
@@ -445,9 +454,9 @@ const std::vector<string>& backgroundFileNames
 	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
 	//clear simulation variables
-	for (ISimulationUpdatable* obj : simulationObjects)
+	for (ISimulationUpdatingEntity* obj : objects)
 		delete(obj);
-	simulationObjects.clear();
+	objects.clear();
 
 	// clear gamespace
 	gameSpace.clear();
@@ -459,6 +468,10 @@ const std::vector<string>& backgroundFileNames
 		for (auto elem : gameSpace[y])
 			elem = nullptr;
 	}
+
+	for (ISimulationUpdatingEntity* updatingEntity : updatingEntities)
+		delete(updatingEntity);
+	updatingEntities.clear();
 
 	printFrameStep = 0;
 	levelStartedTime = TimeHelper::Instance().GetTime();

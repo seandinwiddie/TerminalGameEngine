@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "GridDirection.h"
 #include "Singleton.h"
+#include "ISimulationUpdatingEntity.h"
 
 #include <list>
 #include <vector>
@@ -12,7 +13,7 @@ using string = std::string;
 class Level;
 class SimulationPrinter;
 class CollidingObject;
-class ISimulationUpdatable;
+class ISimulationUpdatingEntity;
 class Frame;
 
 class Simulation : public Singleton<Simulation>
@@ -47,8 +48,9 @@ private:
 	Level* level;
 
 	std::vector<std::vector<CollidingObject*>> gameSpace;
-	std::list<ISimulationUpdatable*> simulationObjects;
+	std::list<ISimulationUpdatingEntity*> objects;
 	std::list<MoveRequest> moveRequests;
+	std::list<ISimulationUpdatingEntity*> updatingEntities;
 //------------------------------------------------------------------------------------ Methods
 public:
 	void Step();
@@ -74,6 +76,7 @@ public:
 	const Level* GetActiveLevel() { return level; }
 
 	void ShowUIFrame(const Frame& UIMessage);
+	void AddUpdatable(ISimulationUpdatingEntity* updatable);
 
 	void Reset
 	(
@@ -89,7 +92,7 @@ private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	void MoveObject(GameObject* obj, Direction direction);
 	bool CanObjectBeAdded(const GameObject* obj) const;
-	bool IsObjectInSimulation(const ISimulationUpdatable* obj) const;
+	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 

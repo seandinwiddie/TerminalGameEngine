@@ -76,6 +76,9 @@
     <ClCompile Include="SimulationPrinter.cpp">
       <Filter>Cpp\Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionsTestLevel.h">
+      <Filter>Headers\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h">
@@ -132,11 +135,8 @@
     <ClInclude Include="ObstaclesLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="ISimulationUpdatable.h">
+    <ClInclude Include="ISimulationUpdatingEntity.h">
       <Filter>Headers\SimulationObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="RepeatedCollisionTestLevel.h">
-      <Filter>Headers\Levels</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuUtils.h">
       <Filter>Headers\Utils</Filter>

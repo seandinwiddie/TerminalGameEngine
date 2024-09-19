@@ -2,12 +2,12 @@
 
 #include "Config.h"
 #include "GridDirection.h"
-#include "ISimulationUpdatable.h"
+#include "ISimulationUpdatingEntity.h"
 #include <vector>
 
 using namespace GridDirection;
 
-class GameObject : public ISimulationUpdatable
+class GameObject : public ISimulationUpdatingEntity
 {
 //---------------------------------------------------------- Fields
 public:

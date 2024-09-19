@@ -139,6 +139,7 @@
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
+    <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="MainMenuUtils.cpp" />
     <ClCompile Include="ObstaclesLevel.cpp" />
@@ -167,7 +168,6 @@
     <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="RepeatedCollisionTestLevel.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="Event.h" />
@@ -181,7 +181,7 @@
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="ISimulationUpdatable.h" />
+    <ClInclude Include="ISimulationUpdatingEntity.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />
