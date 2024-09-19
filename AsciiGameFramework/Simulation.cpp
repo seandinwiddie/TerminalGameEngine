@@ -9,7 +9,7 @@
 
 #include <Windows.h>
 #include <cassert>
-
+// 8-95 1-90
 
 
 void Simulation::RequestDiscreteMovement(TransformObject* object, Direction direction, float speed)
@@ -36,11 +36,10 @@ void Simulation::Step()
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
 		(*it)->Update();
 
-	//---------------- move objects
-
+	//---------------- move objects (slower ones first)
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
-		if (TryMoveAtDirection(it->object, it->direction))
-			it->object->SIM_MoveDiscrete(it->direction);
+		TryMoveAtDirection(it->object, it->direction);
+
 
 	//---------------- detect end of collisions
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
@@ -170,6 +169,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 
 	CollidingObject* collidingObj = dynamic_cast<CollidingObject*>(obj);
 	CollidingObject* outOtherObj;
+
 	if (CanMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
 		// colliding with none -> exiting world
@@ -206,7 +206,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[yClear][x] = nullptr;
 				}
 			}
-			++obj->yPos;
+			obj->SIM_MoveDiscrete(direction);
 			break;
 		}
 		case Direction::down:
@@ -221,7 +221,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[yClear][x] = nullptr;
 				}
 			}
-			--obj->yPos;
+			obj->SIM_MoveDiscrete(direction);
 			break;
 		}
 		case Direction::right:
@@ -236,7 +236,7 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[y][xClear] = nullptr;
 				}
 			}
-			++obj->xPos;
+			obj->SIM_MoveDiscrete(direction);
 			break;
 		}
 
@@ -251,8 +251,8 @@ bool Simulation::TryMoveAtDirection(TransformObject* obj, Direction direction)
 					gameSpace[y][xWrite] = collidingObj;
 					gameSpace[y][xClear] = nullptr;
 				}
-				--obj->xPos;
 			}
+			obj->SIM_MoveDiscrete(direction);
 			break;
 		}
 
