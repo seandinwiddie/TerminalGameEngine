@@ -1,13 +1,13 @@
 # TerminalGameEngine
-A simple Engine for making 2D terminal games.
+A simple engine for making 2D terminal games.
 
 - Framerate-independent simulation
 - Collision system, objects expose 'OnCollisionEnter' and 'OnCollisionEnd' methods
-- Animated ASCII backgrounds can be loaded from files
-- Simple audio manager for playing sounds
-- Modular levels system
+- simulation print on terminal system (animated backgrounds, ui message over game)
+- Audio manager for playing sounds and music
+- Modular level creation/loading system
 
 Notes:
-- Still in early development
 - Windows only
 - Requires you to install [OpenAL DLL](https://www.openal.org/downloads/)
+- Worked on this for about a month in my free time so it could be improved further
