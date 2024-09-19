@@ -7,13 +7,13 @@
 #include "AudioManager.h"
 #include "RepeatedCollisionTestLevel.h"
 
-//void FastCollisionsTest()
-//{
-//        RepeatedCollisionTestLevel level;
-//        level.Load();
-//        while (true)
-//            Simulation::Instance().Step();
-//}
+void FastCollisionsTest()
+{
+        RepeatedCollisionTestLevel level;
+        level.Load();
+        while (true)
+            Simulation::Instance().Step();
+}
 
 int main()
 {
@@ -21,6 +21,9 @@ int main()
 
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
+
+    FastCollisionsTest();
+    return 0;
 
     while (true)
     {

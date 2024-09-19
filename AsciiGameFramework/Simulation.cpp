@@ -10,18 +10,39 @@
 #include <Windows.h>
 #include <cassert>
 
+
+
+void Simulation::RequestDiscreteMovement(TransformObject* object, Direction direction, float speed)
+{
+	MoveRequest request(object, direction, speed);
+
+	auto it = moveRequests.begin();
+	for (; it != moveRequests.end(); ++it)
+		if (it->speed >= request.speed)
+			break;
+
+	moveRequests.insert(it, request);
+}
+
 void Simulation::Step()
 {
 	if (level->IsTerminated())
 		return;
-		
-	level->Update();
 
-	//update all objects
+	moveRequests.clear();
+
+	//---------------- update all objects
+	level->Update();
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
 		(*it)->Update();
 
-	//detect end of collisions
+	//---------------- move objects
+
+	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
+		if (TryMoveAtDirection(it->object, it->direction))
+			it->object->SIM_MoveDiscrete(it->direction);
+
+	//---------------- detect end of collisions
 	for (auto it = simulationObjects.rbegin(); it != simulationObjects.rend(); ++it)
 	{
 		CollidingObject* collidingObj = dynamic_cast<CollidingObject*>((*it));
@@ -29,7 +50,7 @@ void Simulation::Step()
 			UpdateObjectCollisionDirections(collidingObj);
 	}
 
-	// print frame
+	//---------------- print frame
 	if (++printFrameStep == STEPS_PER_FRAME)
 	{
 		for (SimulationObject* obj : simulationObjects)
@@ -71,7 +92,7 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	// Using collision COLLISION_END_DISTANCE = 2 prevents detecting repeated collisions if a faster object is pushing 
 	// a slower one. In the future the collision detection system could be improved in order to move faster 
 	// objects after slower ones during the same frame, doing this collision depth could be set to 1. (todo)
-	const uint COLLISION_END_DISTANCE_X = 2;
+	const uint COLLISION_END_DISTANCE_X = 1;
 	const uint COLLISION_END_DISTANCE_Y = 1;
 	collidingDirections[static_cast<int>(Direction::up)] =
 		(!IsSpaceEmpty(x, yMax + 1, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenUp);

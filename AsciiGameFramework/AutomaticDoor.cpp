@@ -6,12 +6,12 @@ void AutomaticDoor::Update()
     if (IsOpen())
     {
         if (GetPosY() < startingPosY + GetModelHeight())
-            Move(Direction::up, MOVE_SPEED);
+            MoveContinuous(Direction::up, MOVE_SPEED);
     }
     else
     {
         if (GetPosY() > startingPosY)
-            Move(Direction::down, MOVE_SPEED);
+            MoveContinuous(Direction::down, MOVE_SPEED);
     }
 }
 

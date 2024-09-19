@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <tuple>
 
 using namespace GridDirection;
 using string = std::string;
@@ -21,26 +22,40 @@ class Simulation : public Singleton<Simulation>
 	friend class Singleton;
 	friend class TransformObject;
 	friend class CollidingObject;
+
+	struct MoveRequest
+	{
+		TransformObject* object;
+		Direction direction;
+		float speed;
+
+		MoveRequest(TransformObject* object, Direction direction, float speed)
+			:object(object),direction(direction), speed(speed){}
+	};
+
 //------------------------------------------------------------------------------------ Settings
 private:
 	const static uint STEPS_PER_FRAME = 8;
 
 //------------------------------------------------------------------------------------ Fields
+
 	uint worldSizeX;
 	uint worldSizeY;
 	uint screenPadding;
 	uint printFrameStep;
 	double levelStartedTime = 0;
+
 	SimulationPrinter* simulationPrinter;
-	std::vector<std::vector<CollidingObject*>> gameSpace;
-	std::list<SimulationObject*> simulationObjects;
 	Level* level;
 
+	std::vector<std::vector<CollidingObject*>> gameSpace;
+	std::list<SimulationObject*> simulationObjects;
+	std::list<MoveRequest> moveRequests;
 //------------------------------------------------------------------------------------ Methods
 public:
 	void Step();
 	bool TryAddGameObject(TransformObject* obj);
-	bool TryMoveAtDirection(TransformObject* obj, Direction direction);
+	void RequestDiscreteMovement(TransformObject* obj, Direction direction, float speed);
 	void RemoveGameObject(TransformObject* obj);
 
 	uint GetWorldSizeX() const { return worldSizeX; }
@@ -72,6 +87,7 @@ public:
 	);
 
 private:
+	bool TryMoveAtDirection(TransformObject* obj, Direction direction);
 	bool CanObjectBeAdded(const TransformObject* obj) const;
 	bool IsInSimulation(const SimulationObject* obj) const;
 	bool CanMoveAtDirection(const TransformObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
