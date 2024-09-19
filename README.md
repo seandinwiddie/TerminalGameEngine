@@ -1,5 +1,5 @@
-# AsciiGameFramework
-A simple framework for making ASCII terminal games.
+# TerminalGameEngine
+A simple Engine for making 2D terminal games.
 
 - Framerate-independent simulation
 - Collision system, objects expose 'OnCollisionEnter' and 'OnCollisionEnd' methods
