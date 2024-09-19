@@ -18,7 +18,7 @@ void Simulation::RequestDiscreteMovement(TransformObject* object, Direction dire
 
 	auto it = moveRequests.begin();
 	for (; it != moveRequests.end(); ++it)
-		if (it->speed >= request.speed)
+		if (it->speed > request.speed)
 			break;
 
 	moveRequests.insert(it, request);
