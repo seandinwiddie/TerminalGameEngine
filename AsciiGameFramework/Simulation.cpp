@@ -11,9 +11,9 @@
 #include <cassert>
 
 
-void Simulation::RequestMovement(GameObject* object, Direction direction, float speed)
+void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, float speed)
 {
-	MoveRequest request(object, direction, speed);
+	MoveRequest request(applicantObj, direction, speed);
 
 	auto it = moveRequests.begin();
 	for (; it != moveRequests.end(); ++it)
@@ -37,7 +37,7 @@ void Simulation::Step()
 
 	//---------------- move objects (slower ones first)
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
-		TryMoveAtDirection(it->object, it->direction);
+		TryMoveObjectAtDirection(it->object, it->direction);
 
 
 	//---------------- detect end of collisions
@@ -86,23 +86,17 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 	bool isCollidingWithScreenLeft = !canExitScreen && !IsCoordinateInsideScreenSpace(x - 1, y);
 
 	// object-object collisions
-	
-	// Using collision COLLISION_END_DISTANCE = 2 prevents detecting repeated collisions if a faster object is pushing 
-	// a slower one. In the future the collision detection system could be improved in order to move faster 
-	// objects after slower ones during the same frame, doing this collision depth could be set to 1. (todo)
-	const uint COLLISION_END_DISTANCE_X = 1;
-	const uint COLLISION_END_DISTANCE_Y = 1;
 	collidingDirections[static_cast<int>(Direction::up)] =
-		(!IsSpaceEmpty(x, yMax + 1, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenUp);
+		(!IsSpaceEmpty(x, yMax + 1, width, 1) || isCollidingWithScreenUp);
 
 	collidingDirections[static_cast<int>(Direction::down)] =
-		(!IsSpaceEmpty(x, y - COLLISION_END_DISTANCE_Y, width, COLLISION_END_DISTANCE_Y) || isCollidingWithScreenDown);
+		(!IsSpaceEmpty(x, y - 1, width, 1) || isCollidingWithScreenDown);
 
 	collidingDirections[static_cast<int>(Direction::left)] =
-		(!IsSpaceEmpty(x - COLLISION_END_DISTANCE_X, y, COLLISION_END_DISTANCE_X, height) || isCollidingWithScreenRight);
+		(!IsSpaceEmpty(x - 1, y, 1, height) || isCollidingWithScreenRight);
 
 	collidingDirections[static_cast<int>(Direction::right)] =
-		(!IsSpaceEmpty(xMax + 1, y, COLLISION_END_DISTANCE_X, height) || isCollidingWithScreenLeft);
+		(!IsSpaceEmpty(xMax + 1, y, 1, height) || isCollidingWithScreenLeft);
 
 	obj->UpdateCollidingDirecitons(collidingDirections);
 } 
@@ -137,7 +131,7 @@ bool Simulation::TryAddObject(GameObject* obj)
 
 bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 {
-	if (IsInSimulation(obj))
+	if (IsObjectInSimulation(obj))
 		return false;
 
 	for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
@@ -153,7 +147,7 @@ bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 	return true;
 }
 
-bool Simulation::IsInSimulation(const ISimulationUpdatable* obj) const
+bool Simulation::IsObjectInSimulation(const ISimulationUpdatable* obj) const
 {
 	for (ISimulationUpdatable* simulationObj : simulationObjects)
 		if (obj == simulationObj)
@@ -162,14 +156,14 @@ bool Simulation::IsInSimulation(const ISimulationUpdatable* obj) const
 	return false;
 }
 
-bool Simulation::TryMoveAtDirection(GameObject* obj, Direction direction)
+bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
-	assert(IsInSimulation(obj));
+	assert(IsObjectInSimulation(obj));
 
 	CollidingObject* collidingObj = dynamic_cast<CollidingObject*>(obj);
 	CollidingObject* outOtherObj;
 
-	if (CanMoveAtDirection(obj, direction, outOtherObj) == false)
+	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
 		// colliding with none -> exiting world
 		if (outOtherObj == nullptr)
@@ -259,14 +253,14 @@ bool Simulation::TryMoveAtDirection(GameObject* obj, Direction direction)
 	}
 }
 
-bool Simulation::CanMoveAtDirection
+bool Simulation::CanObjectMoveAtDirection
 (
 	const GameObject* obj,
 	Direction direction, 
 	CollidingObject*& outCollidingObject
 ) const
 {
-	assert(IsInSimulation(obj));
+	assert(IsObjectInSimulation(obj));
 
 	switch (direction)
 	{
@@ -419,7 +413,7 @@ bool Simulation::CanMoveAtDirection
 
 void Simulation::RemoveObject(GameObject* obj)
 {
-	assert(IsInSimulation(obj));
+	assert(IsObjectInSimulation(obj));
 
 	for(int y = obj-> GetPosY(); y <= obj->GetMaxPosY(); ++y)
 		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)

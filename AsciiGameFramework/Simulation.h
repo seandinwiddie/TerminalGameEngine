@@ -1,8 +1,8 @@
 #pragma once
-
 #include "Config.h"
 #include "GridDirection.h"
 #include "Singleton.h"
+
 #include <list>
 #include <vector>
 
@@ -53,22 +53,23 @@ private:
 public:
 	void Step();
 	bool TryAddObject(GameObject* obj);
-	void RequestMovement(GameObject* obj, Direction direction, float speed);
+	void RequestMovement(GameObject* applicantObj, Direction direction, float speed);
 	void RemoveObject(GameObject* obj);
 
 	uint GetWorldSizeX() const { return worldSizeX; }
 	uint GetWorldSizeY() const { return worldSizeY; }
 	uint GetScreenPadding() const { return screenPadding; }
-	
-	bool IsInsideScreenX(int xPos) const;
-	bool IsInsideScreenY(int yPos) const;
-	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const;
-	uint GetScreenSizeX() const { return worldSizeX - 2 * screenPadding; }
-	uint GetScreenSizeY() const { return worldSizeY - 2 * screenPadding; }
 
 	bool IsInsideGameSpaceX(int xPos) const;
 	bool IsInsideGameSpaceY(int yPos) const;
 	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
+	
+	uint GetScreenSizeX() const { return worldSizeX - 2 * screenPadding; }
+	uint GetScreenSizeY() const { return worldSizeY - 2 * screenPadding; }
+
+	bool IsInsideScreenX(int xPos) const;
+	bool IsInsideScreenY(int yPos) const;
+	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const;
 
 	const Level* GetActiveLevel() { return level; }
 
@@ -85,14 +86,14 @@ public:
 	);
 
 private:
-
-	bool TryMoveAtDirection(GameObject* obj, Direction direction);
+	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
+	void MoveObject(GameObject* obj, Direction direction);
 	bool CanObjectBeAdded(const GameObject* obj) const;
-	bool IsInSimulation(const ISimulationUpdatable* obj) const;
-	bool CanMoveAtDirection(const GameObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
-	
+	bool IsObjectInSimulation(const ISimulationUpdatable* obj) const;
+	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
+
 	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
 	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
-	void MoveObject(GameObject* obj, Direction direction);
+
 };
