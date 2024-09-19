@@ -9,7 +9,6 @@
 
 #include <Windows.h>
 #include <cassert>
-// 8-95 1-90
 
 
 void Simulation::RequestDiscreteMovement(TransformObject* object, Direction direction, float speed)
