@@ -6,4 +6,4 @@ using string = std::string;
 template <typename T> using vector = std::vector<T>;
 using uint = unsigned int;
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0

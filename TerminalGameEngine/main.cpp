@@ -6,19 +6,15 @@
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "CollisionsTestLevel.h"
+#include<iostream>
 
-
-#if DEBUG_MODE
 void DEBUG_LoadTestLevel()
 {
-    RepeatedCollisionTestLevel level;
+    CollisionsTestLevel level;
     level.Load();
     while (true)
         Simulation::Instance().Step();
 }
-#endif
-
-
 
 int main()
 {

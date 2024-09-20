@@ -6,9 +6,7 @@
 #include "Obstacle.h";
 #include "ObstaclesSpawner.h"
 
-#if DEBUG_MODE
-
-class RepeatedCollisionTestLevel : public Level
+class CollisionsTestLevel : public Level
 {
     //---------------------------------------------------------- Settings
 private:
@@ -23,13 +21,13 @@ public:
         Level::Load();
 
         Simulation& simulation = Simulation::Instance();
-        simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, {});
+        simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
 
         //---
         float spawnDelay = 0.15;
         float speed = 4;
         
-        vector<int>ySpawnPoints = {5,10,15,20 };
+        vector<int>ySpawnPoints = {20,18,16,14 };
         ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
         (
             96,
@@ -58,5 +56,3 @@ public:
     virtual double ShowGameOverScreenDelay()const { return 5; }
     virtual void OnGameOverDelayEnded() {}
 };
-
-#endif
