@@ -97,10 +97,10 @@ void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
 		(!IsSpaceEmpty(x, y - 1, width, 1) || isCollidingWithScreenDown);
 
 	collidingDirections[static_cast<int>(Direction::left)] =
-		(!IsSpaceEmpty(x - 1, y, 1, height) || isCollidingWithScreenRight);
+		(!IsSpaceEmpty(x - 1, y, 1, height) || isCollidingWithScreenLeft);
 
 	collidingDirections[static_cast<int>(Direction::right)] =
-		(!IsSpaceEmpty(xMax + 1, y, 1, height) || isCollidingWithScreenLeft);
+		(!IsSpaceEmpty(xMax + 1, y, 1, height) || isCollidingWithScreenRight);
 
 	obj->UpdateCollidingDirecitons(collidingDirections);
 } 
@@ -174,13 +174,19 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 
 	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
-		// colliding with none -> exiting world
+		// colliding with none -> exiting world / colliding with screen margin
 		if (outOtherObj == nullptr)
 		{
-			if(obj->CanExitScreenSpace())
+			if (obj->CanExitScreenSpace())
+			{
 				RemoveObject(obj);
+			}
 			else
-				collidingObj->NotifyCollision(nullptr, direction); //notify collision with screen margin
+			{
+				//notify collision with screen margin
+				collidingObj->NotifyCollision(nullptr, direction);
+			}
+				
 		}
 		else
 		{
@@ -537,6 +543,8 @@ bool Simulation::IsInsideScreenX(int xPos) const
 
 bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 {
+	auto test = IsInsideScreenX(xPos);
+	auto test2 = IsInsideScreenY(yPos);
 	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }
 

@@ -25,8 +25,9 @@ public:
         Simulation& simulation = Simulation::Instance();
         simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, {});
 
-        float spawnDelay = 0.4;
-        float speed = 8;
+        //---
+        float spawnDelay = 0.15;
+        float speed = 4;
         
         vector<int>ySpawnPoints = {5,10,15,20 };
         ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
@@ -48,6 +49,10 @@ public:
             ySpawnPoints
         );
         simulation.AddUpdatable(spawnerLeft);
+        //---
+        
+        //Obstacle* obstacle = new Obstacle(90, 10, Direction::left, 8);
+        //simulation.TryAddObject(obstacle);
     }
 
     virtual double ShowGameOverScreenDelay()const { return 5; }
