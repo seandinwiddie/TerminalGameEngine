@@ -39,7 +39,6 @@ public:
 	);
 
 	void ShowFrameInTerminal();
-	static void ClearTerminal();
 
 	void PrintObjectOnFrame(GameObject* go);
 	void ClearFrame();

@@ -5,6 +5,7 @@
 #include "Config.h"
 #include "Level.h"
 #include "TimeHelper.h"
+#include "TerminalUtils.h"
 
 #include "Windows.h"
 #include <cassert>
@@ -60,7 +61,7 @@ void SimulationPrinter::ShowFrameInTerminal()
         frameString += rowString + '\n';
     }
 
-    ClearTerminal();
+    TerminalUtils::ClearTerminal();
 
     std::cout << frameString;
 }
@@ -128,29 +129,6 @@ void SimulationPrinter::InitBackgrounds(const std::vector<string>& backgroundFil
 Frame SimulationPrinter::GetCurrentBackground()const
 {
     return  TimeHelper::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
-}
-
-void SimulationPrinter::ClearTerminal()
-{
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD coord = { 0, 0 };  // Top left corner
-    DWORD cCharsWritten;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD dwConSize;
-
-    // Get the console screen buffer info
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-
-    // Fill the entire screen with spaces
-    FillConsoleOutputCharacter(hConsole, ' ', dwConSize, coord, &cCharsWritten);
-
-    // Fill the entire screen with the current attributes
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes, dwConSize, coord, &cCharsWritten);
-
-    // Move the cursor back to the top-left corner
-    SetConsoleCursorPosition(hConsole, coord);
 }
 
 #pragma region ======================================================================== DEBUG
