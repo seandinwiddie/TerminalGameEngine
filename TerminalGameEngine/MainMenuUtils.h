@@ -3,6 +3,7 @@
 #include "EndlessRunnerLevel.h"
 #include "PuzzleLevel.h"
 #include "TerminalUtils.h"
+#include "CollisionsTestLevel.h"
 #include "InputUtils.h"
 class Level;
 
@@ -15,8 +16,12 @@ namespace MainMenuUtils
         std::cout
             << "Press:" << std::endl
             << "1 -> play endless runner demo" << std::endl
-            << "2 -> play puzzle game demo" << std::endl << std::endl
-            << "esc (inside levels) -> main menu" << std::endl;
+            << "2 -> play puzzle game demo" << std::endl
+            << "3 -> collisions test" << std::endl
+            <<std::endl
+            << "esc (inside levels) -> return to main menu" << std::endl
+            << std::endl
+            << "All music by 'Cody O'Quinn'" << std::endl;
 
         while (true)
         {
@@ -28,6 +33,11 @@ namespace MainMenuUtils
             if (InputUtils::IsPressing2())
             {
                 return new PuzzleLevel();
+                break;
+            }
+            if (InputUtils::IsPressing3())
+            {
+                return new CollisionsTestLevel();
                 break;
             }
         }

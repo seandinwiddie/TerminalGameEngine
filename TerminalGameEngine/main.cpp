@@ -26,9 +26,6 @@ int main()
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
 
-    //DEBUG_LoadTestLevel();
-    //return 0;
-
     while (true)
     {
         AudioManager::Instance().StopMusic();
