@@ -1,4 +1,4 @@
-#include "ObstaclesLevel.h"
+#include "EndlessRunnerLevel.h"
 
 #include "Simulation.h"
 #include "SimulationPrinter.h"
@@ -10,7 +10,7 @@
 #include "ObstaclesSpawner.h"
 #include "Frame.h"
 
-void ObstaclesLevel::OnGameOverDelayEnded()
+void EndlessRunnerLevel::OnGameOverDelayEnded()
 {
     int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
     int score = GetLevelTime();
@@ -22,7 +22,7 @@ void ObstaclesLevel::OnGameOverDelayEnded()
     AudioManager::Instance().PlayFx("show-end-screen.wav");
 }
 
-void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore)
+void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 {
     //setup gameover message
     string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
@@ -38,7 +38,7 @@ void ObstaclesLevel::ShowGameOverScreen(int score, int bestScore)
     Simulation::Instance().ShowUIFrame(gameEndUIMessage);
 }
 
-void ObstaclesLevel::OnGameOver()
+void EndlessRunnerLevel::OnGameOver()
 {
     if (IsGameOver())
         return;
@@ -48,7 +48,7 @@ void ObstaclesLevel::OnGameOver()
     AudioManager::Instance().PlayFx("gameover.wav");
 }
 
-void ObstaclesLevel::Load()
+void EndlessRunnerLevel::Load()
 {
     Level::Load();
 

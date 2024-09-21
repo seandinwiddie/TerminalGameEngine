@@ -64,7 +64,7 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Cpp\SimulationObjects</Filter>
     </ClCompile>
-    <ClCompile Include="ObstaclesLevel.cpp">
+    <ClCompile Include="EndlessRunnerLevel.cpp">
       <Filter>Cpp\Levels</Filter>
     </ClCompile>
     <ClCompile Include="TimeHelper.cpp">
@@ -129,7 +129,7 @@
     <ClInclude Include="Level.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="ObstaclesLevel.h">
+    <ClInclude Include="EndlessRunnerLevel.h">
       <Filter>Headers\Levels</Filter>
     </ClInclude>
     <ClInclude Include="ISimulationUpdatingEntity.h">

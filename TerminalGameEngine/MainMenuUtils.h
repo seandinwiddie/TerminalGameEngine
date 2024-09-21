@@ -1,6 +1,6 @@
 #pragma once
 #include "Config.h"
-#include "ObstaclesLevel.h"
+#include "EndlessRunnerLevel.h"
 #include "PuzzleLevel.h"
 #include "TerminalUtils.h"
 #include "InputUtils.h"
@@ -22,7 +22,7 @@ namespace MainMenuUtils
         {
             if (InputUtils::IsPressing1())
             {
-                return new ObstaclesLevel();
+                return new EndlessRunnerLevel();
                 break;
             }
             if (InputUtils::IsPressing2())

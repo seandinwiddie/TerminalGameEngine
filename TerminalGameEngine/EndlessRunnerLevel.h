@@ -4,7 +4,7 @@
 #include "Level.h";
 #include <string>
 
-class ObstaclesLevel : public Level
+class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
