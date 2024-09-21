@@ -42,18 +42,18 @@ void SimulationPrinter::PrintFrameOnTerminal()
 {
     TerminalUtils::ClearTerminal();
 
-    string buffer;
-    int currentColor = TerminalUtils::RED;
+    string toPrintBuffer;
+    int currentColor = TerminalUtils::WHITE;
     TerminalUtils::SetColor(currentColor);
 
 #if DEBUG_MODE
-    DEBUG_PrintAverageFps(buffer);
+    DEBUG_PrintAverageFps(toPrintBuffer);
 #endif
 
     if (showTimeUI)
     {
         double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-        buffer += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
+        toPrintBuffer += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
     PrintUIMessageOnFrame();
@@ -63,37 +63,29 @@ void SimulationPrinter::PrintFrameOnTerminal()
     {
         for (int n = 0; n < screenSizeX; ++n)
         {
-            int color = frame.colors[m][n];
+            int cellColor = frame.colors[m][n];
+            char cellChar = frame.chars[m][n];
 
             //print buffer if color changed (ignore empty spaces)
-
-            //debug, remove
-            auto redColor = TerminalUtils::RED;
-            auto whiteColor = TerminalUtils::WHITE;
-            auto frameChar = frame.chars[m][n];
-
-            if (color != currentColor && frame.chars[m][n] != ' ' && frame.chars[m][n] != '\n')
+            if (cellColor != currentColor && cellChar != ' ' && cellChar != '\n')
             {
-                if (!buffer.empty())
+                if (!toPrintBuffer.empty())
                 {
-                    std::cout << buffer;
-                    buffer.clear();
+                    std::cout << toPrintBuffer;
+                    toPrintBuffer.clear();
                 }
-                TerminalUtils::SetColor(color);
-                currentColor = color;
-                if (currentColor == 15)
-                    int a = 0;
+                TerminalUtils::SetColor(cellColor);
+                currentColor = cellColor;
             }
-
-            buffer += frame.chars[m][n];
+            toPrintBuffer += cellChar;
         }
-        buffer += '\n';
+        toPrintBuffer += '\n';
     }
 
-    if (!buffer.empty())
+    if (!toPrintBuffer.empty())
     {
-        std::cout << buffer;
-        buffer.clear();
+        std::cout << toPrintBuffer;
+        toPrintBuffer.clear();
     }
 }
 
