@@ -8,13 +8,13 @@
       <Filter>Headers\Engine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="CollisionsTestLevel.h">
-      <Filter>Headers\Levels\PlatformerLevels\CollisionTestLevel</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\CollisionTestLevel</Filter>
     </ClCompile>
     <ClCompile Include="LevelEndFlag.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClCompile>
     <ClCompile Include="PushableObject.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClCompile>
     <ClCompile Include="StaticCollider.h">
       <Filter>Headers\Engine\GenericObjects</Filter>
@@ -118,19 +118,19 @@
       <Filter>Headers\Engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="PuzzleLevel.h">
-      <Filter>Headers\Levels\PlatformerLevels\PuzzleLevel</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\PuzzleLevel</Filter>
     </ClInclude>
     <ClInclude Include="EndlessRunnerLevel.h">
-      <Filter>Headers\Levels\PlatformerLevels\EndlessRunnerLevel</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel</Filter>
     </ClInclude>
     <ClInclude Include="CollidingObject.h">
       <Filter>Headers\Engine\GenericObjects</Filter>
     </ClInclude>
     <ClInclude Include="AutomaticDoor.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Bunny.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Headers\Engine\GenericObjects</Filter>
@@ -142,13 +142,13 @@
       <Filter>Headers\Engine\GenericObjects</Filter>
     </ClInclude>
     <ClInclude Include="Obstacle.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ObstaclesSpawner.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PressurePlate.h">
-      <Filter>Headers\Levels\PlatformerLevels\Objects</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
       <Filter>Headers\Engine\GenericObjects</Filter>
@@ -162,13 +162,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="background1.txt">
-      <Filter>Headers\Levels\PlatformerLevels\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
     <Text Include="background2.txt">
-      <Filter>Headers\Levels\PlatformerLevels\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
     <Text Include="gameover-screen.txt">
-      <Filter>Headers\Levels\PlatformerLevels\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -199,26 +199,26 @@
     <Filter Include="Headers\Levels">
       <UniqueIdentifier>{d9b5910a-aa4c-47f1-b39d-3c96f20c35d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels">
-      <UniqueIdentifier>{426521ad-1149-465c-ae60-a4d083723ee2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels\EndlessRunnerLevel">
-      <UniqueIdentifier>{45c2ab1c-73a0-4632-8efe-b627b44fc386}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels\EndlessRunnerLevel\backgrounds">
-      <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels\PuzzleLevel">
-      <UniqueIdentifier>{738f0800-e61c-4c87-92e3-0a16d98ab146}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels\CollisionTestLevel">
-      <UniqueIdentifier>{3cd8fea1-5b7d-4db5-8950-89a1fc6000c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerLevels\Objects">
-      <UniqueIdentifier>{d01b4c91-154a-4f6c-bb0b-f5d1609d73cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Levels\PongLevel">
       <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels">
+      <UniqueIdentifier>{426521ad-1149-465c-ae60-a4d083723ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel">
+      <UniqueIdentifier>{45c2ab1c-73a0-4632-8efe-b627b44fc386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds">
+      <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels\PuzzleLevel">
+      <UniqueIdentifier>{738f0800-e61c-4c87-92e3-0a16d98ab146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels\CollisionTestLevel">
+      <UniqueIdentifier>{3cd8fea1-5b7d-4db5-8950-89a1fc6000c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PlatformerTypeLevels\Objects">
+      <UniqueIdentifier>{d01b4c91-154a-4f6c-bb0b-f5d1609d73cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
