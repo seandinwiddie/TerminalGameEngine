@@ -1,21 +1,34 @@
 #pragma once
 #include "Config.h"
+#include "ObstaclesLevel.h"
+#include "PuzzleLevel.h"
+#include "TerminalUtils.h"
+#include "InputUtils.h"
 class Level;
 
-class MainMenuUtils
+namespace MainMenuUtils
 {
-//--------------------------------------------- Fields
-private:
-    static const char* colorCodes;
-    static uint backgroundColorId;
-    static uint foregroundColorId;
+    inline Level* ShowLevelSelection()
+    {
+        TerminalUtils::ClearTerminal();
+        std::cout
+            << "Press:" << std::endl
+            << "1 -> play endless runner demo" << std::endl
+            << "2 -> play puzzle game demo" << std::endl << std::endl
+            << "esc (inside levels) -> main menu" << std::endl;
 
-//--------------------------------------------- Methods
-public:
-    static void ChangeBackgroundColor();
-    static void ChangeForegroundColor();
-    static Level* ShowLevelSelection();
-
-private:
-    static void RefreshTerminalColor();
+        while (true)
+        {
+            if (InputUtils::IsPressing1())
+            {
+                return new ObstaclesLevel();
+                break;
+            }
+            if (InputUtils::IsPressing2())
+            {
+                return new PuzzleLevel();
+                break;
+            }
+        }
+    }
 };

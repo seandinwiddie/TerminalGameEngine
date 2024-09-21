@@ -67,9 +67,6 @@
     <ClCompile Include="ObstaclesLevel.cpp">
       <Filter>Cpp\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuUtils.cpp">
-      <Filter>Cpp\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="TimeHelper.cpp">
       <Filter>Cpp\Managers/Helpers</Filter>
     </ClCompile>

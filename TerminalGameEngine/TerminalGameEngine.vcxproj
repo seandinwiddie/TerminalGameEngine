@@ -141,7 +141,6 @@
     <ClCompile Include="CollidingObject.cpp" />
     <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="MainMenuUtils.cpp" />
     <ClCompile Include="ObstaclesLevel.cpp" />
     <ClCompile Include="PuzzleLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />

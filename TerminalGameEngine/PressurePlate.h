@@ -19,6 +19,7 @@ public:
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
+    virtual int GetColor() const { return TerminalUtils::CYAN; }
 
 protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
