@@ -7,6 +7,8 @@ void PongLevel::Load()
 {
 	Level::Load();
 	Simulation& simulation = Simulation::Instance();
+
+
 	
 	char barsChar = 219;
 	int startingPosY = GetWorldSizeY() / 2 - 1;

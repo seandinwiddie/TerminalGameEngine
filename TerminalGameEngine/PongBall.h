@@ -1,18 +1,18 @@
 #pragma once
 #include "CollidingObject.h"	
-#include "Level.h"
+#include "PongLevel.h"
 
 class PongBar;
 
 class PongBall : public CollidingObject
 {
 private:
-    Level* level;
+    PongLevel* level;
     float xSpeed;
     float ySpeed;
 
 public:
-    PongBall(Level* level, int xPos, int yPos, float xSpeed) : 
+    PongBall(PongLevel* level, int xPos, int yPos, float xSpeed) : 
         CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
     {
         ySpeed = 0;

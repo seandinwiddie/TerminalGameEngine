@@ -6,6 +6,7 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
 {
     if (GetPosX() == level->GetWorldSizeX() - level->GetScreenPadding() - 1)
     {
+        level->IncreaseP1Score();
         level->OnGameOver();
         Simulation::Instance().RemoveObject(this);
         return;
@@ -14,6 +15,7 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
 
     if (GetPosX() == level->GetScreenPadding())
     {
+        level->IncreaseP2Score();
         level->OnGameOver();
         Simulation::Instance().RemoveObject(this);
         return;
