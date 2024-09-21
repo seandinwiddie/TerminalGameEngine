@@ -11,6 +11,7 @@ namespace MainMenuUtils
     inline Level* ShowLevelSelection()
     {
         TerminalUtils::ClearTerminal();
+        TerminalUtils::SetColor(TerminalUtils::WHITE);
         std::cout
             << "Press:" << std::endl
             << "1 -> play endless runner demo" << std::endl
