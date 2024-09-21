@@ -2,6 +2,8 @@
 #include "CollidingObject.h"	
 #include "Level.h"
 
+class PongBar;
+
 class PongBall : public CollidingObject
 {
 private:
@@ -14,7 +16,7 @@ public:
         CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
     {
         ySpeed = 0;
-        model = { {'0'} };
+        model = { {static_cast<char>(219)}};
     }
 
     virtual int GetColor() const { return TerminalUtils::GREEN; }
@@ -25,4 +27,7 @@ protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection) {}
     virtual void Update() override;
+
+private:
+    void HandleBarCollision(PongBar* collidingBar);
 };

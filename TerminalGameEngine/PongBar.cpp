@@ -5,9 +5,9 @@ void PongBar::Update()
 {
     if (isLeftBar)
     {
-        if (InputUtils::IsPressingA() || InputUtils::IsPressingS())
+        if (InputUtils::IsPressingA() || InputUtils::IsPressingW())
             Move(Direction::up, moveSpeed);
-        else if (InputUtils::IsPressingD() || InputUtils::IsPressingW())
+        else if (InputUtils::IsPressingS() || InputUtils::IsPressingW())
             Move(Direction::down, moveSpeed);
     }
     else
