@@ -9,7 +9,8 @@ void PongLevel::Load()
 	Simulation& simulation = Simulation::Instance();
 	
 	char barsChar = 219;
-	int startingPosY = GetWorldSizeY() / 2;
+	int startingPosY = GetWorldSizeY() / 2 - 1;
+	int barsSize = 4;
 	float barsMoveSpeed = 4;
 	float ballDeflectFactor = 0.5;
 
@@ -18,7 +19,7 @@ void PongLevel::Load()
 		GetScreenPadding()+1, 
 		startingPosY, 
 		1, 
-		4, 
+		barsSize,
 		barsChar, 
 		barsMoveSpeed, 
 		ballDeflectFactor, 
@@ -30,7 +31,7 @@ void PongLevel::Load()
 		GetWorldSizeX() - GetScreenPadding() -1, 
 		startingPosY, 
 		1, 
-		4, 
+		barsSize,
 		barsChar, 
 		barsMoveSpeed,
 		ballDeflectFactor, 
