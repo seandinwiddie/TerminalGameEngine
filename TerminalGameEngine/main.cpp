@@ -26,8 +26,8 @@ int main()
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
 
-    //DEBUG_LoadTestLevel();
-    //return 0;
+    DEBUG_LoadTestLevel();
+    return 0;
 
     while (true)
     {
@@ -36,7 +36,6 @@ int main()
         Level* level = MainMenuUtils::ShowLevelSelection();
         returnToMainMenu = false;
 
-       
         level->Load();
 
         while (returnToMainMenu == false)

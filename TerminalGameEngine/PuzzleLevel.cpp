@@ -14,7 +14,7 @@ void PuzzleLevel::Load()
     Level::Load();
 
     Simulation& simulation = Simulation::Instance();
-    simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
+    simulation.Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), false, {});
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(6, 4, this);
     simulation.TryAddObject(bunny);
@@ -46,9 +46,9 @@ void PuzzleLevel::Load()
     PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
     pressurePlate1->OnPress.Subscribe
     (
-        []()
+        [this]()
         {
-            PushableObject* pushableObj1 = new PushableObject(30, WORLD_SIZE_Y - 2);
+            PushableObject* pushableObj1 = new PushableObject(30, GetWorldSizeY() - 2);
             Simulation::Instance().TryAddObject(pushableObj1);
         }
     );

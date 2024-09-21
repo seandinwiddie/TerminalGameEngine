@@ -175,6 +175,7 @@
     <ClInclude Include="MainMenuUtils.h" />
     <ClInclude Include="EndlessRunnerLevel.h" />
     <ClInclude Include="Persistence.h" />
+    <ClInclude Include="PongLevel.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PuzzleLevel.h" />
     <ClInclude Include="SimulationPrinter.h" />

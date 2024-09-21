@@ -53,7 +53,7 @@ void EndlessRunnerLevel::Load()
     Level::Load();
 
     Simulation& simulation = Simulation::Instance();
-    simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, true, BACKGROUND_FILES);
+    simulation.Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), true, GetBackgroundFilesNames());
 
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
@@ -66,8 +66,8 @@ void EndlessRunnerLevel::Load()
     simulation.TryAddObject(floor);
 
     //------------------------------- spawner setup
-    int spawnerPosX = WORLD_SIZE_X - SCREEN_PADDING;
-    int spawnerPosY = SCREEN_PADDING + 1;
+    int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
+    int spawnerPosY = GetScreenPadding() + 1;
 
     std::vector<float> minSpawnDelays
     {

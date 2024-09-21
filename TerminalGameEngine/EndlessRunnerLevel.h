@@ -8,14 +8,15 @@ class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    const uint WORLD_SIZE_X = 90;
-    const uint WORLD_SIZE_Y = 24;
-    const uint SCREEN_PADDING = 4;
-    const std::vector<string> BACKGROUND_FILES = {"background1.txt", "background2.txt"};
     const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
 
 //---------------------------------------------------------- Methods
 public:
+    virtual int GetWorldSizeX() const override { return 90; }
+    virtual int GetWorldSizeY() const override { return 24; }
+    virtual int GetScreenPadding() const override { return 4; }
+    virtual std::vector<string> GetBackgroundFilesNames() { return { "background1.txt", "background2.txt" }; }
+
     virtual void Load() override;
     virtual void OnGameOver() override;
 

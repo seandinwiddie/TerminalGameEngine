@@ -156,6 +156,9 @@
     <ClInclude Include="TerminalUtils.h">
       <Filter>Headers\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="PongLevel.h">
+      <Filter>Headers\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="background1.txt">

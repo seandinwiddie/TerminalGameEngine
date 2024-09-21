@@ -8,20 +8,18 @@
 
 class CollisionsTestLevel : public Level
 {
-    //---------------------------------------------------------- Settings
-private:
-    static const uint WORLD_SIZE_X = 100;
-    static const uint WORLD_SIZE_Y = 30;
-    static const uint SCREEN_PADDING = 4;
-
     //---------------------------------------------------------- Methods
 public:
+    virtual int GetWorldSizeX() const override { return 100; }
+    virtual int GetWorldSizeY() const override { return 30; }
+    virtual int GetScreenPadding() const override { return 4; }
+
     virtual void Load() override
     {
         Level::Load();
 
         Simulation& simulation = Simulation::Instance();
-        simulation.Reset(this, WORLD_SIZE_X, WORLD_SIZE_Y, SCREEN_PADDING, false, {});
+        simulation.Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), false, {});
 
         //---
         float spawnDelay = 0.15;
@@ -48,9 +46,6 @@ public:
         );
         simulation.AddUpdatable(spawnerLeft);
         //---
-        
-        //Obstacle* obstacle = new Obstacle(90, 10, Direction::left, 8);
-        //simulation.TryAddObject(obstacle);
     }
 
     virtual double ShowGameOverScreenDelay()const { return 5; }
