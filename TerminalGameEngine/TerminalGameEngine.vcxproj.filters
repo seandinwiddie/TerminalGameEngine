@@ -76,6 +76,9 @@
     <ClCompile Include="StaticCollider.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionsTestLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -219,6 +222,9 @@
     </Filter>
     <Filter Include="Headers\Levels\PlatformerTypeLevels\Objects">
       <UniqueIdentifier>{d01b4c91-154a-4f6c-bb0b-f5d1609d73cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\PongLevel\Objects">
+      <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

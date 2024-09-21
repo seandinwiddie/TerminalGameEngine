@@ -139,6 +139,7 @@
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollidingObject.cpp" />
+    <ClCompile Include="CollisionsTestLevel.cpp" />
     <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
