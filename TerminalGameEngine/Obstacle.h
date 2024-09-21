@@ -10,8 +10,8 @@ public:
 
 //---------------------------------------------------------- Methods
 public:
-    virtual bool CanExitScreenSpace() const override { return true; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual bool CanExitScreenSpace() const override { return false; }
+    virtual float GetGravityScale() const override { return 1; }
     virtual int GetColor() const { return TerminalUtils::RED; }
 
 protected:

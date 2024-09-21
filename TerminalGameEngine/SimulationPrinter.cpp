@@ -43,8 +43,8 @@ void SimulationPrinter::PrintFrameOnTerminal()
     TerminalUtils::ClearTerminal();
 
     string buffer;
-    int currentColor = UI_COLOR;
-    TerminalUtils::SetColor(UI_COLOR);
+    int currentColor = TerminalUtils::RED;
+    TerminalUtils::SetColor(currentColor);
 
 #if DEBUG_MODE
     DEBUG_PrintAverageFps(buffer);
@@ -65,8 +65,14 @@ void SimulationPrinter::PrintFrameOnTerminal()
         {
             int color = frame.colors[m][n];
 
-            //print buffer if color changed
-            if (color != currentColor)
+            //print buffer if color changed (ignore empty spaces)
+
+            //debug, remove
+            auto redColor = TerminalUtils::RED;
+            auto whiteColor = TerminalUtils::WHITE;
+            auto frameChar = frame.chars[m][n];
+
+            if (color != currentColor && frame.chars[m][n] != ' ' && frame.chars[m][n] != '\n')
             {
                 if (!buffer.empty())
                 {
@@ -75,6 +81,8 @@ void SimulationPrinter::PrintFrameOnTerminal()
                 }
                 TerminalUtils::SetColor(color);
                 currentColor = color;
+                if (currentColor == 15)
+                    int a = 0;
             }
 
             buffer += frame.chars[m][n];
@@ -83,8 +91,10 @@ void SimulationPrinter::PrintFrameOnTerminal()
     }
 
     if (!buffer.empty())
+    {
         std::cout << buffer;
-
+        buffer.clear();
+    }
 }
 
 void SimulationPrinter::PrintUIMessageOnFrame()
