@@ -1,6 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "Frame.h"
+#include "TerminalUtils.h"
 #include <vector>
 #include <list>
 #include <string>
@@ -14,7 +15,8 @@ class SimulationPrinter
 //---------------------------------------------------------- Settings
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
-
+	static const int UI_COLOR = TerminalUtils::WHITE;
+	static const int BACKGROUND_COLOR = TerminalUtils::BLUE_DARK;
 //---------------------------------------------------------- Fields
 private:
 	Frame frame;
@@ -38,7 +40,7 @@ public:
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
-	void ShowFrameInTerminal();
+	void PrintFrameOnTerminal();
 
 	void PrintObjectOnFrame(GameObject* go);
 	void ClearFrame();

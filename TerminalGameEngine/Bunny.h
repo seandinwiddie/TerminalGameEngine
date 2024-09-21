@@ -7,6 +7,7 @@
 #include "TimeHelper.h"
 #include "Obstacle.h"
 #include "Simulation.h"
+#include "TerminalUtils.h"
 
 #include <string>
 
@@ -61,6 +62,7 @@ public:
     void Update() override;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
+    virtual int GetColor() const { return TerminalUtils::GREEN; }
 
 protected:
     virtual void Move(Direction direction, float moveSpeed) override;

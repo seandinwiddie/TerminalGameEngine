@@ -10,8 +10,12 @@ uint Frame::GetSizeX() const
 
 void Frame::ResizeX(uint size)
 {
-    for (int y = 0; y < chars.size(); ++y)
+    for (int y = 0; y < GetSizeY(); ++y)
+    {
         chars[y].resize(size);
+        colors[y].resize(size);
+    }
+        
 }
 
 void Frame::ReadFrameFromFile(const string& fileName, uint screenSizeX, uint screenSizeY)

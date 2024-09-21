@@ -7,7 +7,7 @@
 #include "TimeHelper.h"
 #include "TerminalUtils.h"
 
-#include "Windows.h"
+#include <windows.h>
 #include <cassert>
 
 SimulationPrinter::SimulationPrinter
@@ -38,32 +38,55 @@ SimulationPrinter::SimulationPrinter
 #endif
 }
 
-void SimulationPrinter::ShowFrameInTerminal()
+void SimulationPrinter::PrintFrameOnTerminal()
 {
-    string frameString = "";
+    TerminalUtils::ClearTerminal();
+
+    string toPrintBuffer;
+    int currentColor = TerminalUtils::WHITE;
+    TerminalUtils::SetColor(currentColor);
 
 #if DEBUG_MODE
-    DEBUG_PrintAverageFps(frameString);
+    DEBUG_PrintAverageFps(toPrintBuffer);
 #endif
 
     if (showTimeUI)
     {
         double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-        frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
+        toPrintBuffer += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
     PrintUIMessageOnFrame();
 
-    // add frame
+    //print frame
     for (int m = screenSizeY - 1; m >= 0; --m)
-    {               
-        string rowString(frame.chars[m].begin(), frame.chars[m].end());
-        frameString += rowString + '\n';
+    {
+        for (int n = 0; n < screenSizeX; ++n)
+        {
+            int cellColor = frame.colors[m][n];
+            char cellChar = frame.chars[m][n];
+
+            //print buffer if color changed (ignore empty spaces)
+            if (cellColor != currentColor && cellChar != ' ' && cellChar != '\n')
+            {
+                if (!toPrintBuffer.empty())
+                {
+                    std::cout << toPrintBuffer;
+                    toPrintBuffer.clear();
+                }
+                TerminalUtils::SetColor(cellColor);
+                currentColor = cellColor;
+            }
+            toPrintBuffer += cellChar;
+        }
+        toPrintBuffer += '\n';
     }
 
-    TerminalUtils::ClearTerminal();
-
-    std::cout << frameString;
+    if (!toPrintBuffer.empty())
+    {
+        std::cout << toPrintBuffer;
+        toPrintBuffer.clear();
+    }
 }
 
 void SimulationPrinter::PrintUIMessageOnFrame()
@@ -76,7 +99,13 @@ void SimulationPrinter::PrintUIMessageOnFrame()
         {
             char c = frameUIMessage.chars[y][x];
             if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
+            {
                 frame.chars[y][x] = c;
+                frame.colors[y][x] = UI_COLOR;
+
+                //message color could be customized
+                //frame.colors[y][x] = frameUIMessage.colors[y][x];
+            }
         }
 }
 
@@ -87,15 +116,22 @@ void SimulationPrinter::PrintObjectOnFrame(GameObject* go)
         return;
 
     for (int yScreen = go->GetScreenPosY(padding), yModel = 0; yModel < go->GetModelHeight(); ++yScreen, ++yModel)
+    {
         for (int xScreen = go->GetScreenPosX(padding), xModel = 0; xModel < go->GetModelWidth(); ++xScreen, ++xModel)
         {
             if (yScreen < screenSizeY && xScreen < screenSizeX)
             {
                 char charToPrint = go->GetModel()[yModel][xModel];
                 if (charToPrint != ' ')
+                {
                     frame.chars[yScreen][xScreen] = charToPrint;
+                    frame.colors[yScreen][xScreen] = go->GetColor();
+                }
+
             }
         }
+    }
+        
 }
 
 void SimulationPrinter::ClearFrame()
@@ -105,7 +141,11 @@ void SimulationPrinter::ClearFrame()
         for (int n = 0; n < screenSizeX; ++n)
         {
             if (IsBackgroundEnabled())
+            {
                 frame.chars[m][n] = GetCurrentBackground().chars[m][n];
+                frame.colors[m][n] = BACKGROUND_COLOR;
+            }
+                
             else
                 frame.chars[m][n] = ' ';
         }
@@ -146,9 +186,6 @@ void SimulationPrinter::DEBUG_PrintAverageFps(string& frameString)
         for (double fps : fpsRecord)
             shownAverageFps += fps;
         shownAverageFps /= fpsRecord.size();
-
-        if (static_cast<int>(shownAverageFps) < 0)
-            std::cout << "a";
 
         fpsRecord.clear();
         lastTimePrintedFps = TimeHelper::Instance().GetTime();
