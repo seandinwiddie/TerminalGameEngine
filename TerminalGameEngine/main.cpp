@@ -21,11 +21,13 @@ int main()
     system("COLOR 0A");
     AudioManager::Instance().StopMusic();
 
+    std::cin.get();
+
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
 
-    DEBUG_LoadTestLevel();
-    return 0;
+    //DEBUG_LoadTestLevel();
+    //return 0;
 
     while (true)
     {

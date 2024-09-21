@@ -7,6 +7,7 @@
 #include "TimeHelper.h"
 #include "Obstacle.h"
 #include "Simulation.h"
+#include "TerminalUtils.h"
 
 #include <string>
 
@@ -66,6 +67,7 @@ protected:
     virtual void Move(Direction direction, float moveSpeed) override;
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
+    virtual int GetColor() { return TerminalUtils::FG_BLUE; }
 
 private:
     std::vector<std::vector<char>> jumpingModel;

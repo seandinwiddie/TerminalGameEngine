@@ -63,7 +63,7 @@ void Simulation::Step()
 		}
 			
 
-		simulationPrinter->ShowFrameInTerminal();
+		simulationPrinter->PrintFrameOnTerminal();
 		simulationPrinter->ClearFrame();
 		printFrameStep = 0;
 

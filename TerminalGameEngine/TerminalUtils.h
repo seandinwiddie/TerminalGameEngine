@@ -3,6 +3,10 @@
 
 namespace TerminalUtils
 {
+
+    static int FG_WHITE = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    static int FG_BLUE = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    
     inline void ClearTerminal()
     {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

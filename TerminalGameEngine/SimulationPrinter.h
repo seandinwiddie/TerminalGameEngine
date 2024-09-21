@@ -38,7 +38,7 @@ public:
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
-	void ShowFrameInTerminal();
+	void PrintFrameOnTerminal();
 
 	void PrintObjectOnFrame(GameObject* go);
 	void ClearFrame();
@@ -62,7 +62,7 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
-	void DEBUG_PrintAverageFps(string& frameString);
+	void DEBUG_PrintAverageFps();
 #endif
 
 };

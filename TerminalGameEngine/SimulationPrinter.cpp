@@ -7,7 +7,7 @@
 #include "TimeHelper.h"
 #include "TerminalUtils.h"
 
-#include "Windows.h"
+#include <windows.h>
 #include <cassert>
 
 SimulationPrinter::SimulationPrinter
@@ -38,32 +38,33 @@ SimulationPrinter::SimulationPrinter
 #endif
 }
 
-void SimulationPrinter::ShowFrameInTerminal()
+void SimulationPrinter::PrintFrameOnTerminal()
 {
-    string frameString = "";
+    TerminalUtils::ClearTerminal();
 
 #if DEBUG_MODE
-    DEBUG_PrintAverageFps(frameString);
+    DEBUG_PrintAverageFps();
 #endif
 
     if (showTimeUI)
     {
         double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-        frameString += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
+        TerminalUtils::setTextColor(TerminalUtils::FG_WHITE);
+        std::cout<< "TIME: " << static_cast<int>(runTime) << '\n';
     }
 
     PrintUIMessageOnFrame();
 
-    // add frame
+       
     for (int m = screenSizeY - 1; m >= 0; --m)
-    {               
-        string rowString(frame.chars[m].begin(), frame.chars[m].end());
-        frameString += rowString + '\n';
+    {
+        for (int n = 0; n < screenSizeX; ++n)
+        {
+            TerminalUtils::setTextColor(frame.colors[m][n]);
+            std::cout << frame.chars[m][n];
+        }
+        std::cout << std::endl;
     }
-
-    TerminalUtils::ClearTerminal();
-
-    std::cout << frameString;
 }
 
 void SimulationPrinter::PrintUIMessageOnFrame()
@@ -76,7 +77,10 @@ void SimulationPrinter::PrintUIMessageOnFrame()
         {
             char c = frameUIMessage.chars[y][x];
             if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
+            {
                 frame.chars[y][x] = c;
+                frame.colors[y][x] = frameUIMessage.colors[y][x];
+            }
         }
 }
 
@@ -87,15 +91,22 @@ void SimulationPrinter::PrintObjectOnFrame(GameObject* go)
         return;
 
     for (int yScreen = go->GetScreenPosY(padding), yModel = 0; yModel < go->GetModelHeight(); ++yScreen, ++yModel)
+    {
         for (int xScreen = go->GetScreenPosX(padding), xModel = 0; xModel < go->GetModelWidth(); ++xScreen, ++xModel)
         {
             if (yScreen < screenSizeY && xScreen < screenSizeX)
             {
                 char charToPrint = go->GetModel()[yModel][xModel];
                 if (charToPrint != ' ')
+                {
                     frame.chars[yScreen][xScreen] = charToPrint;
+                    frame.colors[yScreen][xScreen] = go->GetColor();
+                }
+
             }
         }
+    }
+        
 }
 
 void SimulationPrinter::ClearFrame()
@@ -105,7 +116,11 @@ void SimulationPrinter::ClearFrame()
         for (int n = 0; n < screenSizeX; ++n)
         {
             if (IsBackgroundEnabled())
+            {
                 frame.chars[m][n] = GetCurrentBackground().chars[m][n];
+                frame.colors[m][n] = TerminalUtils::FG_WHITE;
+            }
+                
             else
                 frame.chars[m][n] = ' ';
         }
@@ -134,7 +149,7 @@ Frame SimulationPrinter::GetCurrentBackground()const
 #pragma region ======================================================================== DEBUG
 #if DEBUG_MODE
 
-void SimulationPrinter::DEBUG_PrintAverageFps(string& frameString)
+void SimulationPrinter::DEBUG_PrintAverageFps()
 {
     double fps = TimeHelper::Instance().GetFPS();
     fpsRecord.push_back(fps);
@@ -154,7 +169,7 @@ void SimulationPrinter::DEBUG_PrintAverageFps(string& frameString)
         lastTimePrintedFps = TimeHelper::Instance().GetTime();
     }
 
-    frameString += "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
+    std::cout<< "FPS: " << std::to_string(static_cast<int>(shownAverageFps)) + '\n';
 }
 
 #endif
