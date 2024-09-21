@@ -4,16 +4,23 @@
 namespace TerminalUtils
 {
 
-    const static int BG_WHITE = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
-    const static int BG_RED = FOREGROUND_RED;
-    const static int BG_GREEN = FOREGROUND_GREEN;
-    const static int BG_BLUE = FOREGROUND_BLUE;
+    const static int WHITE_DARK = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
+    const static int RED_DARK = FOREGROUND_RED;
+    const static int GREEN_DARK = FOREGROUND_GREEN;
+    const static int BLUE_DARK = FOREGROUND_BLUE;
+    const static int CYAN_DARK = FOREGROUND_GREEN | FOREGROUND_BLUE;
+    const static int MAGENTA_DARK = FOREGROUND_RED | FOREGROUND_BLUE;
+    const static int YELLOW_DARK = FOREGROUND_RED | FOREGROUND_GREEN;
 
-    const static int FG_WHITE = BG_WHITE | FOREGROUND_INTENSITY;
-    const static int FG_RED = BG_RED | FOREGROUND_INTENSITY;
-    const static int FG_GREEN = BG_GREEN | FOREGROUND_INTENSITY;
-    const static int FG_BLUE = BG_BLUE | FOREGROUND_INTENSITY;
+    const static int WHITE = WHITE_DARK | FOREGROUND_INTENSITY;
+    const static int RED = RED_DARK | FOREGROUND_INTENSITY;
+    const static int GREEN = GREEN_DARK | FOREGROUND_INTENSITY;
+    const static int BLUE = BLUE_DARK | FOREGROUND_INTENSITY;
+    const static int CYAN = CYAN_DARK | FOREGROUND_INTENSITY;
+    const static int MAGENTA = MAGENTA_DARK | FOREGROUND_BLUE;
+    const static int YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
     
+
     inline void ClearTerminal()
     {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

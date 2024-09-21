@@ -62,7 +62,7 @@ public:
     void Update() override;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
-    virtual int GetColor() const { return TerminalUtils::FG_GREEN; }
+    virtual int GetColor() const { return TerminalUtils::GREEN; }
 
 protected:
     virtual void Move(Direction direction, float moveSpeed) override;
