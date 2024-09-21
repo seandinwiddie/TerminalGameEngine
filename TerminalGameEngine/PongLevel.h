@@ -14,6 +14,8 @@ public:
     virtual int GetScreenPadding() const override { return 2; }
 
     virtual void Load() override;
+
+    virtual void OnGameOverDelayEnded() override { Terminate(); }
     /*virtual void OnGameOver() override;
 
 private:

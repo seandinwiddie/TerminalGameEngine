@@ -7,9 +7,7 @@
 void CollisionsTestLevel::Load()
 {
     Level::Load();
-
     Simulation& simulation = Simulation::Instance();
-    simulation.Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), false, {});
 
     float spawnDelay = 0.15;
     float speed = 4;

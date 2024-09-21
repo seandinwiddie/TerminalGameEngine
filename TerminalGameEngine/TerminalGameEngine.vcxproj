@@ -143,6 +143,8 @@
     <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
+    <ClCompile Include="PongBar.cpp" />
+    <ClCompile Include="PongLevel.cpp" />
     <ClCompile Include="PuzzleLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="MainMenuUtils.h" />
     <ClInclude Include="EndlessRunnerLevel.h" />
     <ClInclude Include="Persistence.h" />
+    <ClInclude Include="PongBar.h" />
     <ClInclude Include="PongLevel.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PuzzleLevel.h" />
