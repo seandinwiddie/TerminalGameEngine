@@ -62,6 +62,15 @@ void Simulation::Step()
 				simulationPrinter->PrintObjectOnFrame(obj);
 		}
 			
+		//--- 
+		float time = TimeHelper::Instance().GetTime();
+		float timeSinceLastFrame = time - lastTimePrintedFrame;
+		if (timeSinceLastFrame < PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS)
+		{
+			Sleep(PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS - timeSinceLastFrame);
+		}
+		lastTimePrintedFrame = time;
+		//---
 
 		simulationPrinter->PrintFrameOnTerminal();
 		simulationPrinter->ClearFrame();

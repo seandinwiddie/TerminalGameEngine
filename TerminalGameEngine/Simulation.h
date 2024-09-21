@@ -35,6 +35,8 @@ class Simulation : public Singleton<Simulation>
 //------------------------------------------------------------------------------------ Settings
 private:
 	const static uint STEPS_PER_FRAME = 8;
+	constexpr static float PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS = 4;
+
 
 //------------------------------------------------------------------------------------ Fields
 
@@ -43,6 +45,7 @@ private:
 	uint screenPadding;
 	uint printFrameStep;
 	double levelStartedTime = 0;
+	float lastTimePrintedFrame = -1; //todo use double for time
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
