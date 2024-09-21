@@ -293,7 +293,7 @@ bool Simulation::CanObjectMoveAtDirection
 			int y = obj->GetMaxPosY() + 1;
 
 			//exiting world
-			if (y == worldSizeY)
+			if (y == GetWorldSizeY())
 			{
 				//colliding with nullptr = exiting world
 				outCollidingObject = nullptr;
@@ -303,7 +303,7 @@ bool Simulation::CanObjectMoveAtDirection
 			//exiting screen space
 			if (obj->CanExitScreenSpace() == false)
 			{
-				if (y == worldSizeY - screenPadding)
+				if (y == GetWorldSizeY() - GetScreenPadding())
 				{
 					//colliding with nullptr = exiting screen space
 					outCollidingObject = nullptr;
@@ -340,7 +340,7 @@ bool Simulation::CanObjectMoveAtDirection
 			//exiting screen space
 			if (obj->CanExitScreenSpace() == false)
 			{
-				if (y == screenPadding-1)
+				if (y == GetScreenPadding() - 1)
 				{
 					//colliding with nullptr = exiting screen space
 					outCollidingObject = nullptr;
@@ -366,7 +366,7 @@ bool Simulation::CanObjectMoveAtDirection
 		{
 			int x = obj->GetMaxPosX() + 1;
 
-			if (x == worldSizeX)
+			if (x == GetWorldSizeX())
 			{
 				outCollidingObject = nullptr;
 				return false;
@@ -375,7 +375,7 @@ bool Simulation::CanObjectMoveAtDirection
 			//exiting screen space
 			if (obj->CanExitScreenSpace() == false)
 			{
-				if (x == worldSizeX - screenPadding)
+				if (x == GetWorldSizeX() - GetScreenPadding())
 				{
 					//colliding with nullptr = exiting screen space
 					outCollidingObject = nullptr;
@@ -410,7 +410,7 @@ bool Simulation::CanObjectMoveAtDirection
 			//exiting screen space
 			if (obj->CanExitScreenSpace() == false)
 			{
-				if (x == screenPadding-1)
+				if (x == GetScreenPadding() - 1)
 				{
 					//colliding with nullptr = exiting screen space
 					outCollidingObject = nullptr;
@@ -461,11 +461,6 @@ const std::vector<string>& backgroundFileNames
 )
 {
 	this->level = level;
-	this->worldSizeX = worldSizeX;
-	this->worldSizeY = worldSizeY;
-	this->screenPadding = screenPadding;
-	//isGameStarting = true;
-
 	ResetScreenManager(showLevelTime, backgroundFileNames);
 	
 	//clear simulation variables
@@ -519,17 +514,17 @@ void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string
 {
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), screenPadding, showLevelTime, backgroundFileNames);
+	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), showLevelTime, backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const
 {
-	return xPos >= 0 && xPos < worldSizeX;
+	return xPos >= 0 && xPos < GetWorldSizeX();
 }
 
 bool Simulation::IsInsideGameSpaceY(int yPos) const
 {
-	return yPos >= 0 && yPos < worldSizeY;
+	return yPos >= 0 && yPos < GetWorldSizeY();
 }
 
 bool Simulation::IsCoordinateInsideGameSpace(int xPos, int yPos) const
@@ -540,14 +535,14 @@ bool Simulation::IsCoordinateInsideGameSpace(int xPos, int yPos) const
 bool Simulation::IsInsideScreenY(int yPos) const
 {
 	return
-		yPos >= screenPadding &&
-		yPos < worldSizeY - screenPadding;
+		yPos >= GetScreenPadding() &&
+		yPos < GetWorldSizeY() - GetScreenPadding();
 }
 bool Simulation::IsInsideScreenX(int xPos) const
 {
 	return 
-		xPos >= screenPadding &&
-		xPos < worldSizeX - screenPadding;
+		xPos >= GetScreenPadding() &&
+		xPos < GetWorldSizeX() - GetScreenPadding();
 }
 
 bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const

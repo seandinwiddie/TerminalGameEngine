@@ -3,6 +3,7 @@
 #include "GridDirection.h"
 #include "Singleton.h"
 #include "ISimulationUpdatingEntity.h"
+#include "Level.h"
 
 #include <list>
 #include <vector>
@@ -10,7 +11,7 @@
 using namespace GridDirection;
 using string = std::string;
 
-class Level;
+//class Level;
 class SimulationPrinter;
 class CollidingObject;
 class ISimulationUpdatingEntity;
@@ -39,10 +40,6 @@ private:
 
 
 //------------------------------------------------------------------------------------ Fields
-
-	uint worldSizeX;
-	uint worldSizeY;
-	uint screenPadding;
 	uint printFrameStep;
 	double levelStartedTime = 0;
 	float lastTimePrintedFrame = -1; //todo use double for time
@@ -61,16 +58,16 @@ public:
 	void RequestMovement(GameObject* applicantObj, Direction direction, float speed);
 	void RemoveObject(GameObject* obj);
 
-	uint GetWorldSizeX() const { return worldSizeX; }
-	uint GetWorldSizeY() const { return worldSizeY; }
-	uint GetScreenPadding() const { return screenPadding; }
+	uint GetWorldSizeX() const { return level->GetWorldSizeX(); }
+	uint GetWorldSizeY() const { return level->GetWorldSizeY(); }
+	uint GetScreenPadding() const { return level->GetScreenPadding(); }
 
 	bool IsInsideGameSpaceX(int xPos) const;
 	bool IsInsideGameSpaceY(int yPos) const;
 	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 	
-	uint GetScreenSizeX() const { return worldSizeX - 2 * screenPadding; }
-	uint GetScreenSizeY() const { return worldSizeY - 2 * screenPadding; }
+	uint GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
+	uint GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
 
 	bool IsInsideScreenX(int xPos) const;
 	bool IsInsideScreenY(int yPos) const;
