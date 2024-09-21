@@ -1,6 +1,7 @@
 #include "PongLevel.h"
 #include "Simulation.h"
 #include "PongBar.h"
+#include "PongBall.h"
 
 void PongLevel::Load()
 {
@@ -15,5 +16,9 @@ void PongLevel::Load()
 
 	PongBar* pongBarRight = new PongBar(GetWorldSizeX() - GetScreenPadding() -1, startingPosY, 1, 4, '0', barsMoveSpeed, false);
 	simulation.TryAddObject(pongBarRight);
+
+	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, 2);
+	simulation.TryAddObject(pongBall);
+
 }
 

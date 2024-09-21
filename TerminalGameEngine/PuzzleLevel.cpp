@@ -43,14 +43,14 @@ void PuzzleLevel::Load()
 
     //------------------------------- pressure plate 1
     PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
-    pressurePlate1->OnPress.Subscribe
-    (
-        []()
-        {
-            PushableObject* pushableObj1 = new PushableObject(30, 20);
-            Simulation::Instance().TryAddObject(pushableObj1);
-        }
-    );
+    //pressurePlate1->OnPress.Subscribe
+    //(
+    //    []()
+    //    {
+    //        PushableObject* pushableObj1 = new PushableObject(30, 20);
+    //        Simulation::Instance().TryAddObject(pushableObj1);
+    //    }
+    //);
     simulation.TryAddObject(pressurePlate1);
 
     //------------------------------- open door pressure plate left
