@@ -27,10 +27,12 @@ public:
     void RemoveEnergySource();
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
-    virtual void Update() override;
     virtual int GetColor() const { return TerminalUtils::CYAN; }
 
 protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override {}
     virtual void OnCollisionExit(Direction collisionDirection) override {}
+    virtual void Update() override;
+
+    //todo check Update() is protected in all classes
 };
