@@ -1,3 +1,4 @@
+#pragma once
 #include "PuzzleLevel.h"
 
 #include "Bunny.h"
@@ -5,8 +6,8 @@
 #include "LevelEndFlag.h"
 #include "AutomaticDoor.h"
 #include "PressurePlate.h"
-#include "PushableObject.h"
 #include "AudioManager.h"
+#include "PushableObject.h"
 
 
 void PuzzleLevel::Load()
@@ -42,14 +43,14 @@ void PuzzleLevel::Load()
 
     //------------------------------- pressure plate 1
     PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
-    //pressurePlate1->OnPress.Subscribe
-    //(
-    //    [this]()
-    //    {
-    //        PushableObject* pushableObj1 = new PushableObject(30, GetWorldSizeY() - 2);
-    //        Simulation::Instance().TryAddObject(pushableObj1);
-    //    }
-    //);
+    pressurePlate1->OnPress.Subscribe
+    (
+        []()
+        {
+            PushableObject* pushableObj1 = new PushableObject(30, 20);
+            Simulation::Instance().TryAddObject(pushableObj1);
+        }
+    );
     simulation.TryAddObject(pressurePlate1);
 
     //------------------------------- open door pressure plate left

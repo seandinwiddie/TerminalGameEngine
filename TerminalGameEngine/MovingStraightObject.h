@@ -1,11 +1,12 @@
 #pragma once
+
+#include "CollidingObject.h"
+
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <cassert>
-
-#include "CollidingObject.h"
 
 class MovingStraightObject : public CollidingObject
 {
