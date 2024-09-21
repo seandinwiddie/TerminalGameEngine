@@ -4,8 +4,15 @@
 namespace TerminalUtils
 {
 
-    static int FG_WHITE = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    static int FG_BLUE = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    const static int BG_WHITE = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
+    const static int BG_RED = FOREGROUND_RED;
+    const static int BG_GREEN = FOREGROUND_GREEN;
+    const static int BG_BLUE = FOREGROUND_BLUE;
+
+    const static int FG_WHITE = BG_WHITE | FOREGROUND_INTENSITY;
+    const static int FG_RED = BG_RED | FOREGROUND_INTENSITY;
+    const static int FG_GREEN = BG_GREEN | FOREGROUND_INTENSITY;
+    const static int FG_BLUE = BG_BLUE | FOREGROUND_INTENSITY;
     
     inline void ClearTerminal()
     {
@@ -30,7 +37,7 @@ namespace TerminalUtils
         SetConsoleCursorPosition(hConsole, coord);
     }
 
-    inline void setTextColor(int color)
+    inline void SetColor(int color)
     {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hConsole, color);

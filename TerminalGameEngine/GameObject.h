@@ -44,7 +44,7 @@ public:
 	uint GetModelHeight() const { return model.size(); }
 	const std::vector<std::vector<char>>& GetModel() const { return model; }
 
-	virtual int GetColor() { return TerminalUtils::FG_WHITE; }
+	virtual int GetColor() const { return TerminalUtils::FG_WHITE; }
 
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual float GetGravityScale() const = 0;

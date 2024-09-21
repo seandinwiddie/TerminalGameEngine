@@ -1,6 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "Frame.h"
+#include "TerminalUtils.h"
 #include <vector>
 #include <list>
 #include <string>
@@ -14,7 +15,8 @@ class SimulationPrinter
 //---------------------------------------------------------- Settings
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
-
+	static const int UI_COLOR = TerminalUtils::FG_WHITE;
+	static const int BACKGROUND_COLOR = TerminalUtils::BG_GREEN;
 //---------------------------------------------------------- Fields
 private:
 	Frame frame;
@@ -62,7 +64,7 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
-	void DEBUG_PrintAverageFps();
+	void DEBUG_PrintAverageFps(string& frameString);
 #endif
 
 };

@@ -42,29 +42,49 @@ void SimulationPrinter::PrintFrameOnTerminal()
 {
     TerminalUtils::ClearTerminal();
 
+    string buffer;
+    int currentColor = UI_COLOR;
+    TerminalUtils::SetColor(UI_COLOR);
+
 #if DEBUG_MODE
-    DEBUG_PrintAverageFps();
+    DEBUG_PrintAverageFps(buffer);
 #endif
 
     if (showTimeUI)
     {
         double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-        TerminalUtils::setTextColor(TerminalUtils::FG_WHITE);
-        std::cout<< "TIME: " << static_cast<int>(runTime) << '\n';
+        buffer += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
     }
 
     PrintUIMessageOnFrame();
 
-       
+    //print frame
     for (int m = screenSizeY - 1; m >= 0; --m)
     {
         for (int n = 0; n < screenSizeX; ++n)
         {
-            TerminalUtils::setTextColor(frame.colors[m][n]);
-            std::cout << frame.chars[m][n];
+            int color = frame.colors[m][n];
+
+            //print buffer if color changed
+            if (color != currentColor)
+            {
+                if (!buffer.empty())
+                {
+                    std::cout << buffer;
+                    buffer.clear();
+                }
+                TerminalUtils::SetColor(color);
+                currentColor = color;
+            }
+
+            buffer += frame.chars[m][n];
         }
-        std::cout << std::endl;
+        buffer += '\n';
     }
+
+    if (!buffer.empty())
+        std::cout << buffer;
+
 }
 
 void SimulationPrinter::PrintUIMessageOnFrame()
@@ -79,7 +99,10 @@ void SimulationPrinter::PrintUIMessageOnFrame()
             if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
             {
                 frame.chars[y][x] = c;
-                frame.colors[y][x] = frameUIMessage.colors[y][x];
+                frame.colors[y][x] = UI_COLOR;
+
+                //message color could be customized
+                //frame.colors[y][x] = frameUIMessage.colors[y][x];
             }
         }
 }
@@ -118,7 +141,7 @@ void SimulationPrinter::ClearFrame()
             if (IsBackgroundEnabled())
             {
                 frame.chars[m][n] = GetCurrentBackground().chars[m][n];
-                frame.colors[m][n] = TerminalUtils::FG_WHITE;
+                frame.colors[m][n] = BACKGROUND_COLOR;
             }
                 
             else
@@ -149,7 +172,7 @@ Frame SimulationPrinter::GetCurrentBackground()const
 #pragma region ======================================================================== DEBUG
 #if DEBUG_MODE
 
-void SimulationPrinter::DEBUG_PrintAverageFps()
+void SimulationPrinter::DEBUG_PrintAverageFps(string& frameString)
 {
     double fps = TimeHelper::Instance().GetFPS();
     fpsRecord.push_back(fps);
@@ -162,14 +185,11 @@ void SimulationPrinter::DEBUG_PrintAverageFps()
             shownAverageFps += fps;
         shownAverageFps /= fpsRecord.size();
 
-        if (static_cast<int>(shownAverageFps) < 0)
-            std::cout << "a";
-
         fpsRecord.clear();
         lastTimePrintedFps = TimeHelper::Instance().GetTime();
     }
 
-    std::cout<< "FPS: " << std::to_string(static_cast<int>(shownAverageFps)) + '\n';
+    frameString += "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
 }
 
 #endif

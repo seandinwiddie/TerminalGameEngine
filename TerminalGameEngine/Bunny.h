@@ -62,12 +62,12 @@ public:
     void Update() override;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
+    virtual int GetColor() const { return TerminalUtils::FG_GREEN; }
 
 protected:
     virtual void Move(Direction direction, float moveSpeed) override;
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
-    virtual int GetColor() { return TerminalUtils::FG_BLUE; }
 
 private:
     std::vector<std::vector<char>> jumpingModel;
