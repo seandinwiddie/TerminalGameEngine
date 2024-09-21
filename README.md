@@ -1,6 +1,6 @@
 # TerminalGameEngine
 A simple engine for making 2D terminal games.
-
+ 
 - Framerate-independent simulation
 - Collision system, objects expose 'OnCollisionEnter' and 'OnCollisionEnd' methods
 - simulation print on terminal system (animated backgrounds, ui message over game)
