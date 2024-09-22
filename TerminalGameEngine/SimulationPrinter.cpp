@@ -126,11 +126,11 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
     for (int yScreen = GetScreenPos(go->GetPosY()) + MARGIN_OFFSET_Y, yModel = 0; yModel < go->GetModelHeight() && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
-        if (yScreen <= MARGIN_OFFSET_Y)
+        if (yScreen < MARGIN_OFFSET_Y)
             continue;
         for (int xScreen = GetScreenPos(go->GetPosX()) + MARGIN_OFFSET_X, xModel = 0; xModel < go->GetModelWidth() && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
-            if (xScreen <= MARGIN_OFFSET_X)
+            if (xScreen < MARGIN_OFFSET_X)
                 continue;
             char charToPrint = go->GetModel()[yModel][xModel];
             terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
@@ -143,11 +143,11 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
 {
     for (int yScreen = GetScreenPos(worldYPos) + MARGIN_OFFSET_Y, yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
-        if (yScreen <= MARGIN_OFFSET_Y)
+        if (yScreen < MARGIN_OFFSET_Y)
             continue;
         for (int xScreen = GetScreenPos(worldXPos) + MARGIN_OFFSET_X, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
-            if (xScreen <= MARGIN_OFFSET_X)
+            if (xScreen < MARGIN_OFFSET_X)
                 continue;
             char charToPrint = IsBackgroundEnabled() ? GetCurrentBackground().chars[yScreen][xScreen] : ' ';
             terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
