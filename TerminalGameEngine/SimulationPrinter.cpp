@@ -29,6 +29,7 @@ SimulationPrinter::SimulationPrinter
     terminal.Clear();
 
     DrawMargins();
+    PrintBackground();
 
 #if DEBUG_MODE
     fpsRecord.clear();
@@ -139,6 +140,24 @@ void SimulationPrinter::PrintObject(GameObject* go)
     }
 }
 
+void SimulationPrinter::PrintBackground()
+{
+    if (!IsBackgroundEnabled())
+        return;
+
+    terminal.SetColor(backgroundColor);
+
+    for (int yScreen =  MARGIN_OFFSET_Y; yScreen < GetMaxTerminalY(); ++yScreen)
+    {
+        for (int xScreen = MARGIN_OFFSET_X; xScreen < GetMaxTerminalX(); ++xScreen)
+        {
+            char charToPrint = GetCurrentBackground().chars[yScreen - MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X];
+            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
+            std::cout << charToPrint;
+        }
+    }
+}
+
 void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySize)
 {
     for (int yScreen = GetScreenPos(worldYPos) + MARGIN_OFFSET_Y, yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
@@ -149,7 +168,8 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
         {
             if (xScreen < MARGIN_OFFSET_X)
                 continue;
-            char charToPrint = IsBackgroundEnabled() ? GetCurrentBackground().chars[yScreen][xScreen] : ' ';
+            terminal.SetColor(backgroundColor);
+            char charToPrint = IsBackgroundEnabled() ? GetCurrentBackground().chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
             terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
             std::cout << charToPrint;
         }

@@ -75,6 +75,8 @@ private:
 	void DrawMargins();
 	void DrawHorizontalMargin();
 
+	void PrintBackground();
+
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
 private:
