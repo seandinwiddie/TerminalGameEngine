@@ -86,12 +86,12 @@ void EndlessRunnerLevel::Load()
     };
     std::vector<float> moveSpeeds
     {
-        -1,
-        -2,
-        -4,
-        -5,
-        -6,
-        -6
+        -8,
+        -16,
+        -32,
+        -40,
+        -48,
+        -48
     };
 
     float increaseIntensityEverySeconds = 10;

@@ -86,7 +86,8 @@
       <Filter>Cpp</Filter>
     </ClCompile>
     <ClCompile Include="PongBall.cpp" />
-    <ClCompile Include="TerminalUtils.cpp">
+    <ClCompile Include="Terminal.cpp" />
+    <ClCompile Include="GameLoop.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,7 +110,7 @@
     <ClInclude Include="Config.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuUtils.h">
+    <ClInclude Include="GameLoop.h">
       <Filter>Headers\Engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="TimeHelper.h">
@@ -126,9 +127,6 @@
     </ClInclude>
     <ClInclude Include="SimulationPrinter.h">
       <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalUtils.h">
-      <Filter>Headers\Engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="PuzzleLevel.h">
       <Filter>Headers\Levels\PlatformerTypeLevels\PuzzleLevel</Filter>
@@ -176,17 +174,13 @@
       <Filter>Headers\Levels\PongLevel\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PongBall.h" />
+    <ClInclude Include="Terminal.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="background1.txt">
-      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
-    </Text>
-    <Text Include="background2.txt">
-      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
-    </Text>
     <Text Include="gameover-screen.txt">
       <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
+    <Text Include="endlessRunnerBackground.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
