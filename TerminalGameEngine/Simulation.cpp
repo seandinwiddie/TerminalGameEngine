@@ -70,6 +70,10 @@ void Simulation::Step()
 
 	TimeHelper::Instance().NotifyFrameGenerated();
 	lastTimePrintedFrame = TimeHelper::Instance().GetTime();
+
+#if DEBUG_MODE && SHOW_FPS
+	simulationPrinter->DEBUG_PrintAverageFps();
+#endif
 }
 
 void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)

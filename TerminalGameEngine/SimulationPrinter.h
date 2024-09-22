@@ -82,10 +82,13 @@ private:
 	std::list<double> fpsRecord;
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
+	int debugColor = Terminal::CYAN;
 
 	int coutCalls = 0;
 
-	//void DEBUG_PrintAverageFps();
+public:
+	void DEBUG_PrintAverageFps();
+private:
 	void DEBUG_IncreaseCoutCallsCount();
 #endif
 

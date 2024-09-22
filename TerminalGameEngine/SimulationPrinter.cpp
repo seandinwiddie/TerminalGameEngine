@@ -182,7 +182,10 @@ void SimulationPrinter::InitBackgrounds(const string& backgroundFileName)
 void SimulationPrinter::Cout(const string& s)
 {
     std::cout << s;
+
+#if DEBUG_MODE && SHOW_COUT_CALLS
     DEBUG_IncreaseCoutCallsCount();
+#endif
 }
 
 void SimulationPrinter::Cout(char c)
@@ -200,7 +203,7 @@ void SimulationPrinter::Cout(char c)
 void SimulationPrinter::DEBUG_IncreaseCoutCallsCount()
 {
     int startingColor = terminal.GetColor();
-    terminal.SetColor(uiColor);
+    terminal.SetColor(debugColor);
     COORD cursorStartingPos = terminal.GetCursorPosition();
 
     terminal.SetCursorPosition(0, GetMaxTerminalY() + 4);
@@ -215,26 +218,28 @@ void SimulationPrinter::DEBUG_IncreaseCoutCallsCount()
     terminal.SetColor(startingColor);
 }
 
-//void SimulationPrinter::DEBUG_PrintAverageFps()
-//{
-//    double fps = TimeHelper::Instance().GetFPS();
-//    fpsRecord.push_back(fps);
-//
-//    if (TimeHelper::Instance().GetTime() - lastTimePrintedFps > REFRESH_FPS_EVERY_SECONDS)
-//    {
-//        shownAverageFps = 0;
-//
-//        for (double fps : fpsRecord)
-//            shownAverageFps += fps;
-//        shownAverageFps /= fpsRecord.size();
-//
-//        fpsRecord.clear();
-//        lastTimePrintedFps = TimeHelper::Instance().GetTime();
-//    }
-//
-//    string fpsString = "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
-//    InsertInPrintBuffer(fpsString, uiColor);
-//}
+void SimulationPrinter::DEBUG_PrintAverageFps()
+{
+    double fps = TimeHelper::Instance().GetFPS();
+    fpsRecord.push_back(fps);
+
+    if (TimeHelper::Instance().GetTime() - lastTimePrintedFps > REFRESH_FPS_EVERY_SECONDS)
+    {
+        shownAverageFps = 0;
+
+        for (double fps : fpsRecord)
+            shownAverageFps += fps;
+        shownAverageFps /= fpsRecord.size();
+
+        fpsRecord.clear();
+        lastTimePrintedFps = TimeHelper::Instance().GetTime();
+    }
+    string fpsString = "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
+
+    terminal.SetColor(debugColor);
+    terminal.SetCursorPosition(0, GetMaxTerminalY() + 3);
+    std::cout << fpsString;
+}
 
 #endif
 #pragma endregion
