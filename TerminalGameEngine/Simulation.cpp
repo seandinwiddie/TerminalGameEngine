@@ -41,8 +41,12 @@ void Simulation::Step()
 		int oldXPos = it->object->GetPosX();
 		int oldYPos = it->object->GetPosY();
 
-		if(TryMoveObjectAtDirection(it->object, it->direction))
+		if (TryMoveObjectAtDirection(it->object, it->direction))
+		{
 			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+			it->object->mustBeReprinted = true;
+		}
+			
 	}
 
 	//---------------- detect end of collisions
@@ -53,11 +57,15 @@ void Simulation::Step()
 			UpdateObjectCollisionDirections(collidingObj);
 	}
 
+	//---------------- 
 	for (ISimulationUpdatingEntity* updatingEntity : entities)
 	{
 		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
-		if (obj != nullptr)
+		if (obj != nullptr && obj->mustBeReprinted)
+		{
+			obj->mustBeReprinted = false;
 			simulationPrinter->PrintObject(obj);
+		}
 	}
 
 	TimeHelper::Instance().NotifyFrameGenerated();
@@ -117,6 +125,7 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
 		if (!CanObjectBeAdded(gameObjectEntity))
 			return false;
 
+		gameObjectEntity->mustBeReprinted = false;
 		simulationPrinter->PrintObject(gameObjectEntity);
 	}
 

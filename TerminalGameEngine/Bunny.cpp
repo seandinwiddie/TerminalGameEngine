@@ -89,21 +89,21 @@ void Bunny::UpdateModel()
     switch (state)
     {
     case State::defeated:
-        model = defeatedModel;
-        return;
+        SetModel(defeatedModel);
+        break;
 
     case State::idle:
-        model = idleModel;
-        return;
+        SetModel(idleModel);
+        break;
 
     case State::jumpingUp:
     case State::jumpingDown:
-        model = jumpingModel;
-        return;
+        SetModel(jumpingModel);
+        break;
 
     case State::walking:
-        model = walkingModel;
-        return;
+        SetModel(walkingModel);
+        break;
     }
 }
 

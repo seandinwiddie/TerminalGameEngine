@@ -157,11 +157,8 @@ void SimulationPrinter::PrintObject(GameObject* go)
         for (int xScreen = GetScreenPos(go->GetPosX()), xModel = 0; xModel < go->GetModelWidth() && xScreen < screenSizeX; ++xScreen, ++xModel)
         {
             char charToPrint = go->GetModel()[yModel][xModel];
-            if (charToPrint != ' ')
-            {
-                terminal.SetCursorPosition(xScreen, screenSizeY - yScreen);
-                std::cout << charToPrint;
-            }
+            terminal.SetCursorPosition(xScreen, screenSizeY - yScreen);
+            std::cout << charToPrint;
         }
     }
 }

@@ -15,7 +15,6 @@ class GameObject : public ISimulationUpdatingEntity
 //---------------------------------------------------------- Fields
 public:
 	friend class Simulation;
-
 private:
 	//must be modified only by simulation
 	int xPos;
@@ -24,9 +23,13 @@ private:
 	float xPosContinuous;
 	float yPosContinuous;
 
+	bool mustBeReprinted;
+	//check this is ok
+	std::vector<std::vector<char>> model = { {} };
+
 protected:
 	bool canMove = true;
-	std::vector<std::vector<char>> model = { {} };
+	
 
 //---------------------------------------------------------- Methods
 public:
@@ -51,6 +54,7 @@ protected:
 	virtual void Move(Direction direction, float moveSpeed);
 	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
+	void SetModel(const std::vector<std::vector<char>>& newModel);
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }

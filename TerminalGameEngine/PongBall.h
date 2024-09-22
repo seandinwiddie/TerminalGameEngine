@@ -17,7 +17,7 @@ public:
     PongBall(PongLevel* level, int xPos, int yPos, float xSpeed) : 
         CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
     {
-        model = { {static_cast<char>(219)}};
+        SetModel({{static_cast<char>(219)}});
 
         ySpeed = 0;
         iSFirstLaunch = true;

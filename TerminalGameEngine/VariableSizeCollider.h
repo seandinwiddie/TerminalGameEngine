@@ -14,6 +14,6 @@ public:
         char modelChar
     ) : CollidingObject(xPos, yPos)
     {
-        model = CreteModelUsingChar(modelChar, sizeX, sizeY);
+        SetModel(CreteModelUsingChar(modelChar, sizeX, sizeY));
     }
 };
