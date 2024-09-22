@@ -58,10 +58,8 @@ public:
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }
 
-	uint GetScreenSizeX() const { return screenSizeX; }
-	uint GetScreenSizeY() const { return screenSizeY; }
-	uint GetMaxTerminalX() const { return GetScreenSizeX() + MARGIN_OFFSET_X; }
-	uint GetMaxTerminalY() const { return GetScreenSizeY() + MARGIN_OFFSET_Y; }
+	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
+	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_Y; }
 
 	void SetHeader(const string& header) { this->header = header; }
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
