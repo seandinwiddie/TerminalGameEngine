@@ -73,8 +73,9 @@ private:
 
 	void InsertHorizontalMarginLine();
 	void InsertVerticalMarginChar(bool addEndLine);
-	void AddStrToPrintBuffer(string& str, int color);
-	void AddStrToPrintBuffer(char c, int color);
+
+	void InsertInPrintBuffer(string& str, int color);
+	void InsertInPrintBuffer(char c, int color);
 	void AddPrintBufferToOperations();
 
 //---------------------------------------------------------- Debug

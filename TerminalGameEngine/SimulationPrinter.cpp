@@ -48,7 +48,7 @@ void SimulationPrinter::PrintFrameOnTerminal()
 #endif
 
     string headerNewLine = header + '\n';
-    AddStrToPrintBuffer(headerNewLine, uiColor);
+    InsertInPrintBuffer(headerNewLine, uiColor);
 
     PrintUIMessageOnFrame();
 
@@ -63,7 +63,7 @@ void SimulationPrinter::PrintFrameOnTerminal()
         {
             int cellColor = frame.colors[m][n];
             char cellChar = frame.chars[m][n];
-            AddStrToPrintBuffer(cellChar, cellColor);
+            InsertInPrintBuffer(cellChar, cellColor);
         }
         InsertVerticalMarginChar(true);
     }
@@ -86,16 +86,16 @@ void SimulationPrinter::InsertHorizontalMarginLine()
     for (int n = 0; n < screenSizeX + 2; ++n)
         str += '-';
     str += '\n';
-    AddStrToPrintBuffer(str, screenMarginsColor);
+    InsertInPrintBuffer(str, screenMarginsColor);
 }
 
 void SimulationPrinter::InsertVerticalMarginChar(bool addEndLine)
 {
     string str = addEndLine ? "|\n" : "|";
-    AddStrToPrintBuffer(str, screenMarginsColor);
+    InsertInPrintBuffer(str, screenMarginsColor);
 }
 
-void SimulationPrinter::AddStrToPrintBuffer(char c, int color)
+void SimulationPrinter::InsertInPrintBuffer(char c, int color)
 {
     if (color != TerminalUtils::Instance().GetColor() && c != ' ' && c != '\n')
     {
@@ -109,7 +109,7 @@ void SimulationPrinter::AddStrToPrintBuffer(char c, int color)
     }
 }
 
-void SimulationPrinter::AddStrToPrintBuffer(string& str, int color)
+void SimulationPrinter::InsertInPrintBuffer(string& str, int color)
 {
     if (str.empty())
         return;
@@ -238,7 +238,7 @@ void SimulationPrinter::DEBUG_PrintAverageFps()
     }
 
     string fpsString = "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
-    AddStrToPrintBuffer(fpsString, uiColor);
+    InsertInPrintBuffer(fpsString, uiColor);
 }
 
 #endif
