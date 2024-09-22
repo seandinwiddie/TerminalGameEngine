@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "GridDirection.h"
 #include "ISimulationUpdatingEntity.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 
 #include <windows.h>
 #include <vector>
@@ -45,7 +45,7 @@ public:
 	uint GetModelHeight() const { return model.size(); }
 	const std::vector<std::vector<char>>& GetModel() const { return model; }
 
-	virtual int GetColor() const { return TerminalUtils::WHITE; }
+	virtual int GetColor() const { return Terminal::WHITE; }
 
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual float GetGravityScale() const = 0;

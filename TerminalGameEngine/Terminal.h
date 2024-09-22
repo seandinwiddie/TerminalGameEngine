@@ -2,7 +2,7 @@
 #include "Singleton.h"
 
 
-class TerminalUtils : public Singleton<TerminalUtils>
+class Terminal : public Singleton<Terminal>
 {
 public:
     const static int WHITE_DARK;
@@ -25,7 +25,7 @@ private:
     int currentColor;
 
 public:
-    void ClearTerminal();
+    void Clear();
     void SetColor(int color);
     int GetColor() { return currentColor; }
 

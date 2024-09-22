@@ -5,7 +5,7 @@
 #include "Config.h"
 #include "Level.h"
 #include "TimeHelper.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 
 #include <windows.h>
 #include <cassert>
@@ -67,7 +67,7 @@ void SimulationPrinter::PrintFrameOnTerminal()
     InsertHorizontalMarginLine();
 
     AddPrintBufferToOperations();
-    terminal.ClearTerminal();
+    terminal.Clear();
     for (PrintOperation operation : printOperations)
     {
         terminal.SetColor(operation.color);

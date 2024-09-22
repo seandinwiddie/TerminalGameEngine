@@ -1,23 +1,23 @@
-#include "TerminalUtils.h"
+#include "Terminal.h"
 #include <windows.h>
 
-const int TerminalUtils::WHITE_DARK = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
-const int TerminalUtils::RED_DARK = FOREGROUND_RED;
-const int TerminalUtils::GREEN_DARK = FOREGROUND_GREEN;
-const int TerminalUtils::BLUE_DARK = FOREGROUND_BLUE;
-const int TerminalUtils::CYAN_DARK = FOREGROUND_GREEN | FOREGROUND_BLUE;
-const int TerminalUtils::MAGENTA_DARK = FOREGROUND_RED | FOREGROUND_BLUE;
-const int TerminalUtils::YELLOW_DARK = FOREGROUND_RED | FOREGROUND_GREEN;
+const int Terminal::WHITE_DARK = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
+const int Terminal::RED_DARK = FOREGROUND_RED;
+const int Terminal::GREEN_DARK = FOREGROUND_GREEN;
+const int Terminal::BLUE_DARK = FOREGROUND_BLUE;
+const int Terminal::CYAN_DARK = FOREGROUND_GREEN | FOREGROUND_BLUE;
+const int Terminal::MAGENTA_DARK = FOREGROUND_RED | FOREGROUND_BLUE;
+const int Terminal::YELLOW_DARK = FOREGROUND_RED | FOREGROUND_GREEN;
 
-const int TerminalUtils::WHITE = WHITE_DARK | FOREGROUND_INTENSITY;
-const int TerminalUtils::RED = RED_DARK | FOREGROUND_INTENSITY;
-const int TerminalUtils::GREEN = GREEN_DARK | FOREGROUND_INTENSITY;
-const int TerminalUtils::BLUE = BLUE_DARK | FOREGROUND_INTENSITY;
-const int TerminalUtils::CYAN = CYAN_DARK | FOREGROUND_INTENSITY;
-const int TerminalUtils::MAGENTA = MAGENTA_DARK | FOREGROUND_BLUE;
-const int TerminalUtils::YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
+const int Terminal::WHITE = WHITE_DARK | FOREGROUND_INTENSITY;
+const int Terminal::RED = RED_DARK | FOREGROUND_INTENSITY;
+const int Terminal::GREEN = GREEN_DARK | FOREGROUND_INTENSITY;
+const int Terminal::BLUE = BLUE_DARK | FOREGROUND_INTENSITY;
+const int Terminal::CYAN = CYAN_DARK | FOREGROUND_INTENSITY;
+const int Terminal::MAGENTA = MAGENTA_DARK | FOREGROUND_BLUE;
+const int Terminal::YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
 
-void TerminalUtils::ClearTerminal()
+void Terminal::Clear()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord = { 0, 0 };  // Top left corner
@@ -40,14 +40,14 @@ void TerminalUtils::ClearTerminal()
     SetConsoleCursorPosition(hConsole, coord);
 }
 
-void TerminalUtils::SetColor(int color)
+void Terminal::SetColor(int color)
 {
     currentColor = color;
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, color);
 }
 
-void TerminalUtils::SetCursorPosition(int x, int y)
+void Terminal::SetCursorPosition(int x, int y)
 {
     COORD coord;
     coord.X = x;
@@ -55,7 +55,7 @@ void TerminalUtils::SetCursorPosition(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void TerminalUtils::HideCursor()
+void Terminal::HideCursor()
 {
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);

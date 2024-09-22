@@ -11,7 +11,7 @@ private:
 
 public:
     LevelEndFlag(Level* level, int xPos, int yPos);
-    virtual int GetColor() const { return TerminalUtils::GREEN; }
+    virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }

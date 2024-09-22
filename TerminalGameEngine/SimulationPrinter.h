@@ -1,7 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "Frame.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 #include <vector>
 #include <list>
 #include <string>
@@ -24,7 +24,7 @@ private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 //---------------------------------------------------------- Fields
 private:
-	TerminalUtils& terminal = TerminalUtils::Instance();
+	Terminal& terminal = Terminal::Instance();
 	Frame frame;
 	std::vector<Frame> backgrounds;
 
@@ -38,9 +38,9 @@ private:
 	std::list<PrintOperation> printOperations;
 	string printOperationBuffer;
 
-	int screenMarginsColor = TerminalUtils::Instance().BLUE_DARK;
-	int uiColor = TerminalUtils::WHITE;
-	int backgroundColor = TerminalUtils::BLUE_DARK;
+	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
+	int uiColor = Terminal::WHITE;
+	int backgroundColor = Terminal::BLUE_DARK;
 
 //---------------------------------------------------------- Methods
 public:

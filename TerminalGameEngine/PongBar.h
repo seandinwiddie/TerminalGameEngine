@@ -31,7 +31,7 @@ public:
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return TerminalUtils::CYAN; }
+    virtual int GetColor() const { return Terminal::CYAN; }
     
     float GetDeflectBallFactor() { return deflectBallFactor; }
 

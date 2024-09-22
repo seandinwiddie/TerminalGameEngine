@@ -7,7 +7,7 @@
 #include "TimeHelper.h"
 #include "Obstacle.h"
 #include "Simulation.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 
 #include <string>
 
@@ -62,7 +62,7 @@ public:
    
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
-    virtual int GetColor() const { return TerminalUtils::GREEN; }
+    virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     void Update() override;

@@ -163,7 +163,7 @@
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="StaticCollider.h" />
-    <ClCompile Include="TerminalUtils.cpp" />
+    <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ISimulationUpdatingEntity.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="TerminalUtils.h" />
+    <ClInclude Include="Terminal.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstaclesSpawner.h" />
