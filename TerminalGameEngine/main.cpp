@@ -33,8 +33,6 @@ int main()
         Level* level = MainMenuUtils::ShowLevelSelection();
         returnToMainMenu = false;
 
-        level->Load();
-
         while (returnToMainMenu == false)
         {
             level->Load();
