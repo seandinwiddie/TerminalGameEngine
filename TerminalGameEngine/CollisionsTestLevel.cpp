@@ -10,7 +10,7 @@ void CollisionsTestLevel::Load()
     Simulation& simulation = Simulation::Instance();
 
     float spawnDelay = 0.15;
-    float speed = 4;
+    float speed = 32;
 
     vector<int>ySpawnPoints = { 20,18,16,14 };
     ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
