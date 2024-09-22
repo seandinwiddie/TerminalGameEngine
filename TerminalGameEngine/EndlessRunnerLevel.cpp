@@ -60,12 +60,11 @@ void EndlessRunnerLevel::Load()
     simulation.TryAddObject(bunny);
 
     //------------------------------- floor setup
-    StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
-    simulation.TryAddObject(floor);
+    //StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
+    //simulation.TryAddObject(floor);
 
     //------------------------------- spawner setup
     int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
-    int spawnerPosY = GetScreenPadding() + 1;
 
     std::vector<float> minSpawnDelays
     {
@@ -98,7 +97,7 @@ void EndlessRunnerLevel::Load()
     float increaseIntensityEverySeconds = 10;
     float stopSpawningWhenPhaseChangesDuration = 1;
 
-    std::vector<int> ySpawnPoints = { 5,9,13 };
+    std::vector<int> ySpawnPoints = { 4,8,12 };
 
     ObstaclesSpawner* spawner = new ObstaclesSpawner
     (

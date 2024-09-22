@@ -3,7 +3,6 @@
 
 namespace TerminalUtils
 {
-
     const static int WHITE_DARK = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
     const static int RED_DARK = FOREGROUND_RED;
     const static int GREEN_DARK = FOREGROUND_GREEN;

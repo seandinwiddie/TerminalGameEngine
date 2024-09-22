@@ -17,6 +17,8 @@ private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 	static const int UI_COLOR = TerminalUtils::WHITE;
 	static const int BACKGROUND_COLOR = TerminalUtils::BLUE_DARK;
+
+	int screenMarginsColor = TerminalUtils::BLUE_DARK;
 //---------------------------------------------------------- Fields
 private:
 	Frame frame;
@@ -50,12 +52,17 @@ public:
 	uint GetScreenSizeY() const { return screenSizeY; }
 
 	void SetHeader(const string& header) { this->header = header; }
+	void SetMarginsColor(int color) { screenMarginsColor = color; }
 
 private:
 	void PrintUIMessageOnFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
 	Frame GetCurrentBackground() const;
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
+
+	void InsertHorizontalMarginLine(string& toPrintBuffer, int& currentColor);
+	void InsertVerticalMarginChar(string& toPrintBuffer, int& currentColor, bool addEndLine);
+	void PrintBufferOnTerminal(string& toPrintBuffer);
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE

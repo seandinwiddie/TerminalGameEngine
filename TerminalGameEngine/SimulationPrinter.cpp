@@ -54,9 +54,12 @@ void SimulationPrinter::PrintFrameOnTerminal()
 
     PrintUIMessageOnFrame();
 
+    InsertHorizontalMarginLine(toPrintBuffer, currentColor);
+
     //print frame
     for (int m = screenSizeY - 1; m >= 0; --m)
     {
+        InsertVerticalMarginChar(toPrintBuffer, currentColor, false);
         for (int n = 0; n < screenSizeX; ++n)
         {
             int cellColor = frame.colors[m][n];
@@ -65,19 +68,51 @@ void SimulationPrinter::PrintFrameOnTerminal()
             //print buffer if color changed (ignore empty spaces)
             if (cellColor != currentColor && cellChar != ' ' && cellChar != '\n')
             {
-                if (!toPrintBuffer.empty())
-                {
-                    std::cout << toPrintBuffer;
-                    toPrintBuffer.clear();
-                }
+                PrintBufferOnTerminal(toPrintBuffer);
                 TerminalUtils::SetColor(cellColor);
                 currentColor = cellColor;
             }
             toPrintBuffer += cellChar;
         }
-        toPrintBuffer += '\n';
+        InsertVerticalMarginChar(toPrintBuffer, currentColor, true);
     }
 
+    InsertHorizontalMarginLine(toPrintBuffer, currentColor);
+
+    if (!toPrintBuffer.empty())
+    {
+        std::cout << toPrintBuffer;
+        toPrintBuffer.clear();
+    }
+}
+
+void SimulationPrinter::InsertHorizontalMarginLine(string& toPrintBuffer, int& currentColor)
+{
+    if (screenMarginsColor != currentColor)
+    {
+        PrintBufferOnTerminal(toPrintBuffer);
+        TerminalUtils::SetColor(screenMarginsColor);
+        currentColor = screenMarginsColor;
+    }
+    for (int n = 0; n < screenSizeX + 2; ++n)
+        toPrintBuffer += '-';
+    toPrintBuffer += '\n';
+
+}
+
+void SimulationPrinter::InsertVerticalMarginChar(string& toPrintBuffer, int& currentColor, bool addEndLine)
+{
+    if (screenMarginsColor != currentColor && !toPrintBuffer.empty())
+    {
+        PrintBufferOnTerminal(toPrintBuffer);
+        TerminalUtils::SetColor(screenMarginsColor);
+        currentColor = screenMarginsColor;
+    }
+    toPrintBuffer += addEndLine ? "|\n" : "|";
+}
+
+void SimulationPrinter::PrintBufferOnTerminal(string& toPrintBuffer)
+{
     if (!toPrintBuffer.empty())
     {
         std::cout << toPrintBuffer;
