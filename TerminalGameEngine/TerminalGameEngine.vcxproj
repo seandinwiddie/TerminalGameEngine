@@ -163,6 +163,7 @@
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="StaticCollider.h" />
+    <ClCompile Include="TerminalUtils.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
   </ItemGroup>
   <ItemGroup>

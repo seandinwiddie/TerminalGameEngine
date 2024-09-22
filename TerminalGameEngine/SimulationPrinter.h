@@ -12,13 +12,16 @@ class GameObject;
 
 class SimulationPrinter
 {
+	struct PrintOperation
+	{
+		string str;
+		int color;
+		PrintOperation(const string& str, int color) :str(str), color(color) {}
+	};
+
 //---------------------------------------------------------- Settings
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
-	static const int UI_COLOR = TerminalUtils::WHITE;
-	static const int BACKGROUND_COLOR = TerminalUtils::BLUE_DARK;
-
-	int screenMarginsColor = TerminalUtils::BLUE_DARK;
 //---------------------------------------------------------- Fields
 private:
 	Frame frame;
@@ -30,6 +33,13 @@ private:
 	uint padding;
 	bool isShowingUIMessage;
 	Frame frameUIMessage;
+
+	std::list<PrintOperation> printOperations;
+	string printOperationBuffer;
+
+	int screenMarginsColor = TerminalUtils::Instance().BLUE_DARK;
+	int uiColor = TerminalUtils::WHITE;
+	int backgroundColor = TerminalUtils::BLUE_DARK;
 
 //---------------------------------------------------------- Methods
 public:
@@ -60,9 +70,12 @@ private:
 	Frame GetCurrentBackground() const;
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
-	void InsertHorizontalMarginLine(string& toPrintBuffer, int& currentColor);
-	void InsertVerticalMarginChar(string& toPrintBuffer, int& currentColor, bool addEndLine);
-	void PrintBufferOnTerminal(string& toPrintBuffer);
+
+	void InsertHorizontalMarginLine();
+	void InsertVerticalMarginChar(bool addEndLine);
+	void AddStrToPrintBuffer(string& str, int color);
+	void AddStrToPrintBuffer(char c, int color);
+	void AddPrintBufferToOperations();
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
@@ -72,7 +85,7 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
-	void DEBUG_PrintAverageFps(string& frameString);
+	void DEBUG_PrintAverageFps();
 #endif
 
 };

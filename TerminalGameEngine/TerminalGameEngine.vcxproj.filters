@@ -85,6 +85,10 @@
     <ClCompile Include="PongBar.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="PongBall.cpp" />
+    <ClCompile Include="TerminalUtils.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -171,6 +175,7 @@
     <ClInclude Include="PongBar.h">
       <Filter>Headers\Levels\PongLevel\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="PongBall.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="background1.txt">
