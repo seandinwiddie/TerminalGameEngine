@@ -9,13 +9,14 @@ class EndlessRunnerLevel : public Level
 //---------------------------------------------------------- Settings
 private:
     const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
+    const string BACKGROUND_FILE_NAME = "endlessRunnerBackground.txt";
 
 //---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 23; }
     virtual int GetScreenPadding() const override { return 4; }
-    virtual std::vector<string> GetBackgroundFilesNames() { return { "background1.txt", "background2.txt" }; }
+    virtual const string& GetBackgroundFileName() override { return BACKGROUND_FILE_NAME; }
 
     virtual void Load() override;
     virtual void OnGameOver() override;

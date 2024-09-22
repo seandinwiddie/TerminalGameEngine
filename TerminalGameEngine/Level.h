@@ -30,7 +30,7 @@ public:
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
-    virtual std::vector<string> GetBackgroundFilesNames() { return {}; };
+    virtual const string& GetBackgroundFileName() { return ""; }
 
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }

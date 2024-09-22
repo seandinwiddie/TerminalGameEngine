@@ -163,6 +163,7 @@
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="StaticCollider.h" />
+    <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +190,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ISimulationUpdatingEntity.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="TerminalUtils.h" />
+    <ClInclude Include="Terminal.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstaclesSpawner.h" />
@@ -197,8 +198,7 @@
     <ClInclude Include="VariableSizeCollider.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="background1.txt" />
-    <Text Include="background2.txt" />
+    <Text Include="endlessRunnerBackground.txt" />
     <Text Include="gameover-screen.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

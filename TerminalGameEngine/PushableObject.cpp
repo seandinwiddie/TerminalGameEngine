@@ -3,7 +3,7 @@
 
 PushableObject::PushableObject(int xPos, int yPos) : CollidingObject(xPos, yPos)
 { 
-    model = CreteModelUsingChar('@',4,2);
+   SetModel(CreteModelUsingChar('@',4,2));
 }
 
 void PushableObject::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)

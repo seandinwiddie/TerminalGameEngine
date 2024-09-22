@@ -5,7 +5,7 @@
 Obstacle::Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed)
     : MovingStraightObject(xPos, yPos, moveDir, moveSpeed)
 {
-    model = CreteModelUsingChar(219,4,2);
+    SetModel(CreteModelUsingChar(219, 4, 2));
 }
 
 void Obstacle::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)

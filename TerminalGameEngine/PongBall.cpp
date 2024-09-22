@@ -45,7 +45,7 @@ void PongBall::HandleBarCollision(PongBar* collidingBar)
     if (distanceFromMidPoint <= 0)
         distanceFromMidPoint -= 1;
 
-    ySpeed = distanceFromMidPoint * collidingBar->GetDeflectBallFactor();
+    ySpeed = distanceFromMidPoint* 8 * collidingBar->GetDeflectBallFactor();
 }
 
 void PongBall::Update()

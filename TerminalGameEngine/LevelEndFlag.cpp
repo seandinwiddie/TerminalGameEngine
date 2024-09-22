@@ -11,7 +11,7 @@ const std::vector<std::vector<char>> LevelEndFlag::flagModel
 
 LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : CollidingObject(xPos, yPos), level(level)
 {
-    model = flagModel;
+    SetModel(flagModel);
 }
 
 void LevelEndFlag::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)

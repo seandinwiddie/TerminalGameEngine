@@ -83,3 +83,12 @@ std::vector<std::vector<char>> GameObject::CreteModelUsingChar
 	return result;
 }
 
+void GameObject::SetModel(const std::vector<std::vector<char>>& newModel)
+{
+	if (model == newModel)
+		return;
+
+	mustBeReprinted = true;
+	model = newModel;
+}
+

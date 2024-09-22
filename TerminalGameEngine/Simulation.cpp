@@ -31,53 +31,45 @@ void Simulation::Step()
 	moveRequests.clear();
 
 	//---------------- update all objects
-
-	for (ISimulationUpdatingEntity* updatable : updatingEntities)
+	for (ISimulationUpdatingEntity* updatable : entities)
 		updatable->Update();
-
 	level->Update();
-	for (auto it = objects.rbegin(); it != objects.rend(); ++it)
-		(*it)->Update();
 
 	//---------------- move objects (slower ones first)
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
-		TryMoveObjectAtDirection(it->object, it->direction);
+	{
+		int oldXPos = it->object->GetPosX();
+		int oldYPos = it->object->GetPosY();
 
+		if (TryMoveObjectAtDirection(it->object, it->direction))
+		{
+			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+			it->object->mustBeReprinted = true;
+		}
+			
+	}
 
 	//---------------- detect end of collisions
-	for (auto it = objects.rbegin(); it != objects.rend(); ++it)
+	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		CollidingObject* collidingObj = dynamic_cast<CollidingObject*>((*it));
 		if (collidingObj != nullptr)
 			UpdateObjectCollisionDirections(collidingObj);
 	}
 
-	//---------------- print frame
-	if (++printFrameStep == STEPS_PER_FRAME)
+	//---------------- 
+	for (ISimulationUpdatingEntity* updatingEntity : entities)
 	{
-		for (ISimulationUpdatingEntity* simUpdatable : objects)
+		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+		if (obj != nullptr && obj->mustBeReprinted)
 		{
-			GameObject* obj = dynamic_cast<GameObject*>(simUpdatable);
-			if(obj != nullptr)
-				simulationPrinter->PrintObjectOnFrame(obj);
+			obj->mustBeReprinted = false;
+			simulationPrinter->PrintObject(obj);
 		}
-			
-		//--- 
-		float time = TimeHelper::Instance().GetTime();
-		float timeSinceLastFrame = time - lastTimePrintedFrame;
-		if (timeSinceLastFrame < PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS)
-		{
-			Sleep(PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS - timeSinceLastFrame);
-		}
-		lastTimePrintedFrame = time;
-		//---
-
-		simulationPrinter->PrintFrameOnTerminal();
-		simulationPrinter->ClearFrame();
-		printFrameStep = 0;
-
-		TimeHelper::Instance().NotifyFrameGenerated();
 	}
+
+	TimeHelper::Instance().NotifyFrameGenerated();
+	lastTimePrintedFrame = TimeHelper::Instance().GetTime();
 }
 
 void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
@@ -124,26 +116,29 @@ bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint h
 	return true;
 }
 
-void Simulation::AddUpdatable(ISimulationUpdatingEntity* updatable)
+bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
 {
-	updatingEntities.push_back(updatable);
-}
+	GameObject* gameObjectEntity = dynamic_cast<GameObject*>(updatingEntity);
 
-bool Simulation::TryAddObject(GameObject* obj)
-{
-	if (CanObjectBeAdded(obj) == false)
-		return false;
-
-	CollidingObject* collidingObj = dynamic_cast<CollidingObject*>(obj);
-	if (collidingObj != nullptr)
+	if (gameObjectEntity != nullptr)
 	{
-		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-				gameSpace[y][x] = collidingObj;
+		if (!CanObjectBeAdded(gameObjectEntity))
+			return false;
+
+		gameObjectEntity->mustBeReprinted = false;
+		simulationPrinter->PrintObject(gameObjectEntity);
 	}
 
-	objects.push_back(obj);
+	CollidingObject* collidingObjectEntity = dynamic_cast<CollidingObject*>(updatingEntity);
+	if (collidingObjectEntity != nullptr)
+	{
+		for (int y = collidingObjectEntity->GetPosY(); y <= collidingObjectEntity->GetMaxPosY(); ++y)
+			for (int x = collidingObjectEntity->GetPosX(); x <= collidingObjectEntity->GetMaxPosX(); ++x)
+				gameSpace[y][x] = collidingObjectEntity;
+	}
 
+	entities.push_back(updatingEntity);
+	
 	return true;
 }
 
@@ -167,7 +162,7 @@ bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 
 bool Simulation::IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const
 {
-	for (ISimulationUpdatingEntity* simulationObj : objects)
+	for (ISimulationUpdatingEntity* simulationObj : entities)
 		if (obj == simulationObj)
 			return true;
 
@@ -445,8 +440,8 @@ void Simulation::RemoveObject(GameObject* obj)
 			assert(gameSpace[y][x] == obj);
 			gameSpace[y][x] = nullptr;
 		}
-			
-	objects.remove(obj);
+	entities.remove(obj);
+	simulationPrinter->Clear(obj);
 	delete(obj);
 }
 
@@ -456,16 +451,16 @@ Level* level,
 uint worldSizeX, 
 uint worldSizeY,
 uint screenPadding,
-const std::vector<string>& backgroundFileNames
+const string& backgroundFileName
 )
 {
 	this->level = level;
-	ResetScreenManager(backgroundFileNames);
+	ResetScreenManager(backgroundFileName);
 	
 	//clear simulation variables
-	for (ISimulationUpdatingEntity* obj : objects)
+	for (ISimulationUpdatingEntity* obj : entities)
 		delete(obj);
-	objects.clear();
+	entities.clear();
 
 	// clear gamespace
 	gameSpace.clear();
@@ -478,11 +473,10 @@ const std::vector<string>& backgroundFileNames
 			elem = nullptr;
 	}
 
-	for (ISimulationUpdatingEntity* updatingEntity : updatingEntities)
-		delete(updatingEntity);
-	updatingEntities.clear();
+	for (ISimulationUpdatingEntity* entity : entities)
+		delete(entity);
+	entities.clear();
 
-	printFrameStep = 0;
 	levelStartedTime = TimeHelper::Instance().GetTime();
 }
 
@@ -509,11 +503,11 @@ void Simulation::MoveObject(GameObject* obj, Direction direction)
 	}
 }
 
-void Simulation::ResetScreenManager(const std::vector<string>& backgroundFileNames)
+void Simulation::ResetScreenManager(const string& backgroundFileName)
 {
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileNames);
+	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const

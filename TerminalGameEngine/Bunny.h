@@ -7,7 +7,7 @@
 #include "TimeHelper.h"
 #include "Obstacle.h"
 #include "Simulation.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 
 #include <string>
 
@@ -44,10 +44,10 @@ private:
 //---------------------------------------------------------- Fields
 
     static const uint JUMP_HEIGHT = 10;
-    static constexpr float MOVE_UP_SPEED = 3;
-    static constexpr float MOVE_DOWN_SPEED = 3;
-    static constexpr float MOVE_DOWN_CONTROLLED_SPEED = 0.8;
-    static constexpr float SIDE_MOVEMENT_SPEED = 3.0;
+    static constexpr float MOVE_UP_SPEED = 24;
+    static constexpr float MOVE_DOWN_SPEED = 24;
+    static constexpr float MOVE_DOWN_CONTROLLED_SPEED = 8;
+    static constexpr float SIDE_MOVEMENT_SPEED = 24;
     static constexpr float STEP_ANIM_EVERY_SECONDS = 0.7f;
 
     State state;
@@ -62,7 +62,7 @@ public:
    
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
-    virtual int GetColor() const { return TerminalUtils::GREEN; }
+    virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     void Update() override;

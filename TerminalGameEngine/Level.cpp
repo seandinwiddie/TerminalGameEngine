@@ -18,7 +18,7 @@ void Level::Load()
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnGameOverDelayEnded = false;
-    Simulation::Instance().Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), GetBackgroundFilesNames());
+    Simulation::Instance().Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), GetBackgroundFileName());
 }
 
 bool Level::IsPostGameOverDelayEnded() const

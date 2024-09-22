@@ -17,7 +17,7 @@ public:
     PongBall(PongLevel* level, int xPos, int yPos, float xSpeed) : 
         CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
     {
-        model = { {static_cast<char>(219)}};
+        SetModel({{static_cast<char>(219)}});
 
         ySpeed = 0;
         iSFirstLaunch = true;
@@ -26,7 +26,7 @@ public:
             this->xSpeed = -xSpeed;
     }
 
-    virtual int GetColor() const { return TerminalUtils::GREEN; }
+    virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }

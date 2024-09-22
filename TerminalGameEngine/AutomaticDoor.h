@@ -7,7 +7,7 @@ class AutomaticDoor : public VariableSizeCollider
 {
 //---------------------------------------------------------- Fields
 private:
-    static constexpr float MOVE_SPEED = 0.4;
+    static constexpr float MOVE_SPEED = 4;
     int startingPosY = -1;
     int energySourcesCounter = 0;
 
@@ -27,7 +27,7 @@ public:
     void RemoveEnergySource();
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return TerminalUtils::CYAN; }
+    virtual int GetColor() const { return Terminal::CYAN; }
 
 protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override {}

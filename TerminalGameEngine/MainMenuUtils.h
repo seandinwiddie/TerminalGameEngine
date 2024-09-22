@@ -2,7 +2,7 @@
 #include "Config.h"
 #include "EndlessRunnerLevel.h"
 #include "PuzzleLevel.h"
-#include "TerminalUtils.h"
+#include "Terminal.h"
 #include "CollisionsTestLevel.h"
 #include "PongLevel.h"
 #include "InputUtils.h"
@@ -12,8 +12,8 @@ namespace MainMenuUtils
 {
     inline Level* ShowLevelSelection()
     {
-        TerminalUtils::ClearTerminal();
-        TerminalUtils::SetColor(TerminalUtils::WHITE);
+        Terminal::Instance().Clear();
+        Terminal::Instance().SetColor(Terminal::WHITE);
         std::cout
             << "Press:" << std::endl
             << "1 -> play endless runner demo" << std::endl

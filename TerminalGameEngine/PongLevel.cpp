@@ -14,7 +14,7 @@ void PongLevel::Load()
 	char barsChar = 219;
 	int startingPosY = GetWorldSizeY() / 2 - 1;
 	int barsSize = 4;
-	float barsMoveSpeed = 4;
+	float barsMoveSpeed = 32;
 	float ballDeflectFactor = 0.5;
 
 	PongBar* pongBarLeft = new PongBar
@@ -28,7 +28,7 @@ void PongLevel::Load()
 		ballDeflectFactor, 
 		true
 	);
-	simulation.TryAddObject(pongBarLeft);
+	simulation.TryAddEntity(pongBarLeft);
 
 	PongBar* pongBarRight = new PongBar(
 		GetWorldSizeX() - GetScreenPadding() -1, 
@@ -40,10 +40,10 @@ void PongLevel::Load()
 		ballDeflectFactor, 
 		false
 	);
-	simulation.TryAddObject(pongBarRight);
+	simulation.TryAddEntity(pongBarRight);
 
-	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, 4);
-	simulation.TryAddObject(pongBall);
+	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, 32);
+	simulation.TryAddEntity(pongBall);
 }
 
 void PongLevel::Update()
