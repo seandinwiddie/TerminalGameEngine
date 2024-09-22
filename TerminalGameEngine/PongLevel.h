@@ -1,22 +1,26 @@
 #pragma once
 #include "Level.h"
+#include "Config.h"
 
 class PongLevel : public Level
 {
-    //---------------------------------------------------------- Settings
+//---------------------------------------------------------- Methods
 private:
-    const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
-
-    //---------------------------------------------------------- Methods
+    static uint scorePlayer1;
+    static uint scorePlayer2;
+//---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 30; }
     virtual int GetScreenPadding() const override { return 2; }
 
     virtual void Load() override;
-    /*virtual void OnGameOver() override;
 
-private:
-    virtual void OnGameOverDelayEnded() override;
-    void ShowGameOverScreen(int score, int bestScore);*/
+    virtual void OnGameOverDelayEnded() override { Terminate(); }
+
+    void IncreaseP1Score() { ++ scorePlayer1; }
+    void IncreaseP2Score() { ++ scorePlayer2; }
+
+protected:
+    virtual void Update() override;
 };

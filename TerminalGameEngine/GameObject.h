@@ -4,6 +4,7 @@
 #include "GridDirection.h"
 #include "ISimulationUpdatingEntity.h"
 #include "TerminalUtils.h"
+
 #include <windows.h>
 #include <vector>
 

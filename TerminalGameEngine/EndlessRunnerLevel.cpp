@@ -51,15 +51,13 @@ void EndlessRunnerLevel::OnGameOver()
 void EndlessRunnerLevel::Load()
 {
     Level::Load();
-
     Simulation& simulation = Simulation::Instance();
-    simulation.Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), true, GetBackgroundFilesNames());
 
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
-    Simulation::Instance().TryAddObject(bunny);
+    simulation.TryAddObject(bunny);
 
     //------------------------------- floor setup
     StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
@@ -115,4 +113,12 @@ void EndlessRunnerLevel::Load()
 
     simulation.AddUpdatable(spawner);
     AudioManager::Instance().PlayRandomMusic();
+}
+
+void EndlessRunnerLevel::Update()
+{
+    Level::Update();
+    double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
+    string header = "TIME: " + std::to_string(static_cast<int>(runTime));
+    Simulation::Instance().SetTerminalHeader(header);
 }

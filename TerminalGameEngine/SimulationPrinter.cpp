@@ -15,15 +15,14 @@ SimulationPrinter::SimulationPrinter
     uint screenSizeX, 
     uint screenSizeY, 
     uint screenPadding, 
-    bool showTimeUI,
     const std::vector<string>& backgroundFileNames 
 )
     : 
     screenSizeX(screenSizeX),
     screenSizeY(screenSizeY),
-    padding(screenPadding),
-    showTimeUI(showTimeUI)
+    padding(screenPadding)
 {
+    header = "";
     frameUIMessage.Clear();
     frame.ResizeY(screenSizeY);
     frame.ResizeX(screenSizeX);
@@ -50,11 +49,8 @@ void SimulationPrinter::PrintFrameOnTerminal()
     DEBUG_PrintAverageFps(toPrintBuffer);
 #endif
 
-    if (showTimeUI)
-    {
-        double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-        toPrintBuffer += "TIME: " + std::to_string(static_cast<int>(runTime)) + '\n';
-    }
+    if (header != "")
+        toPrintBuffer += header + '\n';
 
     PrintUIMessageOnFrame();
 

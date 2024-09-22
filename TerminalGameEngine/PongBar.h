@@ -1,38 +1,42 @@
 #pragma once
-
-#include "Config.h"
 #include "VariableSizeCollider.h"
 
-class AutomaticDoor : public VariableSizeCollider
+class PongBar : public VariableSizeCollider
 {
 //---------------------------------------------------------- Fields
 private:
-    static constexpr float MOVE_SPEED = 0.4;
-    int startingPosY = -1;
-    int energySourcesCounter = 0;
+    float moveSpeed;
+    bool isLeftBar;
+    float deflectBallFactor;
 
-//---------------------------------------------------------- Methods
 public:
-    AutomaticDoor
+//---------------------------------------------------------- Methods
+
+public:
+    PongBar
     (
         int xPos,
         int yPos,
         uint sizeX,
         uint sizeY,
-        char modelChar
-    );
+        char modelChar,
+        float moveSpeed,
+        float deflectBallFactor,
+        bool isLeftBar
+    ) : 
+    VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar),
+    moveSpeed(moveSpeed),
+    deflectBallFactor(deflectBallFactor),
+    isLeftBar(isLeftBar){ }
 
-    bool IsOpen() const { return energySourcesCounter > 0; }
-    void AddEnergySource() { ++energySourcesCounter; }
-    void RemoveEnergySource();
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return TerminalUtils::CYAN; }
+    
+    float GetDeflectBallFactor() { return deflectBallFactor; }
 
 protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override {}
     virtual void OnCollisionExit(Direction collisionDirection) override {}
     virtual void Update() override;
-
-    //todo check Update() is protected in all classes
 };

@@ -456,12 +456,11 @@ Level* level,
 uint worldSizeX, 
 uint worldSizeY,
 uint screenPadding,
-bool showLevelTime,
 const std::vector<string>& backgroundFileNames
 )
 {
 	this->level = level;
-	ResetScreenManager(showLevelTime, backgroundFileNames);
+	ResetScreenManager(backgroundFileNames);
 	
 	//clear simulation variables
 	for (ISimulationUpdatingEntity* obj : objects)
@@ -510,11 +509,11 @@ void Simulation::MoveObject(GameObject* obj, Direction direction)
 	}
 }
 
-void Simulation::ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames)
+void Simulation::ResetScreenManager(const std::vector<string>& backgroundFileNames)
 {
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), showLevelTime, backgroundFileNames);
+	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileNames);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const
@@ -553,3 +552,5 @@ bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 }
 
 void Simulation::ShowUIFrame(const Frame& UIMessage) { simulationPrinter->ShowUIFrame(UIMessage); }
+
+void  Simulation::SetTerminalHeader(const string& header) { simulationPrinter->SetHeader(header); }

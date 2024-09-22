@@ -3,6 +3,7 @@
 
 void AutomaticDoor::Update()
 {
+    VariableSizeCollider::Update();
     if (IsOpen())
     {
         if (GetPosY() < startingPosY + GetModelHeight())

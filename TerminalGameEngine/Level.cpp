@@ -2,6 +2,7 @@
 
 #include "TimeHelper.h"
 #include "InputUtils.h"
+#include "Simulation.h"
 
 double Level:: GetLevelTime() const
 {
@@ -17,6 +18,7 @@ void Level::Load()
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnGameOverDelayEnded = false;
+    Simulation::Instance().Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), GetBackgroundFilesNames());
 }
 
 bool Level::IsPostGameOverDelayEnded() const

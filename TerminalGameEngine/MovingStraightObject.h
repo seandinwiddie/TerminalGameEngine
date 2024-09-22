@@ -1,11 +1,12 @@
 #pragma once
+
+#include "CollidingObject.h"
+
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <cassert>
-
-#include "CollidingObject.h"
 
 class MovingStraightObject : public CollidingObject
 {
@@ -18,8 +19,9 @@ private:
 
 	//---------------------------------------------------------- Methods
 public:
-
 	MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed);
+
+protected:
 	void Update() override;
 
 };

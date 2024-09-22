@@ -79,6 +79,12 @@
     <ClCompile Include="CollisionsTestLevel.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="PongLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PongBar.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -161,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Headers\Engine\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBar.h">
+      <Filter>Headers\Levels\PongLevel\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

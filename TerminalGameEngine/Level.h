@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISimulationUpdatingEntity.h"
+
 #include <vector>
 #include "Frame.h"
 

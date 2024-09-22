@@ -35,6 +35,8 @@ void GameObject::Move(Direction direction, float moveSpeed)
 	if (canMove == false)
 		return;
 
+	moveSpeed = abs(moveSpeed);
+
 	double deltaTime = TimeHelper::Instance().GetDeltaTime();
 	switch (direction)
 	{
