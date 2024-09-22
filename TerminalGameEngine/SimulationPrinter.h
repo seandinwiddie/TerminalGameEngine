@@ -28,7 +28,7 @@ private:
 //---------------------------------------------------------- Fields
 private:
 	Terminal& terminal = Terminal::Instance();
-	std::vector<Frame> backgrounds;
+	Frame background;
 
 	string header = "";
 	uint screenSizeX;
@@ -48,7 +48,7 @@ public:
 		uint screenSizeX,
 		uint screenSizeY,
 		uint screenPadding,
-		const std::vector<string>& backgroundFileNames = {}
+		const string& backgroundFileName = ""
 	);
 
 	//void PrintUI();
@@ -68,13 +68,9 @@ public:
 
 private:
 	void PrintUIMessageOnFrame();
-	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
-	Frame GetCurrentBackground() const;
-	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
-
+	void InitBackgrounds(const string& backgroundFileName);
 	void DrawMargins();
 	void DrawHorizontalMargin();
-
 	void PrintBackground();
 
 //---------------------------------------------------------- Debug
@@ -85,7 +81,6 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
-	//void DEBUG_PrintAverageFps();
 #endif
 
 };

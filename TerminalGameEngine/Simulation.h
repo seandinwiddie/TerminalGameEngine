@@ -78,7 +78,7 @@ public:
 		uint worldSizeX,
 		uint worldSizeY,
 		uint screenPadding,
-		const std::vector<string>& backgroundFileNames
+		const string& backgroundFileName
 	);
 
 private:
@@ -90,6 +90,6 @@ private:
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 
 	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
-	void ResetScreenManager(const std::vector<string>& backgroundFileNames);
+	void ResetScreenManager(const string& backgroundFileName);
 
 };

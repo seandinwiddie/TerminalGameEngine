@@ -451,11 +451,11 @@ Level* level,
 uint worldSizeX, 
 uint worldSizeY,
 uint screenPadding,
-const std::vector<string>& backgroundFileNames
+const string& backgroundFileName
 )
 {
 	this->level = level;
-	ResetScreenManager(backgroundFileNames);
+	ResetScreenManager(backgroundFileName);
 	
 	//clear simulation variables
 	for (ISimulationUpdatingEntity* obj : entities)
@@ -503,11 +503,11 @@ void Simulation::MoveObject(GameObject* obj, Direction direction)
 	}
 }
 
-void Simulation::ResetScreenManager(const std::vector<string>& backgroundFileNames)
+void Simulation::ResetScreenManager(const string& backgroundFileName)
 {
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileNames);
+	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
 }
 
 bool Simulation::IsInsideGameSpaceX(int xPos) const

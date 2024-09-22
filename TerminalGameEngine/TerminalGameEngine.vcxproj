@@ -198,8 +198,7 @@
     <ClInclude Include="VariableSizeCollider.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="background1.txt" />
-    <Text Include="background2.txt" />
+    <Text Include="endlessRunnerBackground.txt" />
     <Text Include="gameover-screen.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

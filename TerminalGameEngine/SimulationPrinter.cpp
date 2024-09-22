@@ -16,7 +16,7 @@ SimulationPrinter::SimulationPrinter
     uint screenSizeX, 
     uint screenSizeY, 
     uint screenPadding, 
-    const std::vector<string>& backgroundFileNames 
+    const string& backgroundFileName 
 )
     : 
     screenSizeX(screenSizeX),
@@ -25,7 +25,7 @@ SimulationPrinter::SimulationPrinter
 {
     header = "";
     frameUIMessage.Clear();
-    InitBackgrounds(backgroundFileNames);
+    InitBackgrounds(backgroundFileName);
     terminal.Clear();
     
     DrawMargins();
@@ -148,7 +148,7 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
 void SimulationPrinter::PrintBackground()
 {
-    if (!IsBackgroundEnabled())
+    if (!background.IsSetup())
         return;
 
     terminal.SetColor(backgroundColor);
@@ -159,7 +159,7 @@ void SimulationPrinter::PrintBackground()
         for (int x = 0; x < screenSizeX; ++x)
         {
             //reversing y order
-            char charToPrint = GetCurrentBackground().chars[screenSizeY - y -1][x];
+            char charToPrint = background.chars[screenSizeY - y -1][x];
             line += charToPrint;
         }
         terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_Y);
@@ -179,7 +179,7 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
             if (xScreen < MARGIN_OFFSET_X)
                 continue;
             terminal.SetColor(backgroundColor);
-            char charToPrint = IsBackgroundEnabled() ? GetCurrentBackground().chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
+            char charToPrint = background.IsSetup() ? background.chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
             terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
             std::cout << charToPrint;
         }
@@ -192,23 +192,14 @@ void SimulationPrinter::Clear(GameObject* obj)
 }
 
 
-void SimulationPrinter::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
+void SimulationPrinter::InitBackgrounds(const string& backgroundFileName)
 {
-    if (backgroundFilesNames.size() == 0)
+    if (backgroundFileName == "")
     {
-        backgrounds.resize(0);
+        background.ResizeY(0);
         return;
     }
-
-    backgrounds.resize(backgroundFilesNames.size());
-
-    for (int i = 0; i < backgroundFilesNames.size(); i++)
-        backgrounds[i].ReadFrameFromFile(backgroundFilesNames[i], screenSizeX, screenSizeY);
-}
-
-Frame SimulationPrinter::GetCurrentBackground()const
-{
-    return  TimeHelper::Instance().IsTimeForFirstOfTwoModels(1.5) ? backgrounds[0] : backgrounds[1];
+    background.ReadFrameFromFile(backgroundFileName, screenSizeX, screenSizeY);
 }
 
 #pragma region ======================================================================== DEBUG

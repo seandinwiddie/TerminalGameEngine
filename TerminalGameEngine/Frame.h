@@ -25,4 +25,5 @@ public:
     void ReplaceChar(const string& writenString, char writeOverChar);
     void InsertString(const string& str, uint xPos, uint yPos);
     void Clear() { chars.clear(); }
+    bool IsSetup(){ return GetSizeY() > 0; }
 };
