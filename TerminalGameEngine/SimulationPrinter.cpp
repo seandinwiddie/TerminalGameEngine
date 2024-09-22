@@ -179,6 +179,11 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
     }
 }
 
+void SimulationPrinter::Clear(GameObject* obj)
+{
+    Clear(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
+}
+
 
 void SimulationPrinter::InitBackgrounds(const std::vector<string>& backgroundFilesNames)
 {

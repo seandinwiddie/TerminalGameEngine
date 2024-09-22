@@ -7,7 +7,7 @@ class AutomaticDoor : public VariableSizeCollider
 {
 //---------------------------------------------------------- Fields
 private:
-    static constexpr float MOVE_SPEED = 0.4;
+    static constexpr float MOVE_SPEED = 4;
     int startingPosY = -1;
     int energySourcesCounter = 0;
 

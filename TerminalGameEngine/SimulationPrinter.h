@@ -50,6 +50,7 @@ public:
 
 	//void PrintUI();
 	void PrintObject(GameObject* obj);
+	void Clear(GameObject* obj);
 	void Clear(int worldXPos, int worldYPos, uint xSize, uint ySize);
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }

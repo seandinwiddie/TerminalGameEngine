@@ -20,7 +20,7 @@ void CollisionsTestLevel::Load()
         -speed,
         ySpawnPoints
     );
-    simulation.AddUpdatable(spawnerRight);
+    simulation.TryAddEntity(spawnerRight);
 
 
     vector<float>speeds2 = { 8, 1 };
@@ -31,5 +31,5 @@ void CollisionsTestLevel::Load()
         speed,
         ySpawnPoints
     );
-    simulation.AddUpdatable(spawnerLeft);
+    simulation.TryAddEntity(spawnerLeft);
 }

@@ -16,6 +16,7 @@ class CollidingObject;
 class ISimulationUpdatingEntity;
 class Frame;
 class SimulationPrinter;
+class ISimulationUpdatingEntity;
 
 class Simulation : public Singleton<Simulation>
 {
@@ -33,14 +34,7 @@ class Simulation : public Singleton<Simulation>
 			:object(object),direction(direction), speed(speed){}
 	};
 
-//------------------------------------------------------------------------------------ Settings
-private:
-	const static uint STEPS_PER_FRAME = 8;
-	constexpr static float PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS = 4;
-
-
 //------------------------------------------------------------------------------------ Fields
-	uint printFrameStep;
 	double levelStartedTime = 0;
 	float lastTimePrintedFrame = -1; //todo use double for time
 
@@ -48,13 +42,12 @@ private:
 	Level* level;
 
 	std::vector<std::vector<CollidingObject*>> gameSpace;
-	std::list<ISimulationUpdatingEntity*> objects;
+	std::list<ISimulationUpdatingEntity*> entities;
 	std::list<MoveRequest> moveRequests;
-	std::list<ISimulationUpdatingEntity*> updatingEntities;
 //------------------------------------------------------------------------------------ Methods
 public:
 	void Step();
-	bool TryAddObject(GameObject* obj);
+	bool TryAddEntity(ISimulationUpdatingEntity* obj);
 	void RequestMovement(GameObject* applicantObj, Direction direction, float speed);
 	void RemoveObject(GameObject* obj);
 
@@ -76,7 +69,6 @@ public:
 	const Level* GetActiveLevel() { return level; }
 
 	void ShowUIFrame(const Frame& UIMessage);
-	void AddUpdatable(ISimulationUpdatingEntity* updatable);
 
 	void SetTerminalHeader(const string& header);
 

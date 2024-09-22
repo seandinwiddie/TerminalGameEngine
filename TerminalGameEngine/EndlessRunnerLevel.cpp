@@ -57,7 +57,7 @@ void EndlessRunnerLevel::Load()
 
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
-    simulation.TryAddObject(bunny);
+    simulation.TryAddEntity(bunny);
 
     //------------------------------- floor setup
     //StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
@@ -110,7 +110,7 @@ void EndlessRunnerLevel::Load()
         stopSpawningWhenPhaseChangesDuration
     );
 
-    simulation.AddUpdatable(spawner);
+    simulation.TryAddEntity(spawner);
     AudioManager::Instance().PlayRandomMusic();
 }
 
