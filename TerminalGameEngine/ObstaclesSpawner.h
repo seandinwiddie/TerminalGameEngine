@@ -38,7 +38,7 @@ public:
         const std::vector<int>& ySpawnPoints
     );
 
-
+protected:
     void Update() override;
 
 private:

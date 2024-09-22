@@ -38,7 +38,5 @@ public:
 protected:
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override {}
     virtual void OnCollisionExit(Direction collisionDirection) override {}
-
-private:
     virtual void Update() override;
 };

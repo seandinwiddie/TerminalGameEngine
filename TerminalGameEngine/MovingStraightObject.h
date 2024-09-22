@@ -19,8 +19,9 @@ private:
 
 	//---------------------------------------------------------- Methods
 public:
-
 	MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed);
+
+protected:
 	void Update() override;
 
 };

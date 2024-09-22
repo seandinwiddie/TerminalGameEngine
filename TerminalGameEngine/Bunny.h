@@ -59,12 +59,13 @@ private:
 public:
     Bunny(int xPos, int yPos, Level* level);
 
-    void Update() override;
+   
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
     virtual int GetColor() const { return TerminalUtils::GREEN; }
 
 protected:
+    void Update() override;
     virtual void Move(Direction direction, float moveSpeed) override;
     virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}

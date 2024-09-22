@@ -20,11 +20,7 @@ public:
         model = { {static_cast<char>(219)}};
 
         if (RandomUtils::GetRandomInt(0, 1) == 1)
-        {
-            std::cout << "aaaaa";
             this->xSpeed = -xSpeed;
-        }
-            
     }
 
     virtual int GetColor() const { return TerminalUtils::GREEN; }
