@@ -4,6 +4,8 @@
 
 void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
 {
+    iSFirstLaunch = false;
+
     if (GetPosX() == level->GetWorldSizeX() - level->GetScreenPadding() - 1)
     {
         level->IncreaseP1Score();
@@ -49,6 +51,9 @@ void PongBall::HandleBarCollision(PongBar* collidingBar)
 void PongBall::Update()
 {
     CollidingObject::Update();
+
+    if (ySpeed == 0 && !iSFirstLaunch)
+        ySpeed = RandomUtils::GetRandomInt(0, 1) == 1 ? 1 : -1;
 
     if (ySpeed > 0)
         Move(Direction::up, ySpeed);

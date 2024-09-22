@@ -11,13 +11,16 @@ private:
     PongLevel* level;
     float xSpeed;
     float ySpeed;
+    bool iSFirstLaunch;
 
 public:
     PongBall(PongLevel* level, int xPos, int yPos, float xSpeed) : 
         CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
     {
-        ySpeed = 0;
         model = { {static_cast<char>(219)}};
+
+        ySpeed = 0;
+        iSFirstLaunch = true;
 
         if (RandomUtils::GetRandomInt(0, 1) == 1)
             this->xSpeed = -xSpeed;
