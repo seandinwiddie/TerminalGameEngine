@@ -27,7 +27,7 @@ SimulationPrinter::SimulationPrinter
     frameUIMessage.Clear();
     InitBackgrounds(backgroundFileNames);
     terminal.Clear();
-
+    
     DrawMargins();
     PrintBackground();
 
@@ -153,14 +153,18 @@ void SimulationPrinter::PrintBackground()
 
     terminal.SetColor(backgroundColor);
 
-    for (int yScreen =  MARGIN_OFFSET_Y; yScreen < GetMaxTerminalY(); ++yScreen)
+    string line = "";
+    for (int y = 0; y < screenSizeY; ++y)
     {
-        for (int xScreen = MARGIN_OFFSET_X; xScreen < GetMaxTerminalX(); ++xScreen)
+        for (int x = 0; x < screenSizeX; ++x)
         {
-            char charToPrint = GetCurrentBackground().chars[yScreen - MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X];
-            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
-            std::cout << charToPrint;
+            //reversing y order
+            char charToPrint = GetCurrentBackground().chars[screenSizeY - y -1][x];
+            line += charToPrint;
         }
+        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_Y);
+        std::cout << line;
+        line.clear();
     }
 }
 
