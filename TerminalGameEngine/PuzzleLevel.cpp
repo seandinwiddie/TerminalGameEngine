@@ -15,7 +15,7 @@ void PuzzleLevel::Load()
     Level::Load();
     Simulation& simulation = Simulation::Instance();
     //------------------------------- bunny setup
-    Bunny* bunny = new Bunny(6, 4, this);
+    Bunny* bunny = new Bunny(5, 4, this);
     simulation.TryAddEntity(bunny);
 
     //------------------------------- left platform

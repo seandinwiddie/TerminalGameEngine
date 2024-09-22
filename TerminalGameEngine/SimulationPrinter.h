@@ -22,6 +22,9 @@ class SimulationPrinter
 //---------------------------------------------------------- Settings
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
+	static const uint MARGIN_OFFSET_X = 1; //left margin
+	static const uint MARGIN_OFFSET_Y = 1; //top margin
+
 //---------------------------------------------------------- Fields
 private:
 	Terminal& terminal = Terminal::Instance();
@@ -57,6 +60,8 @@ public:
 
 	uint GetScreenSizeX() const { return screenSizeX; }
 	uint GetScreenSizeY() const { return screenSizeY; }
+	uint GetMaxTerminalX() const { return GetScreenSizeX() + MARGIN_OFFSET_X; }
+	uint GetMaxTerminalY() const { return GetScreenSizeY() + MARGIN_OFFSET_Y; }
 
 	void SetHeader(const string& header) { this->header = header; }
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
@@ -69,8 +74,8 @@ private:
 	Frame GetCurrentBackground() const;
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
-	//void InsertHorizontalMarginLine();
-	//void InsertVerticalMarginChar(bool addEndLine);
+	void DrawMargins();
+	void DrawHorizontalMargin();
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE

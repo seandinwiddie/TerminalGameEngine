@@ -9,6 +9,7 @@
 
 #include <windows.h>
 #include <cassert>
+#include <algorithm>
 
 SimulationPrinter::SimulationPrinter
 (
@@ -26,6 +27,8 @@ SimulationPrinter::SimulationPrinter
     frameUIMessage.Clear();
     InitBackgrounds(backgroundFileNames);
     terminal.Clear();
+
+    DrawMargins();
 
 #if DEBUG_MODE
     fpsRecord.clear();
@@ -70,60 +73,12 @@ SimulationPrinter::SimulationPrinter
 //    printOperations.clear();
 //}
 //
-//void SimulationPrinter::InsertHorizontalMarginLine()
-//{
-//    string str = "";
-//    for (int n = 0; n < screenSizeX + 2; ++n)
-//        str += '-';
-//    str += '\n';
-//    InsertInPrintBuffer(str, screenMarginsColor);
-//}
-//
-//void SimulationPrinter::InsertVerticalMarginChar(bool addEndLine)
-//{
-//    string str = addEndLine ? "|\n" : "|";
-//    InsertInPrintBuffer(str, screenMarginsColor);
-//}
-//
-//void SimulationPrinter::InsertInPrintBuffer(char c, int color)
-//{
-//    if (color != terminal.GetColor() && c != ' ' && c != '\n')
-//    {
-//        AddPrintBufferToOperations();
-//        terminal.SetColor(color);
-//        printOperationBuffer = c;
-//    }
-//    else
-//    {
-//        printOperationBuffer += c;
-//    }
-//}
-//
-//void SimulationPrinter::InsertInPrintBuffer(string& str, int color)
-//{
-//    if (str.empty())
-//        return;
-//
-//    if (color != terminal.GetColor())
-//    {
-//        AddPrintBufferToOperations();
-//        terminal.SetColor(color);
-//        printOperationBuffer = str;
-//    }
-//    else
-//    {
-//        printOperationBuffer += str;
-//    }
-//}
-//
-//void SimulationPrinter::AddPrintBufferToOperations()
-//{
-//    if (!printOperationBuffer.empty())
-//    {
-//        printOperations.push_back(PrintOperation(printOperationBuffer, terminal.GetColor()));
-//        printOperationBuffer.clear();
-//    }
-//}
+
+void SimulationPrinter::DrawHorizontalMargin()
+{
+    for (int x = 0; x < screenSizeX + 2; ++x)
+        std::cout << '-';
+}
 
 void SimulationPrinter::PrintUIMessageOnFrame()
 {
@@ -144,7 +99,22 @@ void SimulationPrinter::PrintUIMessageOnFrame()
         }
 }
 
-static int counter = 0;
+void SimulationPrinter::DrawMargins()
+{
+    terminal.SetColor(screenMarginsColor);
+    terminal.SetCursorPosition(0, 0);
+    DrawHorizontalMargin();
+    terminal.SetCursorPosition(0, GetMaxTerminalY());
+    DrawHorizontalMargin();
+
+    for (int y = MARGIN_OFFSET_Y; y < GetMaxTerminalY(); ++y)
+    {
+        terminal.SetCursorPosition(0, y);
+        std::cout << "|";
+        terminal.SetCursorPosition(GetMaxTerminalX(), y);
+        std::cout << "|";
+    }
+}
 
 void SimulationPrinter::PrintObject(GameObject* go)
 {
@@ -154,12 +124,16 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
     terminal.SetColor(go->GetColor());
 
-    for (int yScreen = GetScreenPos(go->GetPosY()), yModel = 0; yModel < go->GetModelHeight() && yScreen < screenSizeY; ++yScreen, ++yModel)
+    for (int yScreen = GetScreenPos(go->GetPosY()) + MARGIN_OFFSET_Y, yModel = 0; yModel < go->GetModelHeight() && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
-        for (int xScreen = GetScreenPos(go->GetPosX()), xModel = 0; xModel < go->GetModelWidth() && xScreen < screenSizeX; ++xScreen, ++xModel)
+        if (yScreen <= MARGIN_OFFSET_Y)
+            continue;
+        for (int xScreen = GetScreenPos(go->GetPosX()) + MARGIN_OFFSET_X, xModel = 0; xModel < go->GetModelWidth() && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
+            if (xScreen <= MARGIN_OFFSET_X)
+                continue;
             char charToPrint = go->GetModel()[yModel][xModel];
-            terminal.SetCursorPosition(xScreen, screenSizeY - yScreen);
+            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
             std::cout << charToPrint;
         }
     }
@@ -167,12 +141,16 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
 void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySize)
 {
-    for (int yScreen = GetScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)
+    for (int yScreen = GetScreenPos(worldYPos) + MARGIN_OFFSET_Y, yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
-        for (int xScreen = GetScreenPos(worldXPos), xModel = 0; xModel < xSize && xScreen < screenSizeX; ++xScreen, ++xModel)
+        if (yScreen <= MARGIN_OFFSET_Y)
+            continue;
+        for (int xScreen = GetScreenPos(worldXPos) + MARGIN_OFFSET_X, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
+            if (xScreen <= MARGIN_OFFSET_X)
+                continue;
             char charToPrint = IsBackgroundEnabled() ? GetCurrentBackground().chars[yScreen][xScreen] : ' ';
-            terminal.SetCursorPosition(xScreen, screenSizeY - yScreen);
+            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
             std::cout << charToPrint;
         }
     }
