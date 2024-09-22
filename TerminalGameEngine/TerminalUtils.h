@@ -27,5 +27,8 @@ private:
 public:
     void ClearTerminal();
     void SetColor(int color);
-    inline int GetColor() { return currentColor; }
+    int GetColor() { return currentColor; }
+
+    void SetCursorPosition(int x, int y);
+    void HideCursor();
 };
