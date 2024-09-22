@@ -72,6 +72,8 @@ private:
 	void DrawMargins();
 	void DrawHorizontalMargin();
 	void PrintBackground();
+	void Cout(const string& s);
+	void Cout(char s);
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
@@ -81,6 +83,10 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
+	int coutCalls = 0;
+
+	//void DEBUG_PrintAverageFps();
+	void DEBUG_IncreaseCoutCallsCount();
 #endif
 
 };

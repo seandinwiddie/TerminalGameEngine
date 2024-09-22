@@ -48,37 +48,14 @@ SimulationPrinter::SimulationPrinter
 //
 //    PrintUIMessageOnFrame();
 //
-//    //print frame
-//    for (int m = screenSizeY - 1; m >= 0; --m)
-//    {
-//        InsertVerticalMarginChar(false);
-//        string lineStr = "";
-//        for (int n = 0; n < screenSizeX; ++n)
-//        {
-//            int cellColor = frame.colors[m][n];
-//            char cellChar = frame.chars[m][n];
-//            InsertInPrintBuffer(cellChar, cellColor);
-//        }
-//        InsertVerticalMarginChar(true);
-//    }
-//
-//    InsertHorizontalMarginLine();
-//
-//    AddPrintBufferToOperations();
-//    terminal.Clear();
-//    for (PrintOperation operation : printOperations)
-//    {
-//        terminal.SetColor(operation.color);
-//        std::cout << operation.str;
-//    }
-//    printOperations.clear();
-//}
 //
 
 void SimulationPrinter::DrawHorizontalMargin()
 {
+    string line = "";
     for (int x = 0; x < screenSizeX + 2; ++x)
-        std::cout << '-';
+        line += '-';
+    Cout(line);
 }
 
 void SimulationPrinter::PrintUIMessageOnFrame()
@@ -95,7 +72,7 @@ void SimulationPrinter::PrintUIMessageOnFrame()
             {
                 terminal.SetCursorPosition(x, y);
                 //todo could be optimized doing cout of strings for adjacent characters (also in other methods)
-                std::cout << c;
+                Cout(c);
             }
         }
 }
@@ -111,9 +88,9 @@ void SimulationPrinter::DrawMargins()
     for (int y = MARGIN_OFFSET_Y; y < GetMaxTerminalY(); ++y)
     {
         terminal.SetCursorPosition(0, y);
-        std::cout << "|";
+        Cout('|');
         terminal.SetCursorPosition(GetMaxTerminalX(), y);
-        std::cout << "|";
+        Cout('|');
     }
 }
 
@@ -141,7 +118,7 @@ void SimulationPrinter::PrintObject(GameObject* go)
                     if (xScreen < MARGIN_OFFSET_X) continue;
                     char charToPrint = go->GetModel()[yModel][xModel];
                     terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
-                    std::cout << charToPrint;
+                    Cout(charToPrint);
                 }
         }
 }
@@ -163,7 +140,7 @@ void SimulationPrinter::PrintBackground()
             line += charToPrint;
         }
         terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_Y);
-        std::cout << line;
+        Cout(line);
         line.clear();
     }
 }
@@ -181,7 +158,7 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
             terminal.SetColor(backgroundColor);
             char charToPrint = background.IsSetup() ? background.chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
             terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
-            std::cout << charToPrint;
+            Cout(charToPrint);
         }
     }
 }
@@ -202,8 +179,41 @@ void SimulationPrinter::InitBackgrounds(const string& backgroundFileName)
     background.ReadFrameFromFile(backgroundFileName, screenSizeX, screenSizeY);
 }
 
+void SimulationPrinter::Cout(const string& s)
+{
+    std::cout << s;
+    DEBUG_IncreaseCoutCallsCount();
+}
+
+void SimulationPrinter::Cout(char c)
+{
+    std::cout << c;
+
+#if DEBUG_MODE && SHOW_COUT_CALLS
+    DEBUG_IncreaseCoutCallsCount();
+#endif
+}
+
 #pragma region ======================================================================== DEBUG
 #if DEBUG_MODE
+
+void SimulationPrinter::DEBUG_IncreaseCoutCallsCount()
+{
+    int startingColor = terminal.GetColor();
+    terminal.SetColor(uiColor);
+    COORD cursorStartingPos = terminal.GetCursorPosition();
+
+    terminal.SetCursorPosition(0, GetMaxTerminalY() + 4);
+    std::cout << "                  ";
+    terminal.SetCursorPosition(0, GetMaxTerminalY() + 4);
+    std::cout << "COUT CALLS: " << coutCalls++;
+
+    if (coutCalls == 1000)
+        coutCalls = 0;
+
+    terminal.SetCursorPosition(cursorStartingPos);
+    terminal.SetColor(startingColor);
+}
 
 //void SimulationPrinter::DEBUG_PrintAverageFps()
 //{
@@ -228,4 +238,3 @@ void SimulationPrinter::InitBackgrounds(const string& backgroundFileName)
 
 #endif
 #pragma endregion
-

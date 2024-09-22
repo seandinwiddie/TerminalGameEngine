@@ -7,3 +7,6 @@ template <typename T> using vector = std::vector<T>;
 using uint = unsigned int;
 
 #define DEBUG_MODE 1
+
+#define SHOW_COUT_CALLS 1
+#define SHOW_FPS 1

@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-
+#include "windows.h"
 
 class Terminal : public Singleton<Terminal>
 {
@@ -32,7 +32,10 @@ public:
     int GetColor() { return currentColor; }
 
     void SetCursorPosition(int x, int y);
+    void SetCursorPosition(const COORD& coord);
+    COORD GetCursorPosition();
     void HideCursor();
+   
 
 protected:
     Terminal() { HideCursor(); }
