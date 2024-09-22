@@ -23,7 +23,7 @@ class SimulationPrinter
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 	static const uint MARGIN_OFFSET_X = 1; //left margin
-	static const uint MARGIN_OFFSET_Y = 1; //top margin
+	static const uint MARGIN_OFFSET_Y = 2; //top margin + header
 
 //---------------------------------------------------------- Fields
 private:
@@ -58,13 +58,10 @@ public:
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }
 
-	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
-	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_Y; }
-
 	void SetHeader(const string& header) { this->header = header; }
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
 
-	int GetScreenPos(int worldPos) const { return worldPos - padding; }
+	void OnPrintEnd();
 
 private:
 	void PrintUIMessageOnFrame();
@@ -74,6 +71,13 @@ private:
 	void PrintBackground();
 	void Cout(const string& s);
 	void Cout(char s);
+	void PrintHeader();
+
+	int GetScreenPos(int worldPos) const { return worldPos - padding; }
+	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
+	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_Y; }
+	uint GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }
+	uint GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_Y; }
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE

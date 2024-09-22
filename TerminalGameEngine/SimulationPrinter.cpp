@@ -37,18 +37,18 @@ SimulationPrinter::SimulationPrinter
 #endif
 }
 
-//void SimulationPrinter::PrintUI()
-//{
-//#if DEBUG_MODE
-//    DEBUG_PrintAverageFps();
-//#endif
-//
-//    string headerNewLine = header + '\n';
-//    InsertInPrintBuffer(headerNewLine, uiColor);
-//
-//    PrintUIMessageOnFrame();
-//
-//
+void SimulationPrinter::OnPrintEnd()
+{
+    PrintHeader();
+}
+
+void SimulationPrinter::PrintHeader()
+{
+    terminal.SetColor(uiColor);
+    terminal.SetCursorPosition(0, 0);
+    Cout(header);
+    PrintUIMessageOnFrame();
+}
 
 void SimulationPrinter::DrawHorizontalMargin()
 {
@@ -80,7 +80,7 @@ void SimulationPrinter::PrintUIMessageOnFrame()
 void SimulationPrinter::DrawMargins()
 {
     terminal.SetColor(screenMarginsColor);
-    terminal.SetCursorPosition(0, 0);
+    terminal.SetCursorPosition(0, 1);
     DrawHorizontalMargin();
     terminal.SetCursorPosition(0, GetMaxTerminalY());
     DrawHorizontalMargin();
@@ -103,21 +103,21 @@ void SimulationPrinter::PrintObject(GameObject* go)
     terminal.SetColor(go->GetColor());
 
     for (
-        int yScreen = GetScreenPos(go->GetPosY()) + MARGIN_OFFSET_Y, yModel = 0;
+        int yScreen = GetTerminalPosY(go->GetPosY()), yModel = 0;
         yScreen < GetMaxTerminalY() && yModel < go->GetModelHeight();
         ++yScreen, ++yModel
         )
         {
             if (yScreen < MARGIN_OFFSET_Y)continue;
             for (
-                int xScreen = GetScreenPos(go->GetPosX()) + MARGIN_OFFSET_X, xModel = 0; 
+                int xScreen = GetTerminalPosX(go->GetPosX()), xModel = 0;
                 xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
                 ++xScreen, ++xModel
                 )
                 {
                     if (xScreen < MARGIN_OFFSET_X) continue;
                     char charToPrint = go->GetModel()[yModel][xModel];
-                    terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
+                    terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen +1);
                     Cout(charToPrint);
                 }
         }
@@ -147,17 +147,17 @@ void SimulationPrinter::PrintBackground()
 
 void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySize)
 {
-    for (int yScreen = GetScreenPos(worldYPos) + MARGIN_OFFSET_Y, yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
+    for (int yScreen = GetTerminalPosY(worldYPos), yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
         if (yScreen < MARGIN_OFFSET_Y)
             continue;
-        for (int xScreen = GetScreenPos(worldXPos) + MARGIN_OFFSET_X, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
+        for (int xScreen = GetTerminalPosX(worldXPos), xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
             if (xScreen < MARGIN_OFFSET_X)
                 continue;
             terminal.SetColor(backgroundColor);
             char charToPrint = background.IsSetup() ? background.chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
-            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
+            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen +1);
             Cout(charToPrint);
         }
     }

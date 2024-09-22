@@ -46,7 +46,6 @@ void Simulation::Step()
 			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
 			it->object->mustBeReprinted = true;
 		}
-			
 	}
 
 	//---------------- detect end of collisions
@@ -67,7 +66,10 @@ void Simulation::Step()
 			simulationPrinter->PrintObject(obj);
 		}
 	}
+	//----------------
+	simulationPrinter->OnPrintEnd();
 
+	//----------------
 	TimeHelper::Instance().NotifyFrameGenerated();
 	lastTimePrintedFrame = TimeHelper::Instance().GetTime();
 
