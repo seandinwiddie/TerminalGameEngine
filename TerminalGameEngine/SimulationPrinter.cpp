@@ -125,19 +125,25 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
     terminal.SetColor(go->GetColor());
 
-    for (int yScreen = GetScreenPos(go->GetPosY()) + MARGIN_OFFSET_Y, yModel = 0; yModel < go->GetModelHeight() && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
-    {
-        if (yScreen < MARGIN_OFFSET_Y)
-            continue;
-        for (int xScreen = GetScreenPos(go->GetPosX()) + MARGIN_OFFSET_X, xModel = 0; xModel < go->GetModelWidth() && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
+    for (
+        int yScreen = GetScreenPos(go->GetPosY()) + MARGIN_OFFSET_Y, yModel = 0;
+        yScreen < GetMaxTerminalY() && yModel < go->GetModelHeight();
+        ++yScreen, ++yModel
+        )
         {
-            if (xScreen < MARGIN_OFFSET_X)
-                continue;
-            char charToPrint = go->GetModel()[yModel][xModel];
-            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
-            std::cout << charToPrint;
+            if (yScreen < MARGIN_OFFSET_Y)continue;
+            for (
+                int xScreen = GetScreenPos(go->GetPosX()) + MARGIN_OFFSET_X, xModel = 0; 
+                xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
+                ++xScreen, ++xModel
+                )
+                {
+                    if (xScreen < MARGIN_OFFSET_X) continue;
+                    char charToPrint = go->GetModel()[yModel][xModel];
+                    terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen);
+                    std::cout << charToPrint;
+                }
         }
-    }
 }
 
 void SimulationPrinter::PrintBackground()
