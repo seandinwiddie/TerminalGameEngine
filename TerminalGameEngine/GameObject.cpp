@@ -85,7 +85,10 @@ std::vector<std::vector<char>> GameObject::CreteModelUsingChar
 
 void GameObject::SetModel(const std::vector<std::vector<char>>& newModel)
 {
-	model = newModel;
+	if (model == newModel)
+		return;
+
 	mustBeReprinted = true;
+	model = newModel;
 }
 

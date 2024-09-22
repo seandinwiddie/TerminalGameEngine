@@ -144,6 +144,8 @@ void SimulationPrinter::PrintUIMessageOnFrame()
         }
 }
 
+static int counter = 0;
+
 void SimulationPrinter::PrintObject(GameObject* go)
 {
     std::vector<std::vector<char>> model = go->GetModel();

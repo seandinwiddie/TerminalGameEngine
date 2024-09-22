@@ -23,7 +23,7 @@ private:
 	float xPosContinuous;
 	float yPosContinuous;
 
-	bool mustBeReprinted;
+	bool mustBeReprinted = false;
 	//check this is ok
 	std::vector<std::vector<char>> model = { {} };
 
