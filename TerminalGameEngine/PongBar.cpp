@@ -7,7 +7,7 @@ void PongBar::Update()
     {
         if (InputUtils::IsPressingA() || InputUtils::IsPressingW())
             Move(Direction::up, moveSpeed);
-        else if (InputUtils::IsPressingS() || InputUtils::IsPressingW())
+        else if (InputUtils::IsPressingS() || InputUtils::IsPressingD())
             Move(Direction::down, moveSpeed);
     }
     else

@@ -2,16 +2,13 @@
 #include "Level.h"
 #include "Config.h"
 
-namespace PongLevelScore
-{
-    static uint scorePlayer1 = 0;
-    static uint scorePlayer2 = 0;
-}
-
-
 class PongLevel : public Level
 {
-    //---------------------------------------------------------- Methods
+//---------------------------------------------------------- Methods
+private:
+    static uint scorePlayer1;
+    static uint scorePlayer2;
+//---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 30; }
@@ -21,12 +18,9 @@ public:
 
     virtual void OnGameOverDelayEnded() override { Terminate(); }
 
-    void IncreaseP1Score() { ++ PongLevelScore::scorePlayer1; }
-    void IncreaseP2Score() { ++PongLevelScore::scorePlayer2; }
+    void IncreaseP1Score() { ++ scorePlayer1; }
+    void IncreaseP2Score() { ++ scorePlayer2; }
 
-    /*virtual void OnGameOver() override;
-
-private:
-    virtual void OnGameOverDelayEnded() override;
-    void ShowGameOverScreen(int score, int bestScore);*/
+protected:
+    virtual void Update() override;
 };

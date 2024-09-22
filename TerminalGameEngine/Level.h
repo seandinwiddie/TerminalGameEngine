@@ -30,7 +30,6 @@ public:
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
-    virtual bool ShowLevelTime() { return false; }
     virtual std::vector<string> GetBackgroundFilesNames() { return {}; };
 
     double GetLevelTime() const;

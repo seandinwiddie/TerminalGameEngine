@@ -12,10 +12,10 @@ using namespace GridDirection;
 using string = std::string;
 
 //class Level;
-class SimulationPrinter;
 class CollidingObject;
 class ISimulationUpdatingEntity;
 class Frame;
+class SimulationPrinter;
 
 class Simulation : public Singleton<Simulation>
 {
@@ -78,13 +78,14 @@ public:
 	void ShowUIFrame(const Frame& UIMessage);
 	void AddUpdatable(ISimulationUpdatingEntity* updatable);
 
+	void SetTerminalHeader(const string& header);
+
 	void Reset
 	(
 		Level* level,
 		uint worldSizeX,
 		uint worldSizeY,
 		uint screenPadding,
-		bool showLevelTime,
 		const std::vector<string>& backgroundFileNames
 	);
 
@@ -97,6 +98,6 @@ private:
 	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
 
 	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
-	void ResetScreenManager(bool showLevelTime, const std::vector<string>& backgroundFileNames);
+	void ResetScreenManager(const std::vector<string>& backgroundFileNames);
 
 };

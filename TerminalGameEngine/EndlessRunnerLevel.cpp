@@ -114,3 +114,11 @@ void EndlessRunnerLevel::Load()
     simulation.AddUpdatable(spawner);
     AudioManager::Instance().PlayRandomMusic();
 }
+
+void EndlessRunnerLevel::Update()
+{
+    Level::Update();
+    double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
+    string header = "TIME: " + std::to_string(static_cast<int>(runTime));
+    Simulation::Instance().SetTerminalHeader(header);
+}

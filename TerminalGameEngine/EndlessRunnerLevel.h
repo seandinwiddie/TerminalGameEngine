@@ -20,6 +20,9 @@ public:
     virtual void Load() override;
     virtual void OnGameOver() override;
 
+protected:
+    virtual void Update()override;
+
 private:
     virtual void OnGameOverDelayEnded() override;
     void ShowGameOverScreen(int score, int bestScore);

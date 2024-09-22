@@ -22,10 +22,10 @@ private:
 	Frame frame;
 	std::vector<Frame> backgrounds;
 
+	string header = "";
 	uint screenSizeX;
 	uint screenSizeY;
 	uint padding;
-	bool showTimeUI = false;
 	bool isShowingUIMessage;
 	Frame frameUIMessage;
 
@@ -36,7 +36,6 @@ public:
 		uint screenSizeX,
 		uint screenSizeY,
 		uint screenPadding,
-		bool showTimeUI,
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
@@ -49,6 +48,8 @@ public:
 
 	uint GetScreenSizeX() const { return screenSizeX; }
 	uint GetScreenSizeY() const { return screenSizeY; }
+
+	void SetHeader(const string& header) { this->header = header; }
 
 private:
 	void PrintUIMessageOnFrame();
