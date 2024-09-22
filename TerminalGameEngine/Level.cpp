@@ -14,7 +14,6 @@ double Level:: GetLevelTime() const
 
 void Level::LoadInSimulation()
 {
-    Simulation::Instance().LoadLevel(this);
     isTerminated = false;
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();

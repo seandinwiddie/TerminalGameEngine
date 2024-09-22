@@ -475,8 +475,8 @@ void Simulation::LoadLevel (Level* level)
 	for (ISimulationUpdatingEntity* entity : entities)
 		delete(entity);
 	entities.clear();
-
 	levelStartedTime = TimeHelper::Instance().GetTime();
+	level->LoadInSimulation();
 }
 
 void Simulation::MoveObject(GameObject* obj, Direction direction)

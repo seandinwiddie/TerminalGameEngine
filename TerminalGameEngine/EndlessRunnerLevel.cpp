@@ -56,7 +56,7 @@ void EndlessRunnerLevel::LoadInSimulation()
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
     //------------------------------- bunny setup
-    Bunny* bunny = new Bunny(9, simulation.GetScreenPadding() + 5, this);
+    Bunny* bunny = new Bunny(9, simulation.GetScreenPadding(), this);
     simulation.TryAddEntity(bunny);
 
     //------------------------------- floor setup

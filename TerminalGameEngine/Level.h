@@ -25,7 +25,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-    virtual void LoadInSimulation();
+   
     virtual void OnGameOver();
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
@@ -42,8 +42,10 @@ protected:
     virtual double ShowGameOverScreenDelay() const { return 1; }
     virtual void Update() override;
     virtual void OnGameOverDelayEnded() = 0;
+    virtual void LoadInSimulation();
 
     bool IsPostGameOverDelayEnded() const;
     bool CanPlayerPressKeyToRestartGame() const;
     void Terminate() { isTerminated = true; }
+
 };

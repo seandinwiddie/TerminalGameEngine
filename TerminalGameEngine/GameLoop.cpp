@@ -26,7 +26,7 @@ GameLoop::GameLoop()
 
         while (returnToMainMenu == false)
         {
-            level->LoadInSimulation();
+            simulation.LoadLevel(level);
 
             while (level->IsTerminated() == false)
             {
