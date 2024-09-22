@@ -25,12 +25,12 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-    virtual void Load();
+    virtual void LoadInSimulation();
     virtual void OnGameOver();
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
-    virtual const string& GetBackgroundFileName() { return ""; }
+    virtual string GetBackgroundFileName() { return ""; }
 
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }

@@ -451,17 +451,10 @@ void Simulation::RemoveObject(GameObject* obj)
 	delete(obj);
 }
 
-void Simulation::Reset
-(
-Level* level,
-uint worldSizeX, 
-uint worldSizeY,
-uint screenPadding,
-const string& backgroundFileName
-)
+void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
-	ResetScreenManager(backgroundFileName);
+	ResetScreenManager(level->GetBackgroundFileName());
 	
 	//clear simulation variables
 	for (ISimulationUpdatingEntity* obj : entities)
@@ -470,11 +463,11 @@ const string& backgroundFileName
 
 	// clear gamespace
 	gameSpace.clear();
-	gameSpace.resize(worldSizeY);
+	gameSpace.resize(level->GetWorldSizeY());
 
-	for (int y = 0; y < worldSizeY; ++y)
+	for (int y = 0; y < level->GetWorldSizeY(); ++y)
 	{
-		gameSpace[y].resize(worldSizeX);
+		gameSpace[y].resize(level->GetWorldSizeX());
 		for (auto elem : gameSpace[y])
 			elem = nullptr;
 	}

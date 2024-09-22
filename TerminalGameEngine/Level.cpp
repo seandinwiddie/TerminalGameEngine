@@ -12,13 +12,13 @@ double Level:: GetLevelTime() const
         return TimeHelper::Instance().GetTime() - levelStartedTime;
 }
 
-void Level::Load()
+void Level::LoadInSimulation()
 {
+    Simulation::Instance().LoadLevel(this);
     isTerminated = false;
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnGameOverDelayEnded = false;
-    Simulation::Instance().Reset(this, GetWorldSizeX(), GetWorldSizeY(), GetScreenPadding(), GetBackgroundFileName());
 }
 
 bool Level::IsPostGameOverDelayEnded() const

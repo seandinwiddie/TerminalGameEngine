@@ -65,7 +65,7 @@ public:
 
 private:
 	void PrintUIMessageOnFrame();
-	void InitBackgrounds(const string& backgroundFileName);
+	void InitBackground(const string& backgroundFileName);
 	void DrawMargins();
 	void DrawHorizontalMargin();
 	void PrintBackground();

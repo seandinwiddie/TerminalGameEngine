@@ -48,9 +48,9 @@ void EndlessRunnerLevel::OnGameOver()
     AudioManager::Instance().PlayFx("gameover.wav");
 }
 
-void EndlessRunnerLevel::Load()
+void EndlessRunnerLevel::LoadInSimulation()
 {
-    Level::Load();
+    Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());

@@ -25,7 +25,7 @@ SimulationPrinter::SimulationPrinter
 {
     header = "";
     frameUIMessage.Clear();
-    InitBackgrounds(backgroundFileName);
+    InitBackground(backgroundFileName);
     terminal.Clear();
     
     DrawMargins();
@@ -169,7 +169,7 @@ void SimulationPrinter::Clear(GameObject* obj)
 }
 
 
-void SimulationPrinter::InitBackgrounds(const string& backgroundFileName)
+void SimulationPrinter::InitBackground(const string& backgroundFileName)
 {
     if (backgroundFileName == "")
     {

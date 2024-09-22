@@ -6,9 +6,9 @@
 uint PongLevel::scorePlayer1 = 0;
 uint PongLevel::scorePlayer2 = 0;
 
-void PongLevel::Load()
+void PongLevel::LoadInSimulation()
 {
-	Level::Load();
+	Level::LoadInSimulation();
 	Simulation& simulation = Simulation::Instance();
 
 	char barsChar = 219;

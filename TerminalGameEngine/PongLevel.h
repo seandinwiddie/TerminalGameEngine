@@ -14,7 +14,7 @@ public:
     virtual int GetWorldSizeY() const override { return 30; }
     virtual int GetScreenPadding() const override { return 2; }
 
-    virtual void Load() override;
+    virtual void LoadInSimulation() override;
 
     virtual void OnGameOverDelayEnded() override { Terminate(); }
 

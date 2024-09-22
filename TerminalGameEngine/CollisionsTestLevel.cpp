@@ -4,9 +4,9 @@
 #include "Obstacle.h";
 #include "ObstaclesSpawner.h"
 
-void CollisionsTestLevel::Load()
+void CollisionsTestLevel::LoadInSimulation()
 {
-    Level::Load();
+    Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
     float spawnDelay = 0.15;

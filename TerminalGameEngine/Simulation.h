@@ -46,6 +46,7 @@ class Simulation : public Singleton<Simulation>
 	std::list<MoveRequest> moveRequests;
 //------------------------------------------------------------------------------------ Methods
 public:
+	void LoadLevel(Level* level);
 	void Step();
 	bool TryAddEntity(ISimulationUpdatingEntity* obj);
 	void RequestMovement(GameObject* applicantObj, Direction direction, float speed);
@@ -71,15 +72,6 @@ public:
 	void ShowUIFrame(const Frame& UIMessage);
 
 	void SetTerminalHeader(const string& header);
-
-	void Reset
-	(
-		Level* level,
-		uint worldSizeX,
-		uint worldSizeY,
-		uint screenPadding,
-		const string& backgroundFileName
-	);
 
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);

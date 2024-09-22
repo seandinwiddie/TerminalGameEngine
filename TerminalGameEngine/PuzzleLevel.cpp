@@ -10,9 +10,9 @@
 #include "PushableObject.h"
 
 
-void PuzzleLevel::Load()
+void PuzzleLevel::LoadInSimulation()
 {
-    Level::Load();
+    Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
     //------------------------------- bunny setup
     Bunny* bunny = new Bunny(5, 4, this);
