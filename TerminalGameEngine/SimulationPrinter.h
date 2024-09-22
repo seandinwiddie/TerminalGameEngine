@@ -24,6 +24,7 @@ private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 //---------------------------------------------------------- Fields
 private:
+	TerminalUtils& terminal = TerminalUtils::Instance();
 	Frame frame;
 	std::vector<Frame> backgrounds;
 

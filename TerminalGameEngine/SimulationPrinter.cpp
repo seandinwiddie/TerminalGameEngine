@@ -39,10 +39,6 @@ SimulationPrinter::SimulationPrinter
 
 void SimulationPrinter::PrintFrameOnTerminal()
 {
-    TerminalUtils& terminalUtils = TerminalUtils::Instance();
-
-    terminalUtils.SetColor(TerminalUtils::WHITE);
-
 #if DEBUG_MODE
     DEBUG_PrintAverageFps();
 #endif
@@ -71,10 +67,10 @@ void SimulationPrinter::PrintFrameOnTerminal()
     InsertHorizontalMarginLine();
 
     AddPrintBufferToOperations();
-    terminalUtils.ClearTerminal();
+    terminal.ClearTerminal();
     for (PrintOperation operation : printOperations)
     {
-        terminalUtils.SetColor(operation.color);
+        terminal.SetColor(operation.color);
         std::cout << operation.str;
     }
     printOperations.clear();
@@ -97,10 +93,10 @@ void SimulationPrinter::InsertVerticalMarginChar(bool addEndLine)
 
 void SimulationPrinter::InsertInPrintBuffer(char c, int color)
 {
-    if (color != TerminalUtils::Instance().GetColor() && c != ' ' && c != '\n')
+    if (color != terminal.GetColor() && c != ' ' && c != '\n')
     {
         AddPrintBufferToOperations();
-        TerminalUtils::Instance().SetColor(color);
+        terminal.SetColor(color);
         printOperationBuffer = c;
     }
     else
@@ -114,10 +110,10 @@ void SimulationPrinter::InsertInPrintBuffer(string& str, int color)
     if (str.empty())
         return;
 
-    if (color != TerminalUtils::Instance().GetColor())
+    if (color != terminal.GetColor())
     {
         AddPrintBufferToOperations();
-        TerminalUtils::Instance().SetColor(color);
+        terminal.SetColor(color);
         printOperationBuffer = str;
     }
     else
@@ -130,7 +126,7 @@ void SimulationPrinter::AddPrintBufferToOperations()
 {
     if (!printOperationBuffer.empty())
     {
-        printOperations.push_back(PrintOperation(printOperationBuffer, TerminalUtils::Instance().GetColor()));
+        printOperations.push_back(PrintOperation(printOperationBuffer, terminal.GetColor()));
         printOperationBuffer.clear();
     }
 }
