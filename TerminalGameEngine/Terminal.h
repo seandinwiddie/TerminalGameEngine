@@ -4,6 +4,8 @@
 
 class Terminal : public Singleton<Terminal>
 {
+    friend class Singleton;
+
 public:
     const static int WHITE_DARK;
     const static int RED_DARK;
@@ -31,4 +33,7 @@ public:
 
     void SetCursorPosition(int x, int y);
     void HideCursor();
+
+protected:
+    Terminal() { HideCursor(); }
 };

@@ -17,6 +17,8 @@ const int Terminal::CYAN = CYAN_DARK | FOREGROUND_INTENSITY;
 const int Terminal::MAGENTA = MAGENTA_DARK | FOREGROUND_BLUE;
 const int Terminal::YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
 
+
+
 void Terminal::Clear()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
