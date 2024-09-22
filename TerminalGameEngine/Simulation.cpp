@@ -41,12 +41,8 @@ void Simulation::Step()
 		int oldXPos = it->object->GetPosX();
 		int oldYPos = it->object->GetPosY();
 
-		TryMoveObjectAtDirection(it->object, it->direction);
-		
-		if (oldXPos != it->object->GetPosX() || oldYPos != it->object->GetPosY())
-		{
+		if(TryMoveObjectAtDirection(it->object, it->direction))
 			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
-		}
 	}
 
 	//---------------- detect end of collisions
