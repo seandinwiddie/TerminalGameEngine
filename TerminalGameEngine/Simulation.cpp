@@ -31,7 +31,6 @@ void Simulation::Step()
 	moveRequests.clear();
 
 	//---------------- update all objects
-
 	for (ISimulationUpdatingEntity* updatable : updatingEntities)
 		updatable->Update();
 
@@ -41,8 +40,17 @@ void Simulation::Step()
 
 	//---------------- move objects (slower ones first)
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
-		TryMoveObjectAtDirection(it->object, it->direction);
+	{
+		int oldXPos = it->object->GetPosX();
+		int oldYPos = it->object->GetPosY();
 
+		TryMoveObjectAtDirection(it->object, it->direction);
+		
+		if (oldXPos != it->object->GetPosX() || oldYPos != it->object->GetPosY())
+		{
+			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+		}
+	}
 
 	//---------------- detect end of collisions
 	for (auto it = objects.rbegin(); it != objects.rend(); ++it)
@@ -52,32 +60,59 @@ void Simulation::Step()
 			UpdateObjectCollisionDirections(collidingObj);
 	}
 
-	//---------------- print frame
-	if (++printFrameStep == STEPS_PER_FRAME)
+	for (ISimulationUpdatingEntity* updatingEntity : objects)
 	{
-		for (ISimulationUpdatingEntity* simUpdatable : objects)
-		{
-			GameObject* obj = dynamic_cast<GameObject*>(simUpdatable);
-			if(obj != nullptr)
-				simulationPrinter->PrintObjectOnFrame(obj);
-		}
-			
-		//--- 
-		float time = TimeHelper::Instance().GetTime();
-		float timeSinceLastFrame = time - lastTimePrintedFrame;
-		if (timeSinceLastFrame < PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS)
-		{
-			Sleep(PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS - timeSinceLastFrame);
-		}
-		lastTimePrintedFrame = time;
-		//---
-
-		simulationPrinter->PrintFrameOnTerminal();
-		simulationPrinter->ClearFrame();
-		printFrameStep = 0;
-
-		TimeHelper::Instance().NotifyFrameGenerated();
+		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+		if (obj != nullptr)
+			simulationPrinter->PrintObject(obj);
 	}
+
+	printFrameStep = 0;
+	TimeHelper::Instance().NotifyFrameGenerated();
+	lastTimePrintedFrame = TimeHelper::Instance().GetTime();
+	
+
+	/*if (++printFrameStep == STEPS_PER_FRAME)
+	{
+		for (ISimulationUpdatingEntity* updatingEntity : objects)
+		{
+			GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+			if (obj != nullptr)
+				simulationPrinter->PrintObject(obj);
+		}
+
+		printFrameStep = 0;
+		TimeHelper::Instance().NotifyFrameGenerated();
+		lastTimePrintedFrame = TimeHelper::Instance().GetTime();
+	}*/
+
+
+	//---------------- print frame
+	//if (++printFrameStep == STEPS_PER_FRAME)
+	//{
+	//	for (ISimulationUpdatingEntity* simUpdatable : objects)
+	//	{
+	//		GameObject* obj = dynamic_cast<GameObject*>(simUpdatable);
+	//		if(obj != nullptr)
+	//			simulationPrinter->PrintObjectOnFrame(obj);
+	//	}
+	//		
+	//	//--- 
+	//	float time = TimeHelper::Instance().GetTime();
+	//	float timeSinceLastFrame = time - lastTimePrintedFrame;
+	//	if (timeSinceLastFrame < PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS)
+	//	{
+	//		Sleep(PREVENT_REFRESHING_FRAME_BEFORE_MILLISECONDS - timeSinceLastFrame);
+	//	}
+	//	lastTimePrintedFrame = time;
+	//	//---
+
+	//	simulationPrinter->PrintUI();
+	//	simulationPrinter->ClearFrame();
+	//	printFrameStep = 0;
+
+	//	TimeHelper::Instance().NotifyFrameGenerated();
+	//}
 }
 
 void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
@@ -143,6 +178,8 @@ bool Simulation::TryAddObject(GameObject* obj)
 	}
 
 	objects.push_back(obj);
+
+	simulationPrinter->PrintObject(obj);
 
 	return true;
 }

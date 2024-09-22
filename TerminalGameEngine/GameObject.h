@@ -38,9 +38,6 @@ public:
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
 
-	int GetScreenPosX(int padding) const { return xPos - padding; }
-	int GetScreenPosY(int padding) const { return yPos - padding; }
-
 	uint GetModelWidth() const;
 	uint GetModelHeight() const { return model.size(); }
 	const std::vector<std::vector<char>>& GetModel() const { return model; }

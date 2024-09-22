@@ -25,7 +25,6 @@ private:
 //---------------------------------------------------------- Fields
 private:
 	Terminal& terminal = Terminal::Instance();
-	Frame frame;
 	std::vector<Frame> backgrounds;
 
 	string header = "";
@@ -34,9 +33,6 @@ private:
 	uint padding;
 	bool isShowingUIMessage;
 	Frame frameUIMessage;
-
-	std::list<PrintOperation> printOperations;
-	string printOperationBuffer;
 
 	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
 	int uiColor = Terminal::WHITE;
@@ -52,10 +48,9 @@ public:
 		const std::vector<string>& backgroundFileNames = {}
 	);
 
-	void PrintFrameOnTerminal();
-
-	void PrintObjectOnFrame(GameObject* go);
-	void ClearFrame();
+	//void PrintUI();
+	void PrintObject(GameObject* obj);
+	void Clear(int worldXPos, int worldYPos, uint xSize, uint ySize);
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }
 
@@ -65,19 +60,16 @@ public:
 	void SetHeader(const string& header) { this->header = header; }
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
 
+	int GetScreenPos(int worldPos) const { return worldPos - padding; }
+
 private:
 	void PrintUIMessageOnFrame();
 	void InitBackgrounds(const std::vector<string>& backgroundFilesNames);
 	Frame GetCurrentBackground() const;
 	bool IsBackgroundEnabled() const { return backgrounds.size() > 0; }
 
-
-	void InsertHorizontalMarginLine();
-	void InsertVerticalMarginChar(bool addEndLine);
-
-	void InsertInPrintBuffer(string& str, int color);
-	void InsertInPrintBuffer(char c, int color);
-	void AddPrintBufferToOperations();
+	//void InsertHorizontalMarginLine();
+	//void InsertVerticalMarginChar(bool addEndLine);
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
@@ -87,7 +79,7 @@ private:
 	double lastTimePrintedFps = 0;
 	double shownAverageFps = 0;
 
-	void DEBUG_PrintAverageFps();
+	//void DEBUG_PrintAverageFps();
 #endif
 
 };
