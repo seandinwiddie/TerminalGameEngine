@@ -27,6 +27,6 @@ protected:
     virtual void Update()override;
 
 private:
-    virtual void OnPostGameOverPauseEnded() override;
+    virtual void OnPostGameOverDelayEnded() override;
     void ShowGameOverScreen(int score, int bestScore);
 };

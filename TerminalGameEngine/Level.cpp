@@ -18,15 +18,14 @@ void Level::LoadInSimulation()
     isTerminated = false;
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
-    hasCalledOnPostGameOverPauseEnded = false;
+    hasCalledOnPostGameOverDelayEnded = false;
 }
 
 bool Level::IsPostGameOverPauseEnded() const
 {
     return
         gameOverTime > 0 &&
-        TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() &&
-        hasCalledOnPostGameOverPauseEnded == false;
+        TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
 }
 
 bool Level::CanPlayerPressKeyToRestartGame() const
@@ -49,8 +48,8 @@ void Level::Update()
     if (gameOverTime < 0)
         return;
 
-    if (IsPostGameOverPauseEnded())
-        OnPostGameOverPauseEnded();
+    if (IsPostGameOverPauseEnded() && hasCalledOnPostGameOverDelayEnded == false)
+        OnPostGameOverDelayEnded();
     else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
         Terminate();
 }

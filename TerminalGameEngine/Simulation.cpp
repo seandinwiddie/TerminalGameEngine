@@ -25,15 +25,22 @@ void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, 
 
 void Simulation::Step()
 {
+	//---------------- game ended phases
 	if (level->IsTerminated())
 		return;
 
-	moveRequests.clear();
+	if (level->IsPostGameOverPauseEnded())
+	{
+		level->Update();
+		return;
+	}	
 
 	//---------------- update all objects
+	moveRequests.clear();
+
+	level->Update();
 	for (ISimulationUpdatingEntity* updatable : entities)
 		updatable->Update();
-	level->Update();
 
 	//---------------- move objects (slower ones first)
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
@@ -520,6 +527,6 @@ bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
 	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
 }
 
-void Simulation::PrintUIFrame(const Frame& UIMessage) { simulationPrinter->PrintUIFrame(UIMessage); }
+void Simulation::PrintGameOverWindow(const Frame& window) { simulationPrinter->PrintGameOverWindow(window); }
 
 void  Simulation::SetTerminalHeader(const string& header) { simulationPrinter->SetHeader(header); }

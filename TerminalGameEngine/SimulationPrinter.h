@@ -35,7 +35,6 @@ private:
 	uint screenSizeY;
 	uint padding;
 	bool isShowingUIMessage;
-	Frame UIFrame;
 
 	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
 	int uiColor = Terminal::WHITE;
@@ -55,7 +54,7 @@ public:
 	void ClearObject(GameObject* obj);
 	void ClearArea(int worldXPos, int worldYPos, uint xSize, uint ySize);
 
-	void PrintUIFrame(const Frame& UIMessage);
+	void PrintGameOverWindow(const Frame& UIMessage);
 	void SetHeader(const string& header);
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
 

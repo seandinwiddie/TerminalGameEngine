@@ -23,7 +23,7 @@ public:
     virtual void OnGameOver() override;
 
 protected:
-    virtual void OnPostGameOverPauseEnded() override;
+    virtual void OnPostGameOverDelayEnded() override;
     virtual double ShowGameOverScreenDelay() const override { return 0.5; }
 
 private:

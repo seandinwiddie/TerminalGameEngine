@@ -23,7 +23,6 @@ SimulationPrinter::SimulationPrinter
     screenSizeY(screenSizeY),
     padding(screenPadding)
 {
-    UIFrame.Clear();
     InitBackground(backgroundFileName);
     terminal.Clear();
     
@@ -68,10 +67,9 @@ void SimulationPrinter::DrawMargins()
     }
 }
 
-void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
+void SimulationPrinter::PrintGameOverWindow(const Frame& window)
 {
-    this->UIFrame = UIMessage;
-    if (UIFrame.GetSizeY() == 0)
+    if (window.GetSizeY() == 0)
         return;
 
     terminal.SetColor(uiColor);
@@ -79,7 +77,7 @@ void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
     {
         for (int x = 0; x < screenSizeX; ++x)
         {
-            char c = UIFrame.chars[y][x];
+            char c = window.chars[y][x];
             if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
             {
                 terminal.SetCursorPosition(x + MARGIN_OFFSET_X, y);

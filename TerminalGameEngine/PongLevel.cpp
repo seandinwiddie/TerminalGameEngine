@@ -67,9 +67,9 @@ void PongLevel::RefreshHeader()
 	Simulation::Instance().SetTerminalHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2));
 }
 
-void PongLevel::OnPostGameOverPauseEnded()
+void PongLevel::OnPostGameOverDelayEnded()
 { 
-	Level::OnPostGameOverPauseEnded();
+	Level::OnPostGameOverDelayEnded();
 	Terminate();
 }
 

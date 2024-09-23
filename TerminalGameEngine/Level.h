@@ -15,7 +15,7 @@ private:
 
 //---------------------------------------------------------- Fields
 private:
-    bool hasCalledOnPostGameOverPauseEnded = false;
+    bool hasCalledOnPostGameOverDelayEnded = false;
     double gameOverTime = -1;
     double levelStartedTime = 0;
     bool isTerminated = false;
@@ -39,7 +39,7 @@ public:
 protected:
     virtual double ShowGameOverScreenDelay() const { return 1; }
     virtual void Update() override;
-    virtual void OnPostGameOverPauseEnded() { hasCalledOnPostGameOverPauseEnded = true; }
+    virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
     virtual void LoadInSimulation();
 
     bool IsPostGameOverPauseEnded() const;

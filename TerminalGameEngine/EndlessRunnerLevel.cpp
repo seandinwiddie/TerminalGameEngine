@@ -10,9 +10,9 @@
 #include "ObstaclesSpawner.h"
 #include "Frame.h"
 
-void EndlessRunnerLevel::OnPostGameOverPauseEnded()
+void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
-    Level::OnPostGameOverPauseEnded();
+    Level::OnPostGameOverDelayEnded();
     int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
     int score = GetLevelTime();
 
@@ -36,7 +36,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameEndUIMessage.ReplaceChar(message, '$');
 
-    Simulation::Instance().PrintUIFrame(gameEndUIMessage);
+    Simulation::Instance().PrintGameOverWindow(gameEndUIMessage);
 }
 
 void EndlessRunnerLevel::OnGameOver()
