@@ -115,20 +115,20 @@ void SimulationPrinter::PrintObject(GameObject* go)
     {
         if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y)continue;
         string line = "";
-        int lineStartPosX = GetTerminalPosX(go->GetPosX());
+        int lineStartPosX = GetScreenPos(go->GetPosX());
         for
         (
             int xScreen = lineStartPosX, xModel = 0;
-            xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
+            xScreen < screenSizeX && xModel < go->GetModelWidth();
             ++xScreen, ++xModel
         )
         {
-            if (xScreen < MARGIN_OFFSET_X)continue;
+            if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
             if (IsCoveredByUIFrame(xScreen,yScreen))continue;
 
             line += go->GetModel()[yModel][xModel];
         }
-        if (lineStartPosX < MARGIN_OFFSET_X)
+        if (lineStartPosX + MARGIN_OFFSET_X < MARGIN_OFFSET_X)
             lineStartPosX = MARGIN_OFFSET_X;
         terminal.SetCursorPosition(lineStartPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
         Cout(line);
@@ -144,22 +144,22 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
         )
     {
         if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y) continue;
-        int lineStartPosX = GetTerminalPosX(worldXPos);
+        int lineStartPosX = GetScreenPos(worldXPos);
         string line = "";
         for 
         (
             int xScreen = lineStartPosX, xModel = 0;
-            xModel < xSize && xScreen < GetMaxTerminalX();
+            xModel < xSize && xScreen < screenSizeX;
             ++xScreen, ++xModel
         )
         {
-            if (xScreen < MARGIN_OFFSET_X)continue;
+            if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
             if (IsCoveredByUIFrame(xScreen, yScreen))continue;
 
             terminal.SetColor(backgroundColor);
             line += background.IsSetup() ? background.chars[yScreen][xScreen - MARGIN_OFFSET_X] : ' ';
         }
-        if (lineStartPosX < MARGIN_OFFSET_X)
+        if (lineStartPosX + MARGIN_OFFSET_X < MARGIN_OFFSET_X)
             lineStartPosX = MARGIN_OFFSET_X;
         terminal.SetCursorPosition(lineStartPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
         Cout(line);
