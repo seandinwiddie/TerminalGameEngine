@@ -52,7 +52,6 @@ void SimulationPrinter::DrawHorizontalMargin()
     Cout(line);
 }
 
-
 //todo check this
 void SimulationPrinter::PrintUIMessageOnFrame()
 {
@@ -149,17 +148,18 @@ void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySi
 {
     for (int yScreen = GetTerminalPosY(worldYPos), yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
     {
-        if (yScreen < MARGIN_OFFSET_Y)
-            continue;
-        for (int xScreen = GetTerminalPosX(worldXPos), xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
+        if (yScreen < MARGIN_OFFSET_Y) continue;
+        
+        int lineStartPosX = GetTerminalPosX(worldXPos);
+        string line = "";
+        for (int xScreen = lineStartPosX, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
         {
-            if (xScreen < MARGIN_OFFSET_X)
-                continue;
+            if (xScreen < MARGIN_OFFSET_X) continue;
             terminal.SetColor(backgroundColor);
-            char charToPrint = background.IsSetup() ? background.chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
-            terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen +1);
-            Cout(charToPrint);
+            line += background.IsSetup() ? background.chars[yScreen-MARGIN_OFFSET_Y][xScreen-MARGIN_OFFSET_X] : ' ';
         }
+        terminal.SetCursorPosition(lineStartPosX, GetMaxTerminalY() - yScreen + 1);
+        Cout(line);
     }
 }
 
