@@ -9,6 +9,7 @@
 
 #include <Windows.h>
 #include <cassert>
+#include <stdexcept>
 
 
 void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, float speed)
@@ -418,7 +419,7 @@ bool Simulation::CanObjectMoveAtDirection
 			return true;
 		}
 		default:
-			return false;
+			throw std::invalid_argument("Invalid direction");
 	}
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <stdexcept>
 
 namespace GridDirection
 {
@@ -16,6 +17,8 @@ namespace GridDirection
 			return Direction::right;
 		case Direction::right:
 			return Direction::left;
+		default:
+			throw std::invalid_argument("Invalid direction");
 		}
 	}
 }
