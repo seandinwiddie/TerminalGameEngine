@@ -15,7 +15,7 @@ void PushableObject::OnCollisionEnter(CollidingObject* other, Direction collisio
     }
     else if (dynamic_cast<Bunny*>(other) == nullptr)
     {
-        AudioManager::Instance().PlayFx("hit.wav", 0.2);
+        AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
     }
     
 }

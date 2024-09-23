@@ -10,5 +10,5 @@ Obstacle::Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed)
 
 void Obstacle::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
 {
-    AudioManager::Instance().PlayFx("hit.wav", 0.2);
+    AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
 }

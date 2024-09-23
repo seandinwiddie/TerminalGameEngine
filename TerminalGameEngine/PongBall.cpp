@@ -1,6 +1,7 @@
 #include "PongBall.h"
 #include "PongBar.h"
 #include "Simulation.h"
+#include "AudioManager.h"
 
 void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
 {
@@ -20,6 +21,8 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
         level->OnGameOver();
         return;
     }
+
+    AudioManager::Instance().PlayFx("Pong/ballHit.wav",0.02);
 
     if (collisionDirection == Direction::up || collisionDirection == Direction::down)
     {

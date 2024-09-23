@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "Config.h"
+#include "AudioManager.h"
 
 class PongLevel : public Level
 {
@@ -18,6 +19,8 @@ public:
 
     void IncreaseP1Score();
     void IncreaseP2Score();
+
+    virtual void OnGameOver() override;
 
 protected:
     virtual void OnPostGameOverPauseEnded() override;

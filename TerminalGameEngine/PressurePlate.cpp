@@ -14,7 +14,7 @@ void PressurePlate::OnCollisionEnter(CollidingObject* other, Direction collision
     {
         OnPress.Notify();
         SetModel(pressedModel);
-        AudioManager::Instance().PlayFx("buttonPress.wav");
+        AudioManager::Instance().PlayFx("Platform/buttonPress.wav");
     } 
 }
 
@@ -24,7 +24,7 @@ void PressurePlate::OnCollisionExit(Direction collisionDirection)
     {
         OnRelease.Notify();
         SetModel(unpressedModel);
-        AudioManager::Instance().PlayFx("buttonRelease.wav");
+        AudioManager::Instance().PlayFx("Platform/buttonRelease.wav");
     }
        
 }

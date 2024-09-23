@@ -191,7 +191,7 @@ void Bunny::HandleSounds(State oldState, State newState)
 {
     if (newState == State::jumpingUp)
     {
-        AudioManager::Instance().PlayFx("jump.wav",0.1);
+        AudioManager::Instance().PlayFx("Platform/jump.wav",0.1);
     }
 }
 

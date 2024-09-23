@@ -69,7 +69,7 @@ void PuzzleLevel::LoadInSimulation()
 void PuzzleLevel::OnGameOver()
 {
     Level::OnGameOver();
-    AudioManager::Instance().PlayFx("levelWon.wav");
+    AudioManager::Instance().PlayFx("Platform/levelWon.wav");
 }
 
 void PuzzleLevel::OnPostGameOverPauseEnded()
