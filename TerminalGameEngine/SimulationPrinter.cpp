@@ -18,7 +18,7 @@ SimulationPrinter::SimulationPrinter
     uint screenPadding, 
     const string& backgroundFileName 
 )
-    : 
+    :
     screenSizeX(screenSizeX),
     screenSizeY(screenSizeY),
     padding(screenPadding)
@@ -52,6 +52,8 @@ void SimulationPrinter::DrawHorizontalMargin()
     Cout(line);
 }
 
+
+//todo check this
 void SimulationPrinter::PrintUIMessageOnFrame()
 {
     if (frameUIMessage.GetSizeY() == 0)
@@ -59,6 +61,7 @@ void SimulationPrinter::PrintUIMessageOnFrame()
 
     terminal.SetColor(uiColor);
     for (int y = 0; y < screenSizeY; ++y)
+    {
         for (int x = 0; x < screenSizeX; ++x)
         {
             char c = frameUIMessage.chars[y][x];
@@ -69,6 +72,7 @@ void SimulationPrinter::PrintUIMessageOnFrame()
                 Cout(c);
             }
         }
+    }
 }
 
 void SimulationPrinter::DrawMargins()
@@ -103,17 +107,19 @@ void SimulationPrinter::PrintObject(GameObject* go)
         )
         {
             if (yScreen < MARGIN_OFFSET_Y)continue;
+            string line = "";
+            int lineStartPos = GetTerminalPosX(go->GetPosX());
             for (
-                int xScreen = GetTerminalPosX(go->GetPosX()), xModel = 0;
+                int xScreen = lineStartPos, xModel = 0;
                 xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
                 ++xScreen, ++xModel
                 )
                 {
                     if (xScreen < MARGIN_OFFSET_X) continue;
-                    char charToPrint = go->GetModel()[yModel][xModel];
-                    terminal.SetCursorPosition(xScreen, GetMaxTerminalY() - yScreen +1);
-                    Cout(charToPrint);
+                    line += go->GetModel()[yModel][xModel];
                 }
+            terminal.SetCursorPosition(lineStartPos, GetMaxTerminalY() - yScreen + 1);
+            Cout(line);
         }
 }
 
