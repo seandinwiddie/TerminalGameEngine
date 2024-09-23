@@ -5,9 +5,9 @@ class PongBar : public VariableSizeCollider
 {
 //---------------------------------------------------------- Fields
 private:
-    float moveSpeed;
+    double moveSpeed;
     bool isBottomBar;
-    float deflectBallFactor;
+    double deflectBallFactor;
 
 public:
 //---------------------------------------------------------- Methods
@@ -20,16 +20,16 @@ public:
         uint sizeX,
         uint sizeY,
         char modelChar,
-        float moveSpeed,
-        float deflectBallFactor,
+        double moveSpeed,
+        double deflectBallFactor,
         bool isBottomBar
     );
 
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::CYAN; }
     
-    float GetDeflectBallFactor() { return deflectBallFactor; }
+    double GetDeflectBallFactor() { return deflectBallFactor; }
 
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}

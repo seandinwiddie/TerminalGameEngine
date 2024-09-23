@@ -27,15 +27,15 @@ class Simulation : public Singleton<Simulation>
 	{
 		GameObject* object;
 		Direction direction;
-		float speed;
+		double speed;
 
-		MoveRequest(GameObject* object, Direction direction, float speed)
+		MoveRequest(GameObject* object, Direction direction, double speed)
 			:object(object),direction(direction), speed(speed){}
 	};
 
 //------------------------------------------------------------------------------------ Fields
 	double levelStartedTime = 0;
-	float lastTimePrintedFrame = -1; //todo use double for time
+	double lastTimePrintedFrame = -1; //todo use double for time
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
@@ -48,7 +48,7 @@ public:
 	void LoadLevel(Level* level);
 	void Step();
 	bool TryAddEntity(ISimulationUpdatingEntity* obj);
-	void RequestMovement(GameObject* applicantObj, Direction direction, float speed);
+	void RequestMovement(GameObject* applicantObj, Direction direction, double speed);
 	void RemoveObject(GameObject* obj);
 
 	uint GetWorldSizeX() const { return level->GetWorldSizeX(); }

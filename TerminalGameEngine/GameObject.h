@@ -20,8 +20,8 @@ private:
 	int xPos;
 	int yPos;
 
-	float xPosContinuous;
-	float yPosContinuous;
+	double xPosContinuous;
+	double yPosContinuous;
 
 	bool mustBeReprinted = true;
 	std::vector<std::vector<char>> model = {};
@@ -44,10 +44,10 @@ public:
 
 	virtual int GetColor() const { return Terminal::WHITE; }
 	virtual bool CanExitScreenSpace() const = 0;
-	virtual float GetGravityScale() const = 0;
+	virtual double GetGravityScale() const = 0;
 
 protected:
-	virtual void Move(Direction direction, float moveSpeed);
+	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
 	virtual void OnCollisionExit(Direction collisionDirection) = 0;

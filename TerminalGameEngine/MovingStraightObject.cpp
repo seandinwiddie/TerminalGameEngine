@@ -1,6 +1,6 @@
 #include "MovingStraightObject.h"
 
-MovingStraightObject::MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed)
+MovingStraightObject::MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed)
 :GameObject(xPos, yPos), moveDirection(moveDir), moveSpeed(moveSpeed)
 {
 	canMove = true;

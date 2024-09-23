@@ -6,10 +6,10 @@ class Obstacle : public MovingStraightObject
 {
 //---------------------------------------------------------- Methods
 public:
-    Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed);
+    Obstacle(int xPos, int yPos, Direction moveDir, double moveSpeed);
 
     virtual bool CanExitScreenSpace() const override { return true; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::RED; }
 
 protected:

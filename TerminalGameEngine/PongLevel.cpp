@@ -14,8 +14,8 @@ void PongLevel::LoadInSimulation()
 	char barsChar = 219;
 	int startingPosX = GetWorldSizeX() / 2 - 1;
 	int barsSize = 8;
-	float barsMoveSpeed = 32;
-	float deflectFactor = 2.5;
+	double barsMoveSpeed = 32;
+	double deflectFactor = 2.5;
 
 	PongBar* pongBarBottom = new PongBar
 	(
@@ -44,7 +44,7 @@ void PongLevel::LoadInSimulation()
 	simulation.TryAddEntity(pongBarTop);
 	
 	//------------------
-	float ballSpeed = 16;
+	double ballSpeed = 16;
 	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
 	simulation.TryAddEntity(pongBall);
 	RefreshHeader();

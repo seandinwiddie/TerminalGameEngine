@@ -9,8 +9,8 @@ PongBar::PongBar
     uint sizeX,
     uint sizeY,
     char modelChar,
-    float moveSpeed,
-    float deflectBallFactor,
+    double moveSpeed,
+    double deflectBallFactor,
     bool isBottomBar
 ) :
     VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar),

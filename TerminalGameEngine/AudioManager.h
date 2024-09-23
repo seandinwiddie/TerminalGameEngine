@@ -23,7 +23,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	void PlayFx(const string& fileName, float randomPitch = 0.0);
+	void PlayFx(const string& fileName, double randomPitch = 0.0);
 	void PlayRandomMusic();
 	void StopMusic();
 

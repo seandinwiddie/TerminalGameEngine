@@ -63,7 +63,7 @@ void EndlessRunnerLevel::LoadInSimulation()
     //------------------------------- spawner setup
     int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
 
-    std::vector<float> minSpawnDelays
+    std::vector<double> minSpawnDelays
     {
         0.9,
         0.4,
@@ -72,7 +72,7 @@ void EndlessRunnerLevel::LoadInSimulation()
         0.22,
         0.22
     };
-    std::vector<float> maxSpawnDelays
+    std::vector<double> maxSpawnDelays
     {
         1,
         0.6,
@@ -81,7 +81,7 @@ void EndlessRunnerLevel::LoadInSimulation()
         0.32,
         0.22
     };
-    std::vector<float> moveSpeeds
+    std::vector<double> moveSpeeds
     {
         -8,
         -16,
@@ -91,8 +91,8 @@ void EndlessRunnerLevel::LoadInSimulation()
         -48
     };
 
-    float increaseIntensityEverySeconds = 10;
-    float stopSpawningWhenPhaseChangesDuration = 1;
+    double increaseIntensityEverySeconds = 10;
+    double stopSpawningWhenPhaseChangesDuration = 1;
 
     std::vector<int> ySpawnPoints = { 4,8,12 };
 

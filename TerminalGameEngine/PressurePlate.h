@@ -18,7 +18,7 @@ public:
     PressurePlate(int xPos, int yPos);
 
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::CYAN; }
 
 protected:

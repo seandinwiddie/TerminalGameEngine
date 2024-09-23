@@ -6,13 +6,13 @@ class ObstaclesSpawner : public ISimulationUpdatingEntity
 //---------------------------------------------------------- Fields
 private:
     int xPos;
-    std::vector<float> minSpawnDelays;
-    std::vector<float> maxSpawnDelays;
-    std::vector<float> speeds;
+    std::vector<double> minSpawnDelays;
+    std::vector<double> maxSpawnDelays;
+    std::vector<double> speeds;
     std::vector<int> ySpawnPoints;
     uint spawnIntensity = 0;
-    float stopSpawningWhenPhaseChangesDuration;
-    float increaseIntensityEverySeconds;
+    double stopSpawningWhenPhaseChangesDuration;
+    double increaseIntensityEverySeconds;
     double spawnNextProjectileTime;
     double lastTimeIncreasedIntensity = 0;
 
@@ -22,19 +22,19 @@ public:
     ObstaclesSpawner
     (
         int xPos,
-        const std::vector<float>& minSpawnDelays,
-        const std::vector<float>& maxSpawnDelays,
-        const std::vector<float>& speeds,
+        const std::vector<double>& minSpawnDelays,
+        const std::vector<double>& maxSpawnDelays,
+        const std::vector<double>& speeds,
         const std::vector<int>& ySpawnPoints,
-        float increaseIntensityEverySeconds = -1,
-        float stopSpawningWhenPhaseChangesDuration = 0
+        double increaseIntensityEverySeconds = -1,
+        double stopSpawningWhenPhaseChangesDuration = 0
     );
 
     ObstaclesSpawner
     (
         int xPos,
-        float spawnDelay,
-        float speed,
+        double spawnDelay,
+        double speed,
         const std::vector<int>& ySpawnPoints
     );
 
@@ -42,9 +42,9 @@ protected:
     void Update() override;
 
 private:
-    float GetCurrentMinSpawnDelay() const { return minSpawnDelays[spawnIntensity]; }
-    float GetCurrentMaxSpawnDelay() const { return maxSpawnDelays[spawnIntensity]; }
-    float GetCurrentObstaclesSpeed() const { return speeds[spawnIntensity]; }
-    float GetNextSpawnObstacleTime() const;
-    void TryIncreaseIntensity(float time);
+    double GetCurrentMinSpawnDelay() const { return minSpawnDelays[spawnIntensity]; }
+    double GetCurrentMaxSpawnDelay() const { return maxSpawnDelays[spawnIntensity]; }
+    double GetCurrentObstaclesSpeed() const { return speeds[spawnIntensity]; }
+    double GetNextSpawnObstacleTime() const;
+    void TryIncreaseIntensity(double time);
 };

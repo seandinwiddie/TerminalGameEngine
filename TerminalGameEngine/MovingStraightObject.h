@@ -15,11 +15,11 @@ protected:
 	Direction moveDirection;
 
 private:
-	const float moveSpeed;
+	const double moveSpeed;
 
 	//---------------------------------------------------------- Methods
 public:
-	MovingStraightObject(int xPos, int yPos, Direction moveDir, float moveSpeed);
+	MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed);
 
 protected:
 	void Update() override;

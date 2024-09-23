@@ -12,7 +12,7 @@
 #include <stdexcept>
 
 
-void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, float speed)
+void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, double speed)
 {
 	MoveRequest request(applicantObj, direction, speed);
 

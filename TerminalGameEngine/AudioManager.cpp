@@ -13,7 +13,7 @@ AudioManager::AudioManager()
 	}
 }
 
-void AudioManager::PlayFx(const string& fileName, const float randomPitch)
+void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 {
 #if ALLOW_SOUNDS
 	string completeFileName = "Sounds/" + fileName;
@@ -27,9 +27,9 @@ void AudioManager::PlayFx(const string& fileName, const float randomPitch)
 	if (!buffer->loadFromFile(completeFileName))
 		return;
 
-	float pitch = 1;
+	double pitch = 1;
 	if (randomPitch != 0.0)
-		pitch += RandomUtils::GetRandomFloatBetween(1 - randomPitch, 1 + randomPitch);
+		pitch += RandomUtils::GetRandomDoubleBetween(1 - randomPitch, 1 + randomPitch);
 
 	sound->setPitch(pitch);
 	sound->play();

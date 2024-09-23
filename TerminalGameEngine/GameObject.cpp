@@ -21,7 +21,7 @@ uint GameObject::GetModelWidth() const
 
 void GameObject::Update()
 {
-	float gravityScale = GetGravityScale();
+	double gravityScale = GetGravityScale();
 	if (gravityScale == 0)
 		return;
 	if (gravityScale > 0)
@@ -30,7 +30,7 @@ void GameObject::Update()
 		Move(Direction::up, gravityScale);
 }
 
-void GameObject::Move(Direction direction, float moveSpeed)
+void GameObject::Move(Direction direction, double moveSpeed)
 {
 	if (canMove == false)
 		return;

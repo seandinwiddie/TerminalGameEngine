@@ -17,7 +17,7 @@ public:
     );
 
     virtual bool CanExitScreenSpace() const override { return true; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual double GetGravityScale() const override { return 0; }
 
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}

@@ -9,17 +9,17 @@ class PongBall : public GameObject
 {
 private:
     PongLevel* level;
-    float ySpeed;
-    float xSpeed;
+    double ySpeed;
+    double xSpeed;
     bool iSFirstLaunch;
 
 public:
-    PongBall(PongLevel* level, int xPos, int yPos, float ySpeed);
+    PongBall(PongLevel* level, int xPos, int yPos, double ySpeed);
     virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override { return 0; }
+    virtual double GetGravityScale() const override { return 0; }
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection) {}
     virtual void Update() override;

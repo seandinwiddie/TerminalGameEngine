@@ -8,12 +8,12 @@
 ObstaclesSpawner::ObstaclesSpawner
 (
     int xPos,
-    const std::vector<float>& minSpawnDelays,
-    const std::vector<float>& maxSpawnDelays,
-    const std::vector<float>& speeds,
+    const std::vector<double>& minSpawnDelays,
+    const std::vector<double>& maxSpawnDelays,
+    const std::vector<double>& speeds,
     const std::vector<int>& ySpawnPoints,
-    float increaseIntensityEverySeconds,
-    float stopSpawningWhenPhaseChangesDuration
+    double increaseIntensityEverySeconds,
+    double stopSpawningWhenPhaseChangesDuration
 ) :
     xPos(xPos),
     minSpawnDelays(minSpawnDelays),
@@ -31,15 +31,15 @@ ObstaclesSpawner::ObstaclesSpawner
 ObstaclesSpawner::ObstaclesSpawner
 (
     int xPos,
-    float spawnDelay,
-    float speed,
+    double spawnDelay,
+    double speed,
     const std::vector<int>& ySpawnPoints
 ) :
     ObstaclesSpawner(
         xPos,
-        std::vector<float>{spawnDelay},
-        std::vector<float>{spawnDelay},
-        std::vector<float>{speed},
+        std::vector<double>{spawnDelay},
+        std::vector<double>{spawnDelay},
+        std::vector<double>{speed},
         ySpawnPoints
     )
 { }
@@ -58,7 +58,7 @@ void ObstaclesSpawner::Update()
 
         int randomPosY = ySpawnPoints[RandomUtils::GetRandomInt(0, ySpawnPoints.size() - 1)];
 
-        float obstacleSpeed = GetCurrentObstaclesSpeed();
+        double obstacleSpeed = GetCurrentObstaclesSpeed();
         Direction direction = obstacleSpeed > 0 ? Direction::right : Direction::left;
         obstacleSpeed = abs(obstacleSpeed);
         Obstacle* obstacle = new Obstacle(xPos, randomPosY, direction, obstacleSpeed);
@@ -67,7 +67,7 @@ void ObstaclesSpawner::Update()
     }
 }
 
-void ObstaclesSpawner::TryIncreaseIntensity(float time)
+void ObstaclesSpawner::TryIncreaseIntensity(double time)
 {
     if (increaseIntensityEverySeconds == -1)
         return;
@@ -79,7 +79,7 @@ void ObstaclesSpawner::TryIncreaseIntensity(float time)
     }
 }
 
-float ObstaclesSpawner::GetNextSpawnObstacleTime() const
+double ObstaclesSpawner::GetNextSpawnObstacleTime() const
 {
-    return TimeHelper::Instance().GetTime() +RandomUtils::GetRandomFloatBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
+    return TimeHelper::Instance().GetTime() +RandomUtils::GetRandomDoubleBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
 }

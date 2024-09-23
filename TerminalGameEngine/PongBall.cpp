@@ -3,7 +3,7 @@
 #include "Simulation.h"
 #include "AudioManager.h"
 
-PongBall::PongBall(PongLevel* level, int xPos, int yPos, float ySpeed) 
+PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed) 
     :
     GameObject(xPos, yPos), 
     level(level),

@@ -44,14 +44,14 @@ private:
 //---------------------------------------------------------- Fields
 
     static const uint JUMP_HEIGHT = 10;
-    static constexpr float MOVE_UP_SPEED = 24;
-    static constexpr float MOVE_DOWN_SPEED = 24;
-    static constexpr float MOVE_DOWN_CONTROLLED_SPEED = 8;
-    static constexpr float SIDE_MOVEMENT_SPEED = 24;
-    static constexpr float STEP_ANIM_EVERY_SECONDS = 0.7f;
+    static constexpr double MOVE_UP_SPEED = 24;
+    static constexpr double MOVE_DOWN_SPEED = 24;
+    static constexpr double MOVE_DOWN_CONTROLLED_SPEED = 8;
+    static constexpr double SIDE_MOVEMENT_SPEED = 24;
+    static constexpr double STEP_ANIM_EVERY_SECONDS = 0.7f;
 
     State state;
-    float lastTimeMovedOnX = 0;
+    double lastTimeMovedOnX = 0;
     int previousPositionX;
     int jumpStartingY = -1;
 
@@ -60,12 +60,12 @@ public:
     Bunny(int xPos, int yPos, Level* level);
    
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override;
+    virtual double GetGravityScale() const override;
     virtual int GetColor() const { return Terminal::GREEN; }
 
 protected:
     void Update() override;
-    virtual void Move(Direction direction, float moveSpeed) override;
+    virtual void Move(Direction direction, double moveSpeed) override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
     virtual void InitModel() { SetModel(idleModelLeft); }

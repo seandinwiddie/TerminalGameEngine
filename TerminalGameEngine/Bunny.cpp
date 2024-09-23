@@ -195,7 +195,7 @@ void Bunny::HandleSounds(State oldState, State newState)
     }
 }
 
-float Bunny::GetGravityScale() const
+double Bunny::GetGravityScale() const
 {
     if (state == State::jumpingUp)
         return 0;
@@ -206,7 +206,7 @@ float Bunny::GetGravityScale() const
     return MOVE_DOWN_SPEED;
 }
 
-void Bunny::Move(Direction direction, float moveSpeed)
+void Bunny::Move(Direction direction, double moveSpeed)
 {
     GameObject::Move(direction, moveSpeed);
     if (direction == Direction::right || direction == Direction::left)

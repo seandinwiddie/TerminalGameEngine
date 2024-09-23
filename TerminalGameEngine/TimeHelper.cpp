@@ -9,7 +9,7 @@ void TimeHelper::NotifyFrameGenerated()
     lastTimeFrameGenerated = currentTime;
 }
 
-bool TimeHelper::IsTimeForFirstOfTwoModels(float changeModelEverySeconds) const
+bool TimeHelper::IsTimeForFirstOfTwoModels(double changeModelEverySeconds) const
 {
     double time = GetTime();
 

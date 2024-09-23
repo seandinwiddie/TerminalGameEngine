@@ -4,9 +4,9 @@
 
 namespace RandomUtils
 {
-	inline float GetRandomFloatBetween(float min, float max)
+	inline double GetRandomDoubleBetween(double min, double max)
 	{
-		float r = rand() / static_cast<float>(RAND_MAX);
+		double r = rand() / static_cast<double>(RAND_MAX);
 		return ((max - min) * r + min);
 	}
 

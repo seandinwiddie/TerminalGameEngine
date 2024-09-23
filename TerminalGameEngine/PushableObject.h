@@ -9,7 +9,7 @@ class PushableObject : public GameObject
 public:
     PushableObject(int xPos, int yPos) :GameObject(xPos, yPos){}
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override { return 8; }
+    virtual double GetGravityScale() const override { return 8; }
     virtual int GetColor() const { return Terminal::BLUE; }
 
 protected:
