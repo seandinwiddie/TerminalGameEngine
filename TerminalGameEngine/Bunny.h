@@ -31,13 +31,13 @@ private:
     static const char GAMEOVER_EYE_CHAR = '*';
     static const char CHEST_CHAR = ':';
 
-    static const std::vector<std::vector<char>> walkLeftModel;
-    static const std::vector<std::vector<char>> walkRightModel;
-    static const std::vector<std::vector<char>> jumpRightModel;
-    static const std::vector<std::vector<char>> jumpLeftModel;
-    static const std::vector<std::vector<char>> defeatedModel;
-    static const std::vector<std::vector<char>> idleModelRight;
-    static const std::vector<std::vector<char>> idleModelLeft;
+    static const Model walkLeftModel;
+    static const Model walkRightModel;
+    static const Model jumpRightModel;
+    static const Model jumpLeftModel;
+    static const Model defeatedModel;
+    static const Model idleModelRight;
+    static const Model idleModelLeft;
 
     Level* level;
 
@@ -71,9 +71,9 @@ protected:
     virtual void InitModel() { SetModel(idleModelLeft); }
 
 private:
-    std::vector<std::vector<char>> jumpingModel;
-    std::vector<std::vector<char>> idleModel;
-    std::vector<std::vector<char>> walkingModel;
+    Model jumpingModel;
+    Model idleModel;
+    Model walkingModel;
 
     bool IsJumping() const { return state == State::jumpingDown || state == State::jumpingUp; }
     void SetState(State newState);

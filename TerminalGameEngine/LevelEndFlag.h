@@ -6,7 +6,7 @@ class Level;
 class LevelEndFlag : public GameObject
 {
 private:
-    static const std::vector<std::vector<char>> flagModel;
+    static const Model flagModel;
     Level* level;
 
 public:

@@ -63,14 +63,14 @@ void GameObject::Move(Direction direction, double moveSpeed)
 		Simulation::Instance().RequestMovement(this, direction, moveSpeed);
 }
 
-std::vector<std::vector<char>> GameObject::CreteModelUsingChar
+Model GameObject::CreteModelUsingChar
 (
 	char c, 
 	size_t sizeX, 
 	size_t sizeY
 ) const
 {
-	std::vector<std::vector<char>> result;
+	Model result;
 	result.resize(sizeY);
 	for (int y = 0; y < sizeY; ++y)
 	{
@@ -83,7 +83,7 @@ std::vector<std::vector<char>> GameObject::CreteModelUsingChar
 	return result;
 }
 
-void GameObject::SetModel(const std::vector<std::vector<char>>& newModel)
+void GameObject::SetModel(const Model& newModel)
 {
 	if (model == newModel)
 		return;
@@ -114,7 +114,7 @@ void GameObject::CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>
 	}
 }
 
-const std::vector<std::vector<char>>& GameObject::GetModel()
+const Model& GameObject::GetModel()
 {
 	if(!IsModelInitialized())
 		InitModel();

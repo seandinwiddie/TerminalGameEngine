@@ -9,6 +9,7 @@
 #include <vector>
 
 using namespace GridDirection;
+using Model = std::vector<std::vector<char>>;
 
 class GameObject : public ISimulationUpdatingEntity
 {
@@ -24,7 +25,7 @@ private:
 	double yPosContinuous;
 
 	bool mustBeReprinted = true;
-	std::vector<std::vector<char>> model = {};
+	Model model = {};
 
 protected:
 	bool canMove = true;
@@ -40,7 +41,7 @@ public:
 	int GetMaxPosY() const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
 	size_t GetModelWidth() const;
 	size_t GetModelHeight() const { return model.size();}
-	const std::vector<std::vector<char>>& GetModel();
+	const Model& GetModel();
 
 	virtual int GetColor() const { return Terminal::WHITE; }
 	virtual bool CanExitScreenSpace() const = 0;
@@ -53,8 +54,8 @@ protected:
 	virtual void OnCollisionExit(Direction collisionDirection) = 0;
 	virtual void InitModel() = 0;
 
-	std::vector<std::vector<char>> CreteModelUsingChar(char c, size_t sizeX, size_t sizeY) const;
-	void SetModel(const std::vector<std::vector<char>>& newModel);
+	Model CreteModelUsingChar(char c, size_t sizeX, size_t sizeY) const;
+	void SetModel(const Model& newModel);
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }

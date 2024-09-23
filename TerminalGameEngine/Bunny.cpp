@@ -1,49 +1,49 @@
 #include "Bunny.h"
 #include "Level.h"
 
-const std::vector<std::vector<char>> Bunny::walkLeftModel
+const Model Bunny::walkLeftModel
 {
     {'/',-36, CHEST_CHAR, '_', '|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR, ')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const std::vector<std::vector<char>> Bunny::walkRightModel
+const Model Bunny::walkRightModel
 {
      { '|','_',CHEST_CHAR,-36,92},
      { '(',EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},
      { ' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<char>> Bunny::jumpRightModel
+const Model Bunny::jumpRightModel
 {
     {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<char>> Bunny::jumpLeftModel
+const Model Bunny::jumpLeftModel
 {
     {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR,NOSE_CHAR, EYE_CHAR,')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const std::vector<std::vector<char>> Bunny::defeatedModel
+const Model Bunny::defeatedModel
 {
     {'|',-36,CHEST_CHAR,-36,'|'},
     {'(',GAMEOVER_EYE_CHAR,NOSE_CHAR,GAMEOVER_EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<char>> Bunny::idleModelRight
+const Model Bunny::idleModelRight
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const std::vector<std::vector<char>> Bunny::idleModelLeft
+const Model Bunny::idleModelLeft
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},

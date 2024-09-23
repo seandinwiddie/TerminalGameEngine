@@ -89,7 +89,7 @@ void SimulationPrinter::PrintGameOverWindow(const Frame& window)
 
 void SimulationPrinter::PrintObject(GameObject* go)
 {
-    std::vector<std::vector<char>> model = go->GetModel();
+    Model model = go->GetModel();
     if (model[0].size() == 0)
         return;
     terminal.SetColor(go->GetColor());
