@@ -5,16 +5,16 @@ void PongBar::Update()
 {
     if (isLeftBar)
     {
-        if (InputUtils::IsPressingA() || InputUtils::IsPressingW())
-            Move(Direction::up, moveSpeed);
-        else if (InputUtils::IsPressingS() || InputUtils::IsPressingD())
-            Move(Direction::down, moveSpeed);
+        if (InputUtils::IsPressingA())
+            Move(Direction::left, moveSpeed);
+        else if (InputUtils::IsPressingD())
+            Move(Direction::right, moveSpeed);
     }
     else
     {
-        if (InputUtils::IsPressingArrowUp() || InputUtils::IsPressingArrowLeft())
-            Move(Direction::up, moveSpeed);
-        else if (InputUtils::IsPressingArrowDown() || InputUtils::IsPressingArrowRight())
-            Move(Direction::down, moveSpeed);
+        if (InputUtils::IsPressingArrowLeft())
+            Move(Direction::left, moveSpeed);
+        else if (InputUtils::IsPressingArrowRight())
+            Move(Direction::right, moveSpeed);
     }
 }

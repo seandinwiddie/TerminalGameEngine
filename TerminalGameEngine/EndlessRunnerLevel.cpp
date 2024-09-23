@@ -59,10 +59,6 @@ void EndlessRunnerLevel::LoadInSimulation()
     Bunny* bunny = new Bunny(9, simulation.GetScreenPadding(), this);
     simulation.TryAddEntity(bunny);
 
-    //------------------------------- floor setup
-    //StaticCollider* floor = new StaticCollider(0, simulation.GetScreenPadding(), simulation.GetWorldSizeX(), 1, ' ');
-    //simulation.TryAddObject(floor);
-
     //------------------------------- spawner setup
     int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
 

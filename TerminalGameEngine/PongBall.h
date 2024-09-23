@@ -9,21 +9,21 @@ class PongBall : public CollidingObject
 {
 private:
     PongLevel* level;
-    float xSpeed;
     float ySpeed;
+    float xSpeed;
     bool iSFirstLaunch;
 
 public:
-    PongBall(PongLevel* level, int xPos, int yPos, float xSpeed) : 
-        CollidingObject(xPos, yPos), level(level), xSpeed(xSpeed)
+    PongBall(PongLevel* level, int xPos, int yPos, float ySpeed) : 
+        CollidingObject(xPos, yPos), level(level), ySpeed(ySpeed)
     {
         SetModel({{static_cast<char>(219)}});
 
-        ySpeed = 0;
+        xSpeed = 0;
         iSFirstLaunch = true;
 
         if (RandomUtils::GetRandomInt(0, 1) == 1)
-            this->xSpeed = -xSpeed;
+            this->ySpeed = -ySpeed;
     }
 
     virtual int GetColor() const { return Terminal::GREEN; }

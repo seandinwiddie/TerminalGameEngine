@@ -10,8 +10,8 @@ private:
     static uint scorePlayer2;
 //---------------------------------------------------------- Methods
 public:
-    virtual int GetWorldSizeX() const override { return 90; }
-    virtual int GetWorldSizeY() const override { return 30; }
+    virtual int GetWorldSizeX() const override { return 50; }
+    virtual int GetWorldSizeY() const override { return 35; }
     virtual int GetScreenPadding() const override { return 2; }
 
     virtual void LoadInSimulation() override;

@@ -6,7 +6,7 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
 {
     iSFirstLaunch = false;
 
-    if (GetPosX() == level->GetWorldSizeX() - level->GetScreenPadding() - 1)
+    if (GetPosY() == level->GetWorldSizeY() - level->GetScreenPadding() - 1)
     {
         level->IncreaseP1Score();
         level->OnGameOver();
@@ -15,20 +15,17 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
     }
         
 
-    if (GetPosX() == level->GetScreenPadding())
+    if (GetPosY() == level->GetScreenPadding())
     {
         level->IncreaseP2Score();
         level->OnGameOver();
         Simulation::Instance().RemoveObject(this);
         return;
     }
-        
 
     if (collisionDirection == Direction::up || collisionDirection == Direction::down)
-        ySpeed = -ySpeed;
-    else
     {
-        xSpeed = -xSpeed;
+        ySpeed = -ySpeed;
         PongBar* otherBar = dynamic_cast<PongBar*>(other);
         if (otherBar != nullptr)
             HandleBarCollision(otherBar);
@@ -37,31 +34,31 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
 
 void PongBall::HandleBarCollision(PongBar* collidingBar)
 {
-    int otherHeight = collidingBar->GetModelHeight();
+    int otherWidth = collidingBar->GetModelWidth();
 
-    int otherMidY = (collidingBar->GetMaxPosY() + collidingBar->GetPosY()) / 2;
-    int distanceFromMidPoint = GetPosY() - otherMidY;
+    int otherMidX = (collidingBar->GetMaxPosX() + collidingBar->GetPosX()) / 2;
+    int distanceFromMidPoint = GetPosX() - otherMidX;
 
     if (distanceFromMidPoint <= 0)
         distanceFromMidPoint -= 1;
 
-    ySpeed = distanceFromMidPoint* 8 * collidingBar->GetDeflectBallFactor();
+    xSpeed = distanceFromMidPoint * 8 * collidingBar->GetDeflectBallFactor();
 }
 
 void PongBall::Update()
 {
     CollidingObject::Update();
 
-    if (ySpeed == 0 && !iSFirstLaunch)
-        ySpeed = RandomUtils::GetRandomInt(0, 1) == 1 ? 1 : -1;
-
-    if (ySpeed > 0)
-        Move(Direction::up, ySpeed);
-    else if (ySpeed < 0)
-        Move(Direction::down, ySpeed);
+    if (collidingDirections[static_cast<int>(Direction::left)] == true || collidingDirections[static_cast<int>(Direction::right)])
+        xSpeed = -xSpeed;
 
     if (xSpeed > 0)
         Move(Direction::right, xSpeed);
     else if (xSpeed < 0)
         Move(Direction::left, xSpeed);
+
+    if (ySpeed > 0)
+        Move(Direction::up, ySpeed);
+    else if (ySpeed < 0)
+        Move(Direction::down, ySpeed);
 }
