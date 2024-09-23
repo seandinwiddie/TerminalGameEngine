@@ -62,6 +62,7 @@ private:
 	void DrawMargins();
 	void DrawHorizontalMargin();
 	void PrintBackground();
+	bool IsCoveredByUIFrame(int screenX, int screenY);
 	void Cout(const string& s);
 	void Cout(char s);
 
