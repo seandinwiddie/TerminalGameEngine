@@ -56,7 +56,8 @@ void ObstaclesSpawner::Update()
 
         spawnNextProjectileTime = GetNextSpawnObstacleTime();
 
-        int randomPosY = ySpawnPoints[RandomUtils::GetRandomInt(0, ySpawnPoints.size() - 1)];
+        int randomIndex = RandomUtils::GetRandomInt(0, static_cast<int>(ySpawnPoints.size()) - 1);
+        int randomPosY = ySpawnPoints[randomIndex];
 
         double obstacleSpeed = GetCurrentObstaclesSpeed();
         Direction direction = obstacleSpeed > 0 ? Direction::right : Direction::left;

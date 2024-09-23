@@ -46,11 +46,11 @@ void Terminal::SetColor(int color)
     SetConsoleTextAttribute(hConsole, color);
 }
 
-void Terminal::SetCursorPosition(int x, int y)
+void Terminal::SetCursorPosition(size_t x, size_t y)
 {
     COORD coord;
-    coord.X = x;
-    coord.Y = y;
+    coord.X = static_cast<short>(x);
+    coord.Y = static_cast<short>(y);
     SetCursorPosition(coord);
 }
 

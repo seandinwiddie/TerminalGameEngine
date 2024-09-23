@@ -31,8 +31,9 @@ public:
     void SetColor(int color);
     int GetColor() { return currentColor; }
 
-    void SetCursorPosition(int x, int y);
     void SetCursorPosition(const COORD& coord);
+    void SetCursorPosition(size_t x, size_t y);
+
     COORD GetCursorPosition();
     void HideCursor();
    

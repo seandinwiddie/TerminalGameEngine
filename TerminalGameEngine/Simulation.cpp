@@ -268,9 +268,8 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 			MoveObject(obj, direction);
 			break;
 		}
-
-		return true;
 	}
+	return true;
 }
 
 bool Simulation::CanObjectMoveAtDirection

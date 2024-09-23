@@ -52,8 +52,6 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 
 void PongBall::HandleBarCollision(PongBar* collidingBar)
 {
-    int otherWidth = collidingBar->GetModelWidth();
-
     int otherMidX = (collidingBar->GetMaxPosX() + collidingBar->GetPosX()) / 2;
     int distanceFromMidPoint = GetPosX() - otherMidX;
 
