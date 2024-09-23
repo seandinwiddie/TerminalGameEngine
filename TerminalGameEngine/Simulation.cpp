@@ -118,7 +118,7 @@ void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
 	obj->CALLED_BY_SIM_UpdateCollidingDirecitons(collidingDirections);
 } 
 
-bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint height) const
+bool Simulation::IsSpaceEmpty(int startingX, int startingY, uint width, uint height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)

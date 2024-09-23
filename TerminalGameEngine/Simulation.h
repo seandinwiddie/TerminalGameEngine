@@ -80,7 +80,7 @@ private:
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisionDirections(GameObject* collidingObj);
 
-	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
+	bool IsSpaceEmpty(int startingY, int startingX, uint width, uint height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 
 };

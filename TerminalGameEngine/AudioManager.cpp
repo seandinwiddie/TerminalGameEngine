@@ -27,9 +27,9 @@ void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 	if (!buffer->loadFromFile(completeFileName))
 		return;
 
-	double pitch = 1;
+	float pitch = 1;
 	if (randomPitch != 0.0)
-		pitch += RandomUtils::GetRandomDoubleBetween(1 - randomPitch, 1 + randomPitch);
+		pitch += static_cast<float>(RandomUtils::GetRandomDoubleBetween(1 - randomPitch, 1 + randomPitch));
 
 	sound->setPitch(pitch);
 	sound->play();
