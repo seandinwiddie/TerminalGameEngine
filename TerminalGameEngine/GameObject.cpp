@@ -92,7 +92,7 @@ void GameObject::SetModel(const std::vector<std::vector<char>>& newModel)
 	model = newModel;
 }
 
-void GameObject::NotifyCollision(GameObject* other, Direction collisionDirection)
+void GameObject::CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDirection)
 {
 	int directionIndex = static_cast<int>(collisionDirection);
 	if (collidingDirections[directionIndex] == false)
@@ -102,7 +102,7 @@ void GameObject::NotifyCollision(GameObject* other, Direction collisionDirection
 	}
 }
 
-void GameObject::UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections)
+void GameObject::CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections)
 {
 	for (int i = 0; i < collidingDirections.size(); ++i)
 	{

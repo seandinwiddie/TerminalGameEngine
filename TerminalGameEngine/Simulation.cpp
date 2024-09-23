@@ -107,7 +107,7 @@ void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
 	collidingDirections[static_cast<int>(Direction::right)] =
 		(!IsSpaceEmpty(xMax + 1, y, 1, height) || isCollidingWithScreenRight);
 
-	obj->UpdateCollidingDirecitons(collidingDirections);
+	obj->CALLED_BY_SIM_UpdateCollidingDirecitons(collidingDirections);
 } 
 
 bool Simulation::IsSpaceEmpty(uint startingX, uint startingY, uint width, uint height) const
@@ -196,14 +196,14 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 			else
 			{
 				//notify collision with screen margin
-				obj->NotifyCollision(nullptr, direction);
+				obj->CALLED_BY_SIM_NotifyCollision(nullptr, direction);
 			}
 				
 		}
 		else
 		{
-			obj->NotifyCollision(outOtherObj, direction);
-			outOtherObj->NotifyCollision(obj, GetInverseDirection(direction));
+			obj->CALLED_BY_SIM_NotifyCollision(outOtherObj, direction);
+			outOtherObj->CALLED_BY_SIM_NotifyCollision(obj, GetInverseDirection(direction));
 		}
 
 		return false;
