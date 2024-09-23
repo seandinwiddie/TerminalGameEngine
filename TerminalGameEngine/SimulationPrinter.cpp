@@ -70,8 +70,11 @@ void SimulationPrinter::DrawMargins()
 
 bool SimulationPrinter::IsCoveredByUIFrame(int screenX, int screenY)
 {
+    if (UIFrame.GetSizeY() == 0)
+        return false;
+
     char c = UIFrame.chars[screenY][screenX];
-    return c == UI_MESSAGE_FRAME_IGNORED_CHAR;
+    return c != UI_MESSAGE_FRAME_IGNORED_CHAR;
 }
 
 void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
@@ -103,48 +106,62 @@ void SimulationPrinter::PrintObject(GameObject* go)
 
     terminal.SetColor(go->GetColor());
 
-    for (
-        int yScreen = GetTerminalPosY(go->GetPosY()), yModel = 0;
-        yScreen < GetMaxTerminalY() && yModel < go->GetModelHeight();
+    for 
+    (
+        int yScreen = GetScreenPos(go->GetPosY()), yModel = 0;
+        yScreen < screenSizeY && yModel < go->GetModelHeight();
         ++yScreen, ++yModel
+    )
+    {
+        if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y)continue;
+        string line = "";
+        int lineStartPosX = GetTerminalPosX(go->GetPosX());
+        for
+        (
+            int xScreen = lineStartPosX, xModel = 0;
+            xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
+            ++xScreen, ++xModel
         )
         {
-            if (yScreen < MARGIN_OFFSET_Y)continue;
-            string line = "";
-            int lineStartPosX = GetTerminalPosX(go->GetPosX());
-            for (
-                int xScreen = lineStartPosX, xModel = 0;
-                xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
-                ++xScreen, ++xModel
-                )
-                {
-                if (xScreen < MARGIN_OFFSET_X)continue;
-                    line += go->GetModel()[yModel][xModel];
-                }
-            if (lineStartPosX < MARGIN_OFFSET_X)
-                lineStartPosX = MARGIN_OFFSET_X;
-            terminal.SetCursorPosition(lineStartPosX, GetMaxTerminalY() - yScreen + 1);
-            Cout(line);
+            if (xScreen < MARGIN_OFFSET_X)continue;
+            if (IsCoveredByUIFrame(xScreen,yScreen))continue;
+
+            line += go->GetModel()[yModel][xModel];
         }
+        if (lineStartPosX < MARGIN_OFFSET_X)
+            lineStartPosX = MARGIN_OFFSET_X;
+        terminal.SetCursorPosition(lineStartPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
+        Cout(line);
+    }
 }
 
 void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySize)
 {
-    for (int yScreen = GetTerminalPosY(worldYPos), yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
+    for (
+        int yScreen = GetScreenPos(worldYPos), yModel = 0;
+        yModel < ySize && yScreen < screenSizeY; 
+        ++yScreen, ++yModel
+        )
     {
-        if (yScreen < MARGIN_OFFSET_Y) continue;
-
+        if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y) continue;
         int lineStartPosX = GetTerminalPosX(worldXPos);
         string line = "";
-        for (int xScreen = lineStartPosX, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
+        for 
+        (
+            int xScreen = lineStartPosX, xModel = 0;
+            xModel < xSize && xScreen < GetMaxTerminalX();
+            ++xScreen, ++xModel
+        )
         {
             if (xScreen < MARGIN_OFFSET_X)continue;
+            if (IsCoveredByUIFrame(xScreen, yScreen))continue;
+
             terminal.SetColor(backgroundColor);
-            line += background.IsSetup() ? background.chars[yScreen - MARGIN_OFFSET_Y][xScreen - MARGIN_OFFSET_X] : ' ';
+            line += background.IsSetup() ? background.chars[yScreen][xScreen - MARGIN_OFFSET_X] : ' ';
         }
         if (lineStartPosX < MARGIN_OFFSET_X)
             lineStartPosX = MARGIN_OFFSET_X;
-        terminal.SetCursorPosition(lineStartPosX, GetMaxTerminalY() - yScreen + 1);
+        terminal.SetCursorPosition(lineStartPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
         Cout(line);
     }
 }

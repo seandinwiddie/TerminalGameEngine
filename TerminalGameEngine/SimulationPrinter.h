@@ -24,6 +24,7 @@ private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 	static const uint MARGIN_OFFSET_X = 1; //left margin
 	static const uint MARGIN_OFFSET_Y = 2; //top margin + header
+	static const uint MARGIN_OFFSET_Y_NEW = 1; //bottom margin
 
 //---------------------------------------------------------- Fields
 private:
