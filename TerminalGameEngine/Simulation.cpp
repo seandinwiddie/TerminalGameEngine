@@ -127,7 +127,10 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
 	if (gameObjectEntity != nullptr)
 	{
 		if (!CanObjectBeAdded(gameObjectEntity))
+		{
+			delete(updatingEntity);
 			return false;
+		}
 
 		gameObjectEntity->mustBeReprinted = false;
 		simulationPrinter->PrintObject(gameObjectEntity);
@@ -452,7 +455,6 @@ void Simulation::RemoveObject(GameObject* obj)
 void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
-	ResetScreenManager(level->GetBackgroundFileName());
 	
 	//clear simulation variables
 	for (ISimulationUpdatingEntity* obj : entities)
@@ -463,6 +465,8 @@ void Simulation::LoadLevel (Level* level)
 	gameSpace.clear();
 	gameSpace.resize(level->GetWorldSizeY());
 
+	ResetScreenManager(level->GetBackgroundFileName());
+
 	for (int y = 0; y < level->GetWorldSizeY(); ++y)
 	{
 		gameSpace[y].resize(level->GetWorldSizeX());
@@ -470,9 +474,6 @@ void Simulation::LoadLevel (Level* level)
 			elem = nullptr;
 	}
 
-	for (ISimulationUpdatingEntity* entity : entities)
-		delete(entity);
-	entities.clear();
 	levelStartedTime = TimeHelper::Instance().GetTime();
 	level->LoadInSimulation();
 }
