@@ -11,7 +11,7 @@ GameObject::GameObject(int xPos, int yPos) :
 	ResetPartialMovement();
 }
 
-uint GameObject::GetModelWidth() const
+size_t GameObject::GetModelWidth() const
 {
 	if (model.size() == 0)
 		return 0;
@@ -66,8 +66,8 @@ void GameObject::Move(Direction direction, double moveSpeed)
 std::vector<std::vector<char>> GameObject::CreteModelUsingChar
 (
 	char c, 
-	uint sizeX, 
-	uint sizeY
+	size_t sizeX, 
+	size_t sizeY
 ) const
 {
 	std::vector<std::vector<char>> result;

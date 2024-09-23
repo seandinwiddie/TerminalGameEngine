@@ -3,8 +3,8 @@
 #include "PongBar.h"
 #include "PongBall.h"
 
-uint PongLevel::scorePlayer1 = 0;
-uint PongLevel::scorePlayer2 = 0;
+size_t PongLevel::scorePlayer1 = 0;
+size_t PongLevel::scorePlayer2 = 0;
 
 void PongLevel::LoadInSimulation()
 {

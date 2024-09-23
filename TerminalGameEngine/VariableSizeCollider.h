@@ -5,16 +5,16 @@ class VariableSizeCollider : public GameObject
 {
 //---------------------------------------------------------- Fields
     char modelChar;
-    uint modelSizeX;
-    uint modelSizeY;
+    size_t modelSizeX;
+    size_t modelSizeY;
 //---------------------------------------------------------- Methods
 public:
     VariableSizeCollider
     (
         int xPos,
         int yPos,
-        uint modelSizeX,
-        uint modelSizeY,
+        size_t modelSizeX,
+        size_t modelSizeY,
         char modelChar
     ) : GameObject(xPos, yPos), modelSizeX(modelSizeX), modelSizeY(modelSizeY), modelChar(modelChar){ }
 

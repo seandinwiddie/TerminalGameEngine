@@ -22,18 +22,18 @@ class SimulationPrinter
 //---------------------------------------------------------- Settings
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
-	static const uint MARGIN_OFFSET_X = 1; //left margin
-	static const uint MARGIN_OFFSET_TOP_Y = 2; //top margin + header
-	static const uint MARGIN_OFFSET_BOTTOM_Y = 1; //bottom margin
+	static const size_t MARGIN_OFFSET_X = 1; //left margin
+	static const size_t MARGIN_OFFSET_TOP_Y = 2; //top margin + header
+	static const size_t MARGIN_OFFSET_BOTTOM_Y = 1; //bottom margin
 
 //---------------------------------------------------------- Fields
 private:
 	Terminal& terminal = Terminal::Instance();
 	Frame background;
 
-	uint screenSizeX;
-	uint screenSizeY;
-	uint padding;
+	size_t screenSizeX;
+	size_t screenSizeY;
+	size_t padding;
 	bool isShowingUIMessage;
 
 	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
@@ -44,22 +44,22 @@ private:
 public:
 	SimulationPrinter
 	(
-		uint screenSizeX,
-		uint screenSizeY,
-		uint screenPadding,
+		size_t screenSizeX,
+		size_t screenSizeY,
+		size_t screenPadding,
 		const string& backgroundFileName = ""
 	);
 
 	void PrintObject(GameObject* obj);
 	void ClearObject(GameObject* obj);
-	void ClearArea(int worldXPos, int worldYPos, uint xSize, uint ySize);
+	void ClearArea(int worldXPos, int worldYPos, size_t xSize, size_t ySize);
 
 	void PrintGameOverWindow(const Frame& UIMessage);
 	void SetHeader(const string& header);
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
 
 private:
-	void PrintInternal(int worldXPos, int worldYPos, uint xSize, uint ySize, GameObject* go);
+	void PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go);
 	void InitBackground(const string& backgroundFileName);
 	void DrawMargins();
 	void DrawHorizontalMargin();
@@ -68,10 +68,10 @@ private:
 	void Cout(char s);
 
 	int GetScreenPos(int worldPos) const { return worldPos - padding; }
-	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
-	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
-	uint GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }
-	uint GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_TOP_Y; }
+	size_t GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
+	size_t GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
+	size_t GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }
+	size_t GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_TOP_Y; }
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE

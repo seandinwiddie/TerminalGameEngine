@@ -51,16 +51,16 @@ public:
 	void RequestMovement(GameObject* applicantObj, Direction direction, double speed);
 	void RemoveObject(GameObject* obj);
 
-	uint GetWorldSizeX() const { return level->GetWorldSizeX(); }
-	uint GetWorldSizeY() const { return level->GetWorldSizeY(); }
-	uint GetScreenPadding() const { return level->GetScreenPadding(); }
+	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
+	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
+	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
 
 	bool IsInsideGameSpaceX(int xPos) const;
 	bool IsInsideGameSpaceY(int yPos) const;
 	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 	
-	uint GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
-	uint GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
+	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
+	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
 
 	bool IsInsideScreenX(int xPos) const;
 	bool IsInsideScreenY(int yPos) const;
@@ -80,7 +80,7 @@ private:
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisionDirections(GameObject* collidingObj);
 
-	bool IsSpaceEmpty(int startingY, int startingX, uint width, uint height) const;
+	bool IsSpaceEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 
 };

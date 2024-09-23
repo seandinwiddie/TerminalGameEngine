@@ -38,8 +38,8 @@ public:
 	int GetPosY() const { return yPos; }
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
-	uint GetModelWidth() const;
-	uint GetModelHeight() const { return model.size();}
+	size_t GetModelWidth() const;
+	size_t GetModelHeight() const { return model.size();}
 	const std::vector<std::vector<char>>& GetModel();
 
 	virtual int GetColor() const { return Terminal::WHITE; }
@@ -53,7 +53,7 @@ protected:
 	virtual void OnCollisionExit(Direction collisionDirection) = 0;
 	virtual void InitModel() = 0;
 
-	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
+	std::vector<std::vector<char>> CreteModelUsingChar(char c, size_t sizeX, size_t sizeY) const;
 	void SetModel(const std::vector<std::vector<char>>& newModel);
 
 private:

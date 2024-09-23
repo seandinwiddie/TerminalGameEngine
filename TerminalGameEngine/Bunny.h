@@ -43,7 +43,7 @@ private:
 
 //---------------------------------------------------------- Fields
 
-    static const uint JUMP_HEIGHT = 10;
+    static const size_t JUMP_HEIGHT = 10;
     static constexpr double MOVE_UP_SPEED = 24;
     static constexpr double MOVE_DOWN_SPEED = 24;
     static constexpr double MOVE_DOWN_CONTROLLED_SPEED = 8;

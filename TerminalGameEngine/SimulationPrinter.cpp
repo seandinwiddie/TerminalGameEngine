@@ -13,9 +13,9 @@
 
 SimulationPrinter::SimulationPrinter
 (
-    uint screenSizeX, 
-    uint screenSizeY, 
-    uint screenPadding, 
+    size_t screenSizeX, 
+    size_t screenSizeY, 
+    size_t screenPadding, 
     const string& backgroundFileName 
 )
     :
@@ -101,12 +101,12 @@ void SimulationPrinter::ClearObject(GameObject* obj)
     PrintInternal(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
 }
 
-void SimulationPrinter::ClearArea(int worldXPos, int worldYPos, uint xSize, uint ySize)
+void SimulationPrinter::ClearArea(int worldXPos, int worldYPos, size_t xSize, size_t ySize)
 {
     PrintInternal(worldXPos, worldYPos, xSize, ySize, nullptr);
 }
 
-void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, uint ySize, GameObject* go)
+void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go)
 {
     terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
     for (int yScreen = GetScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)

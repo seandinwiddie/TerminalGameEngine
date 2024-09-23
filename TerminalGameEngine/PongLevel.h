@@ -7,8 +7,8 @@ class PongLevel : public Level
 {
 //---------------------------------------------------------- Methods
 private:
-    static uint scorePlayer1;
-    static uint scorePlayer2;
+    static size_t scorePlayer1;
+    static size_t scorePlayer2;
 //---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 50; }

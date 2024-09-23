@@ -92,8 +92,8 @@ void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
 	int y = obj->GetPosY();
 	int xMax = obj->GetMaxPosX();
 	int yMax = obj->GetMaxPosY();
-	uint width = obj->GetModelWidth();
-	uint height = obj->GetModelHeight();
+	size_t width = obj->GetModelWidth();
+	size_t height = obj->GetModelHeight();
 	bool canExitScreen = obj->CanExitScreenSpace();
 
 	// object - screen margin collisions
@@ -118,7 +118,7 @@ void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
 	obj->CALLED_BY_SIM_UpdateCollidingDirecitons(collidingDirections);
 } 
 
-bool Simulation::IsSpaceEmpty(int startingX, int startingY, uint width, uint height) const
+bool Simulation::IsSpaceEmpty(int startingX, int startingY, size_t width, size_t height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)

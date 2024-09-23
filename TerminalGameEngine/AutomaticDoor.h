@@ -17,8 +17,8 @@ public:
     (
         int xPos,
         int yPos,
-        uint sizeX,
-        uint sizeY,
+        size_t sizeX,
+        size_t sizeY,
         char modelChar
     );
 

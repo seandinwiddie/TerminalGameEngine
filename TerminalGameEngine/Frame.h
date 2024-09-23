@@ -17,13 +17,13 @@ public:
     std::vector<std::vector<int>> colors;
 
 public:
-    uint GetSizeY() const { return chars.size(); }
-    uint GetSizeX() const;
-    void ResizeY(uint size) { chars.resize(size); colors.resize(size); }
-    void ResizeX(uint size);
-    void ReadFrameFromFile(const string& fileName, uint screenSizeX, uint screenSizeY);
+    size_t GetSizeY() const { return chars.size(); }
+    size_t GetSizeX() const;
+    void ResizeY(size_t size) { chars.resize(size); colors.resize(size); }
+    void ResizeX(size_t size);
+    void ReadFrameFromFile(const string& fileName, size_t screenSizeX, size_t screenSizeY);
     void ReplaceChar(const string& writenString, char writeOverChar);
-    void InsertString(const string& str, uint xPos, uint yPos);
+    void InsertString(const string& str, size_t xPos, size_t yPos);
     void Clear() { chars.clear(); }
     bool IsSetup(){ return GetSizeY() > 0; }
 };

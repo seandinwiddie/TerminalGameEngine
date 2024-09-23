@@ -15,7 +15,7 @@ class AudioManager : public Singleton<AudioManager>
 
 //---------------------------------------------------------- Fields
 private:
-	static const uint SOUND_SOURCES_SIZE = 6;
+	static const size_t SOUND_SOURCES_SIZE = 6;
 	const std::vector<string> MUSIC_TRACKS = { "music-1.wav","music-2.wav", "music-3.wav" };
 	std::vector<Sound> sounds;
 	std::vector<SoundBuffer> buffers;
