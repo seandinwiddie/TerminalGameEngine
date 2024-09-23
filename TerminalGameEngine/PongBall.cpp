@@ -10,7 +10,6 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
     {
         level->IncreaseP1Score();
         level->OnGameOver();
-        Simulation::Instance().RemoveObject(this);
         return;
     }
         
@@ -19,7 +18,6 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
     {
         level->IncreaseP2Score();
         level->OnGameOver();
-        Simulation::Instance().RemoveObject(this);
         return;
     }
 
@@ -47,6 +45,9 @@ void PongBall::HandleBarCollision(PongBar* collidingBar)
 
 void PongBall::Update()
 {
+    if (level->IsGameOver())
+        return;
+
     CollidingObject::Update();
 
     if (collidingDirections[static_cast<int>(Direction::left)] == true || collidingDirections[static_cast<int>(Direction::right)])

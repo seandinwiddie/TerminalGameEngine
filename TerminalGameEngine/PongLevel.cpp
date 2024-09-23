@@ -20,7 +20,7 @@ void PongLevel::LoadInSimulation()
 	PongBar* pongBarBottom = new PongBar
 	(
 		startingPosX,
-		GetScreenPadding()+1, 
+		GetScreenPadding(), 
 		barsSize,
 		1,
 		barsChar, 
