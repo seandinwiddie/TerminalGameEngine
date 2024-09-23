@@ -41,7 +41,7 @@ class Simulation : public Singleton<Simulation>
 	SimulationPrinter* simulationPrinter;
 	Level* level;
 
-	std::vector<std::vector<CollidingObject*>> gameSpace;
+	std::vector<std::vector<CollidingObject*>> worldSpace;
 	std::list<ISimulationUpdatingEntity*> entities;
 	std::list<MoveRequest> moveRequests;
 //------------------------------------------------------------------------------------ Methods
