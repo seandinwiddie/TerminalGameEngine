@@ -51,29 +51,6 @@ void SimulationPrinter::DrawHorizontalMargin()
     Cout(line);
 }
 
-//todo check this
-void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
-{
-    //this->UIFrame = UIMessage;
-    //if (UIFrame.GetSizeY() == 0)
-    //    return;
-
-    //terminal.SetColor(uiColor);
-    //for (int y = 0; y < screenSizeY; ++y)
-    //{
-    //    for (int x = 0; x < screenSizeX; ++x)
-    //    {
-    //        char c = UIFrame.chars[y][x];
-    //        if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
-    //        {
-    //            terminal.SetCursorPosition(x, y);
-    //            //todo could be optimized doing cout of strings for adjacent characters (also in other methods)
-    //            Cout(c);
-    //        }
-    //    }
-    //}
-}
-
 void SimulationPrinter::DrawMargins()
 {
     terminal.SetColor(screenMarginsColor);
@@ -88,6 +65,33 @@ void SimulationPrinter::DrawMargins()
         Cout('|');
         terminal.SetCursorPosition(GetMaxTerminalX(), y);
         Cout('|');
+    }
+}
+
+bool SimulationPrinter::IsCoveredByUIFrame(int screenX, int screenY)
+{
+    char c = UIFrame.chars[screenY][screenX];
+    return c == UI_MESSAGE_FRAME_IGNORED_CHAR;
+}
+
+void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
+{
+    this->UIFrame = UIMessage;
+    if (UIFrame.GetSizeY() == 0)
+        return;
+
+    terminal.SetColor(uiColor);
+    for (int y = 0; y < screenSizeY; ++y)
+    {
+        for (int x = 0; x < screenSizeX; ++x)
+        {
+            char c = UIFrame.chars[y][x];
+            if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
+            {
+                terminal.SetCursorPosition(x + MARGIN_OFFSET_X, y);
+                Cout(c);
+            }
+        }
     }
 }
 
