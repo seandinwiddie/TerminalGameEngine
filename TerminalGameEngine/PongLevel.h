@@ -18,9 +18,9 @@ public:
 
     virtual void OnGameOverDelayEnded() override { Terminate(); }
 
-    void IncreaseP1Score() { ++ scorePlayer1; }
-    void IncreaseP2Score() { ++ scorePlayer2; }
+    void IncreaseP1Score();
+    void IncreaseP2Score();
 
-protected:
-    virtual void Update() override;
+private:
+    void RefreshHeader();
 };

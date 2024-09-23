@@ -46,11 +46,22 @@ void PongLevel::LoadInSimulation()
 	float ballSpeed = 16;
 	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
 	simulation.TryAddEntity(pongBall);
+	RefreshHeader();
 }
 
-void PongLevel::Update()
+void PongLevel::IncreaseP1Score()
 {
-	Level::Update();
-	Simulation::Instance().SetTerminalHeader(std::to_string(scorePlayer1)+" - "+ std::to_string(scorePlayer2));
+	++scorePlayer1;
+	RefreshHeader();
 }
 
+void PongLevel::IncreaseP2Score()
+{
+	++scorePlayer2;
+	RefreshHeader();
+}
+
+void PongLevel::RefreshHeader()
+{
+	Simulation::Instance().SetTerminalHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2));
+}
