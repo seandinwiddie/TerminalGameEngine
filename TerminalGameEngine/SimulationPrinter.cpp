@@ -59,19 +59,13 @@ void SimulationPrinter::DrawMargins()
     terminal.SetCursorPosition(0, GetMaxTerminalY());
     DrawHorizontalMargin();
 
-    for (int y = MARGIN_OFFSET_Y; y < GetMaxTerminalY(); ++y)
+    for (int y = MARGIN_OFFSET_TOP_Y; y < GetMaxTerminalY(); ++y)
     {
         terminal.SetCursorPosition(0, y);
         Cout('|');
         terminal.SetCursorPosition(GetMaxTerminalX(), y);
         Cout('|');
     }
-}
-
-bool SimulationPrinter::IsCoveredByUIFrame(int screenX, int screenY)
-{
-    char c = UIFrame.chars[screenY][screenX];
-    return c == UI_MESSAGE_FRAME_IGNORED_CHAR;
 }
 
 void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
@@ -100,51 +94,41 @@ void SimulationPrinter::PrintObject(GameObject* go)
     std::vector<std::vector<char>> model = go->GetModel();
     if (model[0].size() == 0)
         return;
-
     terminal.SetColor(go->GetColor());
-
-    for (
-        int yScreen = GetTerminalPosY(go->GetPosY()), yModel = 0;
-        yScreen < GetMaxTerminalY() && yModel < go->GetModelHeight();
-        ++yScreen, ++yModel
-        )
-        {
-            if (yScreen < MARGIN_OFFSET_Y)continue;
-            string line = "";
-            int lineStartPosX = GetTerminalPosX(go->GetPosX());
-            for (
-                int xScreen = lineStartPosX, xModel = 0;
-                xScreen < GetMaxTerminalX() && xModel < go->GetModelWidth();
-                ++xScreen, ++xModel
-                )
-                {
-                if (xScreen < MARGIN_OFFSET_X)continue;
-                    line += go->GetModel()[yModel][xModel];
-                }
-            if (lineStartPosX < MARGIN_OFFSET_X)
-                lineStartPosX = MARGIN_OFFSET_X;
-            terminal.SetCursorPosition(lineStartPosX, GetMaxTerminalY() - yScreen + 1);
-            Cout(line);
-        }
+    PrintInternal(go->GetPosX(), go->GetPosY(), go->GetModelWidth(), go->GetModelHeight(), go);
 }
 
-void SimulationPrinter::Clear(int worldXPos, int worldYPos, uint xSize, uint ySize)
+void SimulationPrinter::ClearObject(GameObject* obj)
 {
-    for (int yScreen = GetTerminalPosY(worldYPos), yModel = 0; yModel < ySize && yScreen < GetMaxTerminalY(); ++yScreen, ++yModel)
-    {
-        if (yScreen < MARGIN_OFFSET_Y) continue;
+    PrintInternal(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
+}
 
-        int lineStartPosX = GetTerminalPosX(worldXPos);
+void SimulationPrinter::ClearArea(int worldXPos, int worldYPos, uint xSize, uint ySize)
+{
+    PrintInternal(worldXPos, worldYPos, xSize, ySize, nullptr);
+}
+
+void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, uint ySize, GameObject* go)
+{
+    terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
+    for (int yScreen = GetScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)
+    {
+        if (yScreen + MARGIN_OFFSET_TOP_Y < MARGIN_OFFSET_TOP_Y) continue;
+        int lineTerminalPosX = GetScreenPos(worldXPos) + MARGIN_OFFSET_X;
         string line = "";
-        for (int xScreen = lineStartPosX, xModel = 0; xModel < xSize && xScreen < GetMaxTerminalX(); ++xScreen, ++xModel)
+
+        for (int xScreen = GetScreenPos(worldXPos), xModel = 0; xModel < xSize && xScreen < screenSizeX; ++xScreen, ++xModel)
         {
-            if (xScreen < MARGIN_OFFSET_X)continue;
-            terminal.SetColor(backgroundColor);
-            line += background.IsSetup() ? background.chars[yScreen - MARGIN_OFFSET_Y][xScreen - MARGIN_OFFSET_X] : ' ';
+            if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
+
+            if (go == nullptr)
+                line += background.IsSetup() ? background.chars[yScreen][xScreen] : ' ';
+            else
+                line += go->GetModel()[yModel][xModel];
         }
-        if (lineStartPosX < MARGIN_OFFSET_X)
-            lineStartPosX = MARGIN_OFFSET_X;
-        terminal.SetCursorPosition(lineStartPosX, GetMaxTerminalY() - yScreen + 1);
+        if (lineTerminalPosX < MARGIN_OFFSET_X)
+            lineTerminalPosX = MARGIN_OFFSET_X;
+        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + MARGIN_OFFSET_BOTTOM_Y);
         Cout(line);
     }
 }
@@ -162,18 +146,13 @@ void SimulationPrinter::PrintBackground()
         for (int x = 0; x < screenSizeX; ++x)
         {
             //reversing y order
-            char charToPrint = background.chars[screenSizeY - y -1][x];
+            char charToPrint = background.chars[screenSizeY - y - MARGIN_OFFSET_BOTTOM_Y][x];
             line += charToPrint;
         }
-        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_Y);
+        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);
         Cout(line);
         line.clear();
     }
-}
-
-void SimulationPrinter::Clear(GameObject* obj)
-{
-    Clear(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
 }
 
 void SimulationPrinter::InitBackground(const string& backgroundFileName)

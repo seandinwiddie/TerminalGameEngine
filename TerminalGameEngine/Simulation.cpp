@@ -43,7 +43,7 @@ void Simulation::Step()
 
 		if (TryMoveObjectAtDirection(it->object, it->direction))
 		{
-			simulationPrinter->Clear(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+			simulationPrinter->ClearArea(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
 			it->object->mustBeReprinted = true;
 		}
 	}
@@ -424,7 +424,7 @@ void Simulation::RemoveObject(GameObject* obj)
 			worldSpace[y][x] = nullptr;
 		}
 	entities.remove(obj);
-	simulationPrinter->Clear(obj);
+	simulationPrinter->ClearObject(obj);
 	delete(obj);
 }
 
