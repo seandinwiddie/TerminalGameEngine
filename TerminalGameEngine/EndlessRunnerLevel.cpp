@@ -114,6 +114,11 @@ void EndlessRunnerLevel::Update()
 {
     Level::Update();
     double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
-    string header = "TIME: " + std::to_string(static_cast<int>(runTime));
-    Simulation::Instance().SetTerminalHeader(header);
+    int newTime = static_cast<int>(runTime);
+    if (shownTime != newTime)
+    {
+        string header = "TIME: " + std::to_string(newTime);
+        Simulation::Instance().SetTerminalHeader(header);
+        shownTime = newTime;
+    }
 }

@@ -11,6 +11,8 @@ private:
     const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
     const string BACKGROUND_FILE_NAME = "endlessRunnerBackground.txt";
 
+    int shownTime = -1;
+
 //---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 90; }
