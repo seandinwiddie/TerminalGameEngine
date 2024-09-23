@@ -1,3 +1,4 @@
+#include "Config.h"
 #include "AudioManager.h"
 #include "RandomUtils.h"
 
@@ -14,6 +15,7 @@ AudioManager::AudioManager()
 
 void AudioManager::PlayFx(const string& fileName, const float randomPitch)
 {
+#if ALLOW_SOUNDS
 	string completeFileName = "Sounds/" + fileName;
 
 	Sound* sound = nullptr;
@@ -31,10 +33,12 @@ void AudioManager::PlayFx(const string& fileName, const float randomPitch)
 
 	sound->setPitch(pitch);
 	sound->play();
+#endif
 }
 
 void AudioManager::PlayRandomMusic()
 {
+#if ALLOW_SOUNDS
 	StopMusic();
 	int randomIndex = RandomUtils::GetRandomInt(0, MUSIC_TRACKS.size() - 1);
 	string randomMusicFile = MUSIC_TRACKS[randomIndex];
@@ -43,6 +47,7 @@ void AudioManager::PlayRandomMusic()
 		return;
 
 	music.play();
+#endif
 }
 
 bool AudioManager::TryGetBufferAndSound(SoundBuffer*& outBuffer, Sound*& outSound)
