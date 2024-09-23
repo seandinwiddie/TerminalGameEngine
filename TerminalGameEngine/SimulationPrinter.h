@@ -67,7 +67,7 @@ private:
 	void Cout(const string& s);
 	void Cout(char s);
 
-	int GetScreenPos(int worldPos) const { return worldPos - padding; }
+	int GetScreenPos(int worldPos) const { return worldPos - static_cast<int>(padding); }
 	size_t GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
 	size_t GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
 	size_t GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }

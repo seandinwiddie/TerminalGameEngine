@@ -63,7 +63,7 @@ void Frame::ReplaceChar(const string& writenString, char writeOverChar)
             if (c == writeOverChar)
             {
                 InsertString(writenString, x, y);
-                x += writenString.size() - 1;
+                x += static_cast<int>(writenString.size()) - 1;
             }
         }
     }

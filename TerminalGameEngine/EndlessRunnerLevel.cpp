@@ -14,7 +14,7 @@ void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
     Level::OnPostGameOverDelayEnded();
     int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
-    int score = GetLevelTime();
+    int score = static_cast<int>(GetLevelTime());
 
     if (score > bestScore)
         Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
@@ -57,7 +57,8 @@ void EndlessRunnerLevel::LoadInSimulation()
     gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
     //------------------------------- bunny setup
-    Bunny* bunny = new Bunny(9, simulation.GetScreenPadding(), this);
+    int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
+    Bunny* bunny = new Bunny(9, bunnyStartingY, this);
     simulation.TryAddEntity(bunny);
 
     //------------------------------- spawner setup
