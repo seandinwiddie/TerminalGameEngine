@@ -50,7 +50,7 @@ const std::vector<std::vector<char>> Bunny::idleModelLeft
     {'(', 92, '(', 92, ' '}
 };
 
-Bunny::Bunny(int xPos, int yPos, Level* level) : CollidingObject(xPos, yPos), level(level)
+Bunny::Bunny(int xPos, int yPos, Level* level) : GameObject(xPos, yPos), level(level)
 {
     SetState(State::idle);
     jumpingModel = jumpLeftModel;
@@ -61,7 +61,7 @@ Bunny::Bunny(int xPos, int yPos, Level* level) : CollidingObject(xPos, yPos), le
 
 void Bunny::Update()
 {
-    CollidingObject::Update();
+    GameObject::Update();
 
     HandleIdleWalkState();
 
@@ -213,7 +213,7 @@ void Bunny::Move(Direction direction, float moveSpeed)
         lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }
 
-void Bunny::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
+void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {

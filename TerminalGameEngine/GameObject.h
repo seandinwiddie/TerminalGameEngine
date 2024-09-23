@@ -24,11 +24,11 @@ private:
 	float yPosContinuous;
 
 	bool mustBeReprinted = true;
-	//check this is ok
 	std::vector<std::vector<char>> model = { {} };
 
 protected:
 	bool canMove = true;
+	std::vector<bool> collidingDirections = { false,false,false,false };
 	
 
 //---------------------------------------------------------- Methods
@@ -55,7 +55,13 @@ protected:
 	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
 	void SetModel(const std::vector<std::vector<char>>& newModel);
+	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
+	virtual void OnCollisionExit(Direction collisionDirection) = 0;
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
+	//called by simulation
+	void NotifyCollision(GameObject* other, Direction collisionDirection);
+	//called by simulation
+	void UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Config.h"
-#include "CollidingObject.h"
+#include "GameObject.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "TimeHelper.h"
@@ -13,7 +13,7 @@
 
 class Level;
 
-class Bunny : public CollidingObject
+class Bunny : public GameObject
 {
     enum class State
     {
@@ -67,7 +67,7 @@ public:
 protected:
     void Update() override;
     virtual void Move(Direction direction, float moveSpeed) override;
-    virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
 
 private:

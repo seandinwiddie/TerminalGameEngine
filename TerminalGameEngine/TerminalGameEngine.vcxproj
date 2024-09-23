@@ -138,7 +138,6 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
-    <ClCompile Include="CollidingObject.cpp" />
     <ClCompile Include="CollisionsTestLevel.cpp" />
     <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="Frame.cpp" />
@@ -170,7 +169,6 @@
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
-    <ClInclude Include="CollidingObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameObject.h" />

@@ -8,7 +8,7 @@ Obstacle::Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed)
     SetModel(CreteModelUsingChar(219, 4, 2));
 }
 
-void Obstacle::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
+void Obstacle::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {
     AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
 }

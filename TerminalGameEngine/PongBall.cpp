@@ -3,7 +3,7 @@
 #include "Simulation.h"
 #include "AudioManager.h"
 
-void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirection)
+void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {
     iSFirstLaunch = false;
 
@@ -58,7 +58,7 @@ void PongBall::Update()
     if (level->IsGameOver())
         return;
 
-    CollidingObject::Update();
+    GameObject::Update();
 
     if (xSpeed > 0)
         Move(Direction::right, xSpeed);

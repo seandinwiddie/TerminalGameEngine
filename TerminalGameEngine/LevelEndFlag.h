@@ -1,9 +1,9 @@
 #pragma once
-#include "CollidingObject.h"
+#include "GameObject.h"
 
 class Level;
 
-class LevelEndFlag : public CollidingObject
+class LevelEndFlag : public GameObject
 {
 private:
     static const std::vector<std::vector<char>> flagModel;
@@ -16,6 +16,6 @@ public:
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection);
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection){ }
 };

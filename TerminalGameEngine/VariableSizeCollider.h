@@ -1,7 +1,7 @@
 #pragma once
-#include "CollidingObject.h"
+#include "GameObject.h"
 
-class VariableSizeCollider : public CollidingObject
+class VariableSizeCollider : public GameObject
 {
     //---------------------------------------------------------- Methods
 public:
@@ -12,7 +12,7 @@ public:
         uint sizeX,
         uint sizeY,
         char modelChar
-    ) : CollidingObject(xPos, yPos)
+    ) : GameObject(xPos, yPos)
     {
         SetModel(CreteModelUsingChar(modelChar, sizeX, sizeY));
     }

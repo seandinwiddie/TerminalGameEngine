@@ -12,7 +12,7 @@ using namespace GridDirection;
 using string = std::string;
 
 //class Level;
-class CollidingObject;
+class GameObject;
 class ISimulationUpdatingEntity;
 class Frame;
 class SimulationPrinter;
@@ -22,7 +22,6 @@ class Simulation : public Singleton<Simulation>
 {
 	friend class Singleton;
 	friend class GameObject;
-	friend class CollidingObject;
 
 	struct MoveRequest
 	{
@@ -41,7 +40,7 @@ class Simulation : public Singleton<Simulation>
 	SimulationPrinter* simulationPrinter;
 	Level* level;
 
-	std::vector<std::vector<CollidingObject*>> worldSpace;
+	std::vector<std::vector<GameObject*>> worldSpace;
 	std::list<ISimulationUpdatingEntity*> entities;
 	std::list<MoveRequest> moveRequests;
 //------------------------------------------------------------------------------------ Methods
@@ -78,8 +77,8 @@ private:
 	void MoveObject(GameObject* obj, Direction direction);
 	bool CanObjectBeAdded(const GameObject* obj) const;
 	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
-	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, CollidingObject*& outCollidingObject) const;
-	void UpdateObjectCollisionDirections(CollidingObject* collidingObj);
+	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
+	void UpdateObjectCollisionDirections(GameObject* collidingObj);
 
 	bool IsSpaceEmpty(uint startingY, uint startingX, uint width, uint height) const;
 	void ResetScreenManager(const string& backgroundFileName);

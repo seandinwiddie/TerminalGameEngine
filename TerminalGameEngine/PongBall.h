@@ -1,11 +1,11 @@
 #pragma once
-#include "CollidingObject.h"	
+#include "GameObject.h"	
 #include "PongLevel.h"
 #include "RandomUtils.h"
 
 class PongBar;
 
-class PongBall : public CollidingObject
+class PongBall : public GameObject
 {
 private:
     PongLevel* level;
@@ -15,7 +15,7 @@ private:
 
 public:
     PongBall(PongLevel* level, int xPos, int yPos, float ySpeed) : 
-        CollidingObject(xPos, yPos), level(level), ySpeed(ySpeed)
+        GameObject(xPos, yPos), level(level), ySpeed(ySpeed)
     {
         SetModel({{static_cast<char>(219)}});
 
@@ -31,7 +31,7 @@ public:
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection);
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection) {}
     virtual void Update() override;
 

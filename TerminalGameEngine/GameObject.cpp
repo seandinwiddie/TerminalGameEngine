@@ -92,3 +92,24 @@ void GameObject::SetModel(const std::vector<std::vector<char>>& newModel)
 	model = newModel;
 }
 
+void GameObject::NotifyCollision(GameObject* other, Direction collisionDirection)
+{
+	int directionIndex = static_cast<int>(collisionDirection);
+	if (collidingDirections[directionIndex] == false)
+	{
+		collidingDirections[directionIndex] = true;
+		OnCollisionEnter(other, collisionDirection);
+	}
+}
+
+void GameObject::UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections)
+{
+	for (int i = 0; i < collidingDirections.size(); ++i)
+	{
+		if (collidingDirections[i] == true && newCollidingDirections[i] == false)
+		{
+			collidingDirections[i] = false;
+			OnCollisionExit(static_cast<Direction>(i));
+		}
+	}
+}

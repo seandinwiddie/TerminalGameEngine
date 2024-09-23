@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CollidingObject.h"
+#include "GameObject.h"
 
 #include <iostream>
 #include <windows.h>
@@ -8,7 +8,7 @@
 #include <conio.h>
 #include <cassert>
 
-class MovingStraightObject : public CollidingObject
+class MovingStraightObject : public GameObject
 {
 	//---------------------------------------------------------- Fields
 protected:

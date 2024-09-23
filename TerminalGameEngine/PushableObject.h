@@ -1,7 +1,7 @@
 #pragma once
-#include "CollidingObject.h"
+#include "GameObject.h"
 
-class PushableObject : public CollidingObject
+class PushableObject : public GameObject
 {
 //---------------------------------------------------------- Methods
 public:
@@ -14,5 +14,5 @@ public:
 
 protected:
     virtual void OnCollisionExit(Direction collisionDirection) override {}
-    virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
 };

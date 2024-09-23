@@ -49,9 +49,6 @@
     <ClCompile Include="Bunny.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
-    <ClCompile Include="CollidingObject.cpp">
-      <Filter>Cpp</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
@@ -133,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="EndlessRunnerLevel.h">
       <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="CollidingObject.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
     </ClInclude>
     <ClInclude Include="AutomaticDoor.h">
       <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>

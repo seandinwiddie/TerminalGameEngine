@@ -1,6 +1,6 @@
 #include "Simulation.h"
 
-#include "CollidingObject.h"
+#include "GameObject.h"
 #include "SimulationPrinter.h"
 #include "ISimulationUpdatingEntity.h"
 #include "GameObject.h"
@@ -51,9 +51,9 @@ void Simulation::Step()
 	//---------------- detect end of collisions
 	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
-		CollidingObject* collidingObj = dynamic_cast<CollidingObject*>((*it));
-		if (collidingObj != nullptr)
-			UpdateObjectCollisionDirections(collidingObj);
+		GameObject* obj = dynamic_cast<GameObject*>((*it));
+		if (obj != nullptr)
+			UpdateObjectCollisionDirections(obj);
 	}
 
 	//---------------- 
@@ -76,7 +76,7 @@ void Simulation::Step()
 #endif
 }
 
-void Simulation::UpdateObjectCollisionDirections(CollidingObject* obj)
+void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
 {
 	std::vector<bool> collidingDirections(4);
 
@@ -136,12 +136,15 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
 		simulationPrinter->PrintObject(gameObjectEntity);
 	}
 
-	CollidingObject* collidingObjectEntity = dynamic_cast<CollidingObject*>(updatingEntity);
-	if (collidingObjectEntity != nullptr)
+	GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+	if (obj != nullptr)
 	{
-		for (int y = collidingObjectEntity->GetPosY(); y <= collidingObjectEntity->GetMaxPosY(); ++y)
-			for (int x = collidingObjectEntity->GetPosX(); x <= collidingObjectEntity->GetMaxPosX(); ++x)
-				worldSpace[y][x] = collidingObjectEntity;
+		// Colliding object model must be setup before adding it to simulation
+		//assert(obj->GetModel()[0].size() > 0);
+
+		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
+			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
+				worldSpace[y][x] = obj;
 	}
 
 	entities.push_back(updatingEntity);
@@ -160,7 +163,7 @@ bool Simulation::CanObjectBeAdded(const GameObject* obj) const
 			if (IsCoordinateInsideGameSpace(x, y) == false)
 				return false;
 
-			if (dynamic_cast<const CollidingObject*>(obj) != nullptr && worldSpace[y][x] != nullptr)
+			if (worldSpace[y][x] != nullptr)
 				return false;
 		}
 			
@@ -179,9 +182,7 @@ bool Simulation::IsObjectInSimulation(const ISimulationUpdatingEntity* obj) cons
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
 	assert(IsObjectInSimulation(obj));
-
-	CollidingObject* collidingObj = dynamic_cast<CollidingObject*>(obj);
-	CollidingObject* outOtherObj;
+	GameObject* outOtherObj;
 
 	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
@@ -195,17 +196,14 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 			else
 			{
 				//notify collision with screen margin
-				collidingObj->NotifyCollision(nullptr, direction);
+				obj->NotifyCollision(nullptr, direction);
 			}
 				
 		}
 		else
 		{
-			if (collidingObj != nullptr)
-			{
-				collidingObj->NotifyCollision(outOtherObj, direction);
-				outOtherObj->NotifyCollision(collidingObj, GetInverseDirection(direction));
-			}
+			obj->NotifyCollision(outOtherObj, direction);
+			outOtherObj->NotifyCollision(obj, GetInverseDirection(direction));
 		}
 
 		return false;
@@ -215,45 +213,36 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	{
 		case Direction::up:
 		{
-			if (collidingObj != nullptr)
+			int yWrite = obj->GetMaxPosY() + 1;
+			int yClear = obj->GetPosY();
+			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
 			{
-				int yWrite = obj->GetMaxPosY() + 1;
-				int yClear = obj->GetPosY();
-				for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-				{
-					worldSpace[yWrite][x] = collidingObj;
-					worldSpace[yClear][x] = nullptr;
-				}
+				worldSpace[yWrite][x] = obj;
+				worldSpace[yClear][x] = nullptr;
 			}
 			MoveObject(obj, direction);
 			break;
 		}
 		case Direction::down:
 		{
-			if (collidingObj != nullptr)
+			int yWrite = obj->GetPosY() - 1;
+			int yClear = obj->GetMaxPosY();
+			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
 			{
-				int yWrite = obj->GetPosY() - 1;
-				int yClear = obj->GetMaxPosY();
-				for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-				{
-					worldSpace[yWrite][x] = collidingObj;
-					worldSpace[yClear][x] = nullptr;
-				}
+				worldSpace[yWrite][x] = obj;
+				worldSpace[yClear][x] = nullptr;
 			}
 			MoveObject(obj, direction);
 			break;
 		}
 		case Direction::right:
 		{
-			if (collidingObj != nullptr)
+			int xWrite = obj->GetMaxPosX() + 1;
+			int xClear = obj->GetPosX();
+			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
 			{
-				int xWrite = obj->GetMaxPosX() + 1;
-				int xClear = obj->GetPosX();
-				for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-				{
-					worldSpace[y][xWrite] = collidingObj;
-					worldSpace[y][xClear] = nullptr;
-				}
+				worldSpace[y][xWrite] = obj;
+				worldSpace[y][xClear] = nullptr;
 			}
 			MoveObject(obj, direction);
 			break;
@@ -261,15 +250,12 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 
 		case Direction::left:
 		{
-			if (collidingObj != nullptr)
+			int xWrite = obj->GetPosX() - 1;
+			int xClear = obj->GetMaxPosX();
+			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
 			{
-				int xWrite = obj->GetPosX() - 1;
-				int xClear = obj->GetMaxPosX();
-				for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-				{
-					worldSpace[y][xWrite] = collidingObj;
-					worldSpace[y][xClear] = nullptr;
-				}
+				worldSpace[y][xWrite] = obj;
+				worldSpace[y][xClear] = nullptr;
 			}
 			MoveObject(obj, direction);
 			break;
@@ -283,7 +269,7 @@ bool Simulation::CanObjectMoveAtDirection
 (
 	const GameObject* obj,
 	Direction direction, 
-	CollidingObject*& outCollidingObject
+	GameObject*& outCollidingObject
 ) const
 {
 	assert(IsObjectInSimulation(obj));
@@ -313,17 +299,13 @@ bool Simulation::CanObjectMoveAtDirection
 				}
 			}
 
-			//colliding
-			if (dynamic_cast<const CollidingObject*>(obj) != nullptr)
+			//check collision
+			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 			{
-				for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
+				if (worldSpace[y][x] != nullptr)
 				{
-					if (worldSpace[y][x] != nullptr)
-					{
-						outCollidingObject = worldSpace[y][x];
-						return false;
-					}
-
+					outCollidingObject = worldSpace[y][x];
+					return false;
 				}
 			}
 
@@ -350,15 +332,13 @@ bool Simulation::CanObjectMoveAtDirection
 				}
 			}
 
-			if (dynamic_cast<const CollidingObject*>(obj) != nullptr)
+			//check collision
+			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 			{
-				for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
+				if (worldSpace[y][x] != nullptr)
 				{
-					if (worldSpace[y][x] != nullptr)
-					{
-						outCollidingObject = worldSpace[y][x];
-						return false;
-					}
+					outCollidingObject = worldSpace[y][x];
+					return false;
 				}
 			}
 			
@@ -385,15 +365,13 @@ bool Simulation::CanObjectMoveAtDirection
 				}
 			}
 
-			if (dynamic_cast<const CollidingObject*>(obj) != nullptr)
+			//check collision
+			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 			{
-				for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
+				if (worldSpace[y][x] != nullptr)
 				{
-					if (worldSpace[y][x] != nullptr)
-					{
-						outCollidingObject = worldSpace[y][x];
-						return false;
-					}
+					outCollidingObject = worldSpace[y][x];
+					return false;
 				}
 			}
 			
@@ -420,18 +398,16 @@ bool Simulation::CanObjectMoveAtDirection
 				}
 			}
 
-			if (dynamic_cast<const CollidingObject*>(obj) != nullptr)
+			//check collision
+			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 			{
-				for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
+				if (worldSpace[y][x] != nullptr)
 				{
-					if (worldSpace[y][x] != nullptr)
-					{
-						outCollidingObject = worldSpace[y][x];
-						return false;
-					}
+					outCollidingObject = worldSpace[y][x];
+					return false;
 				}
 			}
-
+			
 			return true;
 		}
 	}

@@ -1,8 +1,8 @@
 #pragma once
-#include "CollidingObject.h"
+#include "GameObject.h"
 #include "Event.h"
 
-class PressurePlate : public CollidingObject
+class PressurePlate : public GameObject
 {
 //---------------------------------------------------------- Fields
 public:
@@ -22,6 +22,6 @@ public:
     virtual int GetColor() const { return Terminal::CYAN; }
 
 protected:
-    virtual void OnCollisionEnter(CollidingObject* other, Direction collisionDirection) override;
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override;
 };
