@@ -114,10 +114,10 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, 
     for (int yScreen = GetScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)
     {
         if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y) continue;
-        int lineStartPosX = GetScreenPos(worldXPos);
+        int lineTerminalPosX = GetScreenPos(worldXPos) + MARGIN_OFFSET_X;
         string line = "";
 
-        for (int xScreen = lineStartPosX, xModel = 0; xModel < xSize && xScreen < screenSizeX; ++xScreen, ++xModel)
+        for (int xScreen = GetScreenPos(worldXPos), xModel = 0; xModel < xSize && xScreen < screenSizeX; ++xScreen, ++xModel)
         {
             if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
 
@@ -126,9 +126,9 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, 
             else
                 line += go->GetModel()[yModel][xModel];
         }
-        if (lineStartPosX + MARGIN_OFFSET_X < MARGIN_OFFSET_X)
-            lineStartPosX = MARGIN_OFFSET_X;
-        terminal.SetCursorPosition(lineStartPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
+        if (lineTerminalPosX < MARGIN_OFFSET_X)
+            lineTerminalPosX = MARGIN_OFFSET_X;
+        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
         Cout(line);
     }
 }
