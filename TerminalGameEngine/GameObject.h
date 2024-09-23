@@ -34,13 +34,10 @@ protected:
 //---------------------------------------------------------- Methods
 public:
 	GameObject(int xPos, int yPos);
-
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
-
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
-
 	uint GetModelWidth() const;
 	uint GetModelHeight() const { return model.size(); }
 	const std::vector<std::vector<char>>& GetModel() const { return model; }
