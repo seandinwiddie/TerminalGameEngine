@@ -11,5 +11,4 @@ public:
 
     virtual void LoadInSimulation() override;
     virtual double ShowGameOverScreenDelay()const { return 5; }
-    virtual void OnGameOverDelayEnded() {}
 };

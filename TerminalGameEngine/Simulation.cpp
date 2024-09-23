@@ -475,6 +475,7 @@ void Simulation::LoadLevel (Level* level)
 	}
 
 	levelStartedTime = TimeHelper::Instance().GetTime();
+
 	level->LoadInSimulation();
 }
 

@@ -6,7 +6,7 @@ class PongBar : public VariableSizeCollider
 //---------------------------------------------------------- Fields
 private:
     float moveSpeed;
-    bool isLeftBar;
+    bool isBottomBar;
     float deflectBallFactor;
 
 public:
@@ -22,12 +22,12 @@ public:
         char modelChar,
         float moveSpeed,
         float deflectBallFactor,
-        bool isLeftBar
+        bool isBottomBar
     ) : 
     VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar),
     moveSpeed(moveSpeed),
     deflectBallFactor(deflectBallFactor),
-    isLeftBar(isLeftBar){ }
+    isBottomBar(isBottomBar){ }
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }

@@ -16,7 +16,7 @@ public:
 
     virtual void LoadInSimulation() override;
 
-    virtual void OnGameOverDelayEnded() override { Terminate(); }
+    virtual void OnPostGameOverPauseEnded() override;
 
     void IncreaseP1Score();
     void IncreaseP2Score();

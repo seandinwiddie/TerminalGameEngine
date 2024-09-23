@@ -10,8 +10,9 @@
 #include "ObstaclesSpawner.h"
 #include "Frame.h"
 
-void EndlessRunnerLevel::OnGameOverDelayEnded()
+void EndlessRunnerLevel::OnPostGameOverPauseEnded()
 {
+    Level::OnPostGameOverPauseEnded();
     int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
     int score = GetLevelTime();
 

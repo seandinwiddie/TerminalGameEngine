@@ -7,7 +7,7 @@ class PuzzleLevel : public Level
 public:
     virtual void LoadInSimulation() override;
     virtual void OnGameOver() override;
-    virtual void OnGameOverDelayEnded() override;
+    virtual void OnPostGameOverPauseEnded() override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
 
     virtual int GetWorldSizeX() const override { return 120; }

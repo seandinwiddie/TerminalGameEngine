@@ -72,7 +72,8 @@ void PuzzleLevel::OnGameOver()
     AudioManager::Instance().PlayFx("levelWon.wav");
 }
 
-void PuzzleLevel::OnGameOverDelayEnded()
+void PuzzleLevel::OnPostGameOverPauseEnded()
 {
+    Level::OnPostGameOverPauseEnded();
     Terminate();
 }
