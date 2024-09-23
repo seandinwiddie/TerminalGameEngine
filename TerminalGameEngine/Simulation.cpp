@@ -66,8 +66,6 @@ void Simulation::Step()
 			simulationPrinter->PrintObject(obj);
 		}
 	}
-	//----------------
-	simulationPrinter->OnPrintEnd();
 
 	//----------------
 	TimeHelper::Instance().NotifyFrameGenerated();

@@ -23,7 +23,6 @@ SimulationPrinter::SimulationPrinter
     screenSizeY(screenSizeY),
     padding(screenPadding)
 {
-    header = "";
     frameUIMessage.Clear();
     InitBackground(backgroundFileName);
     terminal.Clear();
@@ -37,12 +36,7 @@ SimulationPrinter::SimulationPrinter
 #endif
 }
 
-void SimulationPrinter::OnPrintEnd()
-{
-    PrintHeader();
-}
-
-void SimulationPrinter::PrintHeader()
+void SimulationPrinter::SetHeader(const string& header)
 {
     terminal.SetColor(uiColor);
     terminal.SetCursorPosition(0, 0);
@@ -167,7 +161,6 @@ void SimulationPrinter::Clear(GameObject* obj)
 {
     Clear(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
 }
-
 
 void SimulationPrinter::InitBackground(const string& backgroundFileName)
 {

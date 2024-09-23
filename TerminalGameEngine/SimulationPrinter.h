@@ -30,7 +30,6 @@ private:
 	Terminal& terminal = Terminal::Instance();
 	Frame background;
 
-	string header = "";
 	uint screenSizeX;
 	uint screenSizeY;
 	uint padding;
@@ -58,10 +57,8 @@ public:
 
 	void ShowUIFrame(const Frame& UIMessage){ this->frameUIMessage = UIMessage; }
 
-	void SetHeader(const string& header) { this->header = header; }
+	void SetHeader(const string& header);
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
-
-	void OnPrintEnd();
 
 private:
 	void PrintUIMessageOnFrame();
@@ -71,7 +68,6 @@ private:
 	void PrintBackground();
 	void Cout(const string& s);
 	void Cout(char s);
-	void PrintHeader();
 
 	int GetScreenPos(int worldPos) const { return worldPos - padding; }
 	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
