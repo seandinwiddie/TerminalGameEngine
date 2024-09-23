@@ -23,8 +23,8 @@ class SimulationPrinter
 private:
 	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
 	static const uint MARGIN_OFFSET_X = 1; //left margin
-	static const uint MARGIN_OFFSET_Y = 2; //top margin + header
-	static const uint MARGIN_OFFSET_Y_NEW = 1; //bottom margin
+	static const uint MARGIN_OFFSET_TOP_Y = 2; //top margin + header
+	static const uint MARGIN_OFFSET_BOTTOM_Y = 1; //bottom margin
 
 //---------------------------------------------------------- Fields
 private:
@@ -70,9 +70,9 @@ private:
 
 	int GetScreenPos(int worldPos) const { return worldPos - padding; }
 	uint GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
-	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_Y; }
+	uint GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
 	uint GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }
-	uint GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_Y; }
+	uint GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_TOP_Y; }
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE

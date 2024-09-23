@@ -59,7 +59,7 @@ void SimulationPrinter::DrawMargins()
     terminal.SetCursorPosition(0, GetMaxTerminalY());
     DrawHorizontalMargin();
 
-    for (int y = MARGIN_OFFSET_Y; y < GetMaxTerminalY(); ++y)
+    for (int y = MARGIN_OFFSET_TOP_Y; y < GetMaxTerminalY(); ++y)
     {
         terminal.SetCursorPosition(0, y);
         Cout('|');
@@ -113,7 +113,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, 
     terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
     for (int yScreen = GetScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)
     {
-        if (yScreen + MARGIN_OFFSET_Y < MARGIN_OFFSET_Y) continue;
+        if (yScreen + MARGIN_OFFSET_TOP_Y < MARGIN_OFFSET_TOP_Y) continue;
         int lineTerminalPosX = GetScreenPos(worldXPos) + MARGIN_OFFSET_X;
         string line = "";
 
@@ -128,7 +128,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, uint xSize, 
         }
         if (lineTerminalPosX < MARGIN_OFFSET_X)
             lineTerminalPosX = MARGIN_OFFSET_X;
-        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + MARGIN_OFFSET_Y_NEW);
+        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + MARGIN_OFFSET_BOTTOM_Y);
         Cout(line);
     }
 }
@@ -146,10 +146,10 @@ void SimulationPrinter::PrintBackground()
         for (int x = 0; x < screenSizeX; ++x)
         {
             //reversing y order
-            char charToPrint = background.chars[screenSizeY - y -1][x];
+            char charToPrint = background.chars[screenSizeY - y - MARGIN_OFFSET_BOTTOM_Y][x];
             line += charToPrint;
         }
-        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_Y);
+        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);
         Cout(line);
         line.clear();
     }
