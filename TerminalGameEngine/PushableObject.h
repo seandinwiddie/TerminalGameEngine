@@ -9,7 +9,7 @@ public:
     PushableObject(int xPos, int yPos);
 
     virtual bool CanExitScreenSpace() const override { return false; }
-    virtual float GetGravityScale() const override { return 1; }
+    virtual float GetGravityScale() const override { return 8; }
     virtual int GetColor() const { return Terminal::BLUE; }
 
 protected:
