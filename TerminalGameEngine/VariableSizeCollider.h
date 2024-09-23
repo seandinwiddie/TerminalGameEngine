@@ -3,17 +3,21 @@
 
 class VariableSizeCollider : public GameObject
 {
-    //---------------------------------------------------------- Methods
+//---------------------------------------------------------- Fields
+    char modelChar;
+    uint modelSizeX;
+    uint modelSizeY;
+//---------------------------------------------------------- Methods
 public:
     VariableSizeCollider
     (
         int xPos,
         int yPos,
-        uint sizeX,
-        uint sizeY,
+        uint modelSizeX,
+        uint modelSizeY,
         char modelChar
-    ) : GameObject(xPos, yPos)
-    {
-        SetModel(CreteModelUsingChar(modelChar, sizeX, sizeY));
-    }
+    ) : GameObject(xPos, yPos), modelSizeX(modelSizeX), modelSizeY(modelSizeY), modelChar(modelChar){ }
+
+protected:
+    virtual void InitModel() override { CreteModelUsingChar(modelChar, modelSizeX, modelSizeY); }
 };

@@ -5,7 +5,6 @@ PressurePlate::PressurePlate(int xPos, int yPos) : GameObject(xPos, yPos)
 { 
     unpressedModel = CreteModelUsingChar('=',6,1);
     pressedModel = CreteModelUsingChar('_',6,1);
-    SetModel(unpressedModel);
 }
 
 void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDirection)

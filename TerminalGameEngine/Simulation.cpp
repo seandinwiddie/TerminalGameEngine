@@ -140,7 +140,7 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
 	if (obj != nullptr)
 	{
 		// Colliding object model must be setup before adding it to simulation
-		//assert(obj->GetModel()[0].size() > 0);
+		assert(obj->GetModel().size() > 0);
 
 		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
 			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)

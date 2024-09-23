@@ -9,10 +9,7 @@ const std::vector<std::vector<char>> LevelEndFlag::flagModel
      {'|','\\'}
 };
 
-LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : GameObject(xPos, yPos), level(level)
-{
-    SetModel(flagModel);
-}
+LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : GameObject(xPos, yPos), level(level) { }
 
 void LevelEndFlag::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {

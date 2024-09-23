@@ -113,3 +113,10 @@ void GameObject::CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>
 		}
 	}
 }
+
+const std::vector<std::vector<char>>& GameObject::GetModel()
+{
+	if(!IsModelInitialized())
+		InitModel();
+	return model;
+}

@@ -3,10 +3,7 @@
 #include "TimeHelper.h"
 
 Obstacle::Obstacle(int xPos, int yPos, Direction moveDir, float moveSpeed)
-    : MovingStraightObject(xPos, yPos, moveDir, moveSpeed)
-{
-    SetModel(CreteModelUsingChar(219, 4, 2));
-}
+    : MovingStraightObject(xPos, yPos, moveDir, moveSpeed) { }
 
 void Obstacle::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {

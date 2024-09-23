@@ -1,11 +1,6 @@
 #include "PushableObject.h"
 #include "Bunny.h"
 
-PushableObject::PushableObject(int xPos, int yPos) : GameObject(xPos, yPos)
-{ 
-   SetModel(CreteModelUsingChar('@',4,2));
-}
-
 void PushableObject::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {
     if (collisionDirection == Direction::right || collisionDirection == Direction::left)

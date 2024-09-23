@@ -3,6 +3,19 @@
 #include "Simulation.h"
 #include "AudioManager.h"
 
+PongBall::PongBall(PongLevel* level, int xPos, int yPos, float ySpeed) 
+    :
+    GameObject(xPos, yPos), 
+    level(level),
+    ySpeed(ySpeed)
+{
+    xSpeed = 0;
+    iSFirstLaunch = true;
+
+    if (RandomUtils::GetRandomInt(0, 1) == 1)
+        this->ySpeed = -ySpeed;
+}
+
 void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 {
     iSFirstLaunch = false;

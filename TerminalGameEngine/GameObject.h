@@ -24,7 +24,7 @@ private:
 	float yPosContinuous;
 
 	bool mustBeReprinted = true;
-	std::vector<std::vector<char>> model = { {} };
+	std::vector<std::vector<char>> model = {};
 
 protected:
 	bool canMove = true;
@@ -39,8 +39,8 @@ public:
 	int GetMaxPosX() const { return xPos + GetModelWidth() - 1; }
 	int GetMaxPosY() const { return yPos + GetModelHeight() - 1; }
 	uint GetModelWidth() const;
-	uint GetModelHeight() const { return model.size(); }
-	const std::vector<std::vector<char>>& GetModel() const { return model; }
+	uint GetModelHeight() const { return model.size();}
+	const std::vector<std::vector<char>>& GetModel();
 
 	virtual int GetColor() const { return Terminal::WHITE; }
 	virtual bool CanExitScreenSpace() const = 0;
@@ -51,12 +51,14 @@ protected:
 	virtual void Update();
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
 	virtual void OnCollisionExit(Direction collisionDirection) = 0;
+	virtual void InitModel() = 0;
 
 	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	void SetModel(const std::vector<std::vector<char>>& newModel);
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
+	bool IsModelInitialized() const { return model.size() != 0; }
 
 	void CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDirection);
 	void CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);

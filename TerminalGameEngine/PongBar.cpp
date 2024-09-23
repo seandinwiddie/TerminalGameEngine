@@ -2,6 +2,22 @@
 #include "InputUtils.h"
 #include "Simulation.h"
 
+PongBar::PongBar
+(
+    int xPos,
+    int yPos,
+    uint sizeX,
+    uint sizeY,
+    char modelChar,
+    float moveSpeed,
+    float deflectBallFactor,
+    bool isBottomBar
+) :
+    VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar),
+    moveSpeed(moveSpeed),
+    deflectBallFactor(deflectBallFactor),
+    isBottomBar(isBottomBar) { }
+
 void PongBar::Update()
 {
     if (Simulation::Instance().GetActiveLevel()->IsGameOver())

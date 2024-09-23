@@ -58,7 +58,6 @@ private:
 //---------------------------------------------------------- Methods
 public:
     Bunny(int xPos, int yPos, Level* level);
-
    
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override;
@@ -69,6 +68,7 @@ protected:
     virtual void Move(Direction direction, float moveSpeed) override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) override {}
+    virtual void InitModel() { SetModel(idleModelLeft); }
 
 private:
     std::vector<std::vector<char>> jumpingModel;

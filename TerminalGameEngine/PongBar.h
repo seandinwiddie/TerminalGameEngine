@@ -23,11 +23,7 @@ public:
         float moveSpeed,
         float deflectBallFactor,
         bool isBottomBar
-    ) : 
-    VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar),
-    moveSpeed(moveSpeed),
-    deflectBallFactor(deflectBallFactor),
-    isBottomBar(isBottomBar){ }
+    );
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual float GetGravityScale() const override { return 0; }
@@ -39,4 +35,5 @@ protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}
     virtual void OnCollisionExit(Direction collisionDirection) override {}
     virtual void Update() override;
+    virtual void InitModel() override { SetModel({ {static_cast<char>(219)} }); }
 };

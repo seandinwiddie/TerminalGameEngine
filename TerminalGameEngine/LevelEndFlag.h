@@ -18,4 +18,5 @@ protected:
     virtual float GetGravityScale() const override { return 0; }
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection){ }
+    virtual void InitModel() { SetModel(flagModel); }
 };
