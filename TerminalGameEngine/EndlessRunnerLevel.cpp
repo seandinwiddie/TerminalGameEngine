@@ -36,7 +36,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameEndUIMessage.ReplaceChar(message, '$');
 
-    Simulation::Instance().ShowUIFrame(gameEndUIMessage);
+    Simulation::Instance().PrintUIFrame(gameEndUIMessage);
 }
 
 void EndlessRunnerLevel::OnGameOver()

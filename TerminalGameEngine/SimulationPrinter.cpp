@@ -23,7 +23,7 @@ SimulationPrinter::SimulationPrinter
     screenSizeY(screenSizeY),
     padding(screenPadding)
 {
-    frameUIMessage.Clear();
+    UIFrame.Clear();
     InitBackground(backgroundFileName);
     terminal.Clear();
     
@@ -41,7 +41,6 @@ void SimulationPrinter::SetHeader(const string& header)
     terminal.SetColor(uiColor);
     terminal.SetCursorPosition(0, 0);
     Cout(header);
-    PrintUIMessageOnFrame();
 }
 
 void SimulationPrinter::DrawHorizontalMargin()
@@ -53,25 +52,26 @@ void SimulationPrinter::DrawHorizontalMargin()
 }
 
 //todo check this
-void SimulationPrinter::PrintUIMessageOnFrame()
+void SimulationPrinter::PrintUIFrame(const Frame& UIMessage)
 {
-    if (frameUIMessage.GetSizeY() == 0)
-        return;
+    //this->UIFrame = UIMessage;
+    //if (UIFrame.GetSizeY() == 0)
+    //    return;
 
-    terminal.SetColor(uiColor);
-    for (int y = 0; y < screenSizeY; ++y)
-    {
-        for (int x = 0; x < screenSizeX; ++x)
-        {
-            char c = frameUIMessage.chars[y][x];
-            if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
-            {
-                terminal.SetCursorPosition(x, y);
-                //todo could be optimized doing cout of strings for adjacent characters (also in other methods)
-                Cout(c);
-            }
-        }
-    }
+    //terminal.SetColor(uiColor);
+    //for (int y = 0; y < screenSizeY; ++y)
+    //{
+    //    for (int x = 0; x < screenSizeX; ++x)
+    //    {
+    //        char c = UIFrame.chars[y][x];
+    //        if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
+    //        {
+    //            terminal.SetCursorPosition(x, y);
+    //            //todo could be optimized doing cout of strings for adjacent characters (also in other methods)
+    //            Cout(c);
+    //        }
+    //    }
+    //}
 }
 
 void SimulationPrinter::DrawMargins()

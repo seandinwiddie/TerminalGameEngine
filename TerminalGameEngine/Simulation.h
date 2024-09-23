@@ -68,7 +68,7 @@ public:
 
 	const Level* GetActiveLevel() { return level; }
 
-	void ShowUIFrame(const Frame& UIMessage);
+	void PrintUIFrame(const Frame& UIMessage);
 
 	void SetTerminalHeader(const string& header);
 
