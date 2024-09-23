@@ -1,7 +1,7 @@
 #include "CollisionsTestLevel.h"
 #include "Config.h"
-#include "Simulation.h";
-#include "Obstacle.h";
+#include "Simulation.h"
+#include "Obstacle.h"
 #include "ObstaclesSpawner.h"
 
 void CollisionsTestLevel::LoadInSimulation()

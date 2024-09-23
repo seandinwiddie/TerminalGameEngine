@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Config.h"
-#include "Level.h";
+#include "Level.h"
 #include <string>
 
 class EndlessRunnerLevel : public Level

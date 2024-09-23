@@ -7,7 +7,7 @@ template <typename T> using vector = std::vector<T>;
 using uint = unsigned int;
 
 //settings
-#define ALLOW_SOUNDS 1
+#define ALLOW_SOUNDS 0
 #define DEBUG_MODE 0
 
 //debug details
