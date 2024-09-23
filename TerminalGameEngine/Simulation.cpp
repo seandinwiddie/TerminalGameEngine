@@ -417,6 +417,8 @@ bool Simulation::CanObjectMoveAtDirection
 			
 			return true;
 		}
+		default:
+			return false;
 	}
 }
 
