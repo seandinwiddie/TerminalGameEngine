@@ -35,5 +35,4 @@ protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}
     virtual void OnCollisionExit(Direction collisionDirection) override {}
     virtual void Update() override;
-    virtual void InitModel() override { SetModel({ {static_cast<char>(219)} }); }
 };

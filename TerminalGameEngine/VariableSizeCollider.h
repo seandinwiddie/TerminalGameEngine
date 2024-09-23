@@ -19,5 +19,5 @@ public:
     ) : GameObject(xPos, yPos), modelSizeX(modelSizeX), modelSizeY(modelSizeY), modelChar(modelChar){ }
 
 protected:
-    virtual void InitModel() override { CreteModelUsingChar(modelChar, modelSizeX, modelSizeY); }
+    virtual void InitModel() override { SetModel( CreteModelUsingChar(modelChar, modelSizeX, modelSizeY) ); }
 };
