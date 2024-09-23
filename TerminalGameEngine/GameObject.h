@@ -46,22 +46,21 @@ public:
 	const std::vector<std::vector<char>>& GetModel() const { return model; }
 
 	virtual int GetColor() const { return Terminal::WHITE; }
-
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual float GetGravityScale() const = 0;
 
 protected:
 	virtual void Move(Direction direction, float moveSpeed);
-	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
 	virtual void Update();
-	void SetModel(const std::vector<std::vector<char>>& newModel);
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
 	virtual void OnCollisionExit(Direction collisionDirection) = 0;
 
+	std::vector<std::vector<char>> CreteModelUsingChar(char c, uint sizeX, uint sizeY) const;
+	void SetModel(const std::vector<std::vector<char>>& newModel);
+
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
-	//called by simulation
-	void NotifyCollision(GameObject* other, Direction collisionDirection);
-	//called by simulation
-	void UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
+
+	void CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDirection);
+	void CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
 };
