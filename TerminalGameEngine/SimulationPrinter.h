@@ -52,18 +52,19 @@ public:
 	);
 
 	void PrintObject(GameObject* obj);
-	void Clear(GameObject* obj);
-	void Clear(int worldXPos, int worldYPos, uint xSize, uint ySize);
+	void ClearObject(GameObject* obj);
+	void ClearArea(int worldXPos, int worldYPos, uint xSize, uint ySize);
+
 	void PrintUIFrame(const Frame& UIMessage);
 	void SetHeader(const string& header);
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
 
 private:
+	void PrintInternal(int worldXPos, int worldYPos, uint xSize, uint ySize, GameObject* go);
 	void InitBackground(const string& backgroundFileName);
 	void DrawMargins();
 	void DrawHorizontalMargin();
 	void PrintBackground();
-	bool IsCoveredByUIFrame(int screenX, int screenY);
 	void Cout(const string& s);
 	void Cout(char s);
 
