@@ -12,9 +12,6 @@
 GameLoop::GameLoop()
 {
     AudioManager& audioManager = AudioManager::Instance();
-
-    std::cin.get();
-
     Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
 

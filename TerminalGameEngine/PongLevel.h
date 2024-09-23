@@ -16,10 +16,12 @@ public:
 
     virtual void LoadInSimulation() override;
 
-    virtual void OnPostGameOverPauseEnded() override;
-
     void IncreaseP1Score();
     void IncreaseP2Score();
+
+protected:
+    virtual void OnPostGameOverPauseEnded() override;
+    virtual double ShowGameOverScreenDelay() const override { return 0.5; }
 
 private:
     void RefreshHeader();

@@ -27,7 +27,11 @@ void PongBall::OnCollisionEnter(CollidingObject* other, Direction collisionDirec
         PongBar* otherBar = dynamic_cast<PongBar*>(other);
         if (otherBar != nullptr)
             HandleBarCollision(otherBar);
-    } 
+    }
+    else
+    {
+        xSpeed = -xSpeed;
+    }
 }
 
 void PongBall::HandleBarCollision(PongBar* collidingBar)
@@ -39,8 +43,11 @@ void PongBall::HandleBarCollision(PongBar* collidingBar)
 
     if (distanceFromMidPoint <= 0)
         distanceFromMidPoint -= 1;
-
-    xSpeed = distanceFromMidPoint * 8 * collidingBar->GetDeflectBallFactor();
+    
+    int originalSign = distanceFromMidPoint > 0 ? 1 : -1;
+    xSpeed = std::pow(std::abs(distanceFromMidPoint), collidingBar->GetDeflectBallFactor());
+    xSpeed *= originalSign;
+    //xSpeed = distanceFromMidPoint * 8 * collidingBar->GetDeflectBallFactor();
 }
 
 void PongBall::Update()
@@ -49,9 +56,6 @@ void PongBall::Update()
         return;
 
     CollidingObject::Update();
-
-    if (collidingDirections[static_cast<int>(Direction::left)] == true || collidingDirections[static_cast<int>(Direction::right)])
-        xSpeed = -xSpeed;
 
     if (xSpeed > 0)
         Move(Direction::right, xSpeed);
