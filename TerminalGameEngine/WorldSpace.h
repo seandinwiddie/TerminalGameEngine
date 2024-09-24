@@ -1,17 +1,20 @@
 #pragma once
 #include "GridDirection.h"
+#include "FakeGameObejct.h"
 
 #include <vector>
+#include <cassert>
 
 using Direction = GridDirection::Direction;
 template<typename T> using vector = std::vector<T>;
 
-class GameObject;
-
 class WorldSpace
 {
 //---------------------------------------------------------- Fields
-private:
+public:
+	static FakeGameObject WORLD_MARGIN;
+	static FakeGameObject SCREEN_MARGIN;
+
 	vector<vector<GameObject*>> space;
 	int screenPadding;
 //---------------------------------------------------------- Methods

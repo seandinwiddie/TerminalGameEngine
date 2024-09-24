@@ -180,6 +180,9 @@
     <ClInclude Include="WorldSpace.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
+    <ClInclude Include="FakeGameObejct.h">
+      <Filter>Headers\Engine\Simulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">

@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
+#include "WorldSpace.h"
 
 #include <Windows.h>
 #include <cassert>
@@ -190,14 +191,13 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 
 	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
-		// colliding with none -> exiting world / colliding with screen margin
-		if (outOtherObj == nullptr)
+		if (outOtherObj == &WorldSpace::WORLD_MARGIN)
 		{
-			if (obj->CanExitScreenSpace())
-				RemoveObject(obj);
-			else 
-				obj->CALLED_BY_SIM_NotifyCollisionEnter(nullptr, direction); //notify collision with screen margin
-				
+			RemoveObject(obj);
+		}
+		else if (outOtherObj == &WorldSpace::SCREEN_MARGIN)
+		{
+			obj->CALLED_BY_SIM_NotifyCollisionEnter(nullptr, direction);
 		}
 		else
 		{

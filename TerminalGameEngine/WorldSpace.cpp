@@ -1,6 +1,9 @@
 #include "WorldSpace.h"
 #include "GameObject.h"
 
+FakeGameObject WorldSpace::WORLD_MARGIN;
+FakeGameObject WorldSpace::SCREEN_MARGIN;
+
 void WorldSpace::Init(int xSize, int ySize, int screenPadding)
 {
 	space.clear();
@@ -117,8 +120,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		//exiting world
 		if (y == GetSizeY())
 		{
-			//colliding with nullptr = exiting world
-			outCollidingObject = nullptr;
+			outCollidingObject = &WORLD_MARGIN;
 			return false;
 		}
 
@@ -127,13 +129,12 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == GetSizeY() - screenPadding)
 			{
-				//colliding with nullptr = exiting screen space
-				outCollidingObject = nullptr;
+				outCollidingObject = &SCREEN_MARGIN;
 				return false;
 			}
 		}
 
-		//check collision
+		//obj collision
 		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 		{
 			if (IsPositionEmpty(x, y) == false)
@@ -151,7 +152,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (y == -1)
 		{
-			outCollidingObject = nullptr;
+			outCollidingObject = &WORLD_MARGIN;
 			return false;
 		}
 
@@ -160,13 +161,12 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == screenPadding - 1)
 			{
-				//colliding with nullptr = exiting screen space
-				outCollidingObject = nullptr;
+				outCollidingObject = &SCREEN_MARGIN;
 				return false;
 			}
 		}
 
-		//check collision
+		//obj collision
 		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 		{
 			if (IsPositionEmpty(x, y) == false)
@@ -184,7 +184,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == GetSizeX())
 		{
-			outCollidingObject = nullptr;
+			outCollidingObject = &WORLD_MARGIN;
 			return false;
 		}
 
@@ -193,13 +193,12 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == GetSizeX() - screenPadding)
 			{
-				//colliding with nullptr = exiting screen space
-				outCollidingObject = nullptr;
+				outCollidingObject = &SCREEN_MARGIN;
 				return false;
 			}
 		}
 
-		//check collision
+		//obj collision
 		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 		{
 			if (IsPositionEmpty(x, y) == false)
@@ -217,7 +216,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == -1)
 		{
-			outCollidingObject = nullptr;
+			outCollidingObject = &WORLD_MARGIN;
 			return false;
 		}
 
@@ -226,13 +225,12 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == screenPadding - 1)
 			{
-				//colliding with nullptr = exiting screen space
-				outCollidingObject = nullptr;
+				outCollidingObject = &SCREEN_MARGIN;
 				return false;
 			}
 		}
 
-		//check collision
+		// obj collision
 		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 		{
 			if (IsPositionEmpty(x, y) == false)

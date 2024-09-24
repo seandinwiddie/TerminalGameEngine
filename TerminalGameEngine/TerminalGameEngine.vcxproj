@@ -170,6 +170,7 @@
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="FakeGameObejct.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridDirection.h" />
