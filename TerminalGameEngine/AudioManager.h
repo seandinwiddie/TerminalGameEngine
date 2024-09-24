@@ -4,8 +4,6 @@
 #include "Singleton.h"
 #include <SFML/Audio.hpp>
 
-#pragma comment(lib,"winmm.lib")
-
 using namespace sf;
 using string = std::string;
 
