@@ -1,8 +1,11 @@
 #include "WorldSpace.h"
 #include "GameObject.h"
 
-FakeGameObject WorldSpace::WORLD_MARGIN;
-FakeGameObject WorldSpace::SCREEN_MARGIN;
+FakeGameObject WorldSpace::WORLD_MARGIN_MEMORY;
+FakeGameObject WorldSpace::SCREEN_MARGIN_MEMORY;
+
+FakeGameObject* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
+FakeGameObject* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
 
 void WorldSpace::Init(int xSize, int ySize, int screenPadding)
 {
@@ -120,7 +123,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		//exiting world
 		if (y == GetSizeY())
 		{
-			outCollidingObject = &WORLD_MARGIN;
+			outCollidingObject = WORLD_MARGIN;
 			return false;
 		}
 
@@ -129,7 +132,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == GetSizeY() - screenPadding)
 			{
-				outCollidingObject = &SCREEN_MARGIN;
+				outCollidingObject = SCREEN_MARGIN;
 				return false;
 			}
 		}
@@ -152,7 +155,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (y == -1)
 		{
-			outCollidingObject = &WORLD_MARGIN;
+			outCollidingObject = WORLD_MARGIN;
 			return false;
 		}
 
@@ -161,7 +164,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == screenPadding - 1)
 			{
-				outCollidingObject = &SCREEN_MARGIN;
+				outCollidingObject = SCREEN_MARGIN;
 				return false;
 			}
 		}
@@ -184,7 +187,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == GetSizeX())
 		{
-			outCollidingObject = &WORLD_MARGIN;
+			outCollidingObject = WORLD_MARGIN;
 			return false;
 		}
 
@@ -193,7 +196,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == GetSizeX() - screenPadding)
 			{
-				outCollidingObject = &SCREEN_MARGIN;
+				outCollidingObject = SCREEN_MARGIN;
 				return false;
 			}
 		}
@@ -216,7 +219,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == -1)
 		{
-			outCollidingObject = &WORLD_MARGIN;
+			outCollidingObject = WORLD_MARGIN;
 			return false;
 		}
 
@@ -225,7 +228,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == screenPadding - 1)
 			{
-				outCollidingObject = &SCREEN_MARGIN;
+				outCollidingObject = SCREEN_MARGIN;
 				return false;
 			}
 		}

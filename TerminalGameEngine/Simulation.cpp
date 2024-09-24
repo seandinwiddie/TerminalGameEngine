@@ -191,11 +191,11 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 
 	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
-		if (outOtherObj == &WorldSpace::WORLD_MARGIN)
+		if (outOtherObj == WorldSpace::WORLD_MARGIN)
 		{
 			RemoveObject(obj);
 		}
-		else if (outOtherObj == &WorldSpace::SCREEN_MARGIN)
+		else if (outOtherObj == WorldSpace::SCREEN_MARGIN)
 		{
 			obj->CALLED_BY_SIM_NotifyCollisionEnter(nullptr, direction);
 		}

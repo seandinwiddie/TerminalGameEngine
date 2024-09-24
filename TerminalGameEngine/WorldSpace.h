@@ -10,11 +10,16 @@ template<typename T> using vector = std::vector<T>;
 
 class WorldSpace
 {
+//---------------------------------------------------------- Margins
+public:
+	static FakeGameObject* WORLD_MARGIN;
+	static FakeGameObject* SCREEN_MARGIN;
+private:
+	static FakeGameObject WORLD_MARGIN_MEMORY;
+	static FakeGameObject SCREEN_MARGIN_MEMORY;
+
 //---------------------------------------------------------- Fields
 public:
-	static FakeGameObject WORLD_MARGIN;
-	static FakeGameObject SCREEN_MARGIN;
-
 	vector<vector<GameObject*>> space;
 	int screenPadding;
 //---------------------------------------------------------- Methods
