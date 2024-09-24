@@ -21,5 +21,5 @@ public:
 
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}
-    virtual void OnCollisionExit(Direction collisionDirection) override {}
+    virtual void OnCollisionExit(Direction endingCollisionDirection) override {}
 };

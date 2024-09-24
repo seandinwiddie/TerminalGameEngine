@@ -21,7 +21,7 @@ protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
-    virtual void OnCollisionExit(Direction collisionDirection) {}
+    virtual void OnCollisionExit(Direction endingCollisionDirection) {}
     virtual void Update() override;
     virtual void InitModel() override { SetModel({ {-37} }); }
 

@@ -67,7 +67,7 @@ protected:
     void Update() override;
     virtual void Move(Direction direction, double moveSpeed) override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
-    virtual void OnCollisionExit(Direction collisionDirection) override {}
+    virtual void OnCollisionExit(Direction endingCollisionDirection) override {}
     virtual void InitModel() { SetModel(idleModelLeft); }
 
 private:

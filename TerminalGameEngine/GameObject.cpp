@@ -2,7 +2,7 @@
 #include "TimeHelper.h"
 #include "Simulation.h"
 
-GameObject::GameObject(int xPos, int yPos) : 
+GameObject::GameObject(int xPos, int yPos): 
 	xPos(xPos), 
 	yPos(yPos), 
 	xPosContinuous(xPos), 

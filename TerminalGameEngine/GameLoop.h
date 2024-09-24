@@ -4,6 +4,7 @@ class Level;
 
 class GameLoop
 {
+//---------------------------------------------------------- Methods
 public:
     GameLoop();
 private:

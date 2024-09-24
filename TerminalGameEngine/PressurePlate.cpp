@@ -17,9 +17,9 @@ void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDirec
     } 
 }
 
-void PressurePlate::OnCollisionExit(Direction collisionDirection)
+void PressurePlate::OnCollisionExit(Direction endingCollisionDirection)
 {
-    if (collisionDirection == Direction::up)
+    if (endingCollisionDirection == Direction::up)
     {
         OnRelease.Notify();
         SetModel(unpressedModel);

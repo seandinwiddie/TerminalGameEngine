@@ -13,11 +13,11 @@ using Model = std::vector<std::vector<char>>;
 
 class GameObject : public ISimulationUpdatingEntity
 {
+friend class Simulation;
+
 //---------------------------------------------------------- Fields
-public:
-	friend class Simulation;
 private:
-	//must be modified only by simulation
+	//don't modify directly
 	int xPos;
 	int yPos;
 
@@ -29,11 +29,14 @@ private:
 
 protected:
 	bool canMove = true;
-	std::vector<bool> collidingDirections = { false,false,false,false };
-	
+	std::vector<bool> collidingDirections{ false, false, false, false };
 
 //---------------------------------------------------------- Methods
 public:
+	virtual int GetColor() const { return Terminal::WHITE; }
+	virtual bool CanExitScreenSpace() const = 0;
+	virtual double GetGravityScale() const = 0;
+
 	GameObject(int xPos, int yPos);
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
@@ -43,15 +46,11 @@ public:
 	size_t GetModelHeight() const { return model.size();}
 	const Model& GetModel();
 
-	virtual int GetColor() const { return Terminal::WHITE; }
-	virtual bool CanExitScreenSpace() const = 0;
-	virtual double GetGravityScale() const = 0;
-
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
-	virtual void OnCollisionExit(Direction collisionDirection) = 0;
+	virtual void OnCollisionExit(Direction endingCollisionDirection) = 0;
 	virtual void InitModel() = 0;
 
 	Model CreteModelUsingChar(char c, size_t sizeX, size_t sizeY) const;
