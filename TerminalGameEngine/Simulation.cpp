@@ -30,6 +30,7 @@ void Simulation::EnqueueMoveRequestSortingBySpeed(MoveRequest request)
 
 void Simulation::Step()
 {
+	//todo polish this
 	//---------------- prevent step
 	if (level->IsTerminated())
 		return;
@@ -107,8 +108,8 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 {
 	std::vector<bool> collidingDirections(4);
 
-	int x = obj->GetPosX();
-	int y = obj->GetPosY();
+	int xPos = obj->GetPosX();
+	int yPos = obj->GetPosY();
 	int xMax = obj->GetMaxPosX();
 	int yMax = obj->GetMaxPosY();
 	size_t width = obj->GetModelWidth();
@@ -116,23 +117,23 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 	bool canExitScreen = obj->CanExitScreenSpace();
 
 	// object - screen margin collisions
-	bool isCollidingWithScreenUp = !canExitScreen && !IsCoordinateInsideScreenSpace(x, yMax + 1);
-	bool isCollidingWithScreenDown = !canExitScreen && !IsCoordinateInsideScreenSpace(x, y - 1);
-	bool isCollidingWithScreenRight = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, y);
-	bool isCollidingWithScreenLeft = !canExitScreen && !IsCoordinateInsideScreenSpace(x - 1, y);
+	bool isCollidingWithScreenUp = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1);
+	bool isCollidingWithScreenDown = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1);
+	bool isCollidingWithScreenRight = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos);
+	bool isCollidingWithScreenLeft = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos - 1, yPos);
 
 	// object-object collisions
 	collidingDirections[static_cast<int>(Direction::up)] =
-		(!IsSpaceEmpty(x, yMax + 1, width, 1) || isCollidingWithScreenUp);
+		(!IsSpaceEmpty(xPos, yMax + 1, width, 1) || isCollidingWithScreenUp);
 
 	collidingDirections[static_cast<int>(Direction::down)] =
-		(!IsSpaceEmpty(x, y - 1, width, 1) || isCollidingWithScreenDown);
+		(!IsSpaceEmpty(xPos, yPos - 1, width, 1) || isCollidingWithScreenDown);
 
 	collidingDirections[static_cast<int>(Direction::left)] =
-		(!IsSpaceEmpty(x - 1, y, 1, height) || isCollidingWithScreenLeft);
+		(!IsSpaceEmpty(xPos - 1, yPos, 1, height) || isCollidingWithScreenLeft);
 
 	collidingDirections[static_cast<int>(Direction::right)] =
-		(!IsSpaceEmpty(xMax + 1, y, 1, height) || isCollidingWithScreenRight);
+		(!IsSpaceEmpty(xMax + 1, yPos, 1, height) || isCollidingWithScreenRight);
 
 	obj->CALLED_BY_SIM_NotifyCollisionsExit(collidingDirections);
 } 
