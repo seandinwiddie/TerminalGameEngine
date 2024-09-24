@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "windows.h"
+#include <Windows.h>
 
 class Terminal : public Singleton<Terminal>
 {

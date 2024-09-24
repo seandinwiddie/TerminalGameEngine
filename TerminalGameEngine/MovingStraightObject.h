@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 #include <iostream>
-#include <windows.h>
+#include <Windows.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <cassert>

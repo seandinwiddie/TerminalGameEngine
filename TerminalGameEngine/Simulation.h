@@ -34,12 +34,12 @@ friend class GameObject;
 	};
 
 //------------------------------------------------------------------------------------ Fields
+private:
 	double levelStartedTime = 0;
 	double lastTimePrintedFrame = -1;
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
-
 	vector<vector<GameObject*>> worldSpace;
 	list<ISimulationUpdatingEntity*> entities;
 	list<MoveRequest> moveRequests;
