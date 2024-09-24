@@ -37,7 +37,7 @@ public:
     bool IsTerminated() const { return isTerminated; }
 
 protected:
-    virtual double ShowGameOverScreenDelay() const { return 1; }
+    virtual double ShowGameOverScreenDelay() const = 0;
     virtual void Update() override;
     virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
     virtual void LoadInSimulation();

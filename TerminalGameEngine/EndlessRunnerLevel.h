@@ -25,6 +25,7 @@ public:
 
 protected:
     virtual void Update()override;
+    virtual double ShowGameOverScreenDelay() const { return 2; }
 
 private:
     virtual void OnPostGameOverDelayEnded() override;

@@ -10,5 +10,5 @@ public:
     virtual int GetScreenPadding() const override { return 4; }
 
     virtual void LoadInSimulation() override;
-    virtual double ShowGameOverScreenDelay()const { return 5; }
+    virtual double ShowGameOverScreenDelay()const { return 0; }
 };
