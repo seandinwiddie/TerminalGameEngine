@@ -11,12 +11,10 @@
 using namespace GridDirection;
 using string = std::string;
 
-//class Level;
 class GameObject;
 class ISimulationUpdatingEntity;
 class Frame;
 class SimulationPrinter;
-class ISimulationUpdatingEntity;
 
 class Simulation : public Singleton<Simulation>
 {
