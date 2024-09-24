@@ -114,12 +114,6 @@
     <ClInclude Include="Simulation.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="Frame.h">
-      <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="GridDirection.h">
-      <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="SimulationPrinter.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
@@ -173,6 +167,12 @@
     </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Headers\Engine\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Headers\Engine\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="GridDirection.h">
+      <Filter>Headers\Engine\Structs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +234,9 @@
     </Filter>
     <Filter Include="Headers\Engine\GenericSimulationEntities">
       <UniqueIdentifier>{1ab8247e-dd74-47cc-b89d-e6350da01c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Engine\Structs">
+      <UniqueIdentifier>{d9c862f6-7387-424d-bf6f-c05e301e1e79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
