@@ -4,6 +4,7 @@
 
 AudioManager::AudioManager()
 {
+#if ALLOW_SOUNDS
 	sounds.resize(SOUND_SOURCES_SIZE);
 	buffers.resize(SOUND_SOURCES_SIZE);
 	for (int i = 0; i < sounds.size(); ++i)
@@ -11,16 +12,17 @@ AudioManager::AudioManager()
 		sounds[i].setBuffer(buffers[i]);
 		sounds[i].stop();
 	}
+#endif
 }
 
 void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 {
 #if ALLOW_SOUNDS
 	string completeFileName = "Sounds/" + fileName;
-
 	Sound* sound = nullptr;
 	SoundBuffer* buffer = nullptr;
 
+	//if all sound sources are already playing, sound is not played
 	if (TryGetBufferAndSound(buffer, sound) == false)
 		return;
 
@@ -41,11 +43,9 @@ void AudioManager::PlayRandomMusic()
 #if ALLOW_SOUNDS
 	StopMusic();
 	int randomIndex = RandomUtils::GetRandomInt(0, MUSIC_TRACKS.size() - 1);
-	string randomMusicFile = MUSIC_TRACKS[randomIndex];
-	randomMusicFile = "Music/" + randomMusicFile;
+	string randomMusicFile = "Music/" + MUSIC_TRACKS[randomIndex];
 	if (music.openFromFile(randomMusicFile) == false)
 		return;
-
 	music.play();
 #endif
 }
@@ -66,6 +66,8 @@ bool AudioManager::TryGetBufferAndSound(SoundBuffer*& outBuffer, Sound*& outSoun
 
 void AudioManager::StopMusic()
 {
+#if ALLOW_SOUNDS
 	if (music.getStatus() == sf::SoundSource::Playing)
 		music.stop();
+#endif
 }
