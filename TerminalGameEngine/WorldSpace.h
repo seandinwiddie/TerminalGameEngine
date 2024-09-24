@@ -13,10 +13,12 @@ class WorldSpace
 //---------------------------------------------------------- Fields
 private:
 	vector<vector<GameObject*>> space;
+	int screenPadding;
 //---------------------------------------------------------- Methods
 public:
-	void Init(int xSize, int ySize);
+	void Init(int xSize, int ySize, int screenPadding);
 
+	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void InsertObject(GameObject* obj);
 	void RemoveObject(GameObject* obj);
 	void MoveObject(GameObject* obj, Direction direction);

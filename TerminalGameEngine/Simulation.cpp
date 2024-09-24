@@ -188,7 +188,7 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
 	GameObject* outOtherObj;
 
-	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
+	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
 	{
 		// colliding with none -> exiting world / colliding with screen margin
 		if (outOtherObj == nullptr)
@@ -214,156 +214,6 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	return true;
 }
 
-bool Simulation::CanObjectMoveAtDirection
-(
-	const GameObject* obj,
-	Direction direction, 
-	GameObject*& outCollidingObject
-) const
-{
-	assert(IsEntityInSimulation(obj));
-
-	switch (direction)
-	{
-		case Direction::up:
-		{
-			int y = obj->GetMaxPosY() + 1;
-
-			//exiting world
-			if (y == GetWorldSizeY())
-			{
-				//colliding with nullptr = exiting world
-				outCollidingObject = nullptr;
-				return false;
-			}
-			
-			//exiting screen space
-			if (obj->CanExitScreenSpace() == false)
-			{
-				if (y == GetWorldSizeY() - GetScreenPadding())
-				{
-					//colliding with nullptr = exiting screen space
-					outCollidingObject = nullptr;
-					return false;
-				}
-			}
-
-			//check collision
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
-			{
-				if ( worldSpace.IsPositionEmpty(x, y) == false)
-				{
-					outCollidingObject = worldSpace.GetObjectAtPosition(x,y);
-					return false;
-				}
-			}
-
-			return true;
-		}
-		case Direction::down:
-		{
-			int y = obj->GetPosY() - 1;
-
-			if (y == -1)
-			{
-				outCollidingObject = nullptr;
-				return false;
-			}
-
-			//exiting screen space
-			if (obj->CanExitScreenSpace() == false)
-			{
-				if (y == GetScreenPadding() - 1)
-				{
-					//colliding with nullptr = exiting screen space
-					outCollidingObject = nullptr;
-					return false;
-				}
-			}
-
-			//check collision
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
-			{
-				if (worldSpace.IsPositionEmpty(x, y) == false)
-				{
-					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
-					return false;
-				}
-			}
-			
-			return true;
-		}
-		case Direction::right:
-		{
-			int x = obj->GetMaxPosX() + 1;
-
-			if (x == GetWorldSizeX())
-			{
-				outCollidingObject = nullptr;
-				return false;
-			}
-
-			//exiting screen space
-			if (obj->CanExitScreenSpace() == false)
-			{
-				if (x == GetWorldSizeX() - GetScreenPadding())
-				{
-					//colliding with nullptr = exiting screen space
-					outCollidingObject = nullptr;
-					return false;
-				}
-			}
-
-			//check collision
-			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
-			{
-				if (worldSpace.IsPositionEmpty(x, y) == false)
-				{
-					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
-					return false;
-				}
-			}
-			
-			return true;
-		}
-		case Direction::left:
-		{
-			int x = obj->GetPosX() - 1;
-
-			if (x == -1)
-			{
-				outCollidingObject = nullptr;
-				return false;
-			}
-			
-			//exiting screen space
-			if (obj->CanExitScreenSpace() == false)
-			{
-				if (x == GetScreenPadding() - 1)
-				{
-					//colliding with nullptr = exiting screen space
-					outCollidingObject = nullptr;
-					return false;
-				}
-			}
-
-			//check collision
-			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
-			{
-				if (worldSpace.IsPositionEmpty(x, y) == false)
-				{
-					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
-					return false;
-				}
-			}
-			
-			return true;
-		}
-		default:
-			throw std::invalid_argument("Invalid direction");
-	}
-}
-
 void Simulation::RemoveObject(GameObject* obj)
 {
 	worldSpace.RemoveObject(obj);
@@ -380,7 +230,7 @@ void Simulation::LoadLevel (Level* level)
 		delete(obj);
 
 	entities.clear();
-	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY());
+	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), GetScreenPadding());
 	ResetScreenManager(level->GetBackgroundFileName());
 	level->LoadInSimulation();
 }

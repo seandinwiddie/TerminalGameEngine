@@ -71,7 +71,6 @@ private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
-	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisions(GameObject* collidingObj);
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);

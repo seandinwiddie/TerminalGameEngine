@@ -1,7 +1,7 @@
 #include "WorldSpace.h"
 #include "GameObject.h"
 
-void WorldSpace::Init(int xSize, int ySize)
+void WorldSpace::Init(int xSize, int ySize, int screenPadding)
 {
 	space.clear();
 	space.resize(ySize);
@@ -11,6 +11,7 @@ void WorldSpace::Init(int xSize, int ySize)
 		for (GameObject* elem : space[y])
 			elem = nullptr;
 	}
+	this->screenPadding = screenPadding;
 }
 
 void WorldSpace::InsertObject(GameObject* obj)
@@ -98,4 +99,152 @@ bool WorldSpace::IsInsideSpaceX(int xPos) const
 bool WorldSpace::IsInsideSpaceY(int yPos) const
 {
 	return yPos >= 0 && yPos < GetSizeY();
+}
+
+bool WorldSpace::CanObjectMoveAtDirection
+(
+	const GameObject* obj,
+	Direction direction,
+	GameObject*& outCollidingObject
+) const
+{
+	switch (direction)
+	{
+	case Direction::up:
+	{
+		int y = obj->GetMaxPosY() + 1;
+
+		//exiting world
+		if (y == GetSizeY())
+		{
+			//colliding with nullptr = exiting world
+			outCollidingObject = nullptr;
+			return false;
+		}
+
+		//exiting screen space
+		if (obj->CanExitScreenSpace() == false)
+		{
+			if (y == GetSizeY() - screenPadding)
+			{
+				//colliding with nullptr = exiting screen space
+				outCollidingObject = nullptr;
+				return false;
+			}
+		}
+
+		//check collision
+		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
+		{
+			if (IsPositionEmpty(x, y) == false)
+			{
+				outCollidingObject = GetObjectAtPosition(x, y);
+				return false;
+			}
+		}
+
+		return true;
+	}
+	case Direction::down:
+	{
+		int y = obj->GetPosY() - 1;
+
+		if (y == -1)
+		{
+			outCollidingObject = nullptr;
+			return false;
+		}
+
+		//exiting screen space
+		if (obj->CanExitScreenSpace() == false)
+		{
+			if (y == screenPadding - 1)
+			{
+				//colliding with nullptr = exiting screen space
+				outCollidingObject = nullptr;
+				return false;
+			}
+		}
+
+		//check collision
+		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
+		{
+			if (IsPositionEmpty(x, y) == false)
+			{
+				outCollidingObject = GetObjectAtPosition(x, y);
+				return false;
+			}
+		}
+
+		return true;
+	}
+	case Direction::right:
+	{
+		int x = obj->GetMaxPosX() + 1;
+
+		if (x == GetSizeX())
+		{
+			outCollidingObject = nullptr;
+			return false;
+		}
+
+		//exiting screen space
+		if (obj->CanExitScreenSpace() == false)
+		{
+			if (x == GetSizeX() - screenPadding)
+			{
+				//colliding with nullptr = exiting screen space
+				outCollidingObject = nullptr;
+				return false;
+			}
+		}
+
+		//check collision
+		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
+		{
+			if (IsPositionEmpty(x, y) == false)
+			{
+				outCollidingObject = GetObjectAtPosition(x, y);
+				return false;
+			}
+		}
+
+		return true;
+	}
+	case Direction::left:
+	{
+		int x = obj->GetPosX() - 1;
+
+		if (x == -1)
+		{
+			outCollidingObject = nullptr;
+			return false;
+		}
+
+		//exiting screen space
+		if (obj->CanExitScreenSpace() == false)
+		{
+			if (x == screenPadding - 1)
+			{
+				//colliding with nullptr = exiting screen space
+				outCollidingObject = nullptr;
+				return false;
+			}
+		}
+
+		//check collision
+		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
+		{
+			if (IsPositionEmpty(x, y) == false)
+			{
+				outCollidingObject = GetObjectAtPosition(x, y);
+				return false;
+			}
+		}
+
+		return true;
+	}
+	default:
+		throw std::invalid_argument("Invalid direction");
+	}
 }
