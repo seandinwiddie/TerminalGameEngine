@@ -30,7 +30,7 @@ void Simulation::EnqueueMoveRequestSortingBySpeed(MoveRequest request)
 
 void Simulation::Step()
 {
-	//---------------- game ended phases
+	//---------------- prevent step
 	if (level->IsTerminated())
 		return;
 
@@ -40,14 +40,46 @@ void Simulation::Step()
 		return;
 	}	
 
-	//---------------- update all objects
+	//---------------- 
 	moveRequests.clear();
 
-	level->Update();
-	for (ISimulationUpdatingEntity* updatable : entities)
-		updatable->Update();
+	UpdateAllEntities();
 
-	//---------------- move objects (slower ones first)
+	ExecuteMoveRequests();
+
+	UpdateAllObjectsCollisions();
+
+	PrintObjects();
+	
+	OnFrameGenerated.Notify();
+
+#if DEBUG_MODE && SHOW_FPS
+	simulationPrinter->DEBUG_PrintAverageFps();
+#endif
+}
+
+void Simulation::PrintObjects()
+{
+	for (ISimulationUpdatingEntity* updatingEntity : entities)
+	{
+		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+		if (obj != nullptr && obj->mustBeReprinted)
+		{
+			obj->mustBeReprinted = false;
+			simulationPrinter->PrintObject(obj);
+		}
+}
+}
+
+void Simulation::UpdateAllEntities()
+{
+	level->Update();
+	for (ISimulationUpdatingEntity* entity : entities)
+		entity->Update();
+}
+
+void Simulation::ExecuteMoveRequests()
+{
 	for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
 	{
 		int oldXPos = it->object->GetPosX();
@@ -59,36 +91,19 @@ void Simulation::Step()
 			it->object->mustBeReprinted = true;
 		}
 	}
+}
 
-	//---------------- detect end of collisions
+void Simulation::UpdateAllObjectsCollisions()
+{
 	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		GameObject* obj = dynamic_cast<GameObject*>((*it));
 		if (obj != nullptr)
-			UpdateObjectcollisionDirs(obj);
+			UpdateObjectCollisions(obj);
 	}
-
-	//---------------- 
-	for (ISimulationUpdatingEntity* updatingEntity : entities)
-	{
-		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
-		if (obj != nullptr && obj->mustBeReprinted)
-		{
-			obj->mustBeReprinted = false;
-			simulationPrinter->PrintObject(obj);
-		}
-	}
-
-	//----------------
-	TimeHelper::Instance().NotifyFrameGenerated();
-	lastTimePrintedFrame = TimeHelper::Instance().GetTime();
-
-#if DEBUG_MODE && SHOW_FPS
-	simulationPrinter->DEBUG_PrintAverageFps();
-#endif
 }
 
-void Simulation::UpdateObjectcollisionDirs(GameObject* obj)
+void Simulation::UpdateObjectCollisions(GameObject* obj)
 {
 	std::vector<bool> collidingDirections(4);
 

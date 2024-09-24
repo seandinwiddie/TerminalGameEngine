@@ -4,6 +4,7 @@
 #include "Singleton.h"
 #include "ISimulationUpdatingEntity.h"
 #include "Level.h"
+#include "Event.h"
 
 #include <list>
 #include <vector>
@@ -34,9 +35,11 @@ friend class GameObject;
 	};
 
 //------------------------------------------------------------------------------------ Fields
+public:
+	Event<> OnFrameGenerated;
+
 private:
 	double levelStartedTime = 0;
-	double lastTimePrintedFrame = -1;
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
@@ -75,8 +78,12 @@ private:
 	bool CanObjectBeAdded(const GameObject* obj) const;
 	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
-	void UpdateObjectcollisionDirs(GameObject* collidingObj);
+	void UpdateObjectCollisions(GameObject* collidingObj);
 	bool IsSpaceEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
+	void UpdateAllEntities();
+	void ExecuteMoveRequests();
+	void UpdateAllObjectsCollisions();
+	void PrintObjects();
 };

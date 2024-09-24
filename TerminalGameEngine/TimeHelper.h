@@ -22,10 +22,10 @@ public:
     double GetDeltaTime() const { return deltaTime; }
     double GetFPS() const { return 1.0 / GetDeltaTime(); }
 
-    void NotifyFrameGenerated ();
+    void OnFrameGenerated();
     bool IsTimeForFirstOfTwoModels (double changeModelEverySeconds) const;
     double GetTime() const;
 
 private:
-    TimeHelper() {startTime = hr_clock::now(); }
+    TimeHelper();
 };
