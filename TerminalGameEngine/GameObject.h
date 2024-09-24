@@ -36,14 +36,15 @@ public:
 	virtual bool CanExitScreenSpace() const = 0;
 	virtual double GetGravityScale() const = 0;
 
+	void Init() { InitModel(); }
 	GameObject(int xPos, int yPos);
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
-	int GetMaxPosX() const { return xPos + static_cast<int>(GetModelWidth()) - 1; }
-	int GetMaxPosY() const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
-	size_t GetModelWidth() const;
-	size_t GetModelHeight() const { return model == nullptr ? 0 : model->size(); }
-	const Model& GetModel();
+	int GetMaxPosX()const { return xPos + static_cast<int>(GetModelWidth()) - 1; }
+	int GetMaxPosY()const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
+	size_t GetModelWidth()const;
+	size_t GetModelHeight()const { return GetModel().size(); }
+	const Model& GetModel()const;
 
 protected:
 	virtual void Move(Direction direction, double moveSpeed);

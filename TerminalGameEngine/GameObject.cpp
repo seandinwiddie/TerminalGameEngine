@@ -11,11 +11,11 @@ GameObject::GameObject(int xPos, int yPos):
 	ResetPartialMovement();
 }
 
-size_t GameObject::GetModelWidth() const
+size_t GameObject::GetModelWidth()const
 {
 	if (GetModelHeight() == 0)
 		return 0;
-	return (*model)[0].size();
+	return GetModel()[0].size();
 }
 
 void GameObject::Update()
@@ -112,9 +112,4 @@ void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& new
 	}
 }
 
-const Model& GameObject::GetModel()
-{
-	if(model == nullptr)
-		InitModel();
-	return *model;
-}
+const Model& GameObject::GetModel()const{return *model;}

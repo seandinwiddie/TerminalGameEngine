@@ -12,6 +12,12 @@
 
 void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
+	if (IsEntityInSimulation(applicantObj) == false)
+	{
+		std::cerr << "object requesting movement but it's not in simulation";
+		return;
+	}
+
 	MoveRequest request(applicantObj, moveDir, moveSpeed);
 	EnqueueMoveRequestSortingBySpeed(request);
 }
@@ -114,8 +120,9 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 	size_t height = obj->GetModelHeight();
 	bool canExitScreen = obj->CanExitScreenSpace();
 
-	// object - screen margin collisions
 	vector<bool> collisions(4);
+
+	// object - screen margin collisions
 	collisions[Direction::up] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1);
 	collisions[Direction::down] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1);
 	collisions[Direction::right] = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos);
@@ -123,21 +130,21 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 
 	// object-object collisions
 	if(collisions[Direction::up] == false)
-		collisions[Direction::up] = !IsAreaEmpty(xPos, yMax + 1, width, 1);
+		collisions[Direction::up] = !IsWorldAreaEmpty(xPos, yMax + 1, width, 1);
 
 	if (collisions[Direction::down] == false)
-		collisions[Direction::down] = !IsAreaEmpty(xPos, yPos - 1, width, 1);
+		collisions[Direction::down] = !IsWorldAreaEmpty(xPos, yPos - 1, width, 1);
 
 	if (collisions[Direction::left] == false)
-		collisions[Direction::left] = !IsAreaEmpty(xPos - 1, yPos, 1, height);
+		collisions[Direction::left] = !IsWorldAreaEmpty(xPos - 1, yPos, 1, height);
 
 	if (collisions[Direction::right] == false)
-		collisions[Direction::right] = !IsAreaEmpty(xMax + 1, yPos, 1, height);
+		collisions[Direction::right] = !IsWorldAreaEmpty(xMax + 1, yPos, 1, height);
 
 	obj->CALLED_BY_SIM_NotifyCollisionsExit(collisions);
 } 
 
-bool Simulation::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
+bool Simulation::IsWorldAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
@@ -146,60 +153,55 @@ bool Simulation::IsAreaEmpty(int startingX, int startingY, size_t width, size_t 
 	return true;
 }
 
-bool Simulation::TryAddEntity(ISimulationUpdatingEntity* updatingEntity)
+bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 {
-	GameObject* gameObjectEntity = dynamic_cast<GameObject*>(updatingEntity);
+	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+	if (objEntity != nullptr)
+		objEntity->Init();
 
-	if (gameObjectEntity != nullptr)
+	if (!CanEntityBeAdded(entity))
 	{
-		if (!CanObjectBeAdded(gameObjectEntity))
-		{
-			delete(updatingEntity);
-			return false;
-		}
-
-		gameObjectEntity->mustBeReprinted = false;
-		simulationPrinter->PrintObject(gameObjectEntity);
+		delete(entity);
+		return false;
 	}
-
-	GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
-	if (obj != nullptr)
-	{
-		// Colliding object model must be setup before adding it to simulation
-		assert(obj->GetModel().size() > 0);
-
-		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-				worldSpace[y][x] = obj;
-	}
-
-	entities.push_back(updatingEntity);
 	
+	if (objEntity != nullptr)
+		WriteWorldSpace(objEntity, true);
+
+	entities.push_back(entity);
 	return true;
 }
 
-bool Simulation::CanObjectBeAdded(const GameObject* obj) const
+void Simulation::WriteWorldSpace(GameObject* obj, bool insert)
 {
-	if (IsObjectInSimulation(obj))
-		return false;
+	auto y = obj->GetPosY();
+	auto maxY = obj->GetMaxPosY();
 
 	for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
 		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
 		{
-			if (IsCoordinateInsideGameSpace(x, y) == false)
-				return false;
-
-			if (worldSpace[y][x] != nullptr)
-				return false;
+			assert(insert == true || worldSpace[y][x] == obj);
+			assert(insert == false || worldSpace[y][x] == nullptr);
+			worldSpace[y][x] = insert ? obj : nullptr;
 		}
-			
-	return true;
 }
 
-bool Simulation::IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const
+bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
 {
-	for (ISimulationUpdatingEntity* simulationObj : entities)
-		if (obj == simulationObj)
+	if (IsEntityInSimulation(entity))
+		return false;
+
+	const GameObject* objEntity = dynamic_cast<const GameObject*>(entity);
+	if (objEntity != nullptr)
+		return IsWorldAreaEmpty(objEntity->GetPosX(), objEntity->GetPosY(), objEntity->GetModelWidth(), objEntity->GetModelHeight());
+	else
+		return true;
+}
+
+bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const
+{
+	for (ISimulationUpdatingEntity* entity : entities)
+		if (newEntity == entity)
 			return true;
 
 	return false;
@@ -207,7 +209,7 @@ bool Simulation::IsObjectInSimulation(const ISimulationUpdatingEntity* obj) cons
 
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
-	assert(IsObjectInSimulation(obj));
+	assert(IsEntityInSimulation(obj));
 	GameObject* outOtherObj;
 
 	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
@@ -297,7 +299,7 @@ bool Simulation::CanObjectMoveAtDirection
 	GameObject*& outCollidingObject
 ) const
 {
-	assert(IsObjectInSimulation(obj));
+	assert(IsEntityInSimulation(obj));
 
 	switch (direction)
 	{
@@ -442,14 +444,7 @@ bool Simulation::CanObjectMoveAtDirection
 
 void Simulation::RemoveObject(GameObject* obj)
 {
-	assert(IsObjectInSimulation(obj));
-
-	for(int y = obj-> GetPosY(); y <= obj->GetMaxPosY(); ++y)
-		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-		{
-			assert(worldSpace[y][x] == obj);
-			worldSpace[y][x] = nullptr;
-		}
+	WriteWorldSpace(obj, false);
 	entities.remove(obj);
 	simulationPrinter->ClearObject(obj);
 	delete(obj);

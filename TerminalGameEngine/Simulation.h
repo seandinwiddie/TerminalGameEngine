@@ -54,9 +54,8 @@ private:
 public:
 	void LoadLevel(Level* level);
 	void Step();
-	bool TryAddEntity(ISimulationUpdatingEntity* obj);
+	bool TryAddEntity(ISimulationUpdatingEntity* entity);
 	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
-	void RemoveObject(GameObject* obj);
 	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
 	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
 	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
@@ -73,17 +72,19 @@ public:
 	void SetTerminalHeader(const string& header);
 
 private:
+	void RemoveObject(GameObject* obj);
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	void MoveObject(GameObject* obj, Direction direction);
-	bool CanObjectBeAdded(const GameObject* obj) const;
-	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
+	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
+	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisions(GameObject* collidingObj);
-	bool IsAreaEmpty(int startingY, int startingX, size_t width, size_t height) const;
+	bool IsWorldAreaEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();
 	void ExecuteMoveRequests();
 	void UpdateAllObjectsCollisions();
 	void PrintObjects();
+	void WriteWorldSpace(GameObject* obj, bool insert);
 };
