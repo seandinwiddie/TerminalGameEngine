@@ -15,5 +15,5 @@ public:
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
     virtual void OnCollisionExit(Direction collisionDirection) {}
-    virtual void InitModel() { SetModel(CreteModelUsingChar( 219, size_t(4), size_t(2) )); }
+    virtual void InitModel() { SetModel(CreteModelUsingChar( -37, size_t(4), size_t(2))); }
 };

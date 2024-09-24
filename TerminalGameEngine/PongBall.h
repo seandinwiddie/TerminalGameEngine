@@ -23,7 +23,7 @@ protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection);
     virtual void OnCollisionExit(Direction collisionDirection) {}
     virtual void Update() override;
-    virtual void InitModel() override { SetModel({ {static_cast<char>(219)} }); }
+    virtual void InitModel() override { SetModel({ {-37} }); }
 
 private:
     void HandleBarCollision(PongBar* collidingBar);

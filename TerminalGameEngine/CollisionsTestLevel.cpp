@@ -4,6 +4,8 @@
 #include "Obstacle.h"
 #include "ObstaclesSpawner.h"
 
+template <typename T> using vector = std::vector<T>;
+
 void CollisionsTestLevel::LoadInSimulation()
 {
     Level::LoadInSimulation();

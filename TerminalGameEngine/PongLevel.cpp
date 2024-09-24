@@ -11,7 +11,7 @@ void PongLevel::LoadInSimulation()
 	Level::LoadInSimulation();
 	Simulation& simulation = Simulation::Instance();
 
-	char barsChar = 219;
+	char barsChar = -37;
 	int startingPosX = GetWorldSizeX() / 2 - 1;
 	int barsSize = 8;
 	double barsMoveSpeed = 32;
