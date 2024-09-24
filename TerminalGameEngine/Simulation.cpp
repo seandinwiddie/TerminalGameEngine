@@ -10,15 +10,21 @@
 #include <cassert>
 #include <stdexcept>
 
-void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, double speed)
+void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
-	MoveRequest request(applicantObj, direction, speed);
+	MoveRequest request(applicantObj, moveDir, moveSpeed);
+	EnqueueMoveRequestSortingBySpeed(request);
+}
 
+void Simulation::EnqueueMoveRequestSortingBySpeed(MoveRequest request)
+{
 	auto it = moveRequests.begin();
-	for (; it != moveRequests.end(); ++it)
-		if (it->speed > request.speed)
+	while (it != moveRequests.end())
+	{
+		if (it->moveSpeed > request.moveSpeed)
 			break;
-
+		++it;
+	}
 	moveRequests.insert(it, request);
 }
 
@@ -47,7 +53,7 @@ void Simulation::Step()
 		int oldXPos = it->object->GetPosX();
 		int oldYPos = it->object->GetPosY();
 
-		if (TryMoveObjectAtDirection(it->object, it->direction))
+		if (TryMoveObjectAtDirection(it->object, it->moveDir))
 		{
 			simulationPrinter->ClearArea(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
 			it->object->mustBeReprinted = true;

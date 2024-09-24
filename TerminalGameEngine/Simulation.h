@@ -26,11 +26,11 @@ friend class GameObject;
 	struct MoveRequest
 	{
 		GameObject* object;
-		Direction direction;
-		double speed;
+		Direction moveDir;
+		double moveSpeed;
 
 		MoveRequest(GameObject* object, Direction direction, double speed)
-			:object(object),direction(direction), speed(speed){}
+			:object(object),moveDir(direction), moveSpeed(speed){}
 	};
 
 //------------------------------------------------------------------------------------ Fields
@@ -42,6 +42,9 @@ private:
 	Level* level;
 	vector<vector<GameObject*>> worldSpace;
 	list<ISimulationUpdatingEntity*> entities;
+
+	// move requests are sorted from slower to faster
+	// slower objects have to move before faster ones to prevent false collisions detection
 	list<MoveRequest> moveRequests;
 
 //------------------------------------------------------------------------------------ Methods
@@ -49,7 +52,7 @@ public:
 	void LoadLevel(Level* level);
 	void Step();
 	bool TryAddEntity(ISimulationUpdatingEntity* obj);
-	void RequestMovement(GameObject* applicantObj, Direction direction, double speed);
+	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
 	void RemoveObject(GameObject* obj);
 	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
 	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
@@ -75,5 +78,5 @@ private:
 	void UpdateObjectcollisionDirs(GameObject* collidingObj);
 	bool IsSpaceEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
-
+	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 };
