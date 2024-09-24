@@ -23,16 +23,12 @@ void Level::LoadInSimulation()
 
 bool Level::IsPostGameOverPauseEnded() const
 {
-    return
-        gameOverTime > 0 &&
-        TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
+    return gameOverTime > 0 && TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
 }
 
 bool Level::CanPlayerPressKeyToRestartGame() const
 {
-    return  
-        TimeHelper::Instance().GetTime() - gameOverTime > 
-        ShowGameOverScreenDelay() + SECONDS_PLAYER_MUST_WAIT_BEFORE_RESTARTING_PRESSING_ANY_KEY;
+    return TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() + PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY;
 }
 
 void Level::OnGameOver()

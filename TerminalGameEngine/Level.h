@@ -11,7 +11,7 @@ class Level : public ISimulationUpdatingEntity
 
  //---------------------------------------------------------- Settings
 private:
-    constexpr static double SECONDS_PLAYER_MUST_WAIT_BEFORE_RESTARTING_PRESSING_ANY_KEY = 1.5;
+    constexpr static double PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY = 1.5;
 
 //---------------------------------------------------------- Fields
 private:
