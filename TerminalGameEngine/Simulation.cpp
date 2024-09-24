@@ -209,7 +209,6 @@ bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity
 
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
-	assert(IsEntityInSimulation(obj));
 	GameObject* outOtherObj;
 
 	if (CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
@@ -218,14 +217,9 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		if (outOtherObj == nullptr)
 		{
 			if (obj->CanExitScreenSpace())
-			{
 				RemoveObject(obj);
-			}
-			else
-			{
-				//notify collision with screen margin
-				obj->CALLED_BY_SIM_NotifyCollisionEnter(nullptr, direction);
-			}
+			else 
+				obj->CALLED_BY_SIM_NotifyCollisionEnter(nullptr, direction); //notify collision with screen margin
 				
 		}
 		else
