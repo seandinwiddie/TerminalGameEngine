@@ -172,7 +172,7 @@
       <Filter>Headers\Levels\PongLevel\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameLoop.h">
-      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
+      <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
