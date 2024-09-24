@@ -13,10 +13,9 @@ GameObject::GameObject(int xPos, int yPos):
 
 size_t GameObject::GetModelWidth() const
 {
-	if (model.size() == 0)
+	if (GetModelHeight() == 0)
 		return 0;
-
-	return model[0].size();
+	return (*model)[0].size();
 }
 
 void GameObject::Update()
@@ -85,11 +84,11 @@ Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY
 
 void GameObject::SetModel(const Model& newModel)
 {
-	if (model == newModel)
+	if (model == &newModel)
 		return;
 
 	mustBeReprinted = true;
-	model = newModel;
+	model = &newModel;
 }
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir)
@@ -116,7 +115,7 @@ void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& new
 
 const Model& GameObject::GetModel()
 {
-	if(!IsModelInitialized())
+	if(model == nullptr)
 		InitModel();
-	return model;
+	return *model;
 }

@@ -12,6 +12,7 @@ private:
     double ySpeed;
     double xSpeed;
     bool iSFirstLaunch;
+    Model model = {{-37}};
 
 public:
     PongBall(PongLevel* level, int xPos, int yPos, double ySpeed);
@@ -23,7 +24,7 @@ protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir);
     virtual void OnCollisionExit(Direction endingCollisionDir) {}
     virtual void Update() override;
-    virtual void InitModel() override { SetModel({ {-37} }); }
+    virtual void InitModel() override { SetModel(model); }
 
 private:
     void HandleBarCollision(PongBar* collidingBar);

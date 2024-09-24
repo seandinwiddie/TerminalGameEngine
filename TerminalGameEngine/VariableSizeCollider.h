@@ -7,6 +7,7 @@ class VariableSizeCollider : public GameObject
     char modelChar;
     size_t modelSizeX;
     size_t modelSizeY;
+    Model model = CreteModelUsingChar(modelChar, modelSizeX, modelSizeY);
 //---------------------------------------------------------- Methods
 public:
     VariableSizeCollider
@@ -24,5 +25,5 @@ public:
     { }
 
 protected:
-    virtual void InitModel() override { SetModel( CreteModelUsingChar(modelChar, modelSizeX, modelSizeY) ); }
+    virtual void InitModel() override { SetModel(model); }
 };

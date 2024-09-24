@@ -25,7 +25,7 @@ private:
 	double yPosContinuous;
 
 	bool mustBeReprinted = true;
-	Model model = {};
+	const Model* model = nullptr;
 
 protected:
 	bool canMove = true;
@@ -43,7 +43,7 @@ public:
 	int GetMaxPosX() const { return xPos + static_cast<int>(GetModelWidth()) - 1; }
 	int GetMaxPosY() const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
 	size_t GetModelWidth() const;
-	size_t GetModelHeight() const { return model.size();}
+	size_t GetModelHeight() const { return model == nullptr ? 0 : model->size(); }
 	const Model& GetModel();
 
 protected:
@@ -58,7 +58,6 @@ protected:
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
-	bool IsModelInitialized() const { return model.size() != 0; }
 	void ApplyGravity();
 
 	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir);

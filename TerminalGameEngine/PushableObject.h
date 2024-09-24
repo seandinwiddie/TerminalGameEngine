@@ -5,6 +5,8 @@
 
 class PushableObject : public GameObject
 {
+private:
+    Model model = CreteModelUsingChar('@', 4, 2);
 //---------------------------------------------------------- Methods
 public:
     PushableObject(int xPos, int yPos) :GameObject(xPos, yPos){}
@@ -14,7 +16,7 @@ public:
 
 protected:
     virtual void OnCollisionExit(Direction endingCollisionDir) override {}
-    virtual void InitModel() override { SetModel(CreteModelUsingChar('@', 4, 2)); }
+    virtual void InitModel() override { SetModel(model); }
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir)override
     {
         if (collisionDir == Direction::right || collisionDir == Direction::left)
