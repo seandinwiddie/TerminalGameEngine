@@ -374,16 +374,13 @@ void Simulation::RemoveObject(GameObject* obj)
 void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
-	
+
 	for (ISimulationUpdatingEntity* obj : entities)
 		delete(obj);
 
 	entities.clear();
 	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY());
 	ResetScreenManager(level->GetBackgroundFileName());
-
-	levelStartedTime = TimeHelper::Instance().GetTime();
-
 	level->LoadInSimulation();
 }
 

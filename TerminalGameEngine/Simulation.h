@@ -40,8 +40,6 @@ public:
 	Event<> OnFrameGenerated;
 
 private:
-	double levelStartedTime = 0;
-
 	SimulationPrinter* simulationPrinter;
 	Level* level;
 
