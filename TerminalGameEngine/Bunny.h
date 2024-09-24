@@ -82,7 +82,7 @@ private:
     void HandleVerticalMovement();
     void HandleHorizontalMovement();
     void HandleSounds(State oldState, State newState);
-    bool IsTouchingGround() { return collidingDirections[static_cast<int>(Direction::down)]; }
+    bool IsTouchingGround() { return collidingDirections[Direction::down]; }
     bool IsJumping() { return state == State::jumpingDown || state == State::jumpingUp; }
 
 #pragma endregion Methods

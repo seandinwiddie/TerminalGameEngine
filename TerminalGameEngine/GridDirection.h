@@ -3,7 +3,7 @@
 
 namespace GridDirection
 {
-	enum class Direction { up, down, left, right, COUNT };
+	enum Direction { up, down, left, right, COUNT };
 
 	static Direction GetInverseDirection(Direction direction)
 	{

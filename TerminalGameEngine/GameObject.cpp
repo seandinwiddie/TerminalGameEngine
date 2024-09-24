@@ -93,10 +93,9 @@ void GameObject::SetModel(const Model& newModel)
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir)
 {
-	int directionIndex = static_cast<int>(collisionDir);
-	if (collidingDirections[directionIndex] == false)
+	if (collidingDirections[collisionDir] == false)
 	{
-		collidingDirections[directionIndex] = true;
+		collidingDirections[collisionDir] = true;
 		OnCollisionEnter(other, collisionDir);
 	}
 }

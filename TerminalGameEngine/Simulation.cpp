@@ -106,8 +106,6 @@ void Simulation::UpdateAllObjectsCollisions()
 
 void Simulation::UpdateObjectCollisions(GameObject* obj)
 {
-	std::vector<bool> collidingDirections(4);
-
 	int xPos = obj->GetPosX();
 	int yPos = obj->GetPosY();
 	int xMax = obj->GetMaxPosX();
@@ -117,34 +115,34 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 	bool canExitScreen = obj->CanExitScreenSpace();
 
 	// object - screen margin collisions
-	bool isCollidingWithScreenUp = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1);
-	bool isCollidingWithScreenDown = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1);
-	bool isCollidingWithScreenRight = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos);
-	bool isCollidingWithScreenLeft = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos - 1, yPos);
+	vector<bool> collisions(4);
+	collisions[Direction::up] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1);
+	collisions[Direction::down] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1);
+	collisions[Direction::right] = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos);
+	collisions[Direction::left] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos - 1, yPos);
 
 	// object-object collisions
-	collidingDirections[static_cast<int>(Direction::up)] =
-		(!IsSpaceEmpty(xPos, yMax + 1, width, 1) || isCollidingWithScreenUp);
+	if(collisions[Direction::up] == false)
+		collisions[Direction::up] = !IsAreaEmpty(xPos, yMax + 1, width, 1);
 
-	collidingDirections[static_cast<int>(Direction::down)] =
-		(!IsSpaceEmpty(xPos, yPos - 1, width, 1) || isCollidingWithScreenDown);
+	if (collisions[Direction::down] == false)
+		collisions[Direction::down] = !IsAreaEmpty(xPos, yPos - 1, width, 1);
 
-	collidingDirections[static_cast<int>(Direction::left)] =
-		(!IsSpaceEmpty(xPos - 1, yPos, 1, height) || isCollidingWithScreenLeft);
+	if (collisions[Direction::left] == false)
+		collisions[Direction::left] = !IsAreaEmpty(xPos - 1, yPos, 1, height);
 
-	collidingDirections[static_cast<int>(Direction::right)] =
-		(!IsSpaceEmpty(xMax + 1, yPos, 1, height) || isCollidingWithScreenRight);
+	if (collisions[Direction::right] == false)
+		collisions[Direction::right] = !IsAreaEmpty(xMax + 1, yPos, 1, height);
 
-	obj->CALLED_BY_SIM_NotifyCollisionsExit(collidingDirections);
+	obj->CALLED_BY_SIM_NotifyCollisionsExit(collisions);
 } 
 
-bool Simulation::IsSpaceEmpty(int startingX, int startingY, size_t width, size_t height) const
+bool Simulation::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
 			if (IsCoordinateInsideGameSpace(x, y) && worldSpace[y][x] != nullptr)
 				return false;
-
 	return true;
 }
 

@@ -79,7 +79,7 @@ private:
 	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisions(GameObject* collidingObj);
-	bool IsSpaceEmpty(int startingY, int startingX, size_t width, size_t height) const;
+	bool IsAreaEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();

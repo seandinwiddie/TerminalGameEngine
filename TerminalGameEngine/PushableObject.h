@@ -22,7 +22,7 @@ protected:
         if (collisionDir == Direction::right || collisionDir == Direction::left)
         {
             Move(GetInverseDirection(collisionDir), 9999);
-            collidingDirections[static_cast<int>(collisionDir)] = false;
+            collidingDirections[collisionDir] = false;
         }
         else if (dynamic_cast<Bunny*>(other) == nullptr)
         {
