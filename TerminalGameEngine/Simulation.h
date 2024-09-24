@@ -86,5 +86,8 @@ private:
 	void ExecuteMoveRequests();
 	void UpdateAllObjectsCollisions();
 	void PrintObjects();
-	void WriteWorldSpace(GameObject* obj, bool insert);
+
+	void WriteWorldSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
+	void InsertObjectInWorldSpace(GameObject* obj);
+	void RemoveObjectFromWorldSpace(GameObject* obj);
 };

@@ -166,24 +166,31 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 	}
 	
 	if (objEntity != nullptr)
-		WriteWorldSpace(objEntity, true);
+		InsertObjectInWorldSpace(objEntity);
 
 	entities.push_back(entity);
 	return true;
 }
 
-void Simulation::WriteWorldSpace(GameObject* obj, bool insert)
+void Simulation::InsertObjectInWorldSpace(GameObject* obj)
 {
-	auto y = obj->GetPosY();
-	auto maxY = obj->GetMaxPosY();
+	WriteWorldSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
+}
 
-	for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
+void Simulation::RemoveObjectFromWorldSpace(GameObject* obj)
+{
+	WriteWorldSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
+}
+
+void Simulation::WriteWorldSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value)
+{
+	for (int y = yStart; y < yStart + height; ++y)
+	{
+		for (int x = xStart; x < xStart + width; ++x)
 		{
-			assert(insert == true || worldSpace[y][x] == obj);
-			assert(insert == false || worldSpace[y][x] == nullptr);
-			worldSpace[y][x] = insert ? obj : nullptr;
+			worldSpace[y][x] = value;
 		}
+	}
 }
 
 bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
@@ -237,36 +244,24 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		{
 			int yWrite = obj->GetMaxPosY() + 1;
 			int yClear = obj->GetPosY();
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-			{
-				worldSpace[yWrite][x] = obj;
-				worldSpace[yClear][x] = nullptr;
-			}
-			MoveObject(obj, direction);
+			WriteWorldSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
+			WriteWorldSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
 			break;
 		}
 		case Direction::down:
 		{
 			int yWrite = obj->GetPosY() - 1;
 			int yClear = obj->GetMaxPosY();
-			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); ++x)
-			{
-				worldSpace[yWrite][x] = obj;
-				worldSpace[yClear][x] = nullptr;
-			}
-			MoveObject(obj, direction);
+			WriteWorldSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
+			WriteWorldSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
 			break;
 		}
 		case Direction::right:
 		{
 			int xWrite = obj->GetMaxPosX() + 1;
 			int xClear = obj->GetPosX();
-			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-			{
-				worldSpace[y][xWrite] = obj;
-				worldSpace[y][xClear] = nullptr;
-			}
-			MoveObject(obj, direction);
+			WriteWorldSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
+			WriteWorldSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
 			break;
 		}
 
@@ -274,15 +269,12 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		{
 			int xWrite = obj->GetPosX() - 1;
 			int xClear = obj->GetMaxPosX();
-			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); ++y)
-			{
-				worldSpace[y][xWrite] = obj;
-				worldSpace[y][xClear] = nullptr;
-			}
-			MoveObject(obj, direction);
+			WriteWorldSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
+			WriteWorldSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
 			break;
 		}
 	}
+	MoveObject(obj, direction);
 	return true;
 }
 
@@ -438,7 +430,7 @@ bool Simulation::CanObjectMoveAtDirection
 
 void Simulation::RemoveObject(GameObject* obj)
 {
-	WriteWorldSpace(obj, false);
+	RemoveObjectFromWorldSpace(obj);
 	entities.remove(obj);
 	simulationPrinter->ClearObject(obj);
 	delete(obj);
