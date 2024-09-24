@@ -17,7 +17,7 @@
       <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClCompile>
     <ClCompile Include="StaticCollider.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Cpp</Filter>
@@ -108,9 +108,6 @@
     <ClInclude Include="Config.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="GameLoop.h">
-      <Filter>Headers\Engine\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="TimeHelper.h">
       <Filter>Headers\Engine\Managers/Helpers</Filter>
     </ClInclude>
@@ -139,13 +136,13 @@
       <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="ISimulationUpdatingEntity.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="MovingStraightObject.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="Obstacle.h">
       <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
@@ -157,7 +154,7 @@
       <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
     </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
-      <Filter>Headers\Engine\GenericObjects</Filter>
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="PongLevel.h">
       <Filter>Headers\Levels\PongLevel</Filter>
@@ -173,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="PongBall.h">
       <Filter>Headers\Levels\PongLevel\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLoop.h">
+      <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -205,9 +205,6 @@
     <Filter Include="Headers\Engine\Simulation">
       <UniqueIdentifier>{d0e47c02-7222-435f-aea1-f8f088c2c7d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Engine\GenericObjects">
-      <UniqueIdentifier>{1ab8247e-dd74-47cc-b89d-e6350da01c5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Levels">
       <UniqueIdentifier>{d9b5910a-aa4c-47f1-b39d-3c96f20c35d3}</UniqueIdentifier>
     </Filter>
@@ -234,6 +231,9 @@
     </Filter>
     <Filter Include="Headers\Levels\PongLevel\Objects">
       <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Engine\GenericSimulationEntities">
+      <UniqueIdentifier>{1ab8247e-dd74-47cc-b89d-e6350da01c5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
