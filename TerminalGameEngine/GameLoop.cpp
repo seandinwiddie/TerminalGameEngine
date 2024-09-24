@@ -9,6 +9,8 @@
 #include "AudioManager.h"
 #include "Simulation.h"
 
+using namespace std;
+
 GameLoop::GameLoop()
 {
     bool returnToMainMenu = false;
@@ -43,16 +45,15 @@ Level* GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();
     Terminal::Instance().SetColor(Terminal::WHITE);
-    std::cout
-        << "Press:" << std::endl
-        << "1 -> play endless runner demo" << std::endl
-        << "2 -> play puzzle game demo" << std::endl
-        << "3 -> play pong game demo" << std::endl
-        << "4 -> collisions test" << std::endl
-        << std::endl
-        << "esc (inside levels) -> return to main menu" << std::endl
-        << std::endl
-        << "All music by 'Cody O'Quinn'" << std::endl;
+    cout << "Press:" << endl
+         << "1 -> play endless runner demo" << endl
+         << "2 -> play puzzle game demo" << endl
+         << "3 -> play pong game demo" << endl
+         << "4 -> collisions test" << endl
+         << endl
+         << "esc (inside levels) -> return to main menu" << endl
+         << endl
+         << "All music by 'Cody O'Quinn'" << endl;
 
     while (true)
     {
