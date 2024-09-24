@@ -9,4 +9,5 @@ public:
     GameLoop();
 private:
     Level* ShowLevelSelection();
+    bool LoopSimulation(Level* level);
 };

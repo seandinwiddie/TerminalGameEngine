@@ -11,33 +11,32 @@
 
 GameLoop::GameLoop()
 {
-    AudioManager& audioManager = AudioManager::Instance();
-    Simulation& simulation = Simulation::Instance();
     bool returnToMainMenu = false;
-
     while (true)
     {
-        audioManager.StopMusic();
+        AudioManager::Instance().StopMusic();
         Level* level = ShowLevelSelection();
-        returnToMainMenu = false;
-
-        while (returnToMainMenu == false)
+        while (true)
         {
-            simulation.LoadLevel(level);
-
-            while (level->IsTerminated() == false)
-            {
-                simulation.Step();
-
-                if (InputUtils::IsPressingEsc())
-                {
-                    returnToMainMenu = true;
-                    break;
-                }
-            }
+           returnToMainMenu = LoopSimulation(level);
+           if (returnToMainMenu)
+               break;
         }
+
         delete(level);
     }
+}
+
+bool GameLoop::LoopSimulation(Level* level)
+{
+    Simulation::Instance().LoadLevel(level);
+    while (level->IsTerminated() == false)
+    {
+        Simulation::Instance().Step();
+        if (InputUtils::IsPressingEsc())
+            return true;
+    }
+    return false;
 }
 
 Level* GameLoop::ShowLevelSelection()
