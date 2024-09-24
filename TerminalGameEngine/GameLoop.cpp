@@ -40,8 +40,6 @@ GameLoop::GameLoop()
     }
 }
 
-//todo check dynamic memory
-
 Level* GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();

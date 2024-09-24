@@ -35,7 +35,7 @@ class Simulation : public Singleton<Simulation>
 
 //------------------------------------------------------------------------------------ Fields
 	double levelStartedTime = 0;
-	double lastTimePrintedFrame = -1; //todo use double for time
+	double lastTimePrintedFrame = -1;
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
