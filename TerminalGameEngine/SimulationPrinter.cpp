@@ -160,7 +160,7 @@ void SimulationPrinter::InitBackground(const string& backgroundFileName)
         background.ResizeY(0);
         return;
     }
-    background.ReadFrameFromFile(backgroundFileName, screenSizeX, screenSizeY);
+    background.ReadFromFile(backgroundFileName, screenSizeX, screenSizeY);
 }
 
 void SimulationPrinter::Cout(const string& s)

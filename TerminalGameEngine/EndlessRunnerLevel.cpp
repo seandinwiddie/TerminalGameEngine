@@ -54,7 +54,7 @@ void EndlessRunnerLevel::LoadInSimulation()
     Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
-    gameEndUIMessage.ReadFrameFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
+    gameEndUIMessage.ReadFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
     //------------------------------- bunny setup
     int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
