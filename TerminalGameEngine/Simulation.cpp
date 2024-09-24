@@ -1,5 +1,4 @@
 #include "Simulation.h"
-
 #include "GameObject.h"
 #include "SimulationPrinter.h"
 #include "ISimulationUpdatingEntity.h"
@@ -10,7 +9,6 @@
 #include <Windows.h>
 #include <cassert>
 #include <stdexcept>
-
 
 void Simulation::RequestMovement(GameObject* applicantObj, Direction direction, double speed)
 {
