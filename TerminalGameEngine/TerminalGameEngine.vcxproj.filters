@@ -88,6 +88,9 @@
     <ClCompile Include="Terminal.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="WorldSpace.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="Persistence.h">
       <Filter>Headers\Engine\Managers/Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldSpace.h">
+      <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

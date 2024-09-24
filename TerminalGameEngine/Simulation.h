@@ -5,6 +5,7 @@
 #include "ISimulationUpdatingEntity.h"
 #include "Level.h"
 #include "Event.h"
+#include "WorldSpace.h"
 
 #include <list>
 #include <vector>
@@ -43,7 +44,8 @@ private:
 
 	SimulationPrinter* simulationPrinter;
 	Level* level;
-	vector<vector<GameObject*>> worldSpace;
+
+	WorldSpace worldSpace;
 	list<ISimulationUpdatingEntity*> entities;
 
 	// move requests are sorted from slower to faster
@@ -59,9 +61,6 @@ public:
 	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
 	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
 	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
-	bool IsInsideGameSpaceX(int xPos) const;
-	bool IsInsideGameSpaceY(int yPos) const;
-	bool IsCoordinateInsideGameSpace(int xPos, int yPos) const;
 	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
 	bool IsInsideScreenX(int xPos) const;
@@ -79,15 +78,10 @@ private:
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
 	void UpdateObjectCollisions(GameObject* collidingObj);
-	bool IsWorldAreaEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();
 	void ExecuteMoveRequests();
 	void UpdateAllObjectsCollisions();
 	void PrintObjects();
-
-	void WriteWorldSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
-	void InsertObjectInWorldSpace(GameObject* obj);
-	void RemoveObjectFromWorldSpace(GameObject* obj);
 };

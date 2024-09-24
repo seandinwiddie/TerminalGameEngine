@@ -164,6 +164,7 @@
     <ClCompile Include="StaticCollider.h" />
     <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="WorldSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomaticDoor.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="ObstaclesSpawner.h" />
     <ClInclude Include="MovingStraightObject.h" />
     <ClInclude Include="VariableSizeCollider.h" />
+    <ClInclude Include="WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="endlessRunnerBackground.txt" />

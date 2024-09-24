@@ -130,28 +130,19 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 
 	// object-object collisions
 	if(collisions[Direction::up] == false)
-		collisions[Direction::up] = !IsWorldAreaEmpty(xPos, yMax + 1, width, 1);
+		collisions[Direction::up] = !worldSpace.IsAreaEmpty(xPos, yMax + 1, width, 1);
 
 	if (collisions[Direction::down] == false)
-		collisions[Direction::down] = !IsWorldAreaEmpty(xPos, yPos - 1, width, 1);
+		collisions[Direction::down] = !worldSpace.IsAreaEmpty(xPos, yPos - 1, width, 1);
 
 	if (collisions[Direction::left] == false)
-		collisions[Direction::left] = !IsWorldAreaEmpty(xPos - 1, yPos, 1, height);
+		collisions[Direction::left] = !worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height);
 
 	if (collisions[Direction::right] == false)
-		collisions[Direction::right] = !IsWorldAreaEmpty(xMax + 1, yPos, 1, height);
+		collisions[Direction::right] = !worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height);
 
 	obj->CALLED_BY_SIM_NotifyCollisionsExit(collisions);
 } 
-
-bool Simulation::IsWorldAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
-{
-	for (int y = startingY; y < startingY + height; ++y)
-		for (int x = startingX; x < startingX + width; ++x)
-			if (IsCoordinateInsideGameSpace(x, y) && worldSpace[y][x] != nullptr)
-				return false;
-	return true;
-}
 
 bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 {
@@ -166,31 +157,10 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 	}
 	
 	if (objEntity != nullptr)
-		InsertObjectInWorldSpace(objEntity);
+		worldSpace.InsertObject(objEntity);
 
 	entities.push_back(entity);
 	return true;
-}
-
-void Simulation::InsertObjectInWorldSpace(GameObject* obj)
-{
-	WriteWorldSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
-}
-
-void Simulation::RemoveObjectFromWorldSpace(GameObject* obj)
-{
-	WriteWorldSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
-}
-
-void Simulation::WriteWorldSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value)
-{
-	for (int y = yStart; y < yStart + height; ++y)
-	{
-		for (int x = xStart; x < xStart + width; ++x)
-		{
-			worldSpace[y][x] = value;
-		}
-	}
 }
 
 bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
@@ -200,7 +170,7 @@ bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
 
 	const GameObject* objEntity = dynamic_cast<const GameObject*>(entity);
 	if (objEntity != nullptr)
-		return IsWorldAreaEmpty(objEntity->GetPosX(), objEntity->GetPosY(), objEntity->GetModelWidth(), objEntity->GetModelHeight());
+		return worldSpace.IsAreaEmpty(objEntity->GetPosX(), objEntity->GetPosY(), objEntity->GetModelWidth(), objEntity->GetModelHeight());
 	else
 		return true;
 }
@@ -238,42 +208,7 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		return false;
 	}
 
-	switch (direction)
-	{
-		case Direction::up:
-		{
-			int yWrite = obj->GetMaxPosY() + 1;
-			int yClear = obj->GetPosY();
-			WriteWorldSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
-			WriteWorldSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
-			break;
-		}
-		case Direction::down:
-		{
-			int yWrite = obj->GetPosY() - 1;
-			int yClear = obj->GetMaxPosY();
-			WriteWorldSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
-			WriteWorldSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
-			break;
-		}
-		case Direction::right:
-		{
-			int xWrite = obj->GetMaxPosX() + 1;
-			int xClear = obj->GetPosX();
-			WriteWorldSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
-			WriteWorldSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
-			break;
-		}
-
-		case Direction::left:
-		{
-			int xWrite = obj->GetPosX() - 1;
-			int xClear = obj->GetMaxPosX();
-			WriteWorldSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
-			WriteWorldSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
-			break;
-		}
-	}
+	worldSpace.MoveObject(obj, direction);
 	MoveObject(obj, direction);
 	return true;
 }
@@ -315,9 +250,9 @@ bool Simulation::CanObjectMoveAtDirection
 			//check collision
 			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 			{
-				if (worldSpace[y][x] != nullptr)
+				if ( worldSpace.IsPositionEmpty(x, y) == false)
 				{
-					outCollidingObject = worldSpace[y][x];
+					outCollidingObject = worldSpace.GetObjectAtPosition(x,y);
 					return false;
 				}
 			}
@@ -348,9 +283,9 @@ bool Simulation::CanObjectMoveAtDirection
 			//check collision
 			for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
 			{
-				if (worldSpace[y][x] != nullptr)
+				if (worldSpace.IsPositionEmpty(x, y) == false)
 				{
-					outCollidingObject = worldSpace[y][x];
+					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
 					return false;
 				}
 			}
@@ -381,9 +316,9 @@ bool Simulation::CanObjectMoveAtDirection
 			//check collision
 			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 			{
-				if (worldSpace[y][x] != nullptr)
+				if (worldSpace.IsPositionEmpty(x, y) == false)
 				{
-					outCollidingObject = worldSpace[y][x];
+					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
 					return false;
 				}
 			}
@@ -414,9 +349,9 @@ bool Simulation::CanObjectMoveAtDirection
 			//check collision
 			for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
 			{
-				if (worldSpace[y][x] != nullptr)
+				if (worldSpace.IsPositionEmpty(x, y) == false)
 				{
-					outCollidingObject = worldSpace[y][x];
+					outCollidingObject = worldSpace.GetObjectAtPosition(x, y);
 					return false;
 				}
 			}
@@ -430,7 +365,7 @@ bool Simulation::CanObjectMoveAtDirection
 
 void Simulation::RemoveObject(GameObject* obj)
 {
-	RemoveObjectFromWorldSpace(obj);
+	worldSpace.RemoveObject(obj);
 	entities.remove(obj);
 	simulationPrinter->ClearObject(obj);
 	delete(obj);
@@ -440,23 +375,12 @@ void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
 	
-	//clear simulation variables
 	for (ISimulationUpdatingEntity* obj : entities)
 		delete(obj);
+
 	entities.clear();
-
-	// clear gamespace
-	worldSpace.clear();
-	worldSpace.resize(level->GetWorldSizeY());
-
+	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY());
 	ResetScreenManager(level->GetBackgroundFileName());
-
-	for (int y = 0; y < level->GetWorldSizeY(); ++y)
-	{
-		worldSpace[y].resize(level->GetWorldSizeX());
-		for (auto elem : worldSpace[y])
-			elem = nullptr;
-	}
 
 	levelStartedTime = TimeHelper::Instance().GetTime();
 
@@ -493,20 +417,6 @@ void Simulation::ResetScreenManager(const string& backgroundFileName)
 	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
 }
 
-bool Simulation::IsInsideGameSpaceX(int xPos) const
-{
-	return xPos >= 0 && xPos < GetWorldSizeX();
-}
-
-bool Simulation::IsInsideGameSpaceY(int yPos) const
-{
-	return yPos >= 0 && yPos < GetWorldSizeY();
-}
-
-bool Simulation::IsCoordinateInsideGameSpace(int xPos, int yPos) const
-{ 
-	return IsInsideGameSpaceX(xPos) && IsInsideGameSpaceY(yPos);
-}
 
 bool Simulation::IsInsideScreenY(int yPos) const
 {
