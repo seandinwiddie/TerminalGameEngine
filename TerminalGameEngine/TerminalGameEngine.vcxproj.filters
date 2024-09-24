@@ -67,9 +67,6 @@
     <ClCompile Include="PressurePlate.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PushableObject.cpp">
-      <Filter>Cpp</Filter>
-    </ClCompile>
     <ClCompile Include="StaticCollider.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
@@ -82,9 +79,13 @@
     <ClCompile Include="PongBar.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PongBall.cpp" />
-    <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="GameLoop.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PongBall.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Terminal.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,14 +168,20 @@
     <ClInclude Include="PongBar.h">
       <Filter>Headers\Levels\PongLevel\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="PongBall.h" />
-    <ClInclude Include="Terminal.h" />
+    <ClInclude Include="Terminal.h">
+      <Filter>Headers\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBall.h">
+      <Filter>Headers\Levels\PongLevel\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">
       <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
-    <Text Include="endlessRunnerBackground.txt" />
+    <Text Include="endlessRunnerBackground.txt">
+      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
