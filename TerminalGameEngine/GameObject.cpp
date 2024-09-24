@@ -21,6 +21,11 @@ size_t GameObject::GetModelWidth() const
 
 void GameObject::Update()
 {
+	ApplyGravity();
+}
+
+void GameObject::ApplyGravity()
+{
 	double gravityScale = GetGravityScale();
 	if (gravityScale == 0)
 		return;
@@ -36,8 +41,8 @@ void GameObject::Move(Direction direction, double moveSpeed)
 		return;
 
 	moveSpeed = abs(moveSpeed);
-
 	double deltaTime = TimeHelper::Instance().GetDeltaTime();
+
 	switch (direction)
 	{
 	case Direction::up:
@@ -63,12 +68,7 @@ void GameObject::Move(Direction direction, double moveSpeed)
 		Simulation::Instance().RequestMovement(this, direction, moveSpeed);
 }
 
-Model GameObject::CreteModelUsingChar
-(
-	char modelChar, 
-	size_t sizeX, 
-	size_t sizeY
-) const
+Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
 {
 	Model result;
 	result.resize(sizeY);
@@ -92,7 +92,7 @@ void GameObject::SetModel(const Model& newModel)
 	model = newModel;
 }
 
-void GameObject::CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDir)
+void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir)
 {
 	int directionIndex = static_cast<int>(collisionDir);
 	if (collidingDirections[directionIndex] == false)
@@ -102,7 +102,7 @@ void GameObject::CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction coll
 	}
 }
 
-void GameObject::CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections)
+void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections)
 {
 	for (int i = 0; i < collidingDirections.size(); ++i)
 	{

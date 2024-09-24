@@ -59,7 +59,8 @@ protected:
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 	bool IsModelInitialized() const { return model.size() != 0; }
+	void ApplyGravity();
 
-	void CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDir);
-	void CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
+	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir);
+	void CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections);
 };
