@@ -5,15 +5,16 @@
 #include <chrono>
 #include <math.h>
 
-using TimePoint = std::chrono::steady_clock::time_point;
+using time_point = std::chrono::steady_clock::time_point;
+using hr_clock = std::chrono::high_resolution_clock;
 
 class TimeHelper : public Singleton<TimeHelper>
 {
-    friend class Singleton;
+friend class Singleton;
 
 //---------------------------------------------------------- Fields
 private:
-    TimePoint startTime;
+    time_point startTime;
     double lastTimeFrameGenerated = 0;
     double deltaTime = 1;
 
@@ -27,5 +28,5 @@ public:
     double GetTime() const;
 
 private:
-    TimeHelper() {startTime = std::chrono::high_resolution_clock::now(); }
+    TimeHelper() {startTime = hr_clock::now(); }
 };

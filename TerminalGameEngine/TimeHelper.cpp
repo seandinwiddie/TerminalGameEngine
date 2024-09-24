@@ -21,10 +21,7 @@ bool TimeHelper::IsTimeForFirstOfTwoModels(double changeModelEverySeconds) const
 
 double TimeHelper::GetTime() const
 {
-    // Get the current time
-    TimePoint now = std::chrono::high_resolution_clock::now();
-
-    // Calculate the duration in seconds
+    time_point now = hr_clock::now();
     std::chrono::duration<double> elapsed = now - startTime;
     return elapsed.count();
 }
