@@ -15,7 +15,6 @@ void Frame::ResizeX(size_t size)
         chars[y].resize(size);
         colors[y].resize(size);
     }
-        
 }
 
 void Frame::ReadFromFile(const string& fileName, size_t screenSizeX, size_t screenSizeY)
