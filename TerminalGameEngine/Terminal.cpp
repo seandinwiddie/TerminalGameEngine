@@ -19,7 +19,7 @@ const int Terminal::YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
 void Terminal::Clear()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD coord = { 0, 0 };  // Top left corner
+    COORD coord = { 0, 0 };
     DWORD cCharsWritten;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD dwConSize;
@@ -35,8 +35,7 @@ void Terminal::Clear()
     GetConsoleScreenBufferInfo(hConsole, &csbi);
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, dwConSize, coord, &cCharsWritten);
 
-    // Move the cursor back to the top-left corner
-    SetConsoleCursorPosition(hConsole, coord);
+    SetCursorPosition(coord);
 }
 
 void Terminal::SetColor(int color)
@@ -58,7 +57,6 @@ void Terminal::SetCursorPosition(const COORD& coord)
 {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-
 
 COORD Terminal::GetCursorPosition()
 {

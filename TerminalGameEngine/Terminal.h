@@ -4,8 +4,9 @@
 
 class Terminal : public Singleton<Terminal>
 {
-    friend class Singleton;
+friend class Singleton;
 
+//---------------------------------------------------------- Fields
 public:
     const static int WHITE_DARK;
     const static int RED_DARK;
@@ -26,18 +27,18 @@ public:
 private:
     int currentColor;
 
+//---------------------------------------------------------- Fields
 public:
     void Clear();
     void SetColor(int color);
     int GetColor() { return currentColor; }
-
     void SetCursorPosition(const COORD& coord);
     void SetCursorPosition(size_t x, size_t y);
-
     COORD GetCursorPosition();
-    void HideCursor();
-   
 
 protected:
-    Terminal() { HideCursor(); }
+    Terminal(){HideCursor();}
+
+private:
+    void HideCursor();
 };
