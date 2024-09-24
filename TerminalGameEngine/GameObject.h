@@ -44,7 +44,7 @@ public:
 	int GetMaxPosY()const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
 	size_t GetModelWidth()const;
 	size_t GetModelHeight()const { return GetModel().size(); }
-	const Model& GetModel()const;
+	const Model& GetModel()const { return *model; }
 
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
@@ -60,6 +60,7 @@ private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 	void ApplyGravity();
 
+	void CALLED_BY_SIM_Move(Direction direction);
 	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir);
 	void CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections);
 };

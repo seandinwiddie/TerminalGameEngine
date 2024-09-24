@@ -112,4 +112,26 @@ void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& new
 	}
 }
 
-const Model& GameObject::GetModel()const{return *model;}
+void GameObject::CALLED_BY_SIM_Move(Direction direction)
+{
+	switch (direction)
+	{
+	case Direction::up:
+		++yPos;
+		yPosContinuous = yPos;
+		break;
+	case Direction::down:
+		--yPos;
+		yPosContinuous = yPos;
+		break;
+	case Direction::right:
+		++xPos;
+		xPosContinuous = xPos;
+		break;
+	case Direction::left:
+		--xPos;
+		xPosContinuous = xPos;
+		break;
+	}
+}
+

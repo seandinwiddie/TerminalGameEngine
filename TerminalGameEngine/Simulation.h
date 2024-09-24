@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "Event.h"
 #include "WorldSpace.h"
+#include "SimulationPrinter.h"
 
 #include <list>
 #include <vector>
@@ -61,17 +62,13 @@ public:
 	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
 	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
-	bool IsInsideScreenX(int xPos) const;
-	bool IsInsideScreenY(int yPos) const;
-	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const;
 	const Level* GetActiveLevel() { return level; }
-	void PrintGameOverWindow(const Frame& UIMessage);
-	void SetTerminalHeader(const string& header);
+	void PrintGameOverWindow(const Frame& window) { simulationPrinter->PrintGameOverWindow(window); }
+	void SetTerminalHeader(const string& header) { simulationPrinter->SetHeader(header); }
 
 private:
 	void RemoveObject(GameObject* obj);
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
-	void MoveObject(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
@@ -82,4 +79,8 @@ private:
 	void ExecuteMoveRequests();
 	void UpdateAllObjectsCollisions();
 	void PrintObjects();
+
+	bool IsInsideScreenX(int xPos) const;
+	bool IsInsideScreenY(int yPos) const;
+	bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const { return IsInsideScreenX(xPos) && IsInsideScreenY(yPos); }
 };

@@ -208,8 +208,9 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		return false;
 	}
 
+	//todo try to unify this
 	worldSpace.MoveObject(obj, direction);
-	MoveObject(obj, direction);
+	obj->CALLED_BY_SIM_Move(direction);
 	return true;
 }
 
@@ -384,36 +385,12 @@ void Simulation::LoadLevel (Level* level)
 	level->LoadInSimulation();
 }
 
-void Simulation::MoveObject(GameObject* obj, Direction direction)
-{
-	switch (direction)
-	{
-	case Direction::up:
-		++obj->yPos;
-		obj->yPosContinuous = obj->yPos;
-		break;
-	case Direction::down:
-		--obj->yPos;
-		obj->yPosContinuous = obj->yPos;
-		break;
-	case Direction::right:
-		++obj->xPos;
-		obj->xPosContinuous = obj->xPos;
-		break;
-	case Direction::left:
-		--obj->xPos;
-		obj->xPosContinuous = obj->xPos;
-		break;
-	}
-}
-
 void Simulation::ResetScreenManager(const string& backgroundFileName)
 {
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
 	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
 }
-
 
 bool Simulation::IsInsideScreenY(int yPos) const
 {
@@ -427,14 +404,3 @@ bool Simulation::IsInsideScreenX(int xPos) const
 		xPos >= GetScreenPadding() &&
 		xPos < GetWorldSizeX() - GetScreenPadding();
 }
-
-bool Simulation::IsCoordinateInsideScreenSpace(int xPos, int yPos) const
-{
-	auto test = IsInsideScreenX(xPos);
-	auto test2 = IsInsideScreenY(yPos);
-	return IsInsideScreenX(xPos) && IsInsideScreenY(yPos);
-}
-
-void Simulation::PrintGameOverWindow(const Frame& window) { simulationPrinter->PrintGameOverWindow(window); }
-
-void  Simulation::SetTerminalHeader(const string& header) { simulationPrinter->SetHeader(header); }
