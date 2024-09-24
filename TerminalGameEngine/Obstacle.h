@@ -13,7 +13,7 @@ public:
     virtual int GetColor() const { return Terminal::RED; }
 
 protected:
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
-    virtual void OnCollisionExit(Direction endingCollisionDirection) {}
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
+    virtual void OnCollisionExit(Direction endingCollisionDir) {}
     virtual void InitModel() { SetModel(CreteModelUsingChar( -37, size_t(4), size_t(2))); }
 };

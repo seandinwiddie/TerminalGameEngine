@@ -16,7 +16,7 @@ PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed)
         this->ySpeed = -ySpeed;
 }
 
-void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDirection)
+void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
     iSFirstLaunch = false;
 
@@ -37,7 +37,7 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDirection)
 
     AudioManager::Instance().PlayFx("Pong/ballHit.wav",0.02);
 
-    if (collisionDirection == Direction::up || collisionDirection == Direction::down)
+    if (collisionDir == Direction::up || collisionDir == Direction::down)
     {
         ySpeed = -ySpeed;
         PongBar* otherBar = dynamic_cast<PongBar*>(other);

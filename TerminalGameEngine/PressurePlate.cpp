@@ -7,9 +7,9 @@ PressurePlate::PressurePlate(int xPos, int yPos) : GameObject(xPos, yPos)
     pressedModel = CreteModelUsingChar('_',6,1);
 }
 
-void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDirection)
+void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
-    if (collisionDirection == Direction::up)
+    if (collisionDir == Direction::up)
     {
         OnPress.Notify();
         SetModel(pressedModel);
@@ -17,9 +17,9 @@ void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDirec
     } 
 }
 
-void PressurePlate::OnCollisionExit(Direction endingCollisionDirection)
+void PressurePlate::OnCollisionExit(Direction endingCollisionDir)
 {
-    if (endingCollisionDirection == Direction::up)
+    if (endingCollisionDir == Direction::up)
     {
         OnRelease.Notify();
         SetModel(unpressedModel);

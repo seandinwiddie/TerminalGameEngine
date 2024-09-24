@@ -61,7 +61,7 @@ void Simulation::Step()
 	{
 		GameObject* obj = dynamic_cast<GameObject*>((*it));
 		if (obj != nullptr)
-			UpdateObjectCollisionDirections(obj);
+			UpdateObjectcollisionDirs(obj);
 	}
 
 	//---------------- 
@@ -84,7 +84,7 @@ void Simulation::Step()
 #endif
 }
 
-void Simulation::UpdateObjectCollisionDirections(GameObject* obj)
+void Simulation::UpdateObjectcollisionDirs(GameObject* obj)
 {
 	std::vector<bool> collidingDirections(4);
 

@@ -10,18 +10,15 @@
 
 class MovingStraightObject : public GameObject
 {
-	//---------------------------------------------------------- Fields
-protected:
-	Direction moveDirection;
-
+//---------------------------------------------------------- Fields
 private:
+	Direction moveDirection;
 	const double moveSpeed;
 
-	//---------------------------------------------------------- Methods
+//---------------------------------------------------------- Methods
 public:
 	MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed);
 
 protected:
 	void Update() override;
-
 };

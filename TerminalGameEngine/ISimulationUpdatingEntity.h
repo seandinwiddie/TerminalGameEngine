@@ -2,8 +2,8 @@
 
 class ISimulationUpdatingEntity
 {
-	friend class Simulation;
-
+friend class Simulation;
+//---------------------------------------------------------- Methods
 protected:
 	virtual void Update() = 0;
 };

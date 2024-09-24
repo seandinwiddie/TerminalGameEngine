@@ -76,7 +76,7 @@ private:
 	bool CanObjectBeAdded(const GameObject* obj) const;
 	bool IsObjectInSimulation(const ISimulationUpdatingEntity* obj) const;
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, GameObject*& outCollidingObject) const;
-	void UpdateObjectCollisionDirections(GameObject* collidingObj);
+	void UpdateObjectcollisionDirs(GameObject* collidingObj);
 
 	bool IsSpaceEmpty(int startingY, int startingX, size_t width, size_t height) const;
 	void ResetScreenManager(const string& backgroundFileName);

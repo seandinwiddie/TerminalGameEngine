@@ -65,7 +65,7 @@ void GameObject::Move(Direction direction, double moveSpeed)
 
 Model GameObject::CreteModelUsingChar
 (
-	char c, 
+	char modelChar, 
 	size_t sizeX, 
 	size_t sizeY
 ) const
@@ -77,7 +77,7 @@ Model GameObject::CreteModelUsingChar
 		for (int x = 0; x < sizeX; ++x)
 		{
 			result[y].resize(sizeX);
-			result[y][x] = c;
+			result[y][x] = modelChar;
 		}
 	}
 	return result;
@@ -92,13 +92,13 @@ void GameObject::SetModel(const Model& newModel)
 	model = newModel;
 }
 
-void GameObject::CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDirection)
+void GameObject::CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDir)
 {
-	int directionIndex = static_cast<int>(collisionDirection);
+	int directionIndex = static_cast<int>(collisionDir);
 	if (collidingDirections[directionIndex] == false)
 	{
 		collidingDirections[directionIndex] = true;
-		OnCollisionEnter(other, collisionDirection);
+		OnCollisionEnter(other, collisionDir);
 	}
 }
 

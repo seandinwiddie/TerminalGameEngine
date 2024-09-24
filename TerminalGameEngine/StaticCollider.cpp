@@ -8,6 +8,6 @@ StaticCollider::StaticCollider
     size_t sizeY,
     char modelChar
 ) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar)
-{
+{ 
     canMove = false;
 }

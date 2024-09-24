@@ -20,6 +20,6 @@ public:
     virtual double GetGravityScale() const override { return 0; }
 
 protected:
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override {}
-    virtual void OnCollisionExit(Direction endingCollisionDirection) override {}
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override {}
+    virtual void OnCollisionExit(Direction endingCollisionDir) override {}
 };

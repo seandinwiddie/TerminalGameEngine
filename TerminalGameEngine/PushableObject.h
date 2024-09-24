@@ -13,14 +13,14 @@ public:
     virtual int GetColor() const { return Terminal::BLUE; }
 
 protected:
-    virtual void OnCollisionExit(Direction endingCollisionDirection) override {}
+    virtual void OnCollisionExit(Direction endingCollisionDir) override {}
     virtual void InitModel() override { SetModel(CreteModelUsingChar('@', 4, 2)); }
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection)override
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir)override
     {
-        if (collisionDirection == Direction::right || collisionDirection == Direction::left)
+        if (collisionDir == Direction::right || collisionDir == Direction::left)
         {
-            Move(GetInverseDirection(collisionDirection), 9999);
-            collidingDirections[static_cast<int>(collisionDirection)] = false;
+            Move(GetInverseDirection(collisionDir), 9999);
+            collidingDirections[static_cast<int>(collisionDir)] = false;
         }
         else if (dynamic_cast<Bunny*>(other) == nullptr)
         {

@@ -213,7 +213,7 @@ void Bunny::Move(Direction direction, double moveSpeed)
         lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }
 
-void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDirection)
+void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
@@ -222,7 +222,7 @@ void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDirection)
         return;
     }
 
-    switch (collisionDirection)
+    switch (collisionDir)
     {
     case Direction::down:
         SetState(State::idle);

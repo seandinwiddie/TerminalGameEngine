@@ -16,7 +16,12 @@ public:
         size_t modelSizeX,
         size_t modelSizeY,
         char modelChar
-    ) : GameObject(xPos, yPos), modelSizeX(modelSizeX), modelSizeY(modelSizeY), modelChar(modelChar){ }
+    ) : 
+        GameObject(xPos, yPos), 
+        modelSizeX(modelSizeX), 
+        modelSizeY(modelSizeY), 
+        modelChar(modelChar)
+    { }
 
 protected:
     virtual void InitModel() override { SetModel( CreteModelUsingChar(modelChar, modelSizeX, modelSizeY) ); }

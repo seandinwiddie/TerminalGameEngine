@@ -22,7 +22,7 @@ public:
     virtual int GetColor() const { return Terminal::CYAN; }
 
 protected:
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) override;
-    virtual void OnCollisionExit(Direction endingCollisionDirection) override;
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
+    virtual void OnCollisionExit(Direction endingCollisionDir) override;
     virtual void InitModel() override { SetModel(unpressedModel); }
 };

@@ -49,17 +49,17 @@ public:
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
-	virtual void OnCollisionEnter(GameObject* other, Direction collisionDirection) = 0;
-	virtual void OnCollisionExit(Direction endingCollisionDirection) = 0;
+	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) = 0;
+	virtual void OnCollisionExit(Direction endingCollisionDir) = 0;
 	virtual void InitModel() = 0;
 
-	Model CreteModelUsingChar(char c, size_t sizeX, size_t sizeY) const;
+	Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
 	void SetModel(const Model& newModel);
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 	bool IsModelInitialized() const { return model.size() != 0; }
 
-	void CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDirection);
+	void CALLED_BY_SIM_NotifyCollision(GameObject* other, Direction collisionDir);
 	void CALLED_BY_SIM_UpdateCollidingDirecitons(const std::vector<bool>& newCollidingDirections);
 };
