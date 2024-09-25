@@ -66,7 +66,7 @@ public:
 protected:
     void Update() override;
     virtual void Move(Direction direction, double moveSpeed) override;
-    virtual void OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir) override;
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
     virtual void OnCollisionExit(Direction endingCollisionDir) override {}
     virtual void InitModel() { SetModel(idleModelLeft); }
 
@@ -82,7 +82,7 @@ private:
     void HandleVerticalMovement();
     void HandleHorizontalMovement();
     void HandleSounds(State oldState, State newState);
-    bool IsTouchingGround() { return collidingDirections[Direction::down]; }
+    bool IsTouchingGround() { return collisions[Direction::down].size() > 0; }
     bool IsJumping() { return state == State::jumpingDown || state == State::jumpingUp; }
 
 #pragma endregion Methods

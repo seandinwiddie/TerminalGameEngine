@@ -7,7 +7,7 @@ PressurePlate::PressurePlate(int xPos, int yPos) : GameObject(xPos, yPos)
     pressedModel = CreteModelUsingChar('_',6,1);
 }
 
-void PressurePlate::OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
+void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
     if (collisionDir == Direction::up)
     {

@@ -12,6 +12,7 @@
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
 template<typename T> using uset = std::unordered_set<T>;
+template<typename T> using vector = std::vector<T>;
 
 class GameObject : public ISimulationUpdatingEntity
 {
@@ -19,7 +20,6 @@ friend class Simulation;
 
 //---------------------------------------------------------- Fields
 private:
-	//don't modify directly
 	int xPos;
 	int yPos;
 
@@ -31,7 +31,7 @@ private:
 
 protected:
 	bool canMove = true;
-	std::vector<bool> collidingDirections{ false, false, false, false };
+	vector<uset<GameObject*>> collisions;
 
 //---------------------------------------------------------- Methods
 public:
@@ -52,7 +52,7 @@ public:
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
-	virtual void OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir) = 0;
+	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) = 0;
 	virtual void OnCollisionExit(Direction endingCollisionDir) = 0;
 	virtual void InitModel() = 0;
 
@@ -66,5 +66,5 @@ private:
 	void CALLED_BY_SIM_Move(Direction direction);
 	void CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir);
 	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir);
-	void CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections);
+	void CALLED_BY_SIM_UpdateCollisions(vector<uset<GameObject*>>& collisions);
 };

@@ -213,16 +213,13 @@ void Bunny::Move(Direction direction, double moveSpeed)
         lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }
 
-void Bunny::OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
+void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
-    for (GameObject* item : collidingObjects)
+    if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
-        if (dynamic_cast<Obstacle*>(item) != nullptr)
-        {
-            SetState(State::defeated);
-            level->OnGameOver();
-            return;
-        }
+        SetState(State::defeated);
+        level->OnGameOver();
+        return;
     }
 
     switch (collisionDir)

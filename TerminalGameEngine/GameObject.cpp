@@ -8,6 +8,7 @@ GameObject::GameObject(int xPos, int yPos):
 	xPosContinuous(xPos), 
 	yPosContinuous(yPos)
 {
+	collisions.resize(4); //todo move in declaration
 	ResetPartialMovement();
 }
 
@@ -93,29 +94,43 @@ void GameObject::SetModel(const Model& newModel)
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
-	if (collidingDirections[collisionDir] == false)
+	if (collisionDir == Direction::right)
+		int a = 1;
+
+	uset<GameObject*> directionCollisions = collisions[collisionDir];
+	for (GameObject* obj : collidingObjects)
 	{
-		collidingDirections[collisionDir] = true;
-		OnCollisionEnter(collidingObjects, collisionDir);
+		if (directionCollisions.find(obj) == directionCollisions.end())
+		{
+			directionCollisions.insert(obj);
+			OnCollisionEnter(obj, collisionDir);
+		}
 	}
 }
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir)
 {
-	CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>{ this }, collisionDir);
+	CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>{collidingObject}, collisionDir);
 }
 
-
-void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections)
+void GameObject::CALLED_BY_SIM_UpdateCollisions(vector<uset<GameObject*>>& newCollisions)
 {
-	for (int i = 0; i < collidingDirections.size(); ++i)
+	assert(newCollisions.size() == 4);
+
+	for (int i = 0; i < newCollisions.size(); ++i)
 	{
-		if (collidingDirections[i] == true && newCollidingDirections[i] == false)
-		{
-			collidingDirections[i] = false;
-			OnCollisionExit(static_cast<Direction>(i));
-		}
+		uset<GameObject*> directionCollisions = collisions[i];
+		uset<GameObject*> newDirectionCollisions = newCollisions[i];
+
+		for(GameObject* collider : directionCollisions)
+			if (newDirectionCollisions.find(collider) == newDirectionCollisions.end())
+			{
+				directionCollisions.erase(collider);
+				OnCollisionExit(static_cast<Direction>(i));
+			}
+				
 	}
+	//collisions = newCollisions;
 }
 
 void GameObject::CALLED_BY_SIM_Move(Direction direction)

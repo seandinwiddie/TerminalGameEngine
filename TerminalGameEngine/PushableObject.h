@@ -17,20 +17,18 @@ public:
 protected:
     virtual void OnCollisionExit(Direction endingCollisionDir) override {}
     virtual void InitModel() override { SetModel(model); }
-    virtual void OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)override
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir)override
     {
         if (collisionDir == Direction::right || collisionDir == Direction::left)
         {
             Move(GetInverseDirection(collisionDir), 9999);
-            collidingDirections[collisionDir] = false;
+            //collisions[collisionDir] = false;
+            collisions[collisionDir].clear();
         }
         else
         {
-            for (GameObject* collider : collidingObjects)
-            {
-                if (dynamic_cast<Bunny*>(collider) == nullptr)
-                    AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
-            }
+            if (dynamic_cast<Bunny*>(other) == nullptr)
+                AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
         }
     }
 };
