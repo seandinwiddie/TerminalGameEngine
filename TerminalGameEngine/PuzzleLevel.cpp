@@ -33,7 +33,7 @@ void PuzzleLevel::LoadInSimulation()
     simulation.TryAddEntity(flag);
 
     //------------------------------- automatic door
-    AutomaticDoor* automaticDoor = new AutomaticDoor(60, 4, 2, 6, '|');
+    AutomaticDoor* automaticDoor = new AutomaticDoor(60, 4, 2, 6, '|', 4);
     simulation.TryAddEntity(automaticDoor);
 
     //------------------------------- automatic door container

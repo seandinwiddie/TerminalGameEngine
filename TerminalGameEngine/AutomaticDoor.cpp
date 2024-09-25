@@ -7,12 +7,12 @@ void AutomaticDoor::Update()
     if (IsOpen())
     {
         if (GetPosY() < startingPosY + GetModelHeight())
-            Move(Direction::up, MOVE_SPEED);
+            Move(Direction::up, moveSpeed);
     }
     else
     {
         if (GetPosY() > startingPosY)
-            Move(Direction::down, MOVE_SPEED);
+            Move(Direction::down, moveSpeed);
     }
 }
 
@@ -22,8 +22,9 @@ AutomaticDoor::AutomaticDoor
     int yPos,
     size_t sizeX,
     size_t sizeY,
-    char modelChar
-) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar)
+    char modelChar,
+    double moveSpeed
+) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar), moveSpeed(moveSpeed)
 {
     startingPosY = yPos;
 }

@@ -19,6 +19,7 @@ public:
     virtual int GetWorldSizeY() const override { return 23; }
     virtual int GetScreenPadding() const override { return 4; }
     virtual string GetBackgroundFileName() override { return BACKGROUND_FILE_NAME; }
+
     virtual void LoadInSimulation() override;
     virtual void OnGameOver() override;
 

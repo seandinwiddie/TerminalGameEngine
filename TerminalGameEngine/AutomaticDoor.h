@@ -6,8 +6,8 @@ class AutomaticDoor : public VariableSizeCollider
 {
 //---------------------------------------------------------- Fields
 private:
-    static constexpr double MOVE_SPEED = 4;
-    int startingPosY = -1;
+    double moveSpeed;
+    int startingPosY;
     int energySourcesCounter = 0;
 
 //---------------------------------------------------------- Methods
@@ -18,7 +18,8 @@ public:
         int yPos,
         size_t sizeX,
         size_t sizeY,
-        char modelChar
+        char modelChar,
+        double moveSpeed
     );
 
     bool IsOpen() const { return energySourcesCounter > 0; }
