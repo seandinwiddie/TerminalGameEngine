@@ -36,6 +36,11 @@ public:
     bool IsGameOver() const { return gameOverTime > -1; }
     bool IsTerminated() const { return isTerminated; }
 
+    //todo try to merge this with simulation printer ones
+    //todo try to use this in other levels
+    virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding(); }
+    virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding(); }
+
 protected:
     virtual double ShowGameOverScreenDelay() const = 0;
     virtual void Update() override;

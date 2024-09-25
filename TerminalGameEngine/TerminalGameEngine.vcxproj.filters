@@ -201,6 +201,9 @@
     <ClInclude Include="Alien.h">
       <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
+    <ClInclude Include="AlienLowScore.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">
