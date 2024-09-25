@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "TimeHelper.h"
 #include "Terminal.h"
+#include "DebugManager.h"
 
 #include <Windows.h>
 #include <cassert>
@@ -28,11 +29,6 @@ SimulationPrinter::SimulationPrinter
     
     DrawMargins();
     PrintBackground();
-
-#if DEBUG_MODE
-    fpsRecord.clear();
-    fpsRecord.resize(0);
-#endif
 }
 
 void SimulationPrinter::SetHeader(const string& header)
@@ -168,7 +164,7 @@ void SimulationPrinter::Cout(const string& s)
     std::cout << s;
 
 #if DEBUG_MODE && SHOW_COUT_CALLS
-    DEBUG_IncreaseCoutCallsCount();
+    DEBUG_UpdateCoutCalls();
 #endif
 }
 
@@ -177,52 +173,34 @@ void SimulationPrinter::Cout(char c)
     std::cout << c;
 
 #if DEBUG_MODE && SHOW_COUT_CALLS
-    DEBUG_IncreaseCoutCallsCount();
+    DEBUG_UpdateCoutCalls();
 #endif
 }
 
 #pragma region ======================================================================== DEBUG
 #if DEBUG_MODE
 
-void SimulationPrinter::DEBUG_IncreaseCoutCallsCount()
+void SimulationPrinter::DEBUG_UpdateCoutCalls()
 {
     int startingColor = terminal.GetColor();
-    terminal.SetColor(debugColor);
     COORD cursorStartingPos = terminal.GetCursorPosition();
 
-    terminal.SetCursorPosition(0, GetMaxTerminalY() + 4);
-    std::cout << "                  ";
-    terminal.SetCursorPosition(0, GetMaxTerminalY() + 4);
-    std::cout << "COUT CALLS: " << coutCalls++;
-
-    if (coutCalls == 1000)
-        coutCalls = 0;
+    terminal.SetColor(DEBUG_COLOR);
+    terminal.SetCursorPosition(0, GetMaxTerminalY() + DEBUG_POSITION_COUT_CALLS);
+    //final space makes sure old string is cleared
+    string output  = "COUT CALLS: " + std::to_string(DebugManager::Instance().IncreaseCoutCalls()) + string("     ");
+    std::cout << output;
 
     terminal.SetCursorPosition(cursorStartingPos);
     terminal.SetColor(startingColor);
 }
 
-void SimulationPrinter::DEBUG_PrintAverageFps()
+void SimulationPrinter::DEBUG_PrintFpsString(size_t fps)
 {
-    double fps = TimeHelper::Instance().GetFPS();
-    fpsRecord.push_back(fps);
-
-    if (TimeHelper::Instance().GetTime() - lastTimePrintedFps > REFRESH_FPS_EVERY_SECONDS)
-    {
-        shownAverageFps = 0;
-
-        for (double fps : fpsRecord)
-            shownAverageFps += fps;
-        shownAverageFps /= fpsRecord.size();
-
-        fpsRecord.clear();
-        lastTimePrintedFps = TimeHelper::Instance().GetTime();
-    }
-    string fpsString = "FPS: " + std::to_string(static_cast<int>(shownAverageFps)) + '\n';
-
-    terminal.SetColor(debugColor);
-    terminal.SetCursorPosition(0, GetMaxTerminalY() + 3);
-    std::cout << fpsString;
+    terminal.SetColor(DEBUG_COLOR);
+    terminal.SetCursorPosition(0, GetMaxTerminalY() + DEBUG_POSITION_FPS);
+    string output = "FPS: " + std::to_string(fps) + '\n';
+    std::cout << output;
 }
 
 #endif

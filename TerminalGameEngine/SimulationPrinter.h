@@ -71,18 +71,12 @@ private:
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
 private:
-	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
-	std::list<double> fpsRecord;
-	double lastTimePrintedFps = 0;
-	double shownAverageFps = 0;
-	int debugColor = Terminal::CYAN;
-
-	int coutCalls = 0;
-
+	const int DEBUG_COLOR = Terminal::CYAN;
+	const size_t DEBUG_POSITION_FPS = 1;
+	const size_t DEBUG_POSITION_COUT_CALLS = 2;
 public:
-	void DEBUG_PrintAverageFps();
-private:
-	void DEBUG_IncreaseCoutCallsCount();
+	void DEBUG_PrintFpsString(size_t fps);
+	void DEBUG_UpdateCoutCalls();
 #endif
 
 };

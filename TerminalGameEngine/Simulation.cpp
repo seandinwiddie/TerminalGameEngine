@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "TimeHelper.h"
 #include "WorldSpace.h"
+#include "DebugManager.h"
 
 #include <Windows.h>
 #include <cassert>
@@ -62,7 +63,7 @@ void Simulation::Step()
 	OnFrameGenerated.Notify();
 
 #if DEBUG_MODE && SHOW_FPS
-	simulationPrinter->DEBUG_PrintAverageFps();
+	simulationPrinter->DEBUG_PrintFpsString(DebugManager::Instance().GetAverageFps());
 #endif
 }
 
@@ -237,6 +238,10 @@ void Simulation::LoadLevel (Level* level)
 	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), GetScreenPadding());
 	ResetScreenManager(level->GetBackgroundFileName());
 	level->LoadInSimulation();
+
+#if DEBUG_MODE
+	DebugManager::Instance().Reset();
+#endif
 }
 
 void Simulation::ResetScreenManager(const string& backgroundFileName)

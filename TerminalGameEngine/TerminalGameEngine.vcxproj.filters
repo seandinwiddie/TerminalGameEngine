@@ -91,6 +91,9 @@
     <ClCompile Include="WorldSpace.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="DebugManager.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="FakeGameObejct.h">
       <Filter>Headers\Engine\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugManager.h">
+      <Filter>Headers\Engine\Managers/Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
