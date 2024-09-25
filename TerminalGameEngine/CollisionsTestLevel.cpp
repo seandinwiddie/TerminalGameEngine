@@ -11,24 +11,28 @@ void CollisionsTestLevel::LoadInSimulation()
     Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
+    //----------------------- spawners settings
     double spawnDelay = 0.15;
     double speed = 32;
 
+    //----------------------- right spawner
+    int xPosRight = 96;
     vector<int>ySpawnPoints = { 20,18,16,14 };
     ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
     (
-        96,
+        xPosRight,
         spawnDelay,
         -speed,
         ySpawnPoints
     );
     simulation.TryAddEntity(spawnerRight);
 
-
+    //----------------------- left spawner
+    int xPosLeft = 2;
     vector<double>speeds2 = { 8, 1 };
     ObstaclesSpawner* spawnerLeft = new ObstaclesSpawner
     (
-        2,
+        xPosLeft,
         spawnDelay,
         speed,
         ySpawnPoints
