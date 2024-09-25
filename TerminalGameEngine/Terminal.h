@@ -23,6 +23,8 @@ public:
     const static int CYAN;
     const static int MAGENTA;
     const static int YELLOW;
+    const static int GREY;
+    const static int BLACK;
 
 private:
     int currentColor;

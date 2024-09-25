@@ -7,14 +7,16 @@ const int Terminal::BLUE_DARK = FOREGROUND_BLUE;
 const int Terminal::CYAN_DARK = FOREGROUND_GREEN | FOREGROUND_BLUE;
 const int Terminal::MAGENTA_DARK = FOREGROUND_RED | FOREGROUND_BLUE;
 const int Terminal::YELLOW_DARK = FOREGROUND_RED | FOREGROUND_GREEN;
+const int Terminal::BLACK = 0;
 
 const int Terminal::WHITE = WHITE_DARK | FOREGROUND_INTENSITY;
 const int Terminal::RED = RED_DARK | FOREGROUND_INTENSITY;
 const int Terminal::GREEN = GREEN_DARK | FOREGROUND_INTENSITY;
 const int Terminal::BLUE = BLUE_DARK | FOREGROUND_INTENSITY;
 const int Terminal::CYAN = CYAN_DARK | FOREGROUND_INTENSITY;
-const int Terminal::MAGENTA = MAGENTA_DARK | FOREGROUND_BLUE;
-const int Terminal::YELLOW = YELLOW_DARK | FOREGROUND_GREEN;
+const int Terminal::MAGENTA = MAGENTA_DARK | FOREGROUND_INTENSITY;
+const int Terminal::YELLOW = YELLOW_DARK | FOREGROUND_INTENSITY;
+const int Terminal::GREY = BLACK | FOREGROUND_INTENSITY;
 
 void Terminal::Clear()
 {

@@ -34,7 +34,7 @@ private:
 	size_t padding;
 
 	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
-	int uiColor = Terminal::CYAN;
+	int uiColor = Terminal::WHITE;
 	int backgroundColor = Terminal::BLUE_DARK;
 
 //---------------------------------------------------------- Methods
