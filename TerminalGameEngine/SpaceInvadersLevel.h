@@ -1,10 +1,14 @@
 #pragma once
 #include "Level.h"
 
+class Alien;
+
 // 11 x 4 -> 44
 // + 2 alieni -> 52
 // + 12 padding -> 64
 // spazi = 1x10 -> 10 -> 74
+
+using type_info = std::type_info;
 
 class SpaceInvadersLevel : public Level
 {
@@ -38,5 +42,7 @@ protected:
 
 private:
     void AddAliensToSimulation();
-    void AddAliensRowToSimulation(int posY);
+    
+    const type_info& GetTypeOfAlienForRow(int rowIndexFromTop);
+    void AddAliensRowToSimulation(int posY, const type_info& alienType);
 };

@@ -172,7 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h" />
+    <ClInclude Include="AlienHighScore.h" />
     <ClInclude Include="AlienLowScore.h" />
+    <ClInclude Include="AlienMidScore.h" />
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="Config.h" />

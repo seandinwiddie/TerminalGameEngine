@@ -1,6 +1,8 @@
 #include "SpaceInvadersLevel.h"
 #include "Simulation.h"
 #include "AlienLowScore.h"
+#include "AlienMidScore.h"
+#include "AlienHighScore.h"
 
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
@@ -51,13 +53,24 @@ void SpaceInvadersLevel::AddAliensToSimulation()
 	int addedRows = 0;
 	while (addedRows < ALIENS_ROWS_COUNT)
 	{
-		AddAliensRowToSimulation(yPos);
+		const type_info& type = GetTypeOfAlienForRow(addedRows);
+		AddAliensRowToSimulation(yPos,type);
 		yPos -= (ALIEN_HEIGHT + SPACE_BETWEEN_ALIENS_Y);
 		++addedRows;
 	}
 }
 
-void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos)
+const type_info& SpaceInvadersLevel::GetTypeOfAlienForRow(int rowIndexFromTop)
+{
+	if (rowIndexFromTop == 0)
+		return typeid(AlienHighScore);
+	else if (rowIndexFromTop < 3)
+		return typeid(AlienMidScore);
+	else
+		return typeid(AlienLowScore);
+}
+
+void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, const type_info& alienType)
 {
 	Simulation& simulation = Simulation::Instance();
 
@@ -65,7 +78,17 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos)
 	int addedAliens = 0;
 	while (addedAliens < ALIENS_COLUMNS_COUNT)
 	{
-		Alien* alien = new AlienLowScore(xPos, yPos);
+		Alien* alien;
+
+		if (alienType == typeid(AlienHighScore))
+			alien = new AlienHighScore(xPos, yPos);
+		else if (alienType == typeid(AlienMidScore))
+			alien = new AlienMidScore(xPos, yPos);
+		else if (alienType == typeid(AlienLowScore))
+			alien = new AlienLowScore(xPos, yPos);
+		else
+			throw std::invalid_argument("invalid alien type receiveds");
+		
 		simulation.TryAddEntity(alien);
 		++addedAliens;
 		xPos += ALIEN_WIDTH + SPACE_BETWEEN_ALIENS_X;
