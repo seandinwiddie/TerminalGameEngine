@@ -129,105 +129,96 @@ bool WorldSpace::CanObjectMoveAtDirection
 	{
 	case Direction::up:
 	{
-		int y = obj->GetMaxPosY() + 1;
+		int movingToY = obj->GetMaxPosY() + 1;
 
 		//exiting world
-		if (y == GetSizeY())
+		if (movingToY == GetSizeY())
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if (obj->CanExitScreenSpace() == false)
+		if ((obj->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
 		{
-			if (y == GetSizeY() - screenPadding)
-			{
-				collidingObjects.insert(SCREEN_MARGIN);
-				return false;
-			}
+			collidingObjects.insert(SCREEN_MARGIN);
+			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(obj->GetPosX(), y, obj->GetModelWidth(), 1, collidingObjects) == false)
+		if (IsAreaEmpty(obj->GetPosX(), movingToY, obj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 		
 		return true;
 	}
 	case Direction::down:
 	{
-		int y = obj->GetPosY() - 1;
+		int movingToY = obj->GetPosY() - 1;
 
-		if (y == -1)
+		//exiting world
+		if (movingToY == -1)
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if (obj->CanExitScreenSpace() == false)
+		if ((obj->CanExitScreenSpace() == false) && (movingToY == screenPadding - 1))
 		{
-			if (y == screenPadding - 1)
-			{
-				collidingObjects.insert(SCREEN_MARGIN);
-				return false;
-			}
+			collidingObjects.insert(SCREEN_MARGIN);
+			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(obj->GetPosX(), y, obj->GetModelWidth(), 1, collidingObjects) == false)
+		if (IsAreaEmpty(obj->GetPosX(), movingToY, obj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::right:
 	{
-		int x = obj->GetMaxPosX() + 1;
+		int movingToX = obj->GetMaxPosX() + 1;
 
-		if (x == GetSizeX())
+		//exiting world
+		if (movingToX == GetSizeX())
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if (obj->CanExitScreenSpace() == false)
+		if ((obj->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
 		{
-			if (x == GetSizeX() - screenPadding)
-			{
-				collidingObjects.insert(SCREEN_MARGIN);
-				return false;
-			}
+			collidingObjects.insert(SCREEN_MARGIN);
+			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(x, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+		if (IsAreaEmpty(movingToX, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::left:
 	{
-		int x = obj->GetPosX() - 1;
+		int movingToX = obj->GetPosX() - 1;
 
-		if (x == -1)
+		//exiting world
+		if (movingToX == -1)
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if (obj->CanExitScreenSpace() == false)
+		if ((obj->CanExitScreenSpace() == false) && (movingToX == screenPadding - 1))
 		{
-			if (x == screenPadding - 1)
-			{
-				collidingObjects.insert(SCREEN_MARGIN);
-				return false;
-			}
+			collidingObjects.insert(SCREEN_MARGIN);
+			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(x, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+		if (IsAreaEmpty(movingToX, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;
