@@ -21,7 +21,6 @@ protected:
         if (collisionDir == Direction::right || collisionDir == Direction::left)
         {
             TryMove(GetInverseDirection(collisionDir), 9999);
-            //collisions[collisionDir] = false;
             collisions[collisionDir].clear();
         }
         else

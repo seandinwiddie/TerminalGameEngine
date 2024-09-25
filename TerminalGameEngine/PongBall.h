@@ -7,6 +7,7 @@ class PongBar;
 
 class PongBall : public GameObject
 {
+//---------------------------------------------------------- Fields
 private:
     PongLevel* level;
     double ySpeed;
@@ -14,6 +15,7 @@ private:
     bool iSFirstLaunch;
     Model model = {{-37}};
 
+//---------------------------------------------------------- Methods
 public:
     PongBall(PongLevel* level, int xPos, int yPos, double ySpeed);
     virtual int GetColor() const { return Terminal::GREEN; }

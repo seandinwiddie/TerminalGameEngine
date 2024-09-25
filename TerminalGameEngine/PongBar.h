@@ -9,9 +9,7 @@ private:
     bool isBottomBar;
     double deflectBallFactor;
 
-public:
 //---------------------------------------------------------- Methods
-
 public:
     PongBar
     (
