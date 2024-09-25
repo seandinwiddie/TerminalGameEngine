@@ -62,7 +62,6 @@ void PongBall::HandleBarCollision(PongBar* collidingBar)
     int originalSign = distanceFromMidPoint > 0 ? 1 : -1;
     xSpeed = std::pow(std::abs(distanceFromMidPoint), collidingBar->GetDeflectBallFactor());
     xSpeed *= originalSign;
-    //xSpeed = distanceFromMidPoint * 8 * collidingBar->GetDeflectBallFactor();
 }
 
 void PongBall::Update()
