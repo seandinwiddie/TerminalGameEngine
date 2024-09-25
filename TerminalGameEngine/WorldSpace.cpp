@@ -7,7 +7,7 @@ FakeGameObject WorldSpace::SCREEN_MARGIN_MEMORY;
 FakeGameObject* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
 FakeGameObject* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
 
-void WorldSpace::Init(int xSize, int ySize, int screenPadding)
+void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 {
 	space.clear();
 	space.resize(ySize);

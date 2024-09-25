@@ -88,8 +88,7 @@ void SimulationPrinter::PrintGameOverWindow(const Frame& window)
 void SimulationPrinter::PrintObject(GameObject* go)
 {
     Model model = go->GetModel();
-    if (model[0].size() == 0)
-        return;
+    assert(model.size() > 0 && model[0].size() > 0);
     terminal.SetColor(go->GetColor());
     PrintInternal(go->GetPosX(), go->GetPosY(), go->GetModelWidth(), go->GetModelHeight(), go);
 }

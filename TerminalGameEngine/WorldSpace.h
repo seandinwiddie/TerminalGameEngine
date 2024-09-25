@@ -23,10 +23,10 @@ private:
 //---------------------------------------------------------- Fields
 public:
 	vector<vector<GameObject*>> space;
-	int screenPadding;
+	size_t screenPadding;
 //---------------------------------------------------------- Methods
 public:
-	void Init(int xSize, int ySize, int screenPadding);
+	void Init(int xSize, int ySize, size_t screenPadding);
 
 	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, uset<GameObject*>& collidingObjects) const;
 	void InsertObject(GameObject* obj);

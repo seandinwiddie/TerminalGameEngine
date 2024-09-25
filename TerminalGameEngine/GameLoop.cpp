@@ -53,7 +53,7 @@ Level* GameLoop::ShowLevelSelection()
          << endl
          << "esc (inside levels) -> return to main menu" << endl
          << endl
-         << "All music by 'Cody O'Quinn'" << endl;
+         << "Music by 'Cody O'Quinn'" << endl;
 
     while (true)
     {
