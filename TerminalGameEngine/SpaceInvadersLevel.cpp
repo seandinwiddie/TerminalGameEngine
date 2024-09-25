@@ -32,7 +32,8 @@ void SpaceInvadersLevel::NotifyGameOver()
 
 void SpaceInvadersLevel::Update()
 {
-
+	//todo update only when needed
+	Simulation::Instance().SetTerminalHeader("<3 <3 <3                       wave: 1");
 }
 
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
