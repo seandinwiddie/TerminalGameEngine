@@ -82,5 +82,5 @@ void ObstaclesSpawner::TryIncreaseIntensity(double time)
 
 double ObstaclesSpawner::GetNextSpawnObstacleTime() const
 {
-    return TimeHelper::Instance().GetTime() +RandomUtils::GetRandomDoubleBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
+    return TimeHelper::Instance().GetTime() + RandomUtils::GetRandomDoubleBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
 }

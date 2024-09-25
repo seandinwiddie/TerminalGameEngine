@@ -44,26 +44,26 @@ void PuzzleLevel::LoadInSimulation()
     StaticCollider* automaticDoorTopLeft = new StaticCollider(59, 10, 1, 18, '#');
     simulation.TryAddEntity(automaticDoorTopLeft);
 
-    //------------ pressure plate 1
-    PressurePlate* pressurePlate1 = new PressurePlate(15, 4);
+    //------------ pressure plate left
+    PressurePlate* pressurePlate1 = new PressurePlate(14, 4, 8);
     pressurePlate1->OnPress.Subscribe
     (
         [this]()
         {
-            PushableObject* pushableObj1 = new PushableObject(30, GetWorldSizeY() - 2);
+            PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 2);
             Simulation::Instance().TryAddEntity(pushableObj1);
         }
     );
     simulation.TryAddEntity(pressurePlate1);
 
-    //------------ open door pressure plate left
-    PressurePlate* openDoorPressurePlateLeft = new PressurePlate(36, 4);
+    //------------ pressure plate center
+    PressurePlate* openDoorPressurePlateLeft = new PressurePlate(37, 4, 8);
     openDoorPressurePlateLeft->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
     openDoorPressurePlateLeft->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
     simulation.TryAddEntity(openDoorPressurePlateLeft);
 
-    //------------ open door pressure plate right
-    PressurePlate* openDoorPressurePlateRight = new PressurePlate(86, 4);
+    //------------ pressure plate right
+    PressurePlate* openDoorPressurePlateRight = new PressurePlate(86, 4, 8);
     openDoorPressurePlateRight->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
     openDoorPressurePlateRight->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
     simulation.TryAddEntity(openDoorPressurePlateRight);

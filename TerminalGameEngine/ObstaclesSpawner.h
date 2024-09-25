@@ -18,7 +18,6 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-
     ObstaclesSpawner
     (
         int xPos,

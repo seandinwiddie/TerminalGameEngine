@@ -1,10 +1,10 @@
 #include "PressurePlate.h"
 #include "AudioManager.h"
 
-PressurePlate::PressurePlate(int xPos, int yPos) : GameObject(xPos, yPos)
+PressurePlate::PressurePlate(int xPos, int yPos, size_t width) : GameObject(xPos, yPos)
 { 
-    unpressedModel = CreteModelUsingChar('=',6,1);
-    pressedModel = CreteModelUsingChar('_',6,1);
+    unpressedModel = CreteModelUsingChar('=', width, 1);
+    pressedModel = CreteModelUsingChar('_', width, 1);
 }
 
 void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDir)
