@@ -48,11 +48,14 @@ void SimulationPrinter::DrawHorizontalMargin()
 void SimulationPrinter::DrawMargins()
 {
     terminal.SetColor(screenMarginsColor);
+
+    //horizontal
     terminal.SetCursorPosition(0, 1);
     DrawHorizontalMargin();
     terminal.SetCursorPosition(0, static_cast<int>(GetMaxTerminalY()) );
     DrawHorizontalMargin();
 
+    //vertical
     for (size_t y = MARGIN_OFFSET_TOP_Y; y < GetMaxTerminalY(); ++y)
     {
         terminal.SetCursorPosition(size_t(0), y);
@@ -75,7 +78,7 @@ void SimulationPrinter::PrintGameOverWindow(const Frame& window)
             char c = window.chars[y][x];
             if (c != GAME_OVER_FRAME_IGNORED_CHAR)
             {
-                terminal.SetCursorPosition(x + MARGIN_OFFSET_X, y);
+                terminal.SetCursorPosition(x + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
                 Cout(c);
             }
         }
