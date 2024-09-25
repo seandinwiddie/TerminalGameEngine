@@ -1,6 +1,5 @@
 #pragma once
 #include "Alien.h"
-#include "TimeHelper.h"	
 
 class AlienLowScore : public Alien
 {
@@ -15,11 +14,8 @@ public:
 protected:
 	virtual void InitModel() { SetModel(MODEL_1); }
 
-	virtual void Update()
-	{
-		Alien::Update();
-		SetModel(TimeHelper::Instance().IsTimeForFirstOfTwoModels(0.8) ? MODEL_1 : MODEL_2);
-	}
+
+	virtual void StepAnimation() { SetModel(showFirstAnimFrame ? MODEL_1 : MODEL_2); }
 };
 
 const Model AlienLowScore::MODEL_1 =
