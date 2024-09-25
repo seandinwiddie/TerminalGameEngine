@@ -171,7 +171,15 @@ bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
 
 	const GameObject* objEntity = dynamic_cast<const GameObject*>(entity);
 	if (objEntity != nullptr)
-		return worldSpace.IsAreaEmpty(objEntity->GetPosX(), objEntity->GetPosY(), objEntity->GetModelWidth(), objEntity->GetModelHeight());
+	{
+		return worldSpace.IsAreaEmpty
+		(
+			objEntity->GetPosX(), 
+			objEntity->GetPosY(), 
+			objEntity->GetModelWidth(),
+			objEntity->GetModelHeight()
+		);
+	}
 	else
 		return true;
 }
