@@ -1,14 +1,6 @@
 #pragma once
-
 #include "Config.h"
 #include "GameObject.h"
-#include "InputUtils.h"
-#include "AudioManager.h"
-#include "TimeHelper.h"
-#include "Obstacle.h"
-#include "Simulation.h"
-#include "Terminal.h"
-
 #include <string>
 
 class Level;

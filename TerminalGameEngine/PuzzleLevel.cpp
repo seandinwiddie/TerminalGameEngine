@@ -1,6 +1,7 @@
 #pragma once
 #include "PuzzleLevel.h"
 
+#include "Simulation.h"
 #include "Bunny.h"
 #include "StaticCollider.h"
 #include "LevelEndFlag.h"

@@ -10,6 +10,7 @@
 #include "Simulation.h"
 
 using namespace std;
+using namespace InputUtils;
 
 GameLoop::GameLoop()
 {
@@ -35,7 +36,7 @@ bool GameLoop::LoopSimulation(Level* level)
     while (level->IsTerminated() == false)
     {
         Simulation::Instance().Step();
-        if (InputUtils::IsPressingEsc())
+        if (IsKeyPressed(Key::ESC))
             return true;
     }
     return false;
@@ -57,22 +58,22 @@ Level* GameLoop::ShowLevelSelection()
 
     while (true)
     {
-        if (InputUtils::IsPressing1())
+        if (IsKeyPressed(Key::NUM_1))
         {
             return new EndlessRunnerLevel();
             break;
         }
-        if (InputUtils::IsPressing2())
+        if (IsKeyPressed(Key::NUM_2))
         {
             return new PuzzleLevel();
             break;
         }
-        if (InputUtils::IsPressing3())
+        if (IsKeyPressed(Key::NUM_3))
         {
             return new PongLevel();
             break;
         }
-        if (InputUtils::IsPressing4())
+        if (IsKeyPressed(Key::NUM_4))
         {
             return new CollisionsTestLevel();
             break;

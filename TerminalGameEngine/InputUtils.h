@@ -1,33 +1,77 @@
 #pragma once
 #include <Windows.h>
+#include <unordered_map>
 
 namespace InputUtils
 {
-	inline bool IsAnyKeyPressed()
-	{
-		for (int i = 0; i < 256; ++i)
-			if (GetAsyncKeyState(i) & 0x8000)
-				return true;
+    enum class Key
+    {
+        SPACE,
+        W,
+        A,
+        S,
+        D,
 
-		return false;
-	}
-	inline bool IsPressingSpace() { return GetAsyncKeyState(VK_SPACE) & 0x8000; }
-	
-	inline bool IsPressingW() { return GetAsyncKeyState(0x57) & 0x8000; }
-	inline bool IsPressingA() { return GetAsyncKeyState(0x41) & 0x8000; }
-	inline bool IsPressingS() { return GetAsyncKeyState(0x53) & 0x8000; }
-	inline bool IsPressingD() { return GetAsyncKeyState(0x44) & 0x8000; }
+        ARROW_UP,
+        ARROW_DOWN,
+        ARROW_LEFT,
+        ARROW_RIGHT,
 
-	inline bool IsPressingArrowUp() { return GetAsyncKeyState(VK_UP) & 0x8000; }
-	inline bool IsPressingArrowDown() { return GetAsyncKeyState(VK_DOWN) & 0x8000; }
-	inline bool IsPressingArrowLeft() { return GetAsyncKeyState(VK_LEFT) & 0x8000; }
-	inline bool IsPressingArrowRight() { return GetAsyncKeyState(VK_RIGHT) & 0x8000; }
+        NUM_0,
+        NUM_1,
+        NUM_2,
+        NUM_3,
+        NUM_4,
+        NUM_5,
+        NUM_6,
+        NUM_7,
+        NUM_8,
+        NUM_9,
 
-	inline bool IsPressing1() { return GetAsyncKeyState(0x31) & 0x8000; }
-	inline bool IsPressing2() { return GetAsyncKeyState(0x32) & 0x8000; }
-	inline bool IsPressing3() { return GetAsyncKeyState(0x33) & 0x8000; }
-	inline bool IsPressing4() { return GetAsyncKeyState(0x34) & 0x8000; }
-	inline bool IsPressing0() { return GetAsyncKeyState(0x30) & 0x8000; }
-	inline bool IsPressing9() { return GetAsyncKeyState(0x39) & 0x8000; }
-	inline bool IsPressingEsc() { return GetAsyncKeyState(0x1B) & 0x8000; }
+        ESC,
+    };
+
+    // Map of key names to their virtual key codes
+    static std::unordered_map<Key, int> keyMap = 
+    {
+        {Key::SPACE, VK_SPACE},
+        {Key::W, 0x57},
+        {Key::A, 0x41},
+        {Key::S, 0x53},
+        {Key::D, 0x44},
+        {Key::ARROW_UP, VK_UP},
+        {Key::ARROW_DOWN, VK_DOWN},
+        {Key::ARROW_LEFT, VK_LEFT},
+        {Key::ARROW_RIGHT, VK_RIGHT},
+        {Key::NUM_0, 0x30},
+        {Key::NUM_1, 0x31},
+        {Key::NUM_2, 0x32},
+        {Key::NUM_3, 0x33},
+        {Key::NUM_4, 0x34},
+        {Key::NUM_5, 0x35},
+        {Key::NUM_6, 0x36},
+        {Key::NUM_7, 0x37},
+        {Key::NUM_8, 0x38},
+        {Key::NUM_9, 0x39},
+        {Key::ESC, VK_ESCAPE}
+    };
+
+    // Function to check if a key is pressed based on its string name
+    inline bool IsKeyPressed(Key key)
+    {
+        if (keyMap.find(key) != keyMap.end())
+        {
+            return GetAsyncKeyState(keyMap[key]) & 0x8000;
+        }
+        return false;
+    }
+
+    inline bool IsAnyKeyPressed()
+    {
+        for (int i = 0; i < 256; ++i)
+            if (GetAsyncKeyState(i) & 0x8000)
+                return true;
+
+        return false;
+    }
 }

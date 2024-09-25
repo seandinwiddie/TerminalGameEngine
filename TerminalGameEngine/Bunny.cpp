@@ -1,5 +1,11 @@
 #include "Bunny.h"
 #include "Level.h"
+#include "InputUtils.h"
+#include "TimeHelper.h"
+#include "AudioManager.h"
+#include "Obstacle.h"
+
+using namespace InputUtils;
 
 const Model Bunny::walkLeftModel
 {
@@ -124,7 +130,7 @@ void Bunny::HandleIdleWalkState()
 
 void  Bunny::HandleVerticalMovement()
 {
-    bool isPressingSpace = InputUtils::IsPressingSpace();
+    bool isPressingSpace = IsKeyPressed(Key::SPACE);
 
     if (isPressingSpace == false && IsTouchingGround() && IsJumping())
         SetState(State::walking);
@@ -161,8 +167,8 @@ void  Bunny::HandleVerticalMovement()
 
 void Bunny::HandleHorizontalMovement()
 {
-    bool isPressingA = InputUtils::IsPressingA();
-    bool isPressingD = InputUtils::IsPressingD();
+    bool isPressingA = IsKeyPressed(Key::A);
+    bool isPressingD = IsKeyPressed(Key::D);
 
     if ((isPressingA && isPressingD) || state == State::defeated)
         return;
@@ -200,7 +206,7 @@ double Bunny::GetGravityScale() const
     if (state == State::jumpingUp)
         return 0;
 
-    if (InputUtils::IsPressingSpace() && state == State::jumpingDown)
+    if (IsKeyPressed(Key::SPACE) && state == State::jumpingDown)
         return MOVE_DOWN_CONTROLLED_SPEED;
 
     return MOVE_DOWN_SPEED;
