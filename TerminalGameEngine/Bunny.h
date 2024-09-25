@@ -23,13 +23,13 @@ private:
     static const char GAMEOVER_EYE_CHAR = '*';
     static const char CHEST_CHAR = ':';
 
-    static const Model walkLeftModel;
-    static const Model walkRightModel;
-    static const Model jumpRightModel;
-    static const Model jumpLeftModel;
-    static const Model defeatedModel;
-    static const Model idleModelRight;
-    static const Model idleModelLeft;
+    static const Model MODEL_WALK_LEFT;
+    static const Model MODEL_WALK_RIGHT;
+    static const Model MODEL_JUMP_RIGHT;
+    static const Model MODEL_JUMP_LEFT;
+    static const Model MODEL_DEFEATED;
+    static const Model MODEL_IDLE_RIGHT;
+    static const Model MODEL_IDLE_LEFT;
 
     Level* level;
 
@@ -60,7 +60,7 @@ protected:
     virtual void Move(Direction direction, double moveSpeed) override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
     virtual void OnCollisionExit(Direction endingCollisionDir) override {}
-    virtual void InitModel() { SetModel(idleModelLeft); }
+    virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
 private:
     Model jumpingModel;

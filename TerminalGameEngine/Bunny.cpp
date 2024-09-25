@@ -7,49 +7,49 @@
 
 using namespace InputUtils;
 
-const Model Bunny::walkLeftModel
+const Model Bunny::MODEL_WALK_LEFT
 {
     {'/',-36, CHEST_CHAR, '_', '|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR, ')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const Model Bunny::walkRightModel
+const Model Bunny::MODEL_WALK_RIGHT
 {
      { '|','_',CHEST_CHAR,-36,92},
      { '(',EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},
      { ' ','/',')','/',')'}
 };
 
-const Model Bunny::jumpRightModel
+const Model Bunny::MODEL_JUMP_RIGHT
 {
     {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const Model Bunny::jumpLeftModel
+const Model Bunny::MODEL_JUMP_LEFT
 {
     {92,-36,CHEST_CHAR,-36,'/'},
     {'(', EYE_CHAR,NOSE_CHAR, EYE_CHAR,')'},
     {'(', 92, '(', 92, ' '}
 };
 
-const Model Bunny::defeatedModel
+const Model Bunny::MODEL_DEFEATED
 {
     {'|',-36,CHEST_CHAR,-36,'|'},
     {'(',GAMEOVER_EYE_CHAR,NOSE_CHAR,GAMEOVER_EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const Model Bunny::idleModelRight
+const Model Bunny::MODEL_IDLE_RIGHT
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR ,NOSE_CHAR, EYE_CHAR,')'},
     {' ','/',')','/',')'}
 };
 
-const Model Bunny::idleModelLeft
+const Model Bunny::MODEL_IDLE_LEFT
 {
     {'|','_',CHEST_CHAR,'_','|'},
     {'(', EYE_CHAR, NOSE_CHAR, EYE_CHAR,')'},
@@ -59,9 +59,9 @@ const Model Bunny::idleModelLeft
 Bunny::Bunny(int xPos, int yPos, Level* level) : GameObject(xPos, yPos), level(level)
 {
     SetState(State::idle);
-    jumpingModel = jumpLeftModel;
-    idleModel = idleModelLeft;
-    walkingModel = walkLeftModel;
+    jumpingModel = MODEL_JUMP_LEFT;
+    idleModel = MODEL_IDLE_LEFT;
+    walkingModel = MODEL_WALK_LEFT;
     previousPositionX = GetPosX();
 }
 
@@ -75,9 +75,9 @@ void Bunny::Update()
     {
         previousPositionX = GetPosX();
         bool isTimeForLeftModel = TimeHelper::Instance().IsTimeForFirstOfTwoModels(STEP_ANIM_EVERY_SECONDS);
-        jumpingModel = isTimeForLeftModel ? jumpLeftModel : jumpRightModel;
-        idleModel = isTimeForLeftModel ? idleModelLeft : idleModelRight;
-        walkingModel = isTimeForLeftModel ? walkLeftModel : walkRightModel;
+        jumpingModel = isTimeForLeftModel ? MODEL_JUMP_LEFT : MODEL_JUMP_RIGHT;
+        idleModel = isTimeForLeftModel ? MODEL_IDLE_LEFT : MODEL_IDLE_RIGHT;
+        walkingModel = isTimeForLeftModel ? MODEL_WALK_LEFT : MODEL_WALK_RIGHT;
     }
 
     //prevent movement when game is over
@@ -95,7 +95,7 @@ void Bunny::UpdateModel()
     switch (state)
     {
     case State::defeated:
-        SetModel(defeatedModel);
+        SetModel(MODEL_DEFEATED);
         break;
 
     case State::idle:
