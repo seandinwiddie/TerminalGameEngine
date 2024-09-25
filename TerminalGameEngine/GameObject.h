@@ -51,8 +51,8 @@ public:
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
-	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) = 0;
-	virtual void OnCollisionExit(Direction endingCollisionDir) = 0;
+	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir){}
+	virtual void OnCollisionExit(Direction endingCollisionDir){}
 	virtual void InitModel() = 0;
 
 	Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
