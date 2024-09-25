@@ -126,15 +126,17 @@ void GameObject::CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObjec
 
 		list<GameObject*> toRemove;
 
+		//update collision direction
 		for(GameObject* collider : directionCollisions)
 			if (directionNewCollisions.find(collider) == directionNewCollisions.end())
-			{
 				toRemove.push_back(collider);
-				OnCollisionExit(static_cast<Direction>(i));
-			}
 
 		for (GameObject* toRemoveObj : toRemove)
 			directionCollisions.erase(toRemoveObj);
+
+		//call on collision exit
+		if(toRemove.size() > 0)
+			OnCollisionExit(static_cast<Direction>(i));
 	}
 }
 
