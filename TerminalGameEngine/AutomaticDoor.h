@@ -23,11 +23,10 @@ public:
     );
 
     bool IsOpen() const { return energySourcesCounter > 0; }
-    void AddEnergySource() { ++energySourcesCounter; }
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::CYAN; }
-
+    void AddEnergySource() { ++energySourcesCounter; }
     void RemoveEnergySource();
 
 protected:

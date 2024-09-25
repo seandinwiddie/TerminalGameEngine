@@ -1,5 +1,17 @@
 #include "AutomaticDoor.h"
 
+AutomaticDoor::AutomaticDoor
+(
+    int xPos,
+    int yPos,
+    size_t sizeX,
+    size_t sizeY,
+    char modelChar,
+    double moveSpeed
+) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar), moveSpeed(moveSpeed)
+{
+    startingPosY = yPos;
+}
 
 void AutomaticDoor::Update()
 {
@@ -14,19 +26,6 @@ void AutomaticDoor::Update()
         if (GetPosY() > startingPosY)
             Move(Direction::down, moveSpeed);
     }
-}
-
-AutomaticDoor::AutomaticDoor
-(
-    int xPos,
-    int yPos,
-    size_t sizeX,
-    size_t sizeY,
-    char modelChar,
-    double moveSpeed
-) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar), moveSpeed(moveSpeed)
-{
-    startingPosY = yPos;
 }
 
 void AutomaticDoor::RemoveEnergySource()
