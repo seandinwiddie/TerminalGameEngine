@@ -195,20 +195,21 @@ bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity
 
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
-	GameObject* outOtherObj;
+	uset<GameObject*> outCollidingObjects;
 
-	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
+	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
 	{
-		if (outOtherObj == WorldSpace::WORLD_MARGIN)
+		if (outCollidingObjects.count(WorldSpace::WORLD_MARGIN))
 		{
 			RemoveObject(obj);
 		}
 		else
 		{
-			obj->CALLED_BY_SIM_NotifyCollisionEnter(outOtherObj, direction);
+			obj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-			if(outOtherObj != WorldSpace::SCREEN_MARGIN)
-				outOtherObj->CALLED_BY_SIM_NotifyCollisionEnter(obj, GetInverseDirection(direction));
+			for(GameObject* item : outCollidingObjects)
+				if (item != WorldSpace::SCREEN_MARGIN)
+					item->CALLED_BY_SIM_NotifyCollisionEnter(obj, GetInverseDirection(direction));
 		}
 		return false;
 	}

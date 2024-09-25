@@ -16,7 +16,7 @@ PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed)
         this->ySpeed = -ySpeed;
 }
 
-void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void PongBall::OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
     iSFirstLaunch = false;
 
@@ -40,9 +40,13 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (collisionDir == Direction::up || collisionDir == Direction::down)
     {
         ySpeed = -ySpeed;
-        PongBar* otherBar = dynamic_cast<PongBar*>(other);
-        if (otherBar != nullptr)
-            HandleBarCollision(otherBar);
+
+        for (GameObject* collider : collidingObjects)
+        {
+            PongBar* colliderBar = dynamic_cast<PongBar*>(collider);
+            if (colliderBar != nullptr)
+                HandleBarCollision(colliderBar);
+        }
     }
     else
     {

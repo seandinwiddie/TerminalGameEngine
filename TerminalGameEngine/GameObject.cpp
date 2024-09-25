@@ -91,14 +91,20 @@ void GameObject::SetModel(const Model& newModel)
 	model = &newModel;
 }
 
-void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir)
+void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
 	if (collidingDirections[collisionDir] == false)
 	{
 		collidingDirections[collisionDir] = true;
-		OnCollisionEnter(other, collisionDir);
+		OnCollisionEnter(collidingObjects, collisionDir);
 	}
 }
+
+void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir)
+{
+	CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>{ this }, collisionDir);
+}
+
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections)
 {

@@ -6,9 +6,12 @@
 
 #include <Windows.h>
 #include <vector>
+#include <unordered_set>
+
 
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
+template<typename T> using uset = std::unordered_set<T>;
 
 class GameObject : public ISimulationUpdatingEntity
 {
@@ -49,7 +52,7 @@ public:
 protected:
 	virtual void Move(Direction direction, double moveSpeed);
 	virtual void Update();
-	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) = 0;
+	virtual void OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir) = 0;
 	virtual void OnCollisionExit(Direction endingCollisionDir) = 0;
 	virtual void InitModel() = 0;
 
@@ -61,6 +64,7 @@ private:
 	void ApplyGravity();
 
 	void CALLED_BY_SIM_Move(Direction direction);
-	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir);
+	void CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir);
+	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir);
 	void CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections);
 };

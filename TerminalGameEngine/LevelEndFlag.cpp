@@ -11,10 +11,10 @@ const Model LevelEndFlag::flagModel
 
 LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : GameObject(xPos, yPos), level(level) { }
 
-void LevelEndFlag::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void LevelEndFlag::OnCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
-    if (static_cast<Bunny*>(other) != nullptr)
-    {
-        level->OnGameOver();
-    }
+    for(GameObject* item : collidingObjects)
+        if (static_cast<Bunny*>(item) != nullptr)
+            level->OnGameOver();
+
 }
