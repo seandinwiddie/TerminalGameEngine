@@ -1,5 +1,4 @@
 #include "EndlessRunnerLevel.h"
-
 #include "Simulation.h"
 #include "SimulationPrinter.h"
 #include "StaticCollider.h"

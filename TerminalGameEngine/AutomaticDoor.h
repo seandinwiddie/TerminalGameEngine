@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Config.h"
 #include "VariableSizeCollider.h"
 
@@ -24,10 +23,10 @@ public:
 
     bool IsOpen() const { return energySourcesCounter > 0; }
     void AddEnergySource() { ++energySourcesCounter; }
-    void RemoveEnergySource();
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::CYAN; }
+    void RemoveEnergySource();
 
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override {}
