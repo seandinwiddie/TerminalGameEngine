@@ -11,13 +11,15 @@ void PongLevel::LoadInSimulation()
 	Level::LoadInSimulation();
 	Simulation& simulation = Simulation::Instance();
 
+	//--------------- bars general settings
 	char barsChar = -37;
 	int startingPosX = GetWorldSizeX() / 2 - 1;
 	int barsSize = 8;
 	double barsMoveSpeed = 32;
 	double deflectFactor = 2.5;
 
-	PongBar* pongBarBottom = new PongBar
+	//--------------- bottom bar
+	PongBar* bottomBar = new PongBar
 	(
 		startingPosX,
 		GetScreenPadding(), 
@@ -28,10 +30,10 @@ void PongLevel::LoadInSimulation()
 		deflectFactor, 
 		true
 	);
+	simulation.TryAddEntity(bottomBar);
 
-	simulation.TryAddEntity(pongBarBottom);
-
-	PongBar* pongBarTop = new PongBar(
+	//--------------- top bar
+	PongBar* topBar = new PongBar(
 		startingPosX,
 		GetWorldSizeY() - GetScreenPadding() -1, 
 		barsSize,
@@ -41,9 +43,9 @@ void PongLevel::LoadInSimulation()
 		deflectFactor, 
 		false
 	);
-	simulation.TryAddEntity(pongBarTop);
+	simulation.TryAddEntity(topBar);
 	
-	//------------------
+	//--------------- ball
 	double ballSpeed = 16;
 	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
 	simulation.TryAddEntity(pongBall);
