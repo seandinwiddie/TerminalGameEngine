@@ -62,7 +62,6 @@ public:
 protected:
     void Update() override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
-    virtual void OnCollisionExit(Direction endingCollisionDir) override {}
     virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
 private:

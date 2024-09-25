@@ -16,7 +16,6 @@ public:
 
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
-    virtual void OnCollisionExit(Direction endingCollisionDir) {}
     virtual void InitModel()
     { 
         if(model.size() == 0)
