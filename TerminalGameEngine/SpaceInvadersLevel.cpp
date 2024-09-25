@@ -78,19 +78,21 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, const type_info& ali
 	int addedAliens = 0;
 	while (addedAliens < ALIENS_COLUMNS_COUNT)
 	{
-		Alien* alien;
-
-		if (alienType == typeid(AlienHighScore))
-			alien = new AlienHighScore(xPos, yPos);
-		else if (alienType == typeid(AlienMidScore))
-			alien = new AlienMidScore(xPos, yPos);
-		else if (alienType == typeid(AlienLowScore))
-			alien = new AlienLowScore(xPos, yPos);
-		else
-			throw std::invalid_argument("invalid alien type receiveds");
-		
+		Alien* alien = CreateAlienOfType(alienType,xPos,yPos);
 		simulation.TryAddEntity(alien);
 		++addedAliens;
 		xPos += ALIEN_WIDTH + SPACE_BETWEEN_ALIENS_X;
 	}
+}
+
+Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPos, int yPos)
+{
+	if (alienType == typeid(AlienHighScore))
+		return new AlienHighScore(xPos, yPos);
+	else if (alienType == typeid(AlienMidScore))
+		return new AlienMidScore(xPos, yPos);
+	else if (alienType == typeid(AlienLowScore))
+		return new AlienLowScore(xPos, yPos);
+	else
+		throw std::invalid_argument("invalid alien type receiveds");
 }

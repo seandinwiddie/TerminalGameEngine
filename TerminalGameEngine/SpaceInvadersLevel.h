@@ -45,4 +45,5 @@ private:
     
     const type_info& GetTypeOfAlienForRow(int rowIndexFromTop);
     void AddAliensRowToSimulation(int posY, const type_info& alienType);
+    Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos);
 };
