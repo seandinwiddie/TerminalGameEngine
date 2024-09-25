@@ -8,10 +8,10 @@
       <Filter>Headers\Engine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="LevelEndFlag.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClCompile>
     <ClCompile Include="PushableObject.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClCompile>
     <ClCompile Include="StaticCollider.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
@@ -121,16 +121,16 @@
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="PuzzleLevel.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\PuzzleLevel</Filter>
+      <Filter>Headers\Levels\Platformer\PuzzleLevel</Filter>
     </ClInclude>
     <ClInclude Include="EndlessRunnerLevel.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel</Filter>
+      <Filter>Headers\Levels\Platformer\EndlessRunnerLevel</Filter>
     </ClInclude>
     <ClInclude Include="AutomaticDoor.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Bunny.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
@@ -142,28 +142,28 @@
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="Obstacle.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ObstaclesSpawner.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PressurePlate.h">
-      <Filter>Headers\Levels\PlatformerTypeLevels\Objects</Filter>
+      <Filter>Headers\Levels\Platformer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="VariableSizeCollider.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="PongLevel.h">
-      <Filter>Headers\Levels\PongLevel</Filter>
+      <Filter>Headers\Levels\Pong</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="PongBar.h">
-      <Filter>Headers\Levels\PongLevel\Objects</Filter>
+      <Filter>Headers\Levels\Pong\Objects</Filter>
     </ClInclude>
     <ClInclude Include="PongBall.h">
-      <Filter>Headers\Levels\PongLevel\Objects</Filter>
+      <Filter>Headers\Levels\Pong\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Headers\Engine\Simulation</Filter>
@@ -192,10 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">
-      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Headers\Levels\Platformer\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
     <Text Include="endlessRunnerBackground.txt">
-      <Filter>Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Headers\Levels\Platformer\EndlessRunnerLevel\backgrounds</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -223,27 +223,6 @@
     <Filter Include="Headers\Levels">
       <UniqueIdentifier>{d9b5910a-aa4c-47f1-b39d-3c96f20c35d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Levels\PongLevel">
-      <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerTypeLevels">
-      <UniqueIdentifier>{426521ad-1149-465c-ae60-a4d083723ee2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel">
-      <UniqueIdentifier>{45c2ab1c-73a0-4632-8efe-b627b44fc386}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerTypeLevels\EndlessRunnerLevel\backgrounds">
-      <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerTypeLevels\PuzzleLevel">
-      <UniqueIdentifier>{738f0800-e61c-4c87-92e3-0a16d98ab146}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PlatformerTypeLevels\Objects">
-      <UniqueIdentifier>{d01b4c91-154a-4f6c-bb0b-f5d1609d73cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\PongLevel\Objects">
-      <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Engine\GenericSimulationEntities">
       <UniqueIdentifier>{1ab8247e-dd74-47cc-b89d-e6350da01c5e}</UniqueIdentifier>
     </Filter>
@@ -252,6 +231,30 @@
     </Filter>
     <Filter Include="Headers\Levels\CollisionTests">
       <UniqueIdentifier>{f521211f-e659-40c0-91d5-ce0e86d6616b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\SpaceInvaders">
+      <UniqueIdentifier>{297be5f3-39a7-4ee0-b546-f837749d15f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Platformer">
+      <UniqueIdentifier>{426521ad-1149-465c-ae60-a4d083723ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Platformer\EndlessRunnerLevel">
+      <UniqueIdentifier>{45c2ab1c-73a0-4632-8efe-b627b44fc386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Platformer\EndlessRunnerLevel\backgrounds">
+      <UniqueIdentifier>{1b8bcd06-94bb-40de-aa99-f77a95cd2d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Platformer\PuzzleLevel">
+      <UniqueIdentifier>{738f0800-e61c-4c87-92e3-0a16d98ab146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Platformer\Objects">
+      <UniqueIdentifier>{d01b4c91-154a-4f6c-bb0b-f5d1609d73cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Pong">
+      <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\Pong\Objects">
+      <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
