@@ -66,5 +66,5 @@ private:
 	void CALLED_BY_SIM_Move(Direction direction);
 	void CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir);
 	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir);
-	void CALLED_BY_SIM_UpdateCollisions(vector<uset<GameObject*>>& collisions);
+	void CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObject*>>& collisions);
 };

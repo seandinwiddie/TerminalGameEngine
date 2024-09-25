@@ -71,12 +71,12 @@ private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
-	void UpdateObjectCollisions(GameObject* collidingObj);
+	void UpdateObjectEndedCollisions(GameObject* collidingObj);
 	void ResetScreenManager(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();
 	void ExecuteMoveRequests();
-	void UpdateAllObjectsCollisions();
+	void UpdateAllObjectsEndedCollisions();
 	void PrintObjects();
 
 	bool IsInsideScreenX(int xPos) const;

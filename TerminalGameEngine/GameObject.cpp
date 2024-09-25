@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "TimeHelper.h"
 #include "Simulation.h"
+#include "Bunny.h" //todo remove
 
 GameObject::GameObject(int xPos, int yPos): 
 	xPos(xPos), 
@@ -94,10 +95,11 @@ void GameObject::SetModel(const Model& newModel)
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
-	if (collisionDir == Direction::right)
+	Bunny* b = dynamic_cast<Bunny*>(this);
+	if (collisionDir != Direction::down && b != nullptr)
 		int a = 1;
 
-	uset<GameObject*> directionCollisions = collisions[collisionDir];
+	uset<GameObject*>& directionCollisions = collisions[collisionDir];
 	for (GameObject* obj : collidingObjects)
 	{
 		if (directionCollisions.find(obj) == directionCollisions.end())
@@ -113,24 +115,27 @@ void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject,
 	CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>{collidingObject}, collisionDir);
 }
 
-void GameObject::CALLED_BY_SIM_UpdateCollisions(vector<uset<GameObject*>>& newCollisions)
+void GameObject::CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObject*>>& newCollisions)
 {
 	assert(newCollisions.size() == 4);
 
 	for (int i = 0; i < newCollisions.size(); ++i)
 	{
-		uset<GameObject*> directionCollisions = collisions[i];
-		uset<GameObject*> newDirectionCollisions = newCollisions[i];
+		uset<GameObject*>& directionCollisions = collisions[i];
+		const uset<GameObject*>& directionNewCollisions = newCollisions[i];
+
+		list<GameObject*> toRemove;
 
 		for(GameObject* collider : directionCollisions)
-			if (newDirectionCollisions.find(collider) == newDirectionCollisions.end())
+			if (directionNewCollisions.find(collider) == directionNewCollisions.end())
 			{
-				directionCollisions.erase(collider);
+				toRemove.push_back(collider);
 				OnCollisionExit(static_cast<Direction>(i));
 			}
-				
+
+		for (GameObject* toRemoveObj : toRemove)
+			directionCollisions.erase(toRemoveObj);
 	}
-	//collisions = newCollisions;
 }
 
 void GameObject::CALLED_BY_SIM_Move(Direction direction)

@@ -55,7 +55,7 @@ void Simulation::Step()
 
 	ExecuteMoveRequests();
 
-	UpdateAllObjectsCollisions();
+	UpdateAllObjectsEndedCollisions();
 
 	PrintObjects();
 	
@@ -101,17 +101,17 @@ void Simulation::ExecuteMoveRequests()
 	}
 }
 
-void Simulation::UpdateAllObjectsCollisions()
+void Simulation::UpdateAllObjectsEndedCollisions()
 {
 	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		GameObject* obj = dynamic_cast<GameObject*>((*it));
 		if (obj != nullptr)
-			UpdateObjectCollisions(obj);
+			UpdateObjectEndedCollisions(obj);
 	}
 }
 
-void Simulation::UpdateObjectCollisions(GameObject* obj)
+void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 {
 	int xPos = obj->GetPosX();
 	int yPos = obj->GetPosY();
@@ -140,7 +140,7 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 	worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
 	worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
 	
-	obj->CALLED_BY_SIM_UpdateCollisions(collisions);
+	obj->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 } 
 
 bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
