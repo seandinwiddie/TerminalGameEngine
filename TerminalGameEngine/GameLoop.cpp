@@ -8,6 +8,7 @@
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "Simulation.h"
+#include "SpaceInvadersLevel.h"
 
 using namespace std;
 using namespace InputUtils;
@@ -47,10 +48,11 @@ Level* GameLoop::ShowLevelSelection()
     Terminal::Instance().Clear();
     Terminal::Instance().SetColor(Terminal::WHITE);
     cout << "Press:" << endl
-         << "1 -> play endless runner demo" << endl
-         << "2 -> play puzzle game demo" << endl
-         << "3 -> play pong game demo" << endl
-         << "4 -> collisions test" << endl
+         << "1 -> play space invaders demo" << endl
+         << "2 -> play endless runner demo" << endl
+         << "3 -> play puzzle game demo" << endl
+         << "4 -> play pong game demo" << endl
+         << "5 -> collisions test" << endl
          << endl
          << "esc (inside levels) -> return to main menu" << endl
          << endl
@@ -60,20 +62,25 @@ Level* GameLoop::ShowLevelSelection()
     {
         if (IsKeyPressed(Key::NUM_1))
         {
+            return new SpaceInvadersLevel();
+            break;
+        }
+        else if (IsKeyPressed(Key::NUM_2))
+        {
             return new EndlessRunnerLevel();
             break;
         }
-        if (IsKeyPressed(Key::NUM_2))
+        else if (IsKeyPressed(Key::NUM_3))
         {
             return new PuzzleLevel();
             break;
         }
-        if (IsKeyPressed(Key::NUM_3))
+        else if (IsKeyPressed(Key::NUM_4))
         {
             return new PongLevel();
             break;
         }
-        if (IsKeyPressed(Key::NUM_4))
+        else if (IsKeyPressed(Key::NUM_5))
         {
             return new CollisionsTestLevel();
             break;

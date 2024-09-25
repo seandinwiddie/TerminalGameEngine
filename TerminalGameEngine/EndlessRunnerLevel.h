@@ -9,7 +9,6 @@ class EndlessRunnerLevel : public Level
 private:
     const string PERSISTENCE_FILE_NAME = "Persistence/obstaclesLevelPersistence.txt";
     const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunnerBackground.txt";
-
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods
@@ -25,8 +24,6 @@ public:
 protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
-
-private:
     virtual void OnPostGameOverDelayEnded() override;
     void ShowGameOverScreen(int score, int bestScore);
 };

@@ -94,6 +94,15 @@
     <ClCompile Include="CollisionsTestLevel.h">
       <Filter>Headers\Levels\CollisionTests</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceInvadersLevel.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceInvadersLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -159,12 +168,6 @@
     <ClInclude Include="Level.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="PongBar.h">
-      <Filter>Headers\Levels\Pong\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="PongBall.h">
-      <Filter>Headers\Levels\Pong\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
@@ -188,6 +191,15 @@
     </ClInclude>
     <ClInclude Include="DebugManager.h">
       <Filter>Headers\Engine\Managers/Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBall.h">
+      <Filter>Headers\Levels\Pong</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBar.h">
+      <Filter>Headers\Levels\Pong</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +264,6 @@
     </Filter>
     <Filter Include="Headers\Levels\Pong">
       <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Levels\Pong\Objects">
-      <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
