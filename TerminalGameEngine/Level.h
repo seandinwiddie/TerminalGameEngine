@@ -21,12 +21,12 @@ private:
     bool isTerminated = false;
 
 protected:
-    Frame gameEndUIMessage;
+    Frame gameOverWindow;
 
 //---------------------------------------------------------- Methods
 public:
    
-    virtual void OnGameOver();
+    virtual void NotifyGameOver();
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;

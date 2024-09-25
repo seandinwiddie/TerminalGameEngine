@@ -27,23 +27,24 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
     //setup gameover message
     string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
     string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
-    //centers message
+
+    //center message
     string leftSpacing = "";
     for (int i = 0; i < (42 - message.size()) / 2; ++i)
         leftSpacing += " ";
     message = leftSpacing + message;
 
-    gameEndUIMessage.ReplaceChar(message, '$');
+    gameOverWindow.ReplaceChar(message, '$');
 
-    Simulation::Instance().PrintGameOverWindow(gameEndUIMessage);
+    Simulation::Instance().PrintGameOverWindow(gameOverWindow);
 }
 
-void EndlessRunnerLevel::OnGameOver()
+void EndlessRunnerLevel::NotifyGameOver()
 {
     if (IsGameOver())
         return;
 
-    Level::OnGameOver();
+    Level::NotifyGameOver();
     AudioManager::Instance().StopMusic();
     AudioManager::Instance().PlayFx("Platform/gameover.wav");
 }
@@ -53,14 +54,21 @@ void EndlessRunnerLevel::LoadInSimulation()
     Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
-    gameEndUIMessage.ReadFromFile("gameover-screen.txt", simulation.GetScreenSizeX(), simulation.GetScreenSizeY());
 
-    //------------------------------- bunny setup
+    //----------------- read game over window
+    gameOverWindow.ReadFromFile
+    (
+        "GameOverWindows/endlessRunnerGameOverWindow.txt", 
+        simulation.GetScreenSizeX(),
+        simulation.GetScreenSizeY()
+    );
+
+    //----------------- bunny setup
     int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
     Bunny* bunny = new Bunny(9, bunnyStartingY, this);
     simulation.TryAddEntity(bunny);
 
-    //------------------------------- spawner setup
+    //----------------- obstacles spawner setup
     int spawnerPosX = GetWorldSizeX() - GetScreenPadding();
 
     std::vector<double> minSpawnDelays

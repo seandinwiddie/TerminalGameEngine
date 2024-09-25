@@ -68,9 +68,9 @@ void PuzzleLevel::LoadInSimulation()
     simulation.TryAddEntity(openDoorPressurePlateRight);
 }
 
-void PuzzleLevel::OnGameOver()
+void PuzzleLevel::NotifyGameOver()
 {
-    Level::OnGameOver();
+    Level::NotifyGameOver();
     AudioManager::Instance().PlayFx("Platform/levelWon.wav");
 }
 

@@ -31,7 +31,7 @@ bool Level::CanPlayerPressKeyToRestartGame() const
     return TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() + PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY;
 }
 
-void Level::OnGameOver()
+void Level::NotifyGameOver()
 {
     if (IsGameOver())
         return;

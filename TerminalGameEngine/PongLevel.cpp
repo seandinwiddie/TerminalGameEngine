@@ -73,8 +73,8 @@ void PongLevel::OnPostGameOverDelayEnded()
 	Terminate();
 }
 
-void PongLevel::OnGameOver()
+void PongLevel::NotifyGameOver()
 { 
-	Level::OnGameOver();
+	Level::NotifyGameOver();
 	AudioManager::Instance().PlayFx("Pong/goal.wav"); 
 }

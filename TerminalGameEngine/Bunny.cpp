@@ -224,7 +224,7 @@ void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
         SetState(State::defeated);
-        level->OnGameOver();
+        level->NotifyGameOver();
         return;
     }
 

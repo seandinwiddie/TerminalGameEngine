@@ -6,7 +6,7 @@ class PuzzleLevel : public Level
 //---------------------------------------------------------- Methods
 public:
     virtual void LoadInSimulation() override;
-    virtual void OnGameOver() override;
+    virtual void NotifyGameOver() override;
     virtual void OnPostGameOverDelayEnded() override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
 

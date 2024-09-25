@@ -20,7 +20,7 @@ public:
     void IncreaseP1Score();
     void IncreaseP2Score();
 
-    virtual void OnGameOver() override;
+    virtual void NotifyGameOver() override;
 
 protected:
     virtual void OnPostGameOverDelayEnded() override;

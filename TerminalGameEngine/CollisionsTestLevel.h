@@ -3,7 +3,7 @@
 
 class CollisionsTestLevel : public Level
 {
-    //---------------------------------------------------------- Methods
+//---------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override { return 100; }
     virtual int GetWorldSizeY() const override { return 30; }

@@ -23,7 +23,7 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (GetPosY() == level->GetWorldSizeY() - level->GetScreenPadding() - 1)
     {
         level->IncreaseP1Score();
-        level->OnGameOver();
+        level->NotifyGameOver();
         return;
     }
         
@@ -31,7 +31,7 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (GetPosY() == level->GetScreenPadding())
     {
         level->IncreaseP2Score();
-        level->OnGameOver();
+        level->NotifyGameOver();
         return;
     }
 

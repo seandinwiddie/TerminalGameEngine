@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Config.h"
 #include "Level.h"
 #include <string>
@@ -8,8 +7,8 @@ class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    const string PERSISTENCE_FILE_NAME = "ObstaclesLevelPersistence.txt";
-    const string BACKGROUND_FILE_NAME = "endlessRunnerBackground.txt";
+    const string PERSISTENCE_FILE_NAME = "Persistence/obstaclesLevelPersistence.txt";
+    const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunnerBackground.txt";
 
     int shownTime = -1;
 
@@ -21,7 +20,7 @@ public:
     virtual string GetBackgroundFileName() override { return BACKGROUND_FILE_NAME; }
 
     virtual void LoadInSimulation() override;
-    virtual void OnGameOver() override;
+    virtual void NotifyGameOver() override;
 
 protected:
     virtual void Update()override;
