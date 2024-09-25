@@ -78,7 +78,7 @@ void SimulationPrinter::PrintGameOverWindow(const Frame& window)
         for (size_t x = 0; x < screenSizeX; ++x)
         {
             char c = window.chars[y][x];
-            if (c != UI_MESSAGE_FRAME_IGNORED_CHAR)
+            if (c != GAME_OVER_FRAME_IGNORED_CHAR)
             {
                 terminal.SetCursorPosition(x + MARGIN_OFFSET_X, y);
                 Cout(c);

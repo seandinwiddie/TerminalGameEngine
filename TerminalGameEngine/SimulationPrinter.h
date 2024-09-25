@@ -12,19 +12,12 @@ class GameObject;
 
 class SimulationPrinter
 {
-	struct PrintOperation
-	{
-		string str;
-		int color;
-		PrintOperation(const string& str, int color) :str(str), color(color) {}
-	};
-
 //---------------------------------------------------------- Settings
 private:
-	static const char UI_MESSAGE_FRAME_IGNORED_CHAR = '#';
-	static const size_t MARGIN_OFFSET_X = 1; //left margin
-	static const size_t MARGIN_OFFSET_TOP_Y = 2; //top margin + header
-	static const size_t MARGIN_OFFSET_BOTTOM_Y = 1; //bottom margin
+	static const char GAME_OVER_FRAME_IGNORED_CHAR = '#';
+	static const size_t MARGIN_OFFSET_X = 1; 
+	static const size_t MARGIN_OFFSET_TOP_Y = 2; 
+	static const size_t MARGIN_OFFSET_BOTTOM_Y = 1;
 
 //---------------------------------------------------------- Fields
 private:
@@ -34,7 +27,6 @@ private:
 	size_t screenSizeX;
 	size_t screenSizeY;
 	size_t padding;
-	bool isShowingUIMessage;
 
 	int screenMarginsColor = Terminal::Instance().BLUE_DARK;
 	int uiColor = Terminal::WHITE;
@@ -56,7 +48,10 @@ public:
 
 	void PrintGameOverWindow(const Frame& UIMessage);
 	void SetHeader(const string& header);
+
 	void SetMarginsColor(int color) { screenMarginsColor = color; }
+	void SetUIColor(int color) { uiColor = color; }
+	void SetBackgroundColor(int color) { backgroundColor = color; }
 
 private:
 	void PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go);
@@ -64,14 +59,14 @@ private:
 	void DrawMargins();
 	void DrawHorizontalMargin();
 	void PrintBackground();
+
+	//used to count cout calls
 	void Cout(const string& s);
 	void Cout(char s);
 
 	int GetScreenPos(int worldPos) const { return worldPos - static_cast<int>(padding); }
 	size_t GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
 	size_t GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
-	size_t GetTerminalPosX(int worldPosX)const { return GetScreenPos(worldPosX) + MARGIN_OFFSET_X; }
-	size_t GetTerminalPosY(int worldPosY)const { return GetScreenPos(worldPosY) + MARGIN_OFFSET_TOP_Y; }
 
 //---------------------------------------------------------- Debug
 #if DEBUG_MODE
