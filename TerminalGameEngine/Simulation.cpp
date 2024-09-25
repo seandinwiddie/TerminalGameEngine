@@ -55,7 +55,7 @@ void Simulation::Step()
 
 	ExecuteMoveRequests();
 
-	UpdateAllObjectsCollisions();
+	UpdateAllObjectsEndedCollisions();
 
 	PrintObjects();
 	
@@ -101,17 +101,17 @@ void Simulation::ExecuteMoveRequests()
 	}
 }
 
-void Simulation::UpdateAllObjectsCollisions()
+void Simulation::UpdateAllObjectsEndedCollisions()
 {
 	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		GameObject* obj = dynamic_cast<GameObject*>((*it));
 		if (obj != nullptr)
-			UpdateObjectCollisions(obj);
+			UpdateObjectEndedCollisions(obj);
 	}
 }
 
-void Simulation::UpdateObjectCollisions(GameObject* obj)
+void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 {
 	int xPos = obj->GetPosX();
 	int yPos = obj->GetPosY();
@@ -121,28 +121,26 @@ void Simulation::UpdateObjectCollisions(GameObject* obj)
 	size_t height = obj->GetModelHeight();
 	bool canExitScreen = obj->CanExitScreenSpace();
 
-	vector<bool> collisions(4);
+	//vector<bool> collisions(4);
+	vector<uset<GameObject*>> collisions (4);
 
-	// object - screen margin collisions
-	collisions[Direction::up] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1);
-	collisions[Direction::down] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1);
-	collisions[Direction::right] = !canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos);
-	collisions[Direction::left] = !canExitScreen && !IsCoordinateInsideScreenSpace(xPos - 1, yPos);
+	//screen collisions
+	if (!canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1))
+		collisions[Direction::up].insert(WorldSpace::SCREEN_MARGIN);
+	if (!canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yPos - 1))
+		collisions[Direction::down].insert(WorldSpace::SCREEN_MARGIN);
+	if(!canExitScreen && !IsCoordinateInsideScreenSpace(xMax + 1, yPos))
+		collisions[Direction::right].insert(WorldSpace::SCREEN_MARGIN);
+	if(!canExitScreen && !IsCoordinateInsideScreenSpace(xPos - 1, yPos))
+		collisions[Direction::left].insert(WorldSpace::SCREEN_MARGIN);
 
 	// object-object collisions
-	if(collisions[Direction::up] == false)
-		collisions[Direction::up] = !worldSpace.IsAreaEmpty(xPos, yMax + 1, width, 1);
-
-	if (collisions[Direction::down] == false)
-		collisions[Direction::down] = !worldSpace.IsAreaEmpty(xPos, yPos - 1, width, 1);
-
-	if (collisions[Direction::left] == false)
-		collisions[Direction::left] = !worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height);
-
-	if (collisions[Direction::right] == false)
-		collisions[Direction::right] = !worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height);
-
-	obj->CALLED_BY_SIM_NotifyCollisionsExit(collisions);
+	worldSpace.IsAreaEmpty(xPos, yMax + 1, width, 1, collisions[Direction::up]);
+	worldSpace.IsAreaEmpty(xPos, yPos - 1, width, 1, collisions[Direction::down]);
+	worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
+	worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
+	
+	obj->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 } 
 
 bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
@@ -195,20 +193,21 @@ bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity
 
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
-	GameObject* outOtherObj;
+	uset<GameObject*> outCollidingObjects;
 
-	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outOtherObj) == false)
+	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
 	{
-		if (outOtherObj == WorldSpace::WORLD_MARGIN)
+		if (outCollidingObjects.find(WorldSpace::WORLD_MARGIN) != outCollidingObjects.end())
 		{
 			RemoveObject(obj);
 		}
 		else
 		{
-			obj->CALLED_BY_SIM_NotifyCollisionEnter(outOtherObj, direction);
+			obj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-			if(outOtherObj != WorldSpace::SCREEN_MARGIN)
-				outOtherObj->CALLED_BY_SIM_NotifyCollisionEnter(obj, GetInverseDirection(direction));
+			for(GameObject* item : outCollidingObjects)
+				if (item != WorldSpace::SCREEN_MARGIN)
+					item->CALLED_BY_SIM_NotifyCollisionEnter(obj, GetInverseDirection(direction));
 		}
 		return false;
 	}

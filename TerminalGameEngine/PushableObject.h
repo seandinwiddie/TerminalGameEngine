@@ -22,11 +22,13 @@ protected:
         if (collisionDir == Direction::right || collisionDir == Direction::left)
         {
             Move(GetInverseDirection(collisionDir), 9999);
-            collidingDirections[collisionDir] = false;
+            //collisions[collisionDir] = false;
+            collisions[collisionDir].clear();
         }
-        else if (dynamic_cast<Bunny*>(other) == nullptr)
+        else
         {
-            AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
+            if (dynamic_cast<Bunny*>(other) == nullptr)
+                AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
         }
     }
 };

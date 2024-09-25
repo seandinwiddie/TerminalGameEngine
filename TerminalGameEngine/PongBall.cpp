@@ -40,9 +40,10 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (collisionDir == Direction::up || collisionDir == Direction::down)
     {
         ySpeed = -ySpeed;
-        PongBar* otherBar = dynamic_cast<PongBar*>(other);
-        if (otherBar != nullptr)
-            HandleBarCollision(otherBar);
+
+        PongBar* colliderBar = dynamic_cast<PongBar*>(other);
+        if (colliderBar != nullptr)
+            HandleBarCollision(colliderBar);
     }
     else
     {

@@ -14,7 +14,5 @@ LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : GameObject(xPos, 
 void LevelEndFlag::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
     if (static_cast<Bunny*>(other) != nullptr)
-    {
         level->OnGameOver();
-    }
 }

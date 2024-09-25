@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "TimeHelper.h"
 #include "Simulation.h"
+#include "Bunny.h" //todo remove
 
 GameObject::GameObject(int xPos, int yPos): 
 	xPos(xPos), 
@@ -8,6 +9,7 @@ GameObject::GameObject(int xPos, int yPos):
 	xPosContinuous(xPos), 
 	yPosContinuous(yPos)
 {
+	collisions.resize(4); //todo move in declaration
 	ResetPartialMovement();
 }
 
@@ -91,24 +93,50 @@ void GameObject::SetModel(const Model& newModel)
 	model = &newModel;
 }
 
-void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir)
+void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
-	if (collidingDirections[collisionDir] == false)
+	Bunny* b = dynamic_cast<Bunny*>(this);
+	if (collisionDir != Direction::down && b != nullptr)
+		int a = 1;
+
+	uset<GameObject*>& directionCollisions = collisions[collisionDir];
+	for (GameObject* obj : collidingObjects)
 	{
-		collidingDirections[collisionDir] = true;
-		OnCollisionEnter(other, collisionDir);
+		if (directionCollisions.find(obj) == directionCollisions.end())
+		{
+			directionCollisions.insert(obj);
+			OnCollisionEnter(obj, collisionDir);
+		}
 	}
 }
 
-void GameObject::CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections)
+void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir)
 {
-	for (int i = 0; i < collidingDirections.size(); ++i)
+	CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>{collidingObject}, collisionDir);
+}
+
+void GameObject::CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObject*>>& newCollisions)
+{
+	assert(newCollisions.size() == 4);
+
+	for (int i = 0; i < newCollisions.size(); ++i)
 	{
-		if (collidingDirections[i] == true && newCollidingDirections[i] == false)
-		{
-			collidingDirections[i] = false;
+		uset<GameObject*>& directionCollisions = collisions[i];
+		const uset<GameObject*>& directionNewCollisions = newCollisions[i];
+
+		list<GameObject*> toRemove;
+
+		//update collision direction
+		for(GameObject* collider : directionCollisions)
+			if (directionNewCollisions.find(collider) == directionNewCollisions.end())
+				toRemove.push_back(collider);
+
+		for (GameObject* toRemoveObj : toRemove)
+			directionCollisions.erase(toRemoveObj);
+
+		//call on collision exit
+		if(toRemove.size() > 0)
 			OnCollisionExit(static_cast<Direction>(i));
-		}
 	}
 }
 

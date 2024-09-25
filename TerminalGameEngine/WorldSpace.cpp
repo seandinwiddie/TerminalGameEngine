@@ -81,12 +81,23 @@ void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height,
 	}
 }
 
+bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<GameObject*>& areaObjects) const
+{
+	for (int y = startingY; y < startingY + height; ++y)
+		for (int x = startingX; x < startingX + width; ++x)
+			if (IsCoordinateInsideSpace(x, y) && space[y][x] != nullptr)
+				areaObjects.insert(space[y][x]);
+
+	return areaObjects.size() == 0;
+}
+
 bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
 			if (IsCoordinateInsideSpace(x, y) && space[y][x] != nullptr)
-				return false;
+					return false;
+
 	return true;
 }
 
@@ -111,7 +122,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 (
 	const GameObject* obj,
 	Direction direction,
-	GameObject*& outCollidingObject
+	uset<GameObject*>& collidingObjects
 ) const
 {
 	switch (direction)
@@ -123,7 +134,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 		//exiting world
 		if (y == GetSizeY())
 		{
-			outCollidingObject = WORLD_MARGIN;
+			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
@@ -132,21 +143,15 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == GetSizeY() - screenPadding)
 			{
-				outCollidingObject = SCREEN_MARGIN;
+				collidingObjects.insert(SCREEN_MARGIN);
 				return false;
 			}
 		}
 
 		//obj collision
-		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
-		{
-			if (IsPositionEmpty(x, y) == false)
-			{
-				outCollidingObject = GetObjectAtPosition(x, y);
-				return false;
-			}
-		}
-
+		if (IsAreaEmpty(obj->GetPosX(), y, obj->GetModelWidth(), 1, collidingObjects) == false)
+			return false;
+		
 		return true;
 	}
 	case Direction::down:
@@ -155,7 +160,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (y == -1)
 		{
-			outCollidingObject = WORLD_MARGIN;
+			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
@@ -164,20 +169,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (y == screenPadding - 1)
 			{
-				outCollidingObject = SCREEN_MARGIN;
+				collidingObjects.insert(SCREEN_MARGIN);
 				return false;
 			}
 		}
 
 		//obj collision
-		for (int x = obj->GetPosX(); x <= obj->GetMaxPosX(); x++)
-		{
-			if (IsPositionEmpty(x, y) == false)
-			{
-				outCollidingObject = GetObjectAtPosition(x, y);
-				return false;
-			}
-		}
+		if (IsAreaEmpty(obj->GetPosX(), y, obj->GetModelWidth(), 1, collidingObjects) == false)
+			return false;
 
 		return true;
 	}
@@ -187,7 +186,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == GetSizeX())
 		{
-			outCollidingObject = WORLD_MARGIN;
+			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
@@ -196,20 +195,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == GetSizeX() - screenPadding)
 			{
-				outCollidingObject = SCREEN_MARGIN;
+				collidingObjects.insert(SCREEN_MARGIN);
 				return false;
 			}
 		}
 
 		//obj collision
-		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
-		{
-			if (IsPositionEmpty(x, y) == false)
-			{
-				outCollidingObject = GetObjectAtPosition(x, y);
-				return false;
-			}
-		}
+		if (IsAreaEmpty(x, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+			return false;
 
 		return true;
 	}
@@ -219,7 +212,7 @@ bool WorldSpace::CanObjectMoveAtDirection
 
 		if (x == -1)
 		{
-			outCollidingObject = WORLD_MARGIN;
+			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
@@ -228,20 +221,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		{
 			if (x == screenPadding - 1)
 			{
-				outCollidingObject = SCREEN_MARGIN;
+				collidingObjects.insert(SCREEN_MARGIN);
 				return false;
 			}
 		}
 
-		// obj collision
-		for (int y = obj->GetPosY(); y <= obj->GetMaxPosY(); y++)
-		{
-			if (IsPositionEmpty(x, y) == false)
-			{
-				outCollidingObject = GetObjectAtPosition(x, y);
-				return false;
-			}
-		}
+		//obj collision
+		if (IsAreaEmpty(x, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+			return false;
 
 		return true;
 	}

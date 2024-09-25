@@ -6,9 +6,13 @@
 
 #include <Windows.h>
 #include <vector>
+#include <unordered_set>
+
 
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
+template<typename T> using uset = std::unordered_set<T>;
+template<typename T> using vector = std::vector<T>;
 
 class GameObject : public ISimulationUpdatingEntity
 {
@@ -16,7 +20,6 @@ friend class Simulation;
 
 //---------------------------------------------------------- Fields
 private:
-	//don't modify directly
 	int xPos;
 	int yPos;
 
@@ -28,7 +31,7 @@ private:
 
 protected:
 	bool canMove = true;
-	std::vector<bool> collidingDirections{ false, false, false, false };
+	vector<uset<GameObject*>> collisions;
 
 //---------------------------------------------------------- Methods
 public:
@@ -61,6 +64,7 @@ private:
 	void ApplyGravity();
 
 	void CALLED_BY_SIM_Move(Direction direction);
-	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* other, Direction collisionDir);
-	void CALLED_BY_SIM_NotifyCollisionsExit(const std::vector<bool>& newCollidingDirections);
+	void CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir);
+	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir);
+	void CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObject*>>& collisions);
 };
