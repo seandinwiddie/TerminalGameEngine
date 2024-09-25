@@ -73,12 +73,12 @@ void PongBall::Update()
     GameObject::Update();
 
     if (xSpeed > 0)
-        Move(Direction::right, xSpeed);
+        TryMove(Direction::right, xSpeed);
     else if (xSpeed < 0)
-        Move(Direction::left, xSpeed);
+        TryMove(Direction::left, xSpeed);
 
     if (ySpeed > 0)
-        Move(Direction::up, ySpeed);
+        TryMove(Direction::up, ySpeed);
     else if (ySpeed < 0)
-        Move(Direction::down, ySpeed);
+        TryMove(Direction::down, ySpeed);
 }

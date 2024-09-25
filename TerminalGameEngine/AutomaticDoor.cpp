@@ -19,12 +19,12 @@ void AutomaticDoor::Update()
     if (IsOpen())
     {
         if (GetPosY() < startingPosY + GetModelHeight())
-            Move(Direction::up, moveSpeed);
+            TryMove(Direction::up, moveSpeed);
     }
     else
     {
         if (GetPosY() > startingPosY)
-            Move(Direction::down, moveSpeed);
+            TryMove(Direction::down, moveSpeed);
     }
 }
 

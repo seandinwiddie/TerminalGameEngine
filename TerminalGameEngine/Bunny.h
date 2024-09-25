@@ -18,10 +18,10 @@ class Bunny : public GameObject
     
 //---------------------------------------------------------- Model
 private:
-    static const char NOSE_CHAR = '.';
-    static const char EYE_CHAR = 'O';
-    static const char GAMEOVER_EYE_CHAR = '*';
-    static const char CHEST_CHAR = ':';
+    static const char CHAR_NOSE = '.';
+    static const char CHAR_EYE = 'O';
+    static const char CHAR_GAMEOVER_EYE = '*';
+    static const char CHAR_CHEST = ':';
 
     static const Model MODEL_WALK_LEFT;
     static const Model MODEL_WALK_RIGHT;
@@ -33,7 +33,7 @@ private:
 
     Level* level;
 
-//---------------------------------------------------------- Fields
+//---------------------------------------------------------- Settings
 
     static const size_t JUMP_HEIGHT = 10;
     static constexpr double MOVE_UP_SPEED = 24;
@@ -42,11 +42,15 @@ private:
     static constexpr double SIDE_MOVEMENT_SPEED = 24;
     static constexpr double STEP_ANIM_EVERY_SECONDS = 0.7f;
 
+//---------------------------------------------------------- Fields
     State state;
     double lastTimeMovedOnX = 0;
     int previousPositionX;
     int jumpStartingY = -1;
 
+    Model activeModelJump;
+    Model activeModelIdle;
+    Model activeModelWalk;
 //---------------------------------------------------------- Methods
 public:
     Bunny(int xPos, int yPos, Level* level);
@@ -57,25 +61,20 @@ public:
 
 protected:
     void Update() override;
-    virtual void Move(Direction direction, double moveSpeed) override;
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
     virtual void OnCollisionExit(Direction endingCollisionDir) override {}
     virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
 private:
-    Model jumpingModel;
-    Model idleModel;
-    Model walkingModel;
-
     bool IsJumping() const { return state == State::jumpingDown || state == State::jumpingUp; }
     void SetState(State newState);
     void UpdateModel();
-    void HandleIdleWalkState();
+    void SwitchWalkIdleState();
     void HandleVerticalMovement();
     void HandleHorizontalMovement();
     void HandleSounds(State oldState, State newState);
     bool IsTouchingGround() { return collisions[Direction::down].size() > 0; }
     bool IsJumping() { return state == State::jumpingDown || state == State::jumpingUp; }
-
-#pragma endregion Methods
+    void ActivateLeftModels(bool activate);
+    void OnMoveCallback(Direction dir);
 };

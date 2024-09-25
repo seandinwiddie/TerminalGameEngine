@@ -8,5 +8,5 @@ void MovingStraightObject::Update()
 	GameObject::Update();
 
 	if (canMove)
-		Move(moveDirection, moveSpeed);
+		TryMove(moveDirection, moveSpeed);
 }

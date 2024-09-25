@@ -26,7 +26,7 @@ void PongBar::Update()
         return;
     
     if ((isBottomBar && IsKeyPressed(Key::A)) || !isBottomBar && IsKeyPressed(Key::ARROW_LEFT))
-        Move(Direction::left, moveSpeed);
+        TryMove(Direction::left, moveSpeed);
     else if ((isBottomBar && IsKeyPressed(Key::D)) || (!isBottomBar && IsKeyPressed(Key::ARROW_RIGHT)))
-        Move(Direction::right, moveSpeed);
+        TryMove(Direction::right, moveSpeed);
 }

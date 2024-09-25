@@ -31,12 +31,12 @@ void GameObject::ApplyGravity()
 	if (gravityScale == 0)
 		return;
 	if (gravityScale > 0)
-		Move(Direction::down, gravityScale);
+		TryMove(Direction::down, gravityScale);
 	else
-		Move(Direction::up, gravityScale);
+		TryMove(Direction::up, gravityScale);
 }
 
-void GameObject::Move(Direction direction, double moveSpeed)
+void GameObject::TryMove(Direction direction, double moveSpeed)
 {
 	if (canMove == false)
 		return;
@@ -161,5 +161,6 @@ void GameObject::CALLED_BY_SIM_Move(Direction direction)
 		xPosContinuous = xPos;
 		break;
 	}
+	OnMove.Notify(direction);
 }
 

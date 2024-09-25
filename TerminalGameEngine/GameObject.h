@@ -3,6 +3,7 @@
 #include "GridDirection.h"
 #include "ISimulationUpdatingEntity.h"
 #include "Terminal.h"
+#include "Event.h"
 
 #include <Windows.h>
 #include <vector>
@@ -31,6 +32,7 @@ private:
 protected:
 	bool canMove = true;
 	vector<uset<GameObject*>> collisions;
+	Event<Direction> OnMove;
 
 //---------------------------------------------------------- Methods
 public:
@@ -49,7 +51,7 @@ public:
 	const Model& GetModel()const { return *model; }
 
 protected:
-	virtual void Move(Direction direction, double moveSpeed);
+	virtual void TryMove(Direction direction, double moveSpeed);
 	virtual void Update();
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir){}
 	virtual void OnCollisionExit(Direction endingCollisionDir){}
