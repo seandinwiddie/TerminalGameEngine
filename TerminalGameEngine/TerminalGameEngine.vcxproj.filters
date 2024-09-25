@@ -103,6 +103,9 @@
     <ClCompile Include="Alien.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -208,6 +211,9 @@
       <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
     <ClInclude Include="AlienHighScore.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
       <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
   </ItemGroup>

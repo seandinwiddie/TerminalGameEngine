@@ -145,6 +145,7 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
     <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PongBall.cpp" />
     <ClCompile Include="PongBar.cpp" />
     <ClCompile Include="PongLevel.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="EndlessRunnerLevel.h" />
     <ClInclude Include="Persistence.h" />
+    <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PongBall.h" />
     <ClInclude Include="PongBar.h" />
     <ClInclude Include="PongLevel.h" />

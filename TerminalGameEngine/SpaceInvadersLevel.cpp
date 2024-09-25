@@ -3,6 +3,7 @@
 #include "AlienLowScore.h"
 #include "AlienMidScore.h"
 #include "AlienHighScore.h"
+#include "PlayerTank.h"
 
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
@@ -19,10 +20,9 @@ int SpaceInvadersLevel::GetWorldSizeX() const
 void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
-	Simulation& simulation = Simulation::Instance();
 
-	//--------------- bars general settings
-	AddAliensToSimulation();
+	LoadAliens();
+	LoadPlayerTank();
 }
 
 void SpaceInvadersLevel::NotifyGameOver()
@@ -45,26 +45,32 @@ void SpaceInvadersLevel::ShowGameOverScreen()
 	// mostrare pannello con victory / defeat
 }
 
-void SpaceInvadersLevel::AddAliensToSimulation()
+void SpaceInvadersLevel::LoadPlayerTank()
 {
-	Simulation& simulation = Simulation::Instance();
+	int xPos = GetWorldSizeX() / 2;
+	int yPos = GetScreenPadding();
+	PlayerTank* playerTank = new PlayerTank(xPos, yPos);
+	Simulation::Instance().TryAddEntity(playerTank);
+}
 
+void SpaceInvadersLevel::LoadAliens()
+{
 	int yPos = GetScreenMaxY() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
 	int addedRows = 0;
 	while (addedRows < ALIENS_ROWS_COUNT)
 	{
-		const type_info& type = GetTypeOfAlienForRow(addedRows);
+		const type_info& type = GetAlienTypeForRow(addedRows);
 		AddAliensRowToSimulation(yPos,type);
 		yPos -= (ALIEN_HEIGHT + SPACE_BETWEEN_ALIENS_Y);
 		++addedRows;
 	}
 }
 
-const type_info& SpaceInvadersLevel::GetTypeOfAlienForRow(int rowIndexFromTop)
+const type_info& SpaceInvadersLevel::GetAlienTypeForRow(int rowIndex)
 {
-	if (rowIndexFromTop == 0)
+	if (rowIndex == 0)
 		return typeid(AlienHighScore);
-	else if (rowIndexFromTop < 3)
+	else if (rowIndex < 3)
 		return typeid(AlienMidScore);
 	else
 		return typeid(AlienLowScore);
@@ -72,14 +78,12 @@ const type_info& SpaceInvadersLevel::GetTypeOfAlienForRow(int rowIndexFromTop)
 
 void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, const type_info& alienType)
 {
-	Simulation& simulation = Simulation::Instance();
-
 	int xPos = GetScreenPadding() + ALIENS_SPACE_FROM_MARGINS_X;
 	int addedAliens = 0;
 	while (addedAliens < ALIENS_COLUMNS_COUNT)
 	{
 		Alien* alien = CreateAlienOfType(alienType,xPos,yPos);
-		simulation.TryAddEntity(alien);
+		Simulation::Instance().TryAddEntity(alien);
 		++addedAliens;
 		xPos += ALIEN_WIDTH + SPACE_BETWEEN_ALIENS_X;
 	}

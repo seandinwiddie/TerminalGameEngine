@@ -12,7 +12,7 @@ using type_info = std::type_info;
 
 class SpaceInvadersLevel : public Level
 {
-//------------------------------------------------------------------- Fields
+//------------------------------------------------------------------- World settings
 private:
     static const size_t ALIEN_WIDTH = 4;
     static const size_t ALIEN_HEIGHT = 2;
@@ -41,9 +41,10 @@ protected:
     void ShowGameOverScreen();
 
 private:
-    void AddAliensToSimulation();
+    void LoadAliens();
+    void LoadPlayerTank();
     
-    const type_info& GetTypeOfAlienForRow(int rowIndexFromTop);
+    const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int posY, const type_info& alienType);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos);
 };
