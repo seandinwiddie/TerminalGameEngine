@@ -26,7 +26,6 @@ SimulationPrinter::SimulationPrinter
 {
     InitBackground(backgroundFileName);
     terminal.Clear();
-    
     DrawMargins();
     PrintBackground();
 }
@@ -42,7 +41,7 @@ void SimulationPrinter::DrawHorizontalMargin()
 {
     string line = "";
     for (int x = 0; x < screenSizeX + 2; ++x)
-        line += '-';
+        line += MARGIN_HORIZONTAL_CHAR;
     Cout(line);
 }
 
@@ -57,9 +56,9 @@ void SimulationPrinter::DrawMargins()
     for (size_t y = MARGIN_OFFSET_TOP_Y; y < GetMaxTerminalY(); ++y)
     {
         terminal.SetCursorPosition(size_t(0), y);
-        Cout('|');
+        Cout(MARGIN_VERTICAL_CHAR);
         terminal.SetCursorPosition(GetMaxTerminalX(), y);
-        Cout('|');
+        Cout(MARGIN_VERTICAL_CHAR);
     }
 }
 

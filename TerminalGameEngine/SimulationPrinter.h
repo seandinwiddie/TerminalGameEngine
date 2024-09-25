@@ -14,7 +14,12 @@ class SimulationPrinter
 {
 //---------------------------------------------------------- Settings
 private:
+
 	static const char GAME_OVER_FRAME_IGNORED_CHAR = '#';
+
+	static const char MARGIN_HORIZONTAL_CHAR = '=';
+	static const char MARGIN_VERTICAL_CHAR = '|';
+
 	static const size_t MARGIN_OFFSET_X = 1; 
 	static const size_t MARGIN_OFFSET_TOP_Y = 2; 
 	static const size_t MARGIN_OFFSET_BOTTOM_Y = 1;
