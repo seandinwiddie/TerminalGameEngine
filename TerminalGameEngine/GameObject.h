@@ -8,7 +8,6 @@
 #include <vector>
 #include <unordered_set>
 
-
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
 template<typename T> using uset = std::unordered_set<T>;

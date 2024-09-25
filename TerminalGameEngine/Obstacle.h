@@ -5,7 +5,7 @@
 class Obstacle : public MovingStraightObject
 {
 private:
-    Model model = CreteModelUsingChar(-37, size_t(4), size_t(2));
+    static Model model;
 //---------------------------------------------------------- Methods
 public:
     Obstacle(int xPos, int yPos, Direction moveDir, double moveSpeed);
@@ -17,5 +17,10 @@ public:
 protected:
     virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
     virtual void OnCollisionExit(Direction endingCollisionDir) {}
-    virtual void InitModel(){ SetModel(model); }
+    virtual void InitModel()
+    { 
+        if(model.size() == 0)
+            model = CreteModelUsingChar(-37, size_t(4), size_t(2));
+        SetModel(model);
+    }
 };

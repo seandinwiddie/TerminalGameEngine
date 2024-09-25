@@ -2,7 +2,7 @@
 #include "Bunny.h"
 #include "Level.h"
 
-const Model LevelEndFlag::flagModel
+const Model LevelEndFlag::flagModel//todo reverse model later
 {
      {'|',' '},
      {'|','/'},

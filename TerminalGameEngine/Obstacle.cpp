@@ -2,6 +2,9 @@
 #include "AudioManager.h"
 #include "TimeHelper.h"
 
+
+Model Obstacle::model = {};
+
 Obstacle::Obstacle(int xPos, int yPos, Direction moveDir, double moveSpeed)
     : MovingStraightObject(xPos, yPos, moveDir, moveSpeed) { }
 
