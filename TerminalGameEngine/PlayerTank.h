@@ -3,13 +3,16 @@
 
 class PlayerTank : public GameObject
 {
-//---------------------------------------------------------- Fields
+//---------------------------------------------------------- Settings
 private:
-    static const Model MODEL;
-
     double const MOVE_SPEED = 24;
     double const PROJECTILES_MOVE_SPEED = 32;
     double const SHOTS_DELAY = 0.5;
+
+//---------------------------------------------------------- Fields
+private:
+    static const Model MODEL;
+    double lastTimeShot = -1;
 
 //---------------------------------------------------------- Methods
 public:

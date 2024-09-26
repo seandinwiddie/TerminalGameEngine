@@ -2,6 +2,7 @@
 #include "Simulation.h"
 #include "InputUtils.h"
 #include "PlayerProjectile.h"
+#include "TimeHelper.h"
 
 using namespace InputUtils;
 
@@ -32,7 +33,12 @@ void PlayerTank::HandleShooting()
 {
     if (IsKeyPressed(Key::SPACE))
     {
-        PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILES_MOVE_SPEED);
-        Simulation::Instance().TryAddEntity(projectile);
+        double time = TimeHelper::Instance().GetTime();
+        if (time - lastTimeShot > SHOTS_DELAY)
+        {
+            lastTimeShot = TimeHelper::Instance().GetTime();
+            PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILES_MOVE_SPEED);
+            Simulation::Instance().TryAddEntity(projectile);
+        }
     }
 }
