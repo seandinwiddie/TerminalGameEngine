@@ -35,12 +35,20 @@ void PlayerTank::HandleShooting()
     if (IsKeyPressed(Key::SPACE))
     {
         double time = TimeHelper::Instance().GetTime();
+
+#if CHEAT_SPACEINV_FAST_FIRE
+        if(time-lastTimeShot > 0.1)
+            lastTimeShot = -99;
+#endif
+
         if (time - lastTimeShot > SHOTS_DELAY)
         {
+
             lastTimeShot = TimeHelper::Instance().GetTime();
             PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILES_MOVE_SPEED);
             Simulation::Instance().TryAddEntity(projectile);
             AudioManager::Instance().PlayFx("SpaceInv/shot1.wav");
         }
+
     }
 }

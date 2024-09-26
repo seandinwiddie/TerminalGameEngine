@@ -7,17 +7,22 @@ template <typename T> using vector = std::vector<T>;
 using namespace GridDirection;
 
 class Alien;
-class Level;
+class SpaceInvadersLevel;
 class GameObject;
 
 class AliensController : public ISimulationEntity
 {
 //------------------------------------------------------------------- Settings
+	double const BEGINNING_MOVE_DELAY = 2.0;
 
+	const double MAX_DELAY_REDUCTION_ELIMINATING_ALIENS = 1;
+
+	const double MAX_DELAY_REDUCTION_WAVES = 1;
+	const double WAVE_REACHING_MIN_DELAY = 5;
 //------------------------------------------------------------------- Fields
 private:
 	// references
-	Level* level;
+	SpaceInvadersLevel* level;
 	vector<vector<Alien*>> aliens;
 	
 	// state
@@ -29,16 +34,19 @@ private:
 
 //------------------------------------------------------------------- Methods
 public:
-	AliensController(Level* level, int aliensCountX, int aliensCountY);
+	AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY);
 	void Update() override;
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
 private:
-	double GetMoveDelay(){ return 1; }
+	double GetMoveDelay();
 	size_t GetAliensGridHeight() { return aliens.size(); }
 	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
+	size_t GetStartingAliensCount() { return GetAliensGridWidth() * GetAliensGridHeight(); }
+	size_t GetDestroyedAliensCount() { return GetStartingAliensCount() - aliensCount; }
 
 	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
+	void OnAlienDestroyedCallback(int xIndex, int yIndex);
 	void OnAliensReachMargin();
 
 	void MoveAliens(Direction dir, double speed);

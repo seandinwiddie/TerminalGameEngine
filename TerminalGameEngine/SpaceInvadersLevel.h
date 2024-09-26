@@ -29,7 +29,7 @@ private:
 //------------------------------------------------------------------- Fields
 private:
     size_t health = 3;
-    size_t wave = 0;
+    size_t waveNumber = 0;
     size_t score = 0;
 
 //------------------------------------------------------------------- Methods
@@ -40,6 +40,8 @@ public:
 
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;
+
+    size_t GetWaveNumber() { return waveNumber; }
 
     void IncreasePlayerScore(size_t increment);
 

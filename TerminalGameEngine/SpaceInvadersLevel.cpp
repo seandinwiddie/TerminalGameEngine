@@ -83,7 +83,7 @@ void SpaceInvadersLevel::PrintHealth()
 void SpaceInvadersLevel::PrintWave()
 {
 	int xPos = GetScreenMaxX();
-	string waveStr = "wave: " + std::to_string(wave);
+	string waveStr = "wave: " + std::to_string(waveNumber);
 	xPos -= waveStr.length() - 2;
 
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
