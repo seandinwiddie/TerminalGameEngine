@@ -16,11 +16,8 @@ private:
 	vector<vector<Alien*>> aliens;
 
 	size_t aliensCount;
-
-	size_t aliensCountX;
-	size_t aliensCountY;
-
-	Direction currentDirection = Direction::right;
+	size_t aliensPosX;
+	Direction aliensMoveDirectionX = Direction::right;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -30,4 +27,6 @@ public:
 
 private:
 	double GetCurrentSpeedX(){ return 8; }
+	size_t GetAliensGridHeight() { return aliens.size(); }
+	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
 };
