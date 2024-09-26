@@ -9,6 +9,13 @@ using string = std::string;
 
 class DebugPrinter : public Printer
 {
+//------------------------------------------ Settings
+private:
+    const int DEBUG_COLOR = Terminal::CYAN;
+    const size_t DEBUG_POSITION_FPS = 1;
+    const size_t DEBUG_POSITION_COUT_CALLS = 2;
+
+//------------------------------------------ Methodss
 public:
     DebugPrinter
     (
@@ -17,10 +24,6 @@ public:
         size_t screenPadding
     ) : Printer(screenSizeX, screenSizeY, screenPadding){ }
 
-private:
-	const int DEBUG_COLOR = Terminal::CYAN;
-	const size_t DEBUG_POSITION_FPS = 1;
-	const size_t DEBUG_POSITION_COUT_CALLS = 2;
 
 public:
     void PrintCoutCallsCount(size_t coutCallsCount)

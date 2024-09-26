@@ -13,6 +13,7 @@ class GameObject;
 
 class SimulationPrinter : public Printer
 {
+//---------------------------------------------------------- Fields
 	int backgroundColor = Terminal::BLUE_DARK;
 	Frame background;
 //---------------------------------------------------------- Methods

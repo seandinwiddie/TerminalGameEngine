@@ -3,14 +3,15 @@
 
 class UIPrinter : public Printer
 {
+//---------------------------------------------------------- Fields
 private:
 	static const char GAME_OVER_FRAME_IGNORED_CHAR = '#';
-
 	static const char MARGIN_HORIZONTAL_CHAR = '=';
 	static const char MARGIN_VERTICAL_CHAR = '|';
 
 	int screenMarginsColor = Terminal::BLUE_DARK;
 
+//---------------------------------------------------------- Methods
 public:
 	UIPrinter(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
 
