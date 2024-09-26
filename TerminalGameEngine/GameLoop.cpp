@@ -16,6 +16,7 @@ using namespace InputUtils;
 GameLoop::GameLoop()
 {
     bool returnToMainMenu = false;
+
     while (true)
     {
         AudioManager::Instance().StopMusic();

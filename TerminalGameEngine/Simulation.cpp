@@ -63,7 +63,7 @@ void Simulation::Step()
 	OnFrameGenerated.Notify();
 
 #if DEBUG_MODE && SHOW_FPS
-	simulationPrinter->DEBUG_PrintFpsString(DebugManager::Instance().GetAverageFps());
+	DebugManager::Instance().ShowAverageFPS();
 #endif
 }
 
@@ -235,20 +235,27 @@ void Simulation::LoadLevel (Level* level)
 		delete(obj);
 
 	entities.clear();
-	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), GetScreenPadding());
-	ResetScreenManager(level->GetBackgroundFileName());
-	level->LoadInSimulation();
 
 #if DEBUG_MODE
-	DebugManager::Instance().Reset();
+	DebugManager::Instance().Reset(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding());
 #endif
+
+	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
+	ResetPrinters(level->GetBackgroundFileName());
+	level->LoadInSimulation();
 }
 
-void Simulation::ResetScreenManager(const string& backgroundFileName)
+void Simulation::ResetPrinters(const string& backgroundFileName)
 {
+	Terminal::Instance().Clear();
+
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
 	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
+
+	if (uiPrinter != nullptr)
+		delete(uiPrinter);
+	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding());
 }
 
 bool Simulation::IsInsideScreenY(int yPos) const

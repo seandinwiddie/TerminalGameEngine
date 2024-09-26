@@ -106,6 +106,12 @@
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="UIPrinter.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPrinter.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -127,9 +133,6 @@
       <Filter>Headers\Engine\Managers/Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Simulation.h">
-      <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulationPrinter.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="PuzzleLevel.h">
@@ -216,6 +219,15 @@
     <ClInclude Include="PlayerTank.h">
       <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
+    <ClInclude Include="DebugPrinter.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="Printer.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationPrinter.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">
@@ -279,6 +291,9 @@
     </Filter>
     <Filter Include="Headers\Levels\Pong">
       <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Engine\Printers">
+      <UniqueIdentifier>{b22f59a7-aead-457f-bd85-1b66789b6a48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

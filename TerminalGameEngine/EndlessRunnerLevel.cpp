@@ -36,7 +36,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameOverWindow.ReplaceChar(message, '$');
 
-    Simulation::Instance().PrintGameOverWindow(gameOverWindow);
+    Simulation::Instance().GetUIPrinter().PrintGameOverWindow(gameOverWindow, Terminal::WHITE);
 }
 
 void EndlessRunnerLevel::NotifyGameOver()
@@ -127,7 +127,7 @@ void EndlessRunnerLevel::Update()
     if (shownTime != newTime)
     {
         string header = "TIME: " + std::to_string(newTime);
-        Simulation::Instance().SetTerminalHeader(header);
+        Simulation::Instance().GetUIPrinter().PrintOnHeader(header, 0, Terminal::WHITE);
         shownTime = newTime;
     }
 }

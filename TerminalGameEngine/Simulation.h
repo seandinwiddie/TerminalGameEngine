@@ -7,6 +7,8 @@
 #include "Event.h"
 #include "WorldSpace.h"
 #include "SimulationPrinter.h"
+#include "UIPrinter.h"
+#include "DebugPrinter.h"
 
 #include <list>
 #include <vector>
@@ -42,6 +44,8 @@ public:
 
 private:
 	SimulationPrinter* simulationPrinter;
+	UIPrinter* uiPrinter;
+
 	Level* level;
 
 	WorldSpace worldSpace;
@@ -63,8 +67,8 @@ public:
 	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
 	const Level* GetActiveLevel() { return level; }
-	void PrintGameOverWindow(const Frame& window) { simulationPrinter->PrintGameOverWindow(window); }
-	void SetTerminalHeader(const string& header) { simulationPrinter->SetHeader(header); }
+
+	UIPrinter& GetUIPrinter() { return *uiPrinter; }
 
 private:
 	void RemoveObject(GameObject* obj);
@@ -72,7 +76,7 @@ private:
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
 	void UpdateObjectEndedCollisions(GameObject* collidingObj);
-	void ResetScreenManager(const string& backgroundFileName);
+	void ResetPrinters(const string& backgroundFileName);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();
 	void ExecuteMoveRequests();

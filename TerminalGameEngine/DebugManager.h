@@ -6,7 +6,7 @@
 #include "Terminal.h"
 #include "Singleton.h"
 #include "TimeHelper.h"
-#include "Simulation.h"
+#include "DebugPrinter.h"
 #include <list>
 #include <string>
 
@@ -14,25 +14,27 @@ using string = std::string;
 
 class DebugManager : public Singleton<DebugManager>
 {
-	friend class Singleton;
-
+friend class Singleton;
 //---------------------------------------------------------- Settings
 private:
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
 //---------------------------------------------------------- Fields
-private:
+	DebugPrinter* debugPrinter = nullptr;
+
 	//fps
 	std::list<double> fpsRecord;
 	double lastTimePrintedFps = 0;
 	size_t averageFPS = 0;
 
 	//cout calls
-	int coutCalls = 0;
+	int coutCallsCount = 0;
 //---------------------------------------------------------- Methods
 public:
-	void Reset();
-	size_t GetAverageFps();
-	size_t IncreaseCoutCalls();
-};
+	void Reset(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
+	void ShowAverageFPS();
+	void IncrementCoutCalls();
 
+private:
+	size_t GetAverageFps();
+};
 #endif

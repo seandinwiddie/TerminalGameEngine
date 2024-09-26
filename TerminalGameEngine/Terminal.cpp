@@ -1,4 +1,9 @@
 #include "Terminal.h"
+#include "DebugManager.h"
+#include <iostream>
+#include <string>
+
+using string = std::string;
 
 const int Terminal::WHITE_DARK = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN;
 const int Terminal::RED_DARK = FOREGROUND_RED;
@@ -77,4 +82,22 @@ void Terminal::HideCursor()
     GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
     cursorInfo.bVisible = false; // Hide cursor
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+}
+
+void Terminal::Cout(const string& s) const
+{
+    std::cout << s;
+
+#if DEBUG_MODE && SHOW_COUT_CALLS
+    DebugManager::Instance().IncrementCoutCalls();
+#endif
+}
+
+void Terminal::Cout(char c) const
+{
+    std::cout << c;
+
+#if DEBUG_MODE && SHOW_COUT_CALLS
+    DebugManager::Instance().IncrementCoutCalls();
+#endif
 }

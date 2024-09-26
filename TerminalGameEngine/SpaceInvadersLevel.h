@@ -25,6 +25,11 @@ private:
     static const size_t ALIENS_SPACE_FROM_MARGINS_X = 4;
     static const size_t ALIENS_SPACE_FROM_TOP_MARGIN = 3;
 
+//------------------------------------------------------------------- Fields
+private:
+    size_t health = 3;
+    size_t wave = 0;
+
 //------------------------------------------------------------------- Methods
 public:
     virtual int GetWorldSizeX() const override;

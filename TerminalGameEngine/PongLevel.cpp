@@ -66,7 +66,8 @@ void PongLevel::IncreaseP2Score()
 
 void PongLevel::RefreshHeader()
 {
-	Simulation::Instance().SetTerminalHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2));
+	Simulation::Instance().GetUIPrinter().
+		PrintOnHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2),0,Terminal::WHITE);
 }
 
 void PongLevel::OnPostGameOverDelayEnded()

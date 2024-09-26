@@ -169,6 +169,8 @@
     <ClCompile Include="StaticCollider.h" />
     <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="UIPrinter.cpp" />
+    <ClCompile Include="UIPrinter.h" />
     <ClCompile Include="WorldSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +182,7 @@
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DebugManager.h" />
+    <ClInclude Include="DebugPrinter.h" />
     <ClInclude Include="FakeGameObejct.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameObject.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="PongBar.h" />
     <ClInclude Include="PongLevel.h" />
     <ClInclude Include="PressurePlate.h" />
+    <ClInclude Include="Printer.h" />
     <ClInclude Include="PuzzleLevel.h" />
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />

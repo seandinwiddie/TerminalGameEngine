@@ -194,9 +194,6 @@ void Bunny::SetState(State newState)
     if (state == State::defeated)
         return;
 
-    if (newState == State::jumpingDown || newState == State::jumpingUp)
-        int a = 0;
-
     HandleSounds(state, newState);
 
     state = newState;
