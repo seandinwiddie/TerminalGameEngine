@@ -16,12 +16,16 @@ class AliensController : public ISimulationEntity
 
 //------------------------------------------------------------------- Fields
 private:
+	// references
 	Level* level;
 	vector<vector<Alien*>> aliens;
-
+	
+	// state
 	size_t aliensCount;
 	size_t aliensPosX;
 	Direction xMoveDirection = Direction::right;
+	bool isTimeToMoveAliensDown = false;
+	double lastTimeMoved = -1;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -30,7 +34,7 @@ public:
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
 private:
-	double GetMovementSpeedX(){ return 2; }
+	double GetMoveDelay(){ return 1; }
 	size_t GetAliensGridHeight() { return aliens.size(); }
 	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
 

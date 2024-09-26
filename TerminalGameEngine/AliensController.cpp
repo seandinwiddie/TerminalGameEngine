@@ -2,6 +2,7 @@
 #include "AliensController.h"
 #include "Alien.h"
 #include "Level.h"
+#include "TimeHelper.h"
 #include <cassert>
 
 AliensController::AliensController(Level* level, int aliensCountX, int aliensCountY) : level(level)
@@ -16,7 +17,17 @@ AliensController::AliensController(Level* level, int aliensCountX, int aliensCou
 
 void AliensController::Update()
 {
-	MoveAliens(xMoveDirection, GetMovementSpeedX());
+	double time = TimeHelper::Instance().GetTime();
+	if (time - lastTimeMoved > GetMoveDelay())
+	{
+		if (isTimeToMoveAliensDown)
+		{
+			MoveAliens(Direction::down, 9999);
+			isTimeToMoveAliensDown = false;
+		}
+		else
+			MoveAliens(xMoveDirection, 9999);
+	}
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
@@ -31,6 +42,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 	(
 		[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 	);
+
 	alien->OnDestroy.Subscribe
 	(
 		[this](int xIndex, int yIndex) { aliens[yIndex][xIndex] = nullptr; }
@@ -53,10 +65,12 @@ void AliensController::MoveAliens(Direction dir, double speed)
 		for (int x = 0; x < GetAliensGridWidth(); ++x)
 			if (aliens[y][x] != nullptr)
 				aliens[y][x]->TryMove(dir, speed);
+
+	lastTimeMoved = TimeHelper::Instance().GetTime();
 }
 
 void AliensController::OnAliensReachMargin()
 {
 	xMoveDirection = GetInverseDirection(xMoveDirection);
-	MoveAliens(Direction::down, 9999);
+	isTimeToMoveAliensDown = true;
 }
