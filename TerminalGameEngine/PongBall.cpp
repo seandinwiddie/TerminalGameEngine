@@ -35,7 +35,7 @@ void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
         return;
     }
 
-    AudioManager::Instance().PlayFx("Pong/ballHit.wav",0.02);
+    AudioManager::Instance().PlayFx("Pong/ballHit1.wav",0.02);
 
     if (collisionDir == Direction::up || collisionDir == Direction::down)
     {

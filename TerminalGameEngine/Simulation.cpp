@@ -73,15 +73,14 @@ void Simulation::RemoveMarkedEntities()
 {
 	for (ISimulationEntity* entity : toRemoveEntities)
 	{
-		entities.remove(entity);
-
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 		if (objEntity != nullptr)
 		{
+			objEntity->CALLED_BY_SIM_OnDestroy();
 			worldSpace.RemoveObject(objEntity);
 			simulationPrinter->ClearObject(objEntity);
 		}
-
+		entities.remove(entity);
 		delete(entity);
 	}
 	toRemoveEntities.clear();

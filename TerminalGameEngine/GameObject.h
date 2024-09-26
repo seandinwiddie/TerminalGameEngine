@@ -38,7 +38,6 @@ protected:
 public:
 	virtual int GetColor() const { return Terminal::WHITE; }
 	virtual bool CanExitScreenSpace() const = 0;
-	virtual double GetGravityScale() const = 0;
 
 	void Init() { InitModel(); }
 	GameObject(int xPos, int yPos);
@@ -53,11 +52,15 @@ public:
 	const Model& GetModel()const { return *model; }
 
 protected:
+	virtual void InitModel() = 0;
+	virtual double GetGravityScale() const = 0;
+	virtual void CALLED_BY_SIM_OnDestroy(){}
+
 	virtual void TryMove(Direction direction, double moveSpeed);
 	virtual void Update();
 	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir){}
 	virtual void OnCollisionExit(Direction endingCollisionDir){}
-	virtual void InitModel() = 0;
+
 
 	Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
 	void SetModel(const Model& newModel);

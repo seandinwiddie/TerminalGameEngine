@@ -1,5 +1,6 @@
 #include "Alien.h"
 #include "TimeHelper.h"
+#include "AudioManager.h"
 
 void Alien::Update()
 {
@@ -9,4 +10,9 @@ void Alien::Update()
 		StepAnimation();
 		showFirstAnimFrame = showFirstAnimFrameNew;
 	}
+}
+
+void Alien::CALLED_BY_SIM_OnDestroy()
+{
+	AudioManager::Instance().PlayFx("SpaceInv/alienDeath2.wav");
 }
