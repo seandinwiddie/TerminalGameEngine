@@ -9,15 +9,17 @@
 
 double AliensController::GetMoveDelay()
 { 
-	return
-		BEGINNING_MOVE_DELAY - 
+	double delay =
+		BEGINNING_MOVE_DELAY -
 
 		//waves progress reduces timer (wave reaching min delay reached -> max reduction)
 		level->GetWaveNumber() / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES -
 		//5 / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES -
 
 		//killing aliens reduces timer (all enemies destroyed = max timer reduction)
-		MAX_DELAY_REDUCTION_ELIMINATING_ALIENS * GetDestroyedAliensCount() / GetStartingAliensCount();
+		MAX_DELAY_REDUCTION_ELIMINATING_ALIENS * (GetDestroyedAliensCount()+1) / GetStartingAliensCount();
+
+	return delay;
 }
 
 AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY) : level(level)
@@ -34,7 +36,13 @@ void AliensController::Update()
 	double time = TimeHelper::Instance().GetTime();
 	if (time - lastTimeMoved > GetMoveDelay())
 	{
-		DebugManager::Instance().PrintGenericLog(std::to_string(GetMoveDelay()));
+
+		double delayReduction1 = level->GetWaveNumber() / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES;
+		double delayReduction2 = MAX_DELAY_REDUCTION_ELIMINATING_ALIENS * (GetDestroyedAliensCount() + 1) / GetStartingAliensCount();
+		string debugStr = std::to_string(GetMoveDelay()) +" - "+ std::to_string(delayReduction1)+ " - " + std::to_string(delayReduction2);
+		DebugManager::Instance().PrintGenericLog(debugStr);
+
+
 		if (isTimeToMoveAliensDown)
 		{
 			MoveAliens(Direction::down, 9999);
