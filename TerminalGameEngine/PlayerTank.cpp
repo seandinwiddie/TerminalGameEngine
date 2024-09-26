@@ -6,7 +6,7 @@ using namespace InputUtils;
 
 const Model PlayerTank::MODEL =
 {
-    {'#', '#', '#', '#', '#'},
+    {'|', '=', '=', '=', '|'},
     {'_', '_', 'A', '_', '_'}
 };
 
