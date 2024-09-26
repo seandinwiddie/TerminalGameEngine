@@ -24,7 +24,6 @@ public:
         size_t screenPadding
     ) : Printer(screenSizeX, screenSizeY, screenPadding){ }
 
-
 public:
     void PrintCoutCallsCount(size_t coutCallsCount)
     {

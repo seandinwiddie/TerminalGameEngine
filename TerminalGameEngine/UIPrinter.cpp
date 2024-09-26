@@ -1,9 +1,9 @@
 #include "UIPrinter.h"
 
-UIPrinter::UIPrinter(size_t screenSizeX, size_t screenSizeY, size_t screenPadding) : 
+UIPrinter::UIPrinter(size_t screenSizeX, size_t screenSizeY, size_t screenPadding, int marginsColor) : 
     Printer(screenSizeX, screenSizeY, screenPadding)
 {
-    DrawMargins();
+    DrawMargins(marginsColor);
 };
 
 void UIPrinter::PrintOnHeader(const string& header, int xPos, int color)
@@ -33,9 +33,9 @@ void UIPrinter::PrintGameOverWindow(const Frame& window, int color)
     }
 }
 
-void UIPrinter::DrawMargins()
+void UIPrinter::DrawMargins(int color)
 {
-    terminal.SetColor(screenMarginsColor);
+    terminal.SetColor(color);
 
     //horizontal
     terminal.SetCursorPosition(0, 1);

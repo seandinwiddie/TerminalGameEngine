@@ -14,7 +14,7 @@ class GameObject;
 class SimulationPrinter : public Printer
 {
 //---------------------------------------------------------- Fields
-	int backgroundColor = Terminal::BLUE_DARK;
+	int backgroundColor;
 	Frame background;
 //---------------------------------------------------------- Methods
 public:
@@ -23,13 +23,13 @@ public:
 		size_t screenSizeX,
 		size_t screenSizeY,
 		size_t screenPadding,
+		int backgroundColor,
 		const string& backgroundFileName = ""
 	);
 
 	void PrintObject(GameObject* obj);
 	void ClearObject(GameObject* obj);
 	void ClearArea(int worldXPos, int worldYPos, size_t xSize, size_t ySize);
-	void SetBackgroundColor(int color) { backgroundColor = color; }
 
 private:
 	void PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go);

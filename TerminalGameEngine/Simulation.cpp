@@ -235,27 +235,34 @@ void Simulation::LoadLevel (Level* level)
 		delete(obj);
 
 	entities.clear();
+	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
 
 #if DEBUG_MODE
 	DebugManager::Instance().Reset(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding());
 #endif
-
-	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
-	ResetPrinters(level->GetBackgroundFileName());
+	
+	ResetPrinters(level);
 	level->LoadInSimulation();
 }
 
-void Simulation::ResetPrinters(const string& backgroundFileName)
+void Simulation::ResetPrinters(const Level* level)
 {
 	Terminal::Instance().Clear();
 
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
+	simulationPrinter = new SimulationPrinter
+	(
+		GetScreenSizeX(),
+		GetScreenSizeY(),
+		GetScreenPadding(), 
+		level->GetBackgroundColor(),
+		level->GetBackgroundFileName()
+	);
 
 	if (uiPrinter != nullptr)
 		delete(uiPrinter);
-	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding());
+	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), level->GetMarginsColor());
 }
 
 bool Simulation::IsInsideScreenY(int yPos) const

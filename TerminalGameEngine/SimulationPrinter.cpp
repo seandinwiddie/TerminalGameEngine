@@ -17,11 +17,11 @@ SimulationPrinter::SimulationPrinter
     size_t screenSizeX, 
     size_t screenSizeY, 
     size_t screenPadding, 
+    int backgroundColor,
     const string& backgroundFileName 
-) : Printer(screenSizeX, screenSizeY, screenPadding)
+) : Printer(screenSizeX, screenSizeY, screenPadding), backgroundColor(backgroundColor)
 {
     InitBackground(backgroundFileName);
-    PrintBackground();
 }
 
 void SimulationPrinter::PrintObject(GameObject* go)
@@ -97,4 +97,5 @@ void SimulationPrinter::InitBackground(const string& backgroundFileName)
         return;
     }
     background.ReadFromFile(backgroundFileName, screenSizeX, screenSizeY);
+    PrintBackground();
 }

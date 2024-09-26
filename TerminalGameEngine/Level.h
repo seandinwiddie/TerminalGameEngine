@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISimulationUpdatingEntity.h"
+#include "Terminal.h"
 
 #include <vector>
 #include "Frame.h"
@@ -24,13 +25,14 @@ protected:
     Frame gameOverWindow;
 
 //---------------------------------------------------------- Methods
-public:
-   
+public:   
     virtual void NotifyGameOver();
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
-    virtual string GetBackgroundFileName() { return ""; }
+    virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
+    virtual const string& GetBackgroundFileName()const { return ""; }
+    virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
 
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }

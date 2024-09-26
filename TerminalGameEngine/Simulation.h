@@ -76,7 +76,7 @@ private:
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
 	void UpdateObjectEndedCollisions(GameObject* collidingObj);
-	void ResetPrinters(const string& backgroundFileName);
+	void ResetPrinters(const Level* level);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();
 	void ExecuteMoveRequests();
