@@ -2,6 +2,7 @@
 #include "Level.h"
 
 class Alien;
+class AliensController;
 
 // 11 x 4 -> 44
 // + 2 alieni -> 52
@@ -17,8 +18,8 @@ private:
     static const size_t ALIEN_WIDTH = 4;
     static const size_t ALIEN_HEIGHT = 2;
 
-    static const size_t ALIENS_ROWS_COUNT = 5;
-    static const size_t ALIENS_COLUMNS_COUNT = 11;
+    static const size_t ALIENS_COUNT_Y = 5;
+    static const size_t ALIENS_COUNT_X = 11;
     static const size_t SPACE_BETWEEN_ALIENS_X = 2;
     static const size_t SPACE_BETWEEN_ALIENS_Y = 1;
 
@@ -49,7 +50,7 @@ protected:
     void ShowGameOverScreen();
 
 private:
-    void LoadAliens();
+    void LoadAliens(AliensController* controller);
     void LoadPlayerTank();
 
     void InitHeader();
@@ -58,6 +59,6 @@ private:
     void PrintWave();
     
     const type_info& GetAlienTypeForRow(int rowIndex);
-    void AddAliensRowToSimulation(int posY, const type_info& alienType);
+    void AddAliensRowToSimulation(int yPos, int rowIndex, AliensController* controller);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos);
 };

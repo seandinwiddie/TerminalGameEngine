@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="AliensController.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />

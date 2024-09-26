@@ -9,9 +9,9 @@
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
 	return
-		ALIENS_COLUMNS_COUNT * ALIEN_WIDTH
+		ALIENS_COUNT_X * ALIEN_WIDTH
 		+
-		(ALIENS_COLUMNS_COUNT - 1) * SPACE_BETWEEN_ALIENS_X
+		(ALIENS_COUNT_X - 1) * SPACE_BETWEEN_ALIENS_X
 		+
 		2 * ALIENS_SPACE_FROM_MARGINS_X
 		+
@@ -22,7 +22,10 @@ void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
 
-	LoadAliens();
+	AliensController* aliensController = new AliensController(ALIENS_COUNT_X, ALIENS_COUNT_Y);
+	Simulation::Instance().TryAddEntity(aliensController);
+
+	LoadAliens(aliensController);
 	LoadPlayerTank();
 	InitHeader();
 }
@@ -95,39 +98,40 @@ void SpaceInvadersLevel::LoadPlayerTank()
 	Simulation::Instance().TryAddEntity(playerTank);
 }
 
-void SpaceInvadersLevel::LoadAliens()
+void SpaceInvadersLevel::LoadAliens(AliensController* controller)
 {
-
 	int yPos = GetScreenMaxY() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
-	int addedRows = 0;
-	while (addedRows < ALIENS_ROWS_COUNT)
+	int yIndex = 0;
+	while (yIndex < ALIENS_COUNT_Y)
 	{
-		const type_info& type = GetAlienTypeForRow(addedRows);
-		AddAliensRowToSimulation(yPos,type);
+		AddAliensRowToSimulation(yPos, yIndex, controller);
 		yPos -= (ALIEN_HEIGHT + SPACE_BETWEEN_ALIENS_Y);
-		++addedRows;
+		++yIndex;
 	}
 }
 
-const type_info& SpaceInvadersLevel::GetAlienTypeForRow(int rowIndex)
+const type_info& SpaceInvadersLevel::GetAlienTypeForRow(int yIndex)
 {
-	if (rowIndex == 0)
+	if (yIndex == 0)
 		return typeid(AlienHighScore);
-	else if (rowIndex < 3)
+	else if (yIndex < 3)
 		return typeid(AlienMidScore);
 	else
 		return typeid(AlienLowScore);
 }
 
-void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, const type_info& alienType)
+void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex, AliensController* controller)
 {
 	int xPos = GetScreenPadding() + ALIENS_SPACE_FROM_MARGINS_X;
-	int addedAliens = 0;
-	while (addedAliens < ALIENS_COLUMNS_COUNT)
+	const type_info& alienType = GetAlienTypeForRow(yIndex);
+	int xIndex = 0;
+	while (xIndex < ALIENS_COUNT_X)
 	{
 		Alien* alien = CreateAlienOfType(alienType,xPos,yPos);
 		Simulation::Instance().TryAddEntity(alien);
-		++addedAliens;
+		controller->RegisterAlien(alien, xIndex, yIndex);
+
+		++xIndex;
 		xPos += ALIEN_WIDTH + SPACE_BETWEEN_ALIENS_X;
 	}
 }

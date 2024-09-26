@@ -1,13 +1,15 @@
 #pragma once
 #include "ISimulationEntity.h"
+#include "GridDirection.h"
 #include <vector>
 
+class Alien;
 template <typename T> using vector = std::vector<T>;
+using namespace GridDirection;
 
-class AliensController : ISimulationEntity
+class AliensController : public ISimulationEntity
 {
 //------------------------------------------------------------------- Settings
-	
 
 //------------------------------------------------------------------- Fields
 private:
@@ -22,25 +24,10 @@ private:
 
 //------------------------------------------------------------------- Methods
 public:
-	AliensController(int aliensCountX, int aliensCountY) : aliensCountX(aliensCountX), aliensCountY(aliensCountY)
-	{
-		aliensCount = aliensCountX * aliensCountY;
-
-		aliens.resize(aliensCountY);
-		for (int i = 0; i < aliensCountX; ++i)
-			aliens[i].resize(aliensCountX);
-	}
-
-	void Update() override
-	{
-		for (int y = 0; y < aliensCountY; ++y)
-			for (int x = 0; x < aliensCountX; ++x)
-				aliens[y][x]->TryMove(currentDirection, GetCurrentSpeedX());
-	}
+	AliensController(int aliensCountX, int aliensCountY);
+	void Update() override;
+	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
 private:
-	double GetCurrentSpeedX()
-	{
-		return 8;
-	}
+	double GetCurrentSpeedX(){ return 8; }
 };

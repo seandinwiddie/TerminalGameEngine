@@ -118,6 +118,9 @@
     <ClCompile Include="PlayerProjectile.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="AliensController.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
