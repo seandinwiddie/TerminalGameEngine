@@ -112,6 +112,12 @@
     <ClCompile Include="UIPrinter.h">
       <Filter>Headers\Engine\Printers</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerProjectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectile.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -204,18 +210,6 @@
     <ClInclude Include="PongBar.h">
       <Filter>Headers\Levels\Pong</Filter>
     </ClInclude>
-    <ClInclude Include="Alien.h">
-      <Filter>Headers\Levels\SpaceInvaders</Filter>
-    </ClInclude>
-    <ClInclude Include="AlienLowScore.h">
-      <Filter>Headers\Levels\SpaceInvaders</Filter>
-    </ClInclude>
-    <ClInclude Include="AlienMidScore.h">
-      <Filter>Headers\Levels\SpaceInvaders</Filter>
-    </ClInclude>
-    <ClInclude Include="AlienHighScore.h">
-      <Filter>Headers\Levels\SpaceInvaders</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerTank.h">
       <Filter>Headers\Levels\SpaceInvaders</Filter>
     </ClInclude>
@@ -227,6 +221,24 @@
     </ClInclude>
     <ClInclude Include="SimulationPrinter.h">
       <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienHighScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienLowScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienMidScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +306,12 @@
     </Filter>
     <Filter Include="Headers\Engine\Printers">
       <UniqueIdentifier>{b22f59a7-aead-457f-bd85-1b66789b6a48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\SpaceInvaders\Aliens">
+      <UniqueIdentifier>{c1e0a236-4009-4edf-a31a-304c396b9576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\SpaceInvaders\Projectiles">
+      <UniqueIdentifier>{9ab4d804-bc37-428e-ba0e-77cf22a7d63b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

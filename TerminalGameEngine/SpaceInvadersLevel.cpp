@@ -23,6 +23,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 
 	LoadAliens();
 	LoadPlayerTank();
+	InitHeader();
 }
 
 void SpaceInvadersLevel::NotifyGameOver()
@@ -33,11 +34,39 @@ void SpaceInvadersLevel::NotifyGameOver()
 void SpaceInvadersLevel::Update()
 {
 
+}
 
-	//todo update only when needed
-	Simulation::
-	Simulation::Instance().GetUIPrinter().PrintOnHeader("<3 <3 <3",0,Terminal::RED);
-	Simulation::Instance().GetUIPrinter().PrintOnHeader("wave: 0", 20, Terminal::WHITE);
+void SpaceInvadersLevel::InitHeader()
+{
+	PrintScore();
+	PrintHealth();
+	PrintWave();
+}
+
+void SpaceInvadersLevel::PrintScore()
+{
+	int xPos = Simulation::Instance().GetScreenSizeX() / 2;
+	Simulation::Instance().GetUIPrinter().PrintOnHeader("score: " + std::to_string(score), xPos, Terminal::WHITE);
+}
+
+void SpaceInvadersLevel::PrintHealth()
+{
+	int xPos = 0;
+
+	string healthStr = "";
+	for (int i = 0; i < health; i++)
+		healthStr += "<3 ";
+
+	Simulation::Instance().GetUIPrinter().PrintOnHeader(healthStr, xPos, Terminal::RED);
+}
+
+void SpaceInvadersLevel::PrintWave()
+{
+	int xPos = GetScreenMaxX();
+	string waveStr = "wave: " + std::to_string(wave);
+	xPos -= waveStr.length() - 2;
+
+	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()

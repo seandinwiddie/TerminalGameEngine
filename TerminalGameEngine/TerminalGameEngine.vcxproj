@@ -145,6 +145,8 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
     <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="PlayerProjectile.cpp" />
+    <ClCompile Include="PlayerProjectile.h" />
     <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PongBall.cpp" />
     <ClCompile Include="PongBar.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="DebugPrinter.h" />
+    <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="FakeGameObejct.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameObject.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="PongLevel.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="Printer.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="PuzzleLevel.h" />
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />

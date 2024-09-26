@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-
 #include <iostream>
 #include <Windows.h>
 #include <stdlib.h>

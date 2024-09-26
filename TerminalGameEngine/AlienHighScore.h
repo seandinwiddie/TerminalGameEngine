@@ -1,6 +1,5 @@
 #pragma once
 #include "Alien.h"
-#include "Terminal.h"
 
 class AlienHighScore : public Alien
 {

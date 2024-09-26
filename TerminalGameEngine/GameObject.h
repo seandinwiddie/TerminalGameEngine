@@ -46,6 +46,8 @@ public:
 	int GetPosY() const { return yPos; }
 	int GetMaxPosX()const { return xPos + static_cast<int>(GetModelWidth()) - 1; }
 	int GetMaxPosY()const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
+	int GetMidPosX() { return GetPosX() + static_cast<int>(GetModelWidth()) / 2; }
+	int GetMidPosY() { return GetPosY() + static_cast<int>(GetModelHeight()) / 2; }
 	size_t GetModelWidth()const;
 	size_t GetModelHeight()const { return GetModel().size(); }
 	const Model& GetModel()const { return *model; }

@@ -29,6 +29,7 @@ private:
 private:
     size_t health = 3;
     size_t wave = 0;
+    size_t score = 0;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -39,6 +40,8 @@ public:
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;
 
+    void IncreasePlayerScore(size_t increment) { score += increment; }
+
 protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
@@ -48,6 +51,11 @@ protected:
 private:
     void LoadAliens();
     void LoadPlayerTank();
+
+    void InitHeader();
+    void PrintScore();
+    void PrintHealth();
+    void PrintWave();
     
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int posY, const type_info& alienType);

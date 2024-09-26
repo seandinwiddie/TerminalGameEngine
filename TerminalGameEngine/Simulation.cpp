@@ -200,7 +200,7 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	{
 		if (outCollidingObjects.find(WorldSpace::WORLD_MARGIN) != outCollidingObjects.end())
 		{
-			RemoveObject(obj);
+			RemoveEntity(obj);
 		}
 		else
 		{
@@ -219,12 +219,21 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	return true;
 }
 
-void Simulation::RemoveObject(GameObject* obj)
+void Simulation::RemoveEntity(ISimulationUpdatingEntity* entity)
 {
-	worldSpace.RemoveObject(obj);
-	entities.remove(obj);
-	simulationPrinter->ClearObject(obj);
-	delete(obj);
+	if (!IsEntityInSimulation(entity))
+		return;
+
+	entities.remove(entity);
+
+	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+	if (objEntity != nullptr)
+	{
+		worldSpace.RemoveObject(objEntity);
+		simulationPrinter->ClearObject(objEntity);
+	}
+
+	delete(entity);
 }
 
 void Simulation::LoadLevel (Level* level)

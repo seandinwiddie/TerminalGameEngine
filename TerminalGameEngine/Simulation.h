@@ -60,18 +60,18 @@ public:
 	void LoadLevel(Level* level);
 	void Step();
 	bool TryAddEntity(ISimulationUpdatingEntity* entity);
+	void RemoveEntity(ISimulationUpdatingEntity* obj);
 	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
 	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
 	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
 	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
 	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
-	const Level* GetActiveLevel() { return level; }
+	Level* GetActiveLevel() { return level; }
 
 	UIPrinter& GetUIPrinter() { return *uiPrinter; }
 
 private:
-	void RemoveObject(GameObject* obj);
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
