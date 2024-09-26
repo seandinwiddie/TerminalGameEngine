@@ -8,7 +8,8 @@ private:
 	static const Model MODEL_2;
 //------------------------------------------------------ Methods
 public:
-	AlienLowScore(int xPos, int yPos) : Alien(xPos, yPos){}
+	using Alien::Alien;
+
 	virtual size_t GetScore() const { return 10; }
 	virtual int GetColor() const override { return Terminal::GREEN; }
 

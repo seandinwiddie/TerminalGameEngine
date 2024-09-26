@@ -127,7 +127,7 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex, AliensCo
 	int xIndex = 0;
 	while (xIndex < ALIENS_COUNT_X)
 	{
-		Alien* alien = CreateAlienOfType(alienType,xPos,yPos);
+		Alien* alien = CreateAlienOfType(alienType,xPos,yPos, xIndex, yIndex);
 		Simulation::Instance().TryAddEntity(alien);
 		controller->RegisterAlien(alien, xIndex, yIndex);
 
@@ -136,14 +136,14 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex, AliensCo
 	}
 }
 
-Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPos, int yPos)
+Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex)
 {
 	if (alienType == typeid(AlienHighScore))
-		return new AlienHighScore(xPos, yPos);
+		return new AlienHighScore(xPos, yPos, xIndex, yIndex);
 	else if (alienType == typeid(AlienMidScore))
-		return new AlienMidScore(xPos, yPos);
+		return new AlienMidScore(xPos, yPos, xIndex, yIndex);
 	else if (alienType == typeid(AlienLowScore))
-		return new AlienLowScore(xPos, yPos);
+		return new AlienLowScore(xPos, yPos, xIndex, yIndex);
 	else
 		throw std::invalid_argument("invalid alien type receiveds");
 }

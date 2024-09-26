@@ -60,5 +60,5 @@ private:
     
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int yPos, int rowIndex, AliensController* controller);
-    Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos);
+    Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
 };

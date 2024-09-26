@@ -15,4 +15,5 @@ void Alien::Update()
 void Alien::CALLED_BY_SIM_OnDestroy()
 {
 	AudioManager::Instance().PlayFx("SpaceInv/alienDeath2.wav");
+	OnDestroy.Notify(xIndexInMatrix, yIndexInMatrix);
 }

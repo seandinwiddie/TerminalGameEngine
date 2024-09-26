@@ -37,11 +37,15 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 
 	alien->OnMove.Subscribe
 	(
-		[this](GameObject* alien, Direction dir) { OnAnyAlienMovedCallback(alien, dir); }
+		[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
+	);
+	alien->OnDestroy.Subscribe
+	(
+		[this](int xIndex, int yIndex) { aliens[yIndex][xIndex] = nullptr; }
 	);
 }
 
-void AliensController::OnAnyAlienMovedCallback(GameObject* alien, Direction moveDirection)
+void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDirection)
 {
 	if (moveDirection == aliensMoveDirectionX)
 	{

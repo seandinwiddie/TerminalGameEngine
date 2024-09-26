@@ -33,5 +33,6 @@ private:
 	double GetCurrentSpeedX(){ return 8; }
 	size_t GetAliensGridHeight() { return aliens.size(); }
 	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
-	void OnAnyAlienMovedCallback(GameObject* alien, Direction moveDirection);
+
+	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
 };

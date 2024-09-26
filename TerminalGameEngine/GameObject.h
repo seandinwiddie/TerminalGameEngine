@@ -19,6 +19,14 @@ class GameObject : public ISimulationEntity
 friend class Simulation;
 
 //---------------------------------------------------------- Fields
+public:
+	Event<GameObject*, Direction> OnMove;
+	// generic on destroy event could be added
+
+protected:
+	bool canMove = true;
+	vector<uset<GameObject*>> collisions;
+
 private:
 	int xPos;
 	int yPos;
@@ -29,10 +37,7 @@ private:
 	bool mustBeReprinted = true;
 	const Model* model = nullptr;
 
-protected:
-	bool canMove = true;
-	vector<uset<GameObject*>> collisions;
-	Event<GameObject*,Direction> OnMove;
+
 
 //---------------------------------------------------------- Methods
 public:
