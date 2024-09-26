@@ -64,7 +64,7 @@ Bunny::Bunny(int xPos, int yPos, Level* level) : GameObject(xPos, yPos), level(l
     SetState(State::idle);
     ActivateLeftModels(true);
     previousPositionX = GetPosX();
-    OnMove.Subscribe([this](Direction dir) { OnMoveCallback(dir); });
+    OnMove.Subscribe([this](GameObject* _,Direction dir) { OnMoveCallback(dir); });
 }
 
 void Bunny::Update()

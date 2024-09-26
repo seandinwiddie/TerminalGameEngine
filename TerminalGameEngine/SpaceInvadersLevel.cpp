@@ -22,7 +22,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
 
-	AliensController* aliensController = new AliensController(ALIENS_COUNT_X, ALIENS_COUNT_Y);
+	AliensController* aliensController = new AliensController(this, ALIENS_COUNT_X, ALIENS_COUNT_Y);
 	Simulation::Instance().TryAddEntity(aliensController);
 
 	LoadAliens(aliensController);

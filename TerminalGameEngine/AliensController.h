@@ -3,9 +3,12 @@
 #include "GridDirection.h"
 #include <vector>
 
-class Alien;
 template <typename T> using vector = std::vector<T>;
 using namespace GridDirection;
+
+class Alien;
+class Level;
+class GameObject;
 
 class AliensController : public ISimulationEntity
 {
@@ -13,6 +16,7 @@ class AliensController : public ISimulationEntity
 
 //------------------------------------------------------------------- Fields
 private:
+	Level* level;
 	vector<vector<Alien*>> aliens;
 
 	size_t aliensCount;
@@ -21,7 +25,7 @@ private:
 
 //------------------------------------------------------------------- Methods
 public:
-	AliensController(int aliensCountX, int aliensCountY);
+	AliensController(Level* level, int aliensCountX, int aliensCountY);
 	void Update() override;
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
@@ -29,4 +33,5 @@ private:
 	double GetCurrentSpeedX(){ return 8; }
 	size_t GetAliensGridHeight() { return aliens.size(); }
 	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
+	void OnAnyAlienMovedCallback(GameObject* alien, Direction moveDirection);
 };

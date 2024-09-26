@@ -32,7 +32,7 @@ private:
 protected:
 	bool canMove = true;
 	vector<uset<GameObject*>> collisions;
-	Event<Direction> OnMove;
+	Event<GameObject*,Direction> OnMove;
 
 //---------------------------------------------------------- Methods
 public:

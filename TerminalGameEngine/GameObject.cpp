@@ -157,6 +157,6 @@ void GameObject::CALLED_BY_SIM_Move(Direction direction)
 		xPosContinuous = xPos;
 		break;
 	}
-	OnMove.Notify(direction);
+	OnMove.Notify(this, direction);
 }
 
