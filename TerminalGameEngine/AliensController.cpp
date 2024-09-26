@@ -16,15 +16,7 @@ AliensController::AliensController(Level* level, int aliensCountX, int aliensCou
 
 void AliensController::Update()
 {
-	for (int y = 0; y < GetAliensGridHeight(); ++y)
-	{
-		for (int x = 0; x < GetAliensGridWidth(); ++x)
-		{
-			Alien* alien = aliens[y][x];
-			if (alien != nullptr)
-				alien->TryMove(aliensMoveDirectionX, GetCurrentSpeedX());
-		}
-	}
+	MoveAliens(xMoveDirection, GetMovementSpeedX());
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
@@ -47,10 +39,24 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 
 void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDirection)
 {
-	if (moveDirection == aliensMoveDirectionX)
+	if (moveDirection == xMoveDirection)
 	{
 		int alienXPos = alien->GetPosX();
 		if (alienXPos == level->GetScreenPadding() || alienXPos == level->GetScreenMaxX() - alien->GetModelWidth())
-			aliensMoveDirectionX = GetInverseDirection(aliensMoveDirectionX);
+			OnAliensReachMargin();
 	}
+}
+
+void AliensController::MoveAliens(Direction dir, double speed)
+{
+	for (int y = 0; y < GetAliensGridHeight(); ++y)
+		for (int x = 0; x < GetAliensGridWidth(); ++x)
+			if (aliens[y][x] != nullptr)
+				aliens[y][x]->TryMove(dir, speed);
+}
+
+void AliensController::OnAliensReachMargin()
+{
+	xMoveDirection = GetInverseDirection(xMoveDirection);
+	MoveAliens(Direction::down, 9999);
 }

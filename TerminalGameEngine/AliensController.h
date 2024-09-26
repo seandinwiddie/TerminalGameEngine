@@ -21,7 +21,7 @@ private:
 
 	size_t aliensCount;
 	size_t aliensPosX;
-	Direction aliensMoveDirectionX = Direction::right;
+	Direction xMoveDirection = Direction::right;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -30,9 +30,12 @@ public:
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
 private:
-	double GetCurrentSpeedX(){ return 8; }
+	double GetMovementSpeedX(){ return 2; }
 	size_t GetAliensGridHeight() { return aliens.size(); }
 	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
 
 	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
+	void OnAliensReachMargin();
+
+	void MoveAliens(Direction dir, double speed);
 };
