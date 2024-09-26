@@ -156,7 +156,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
-    <ClInclude Include="ISimulationUpdatingEntity.h">
+    <ClInclude Include="ISimulationEntity.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="MovingStraightObject.h">

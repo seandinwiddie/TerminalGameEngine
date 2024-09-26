@@ -1,7 +1,7 @@
 #include "Simulation.h"
 #include "GameObject.h"
 #include "SimulationPrinter.h"
-#include "ISimulationUpdatingEntity.h"
+#include "ISimulationEntity.h"
 #include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
@@ -56,6 +56,8 @@ void Simulation::Step()
 
 	ExecuteMoveRequests();
 
+	RemoveMarkedEntities();
+
 	UpdateAllObjectsEndedCollisions();
 
 	PrintObjects();
@@ -67,11 +69,38 @@ void Simulation::Step()
 #endif
 }
 
+void Simulation::RemoveMarkedEntities()
+{
+	for (ISimulationEntity* entity : toRemoveEntities)
+	{
+		entities.remove(entity);
+
+		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+		if (objEntity != nullptr)
+		{
+			worldSpace.RemoveObject(objEntity);
+			simulationPrinter->ClearObject(objEntity);
+		}
+
+		delete(entity);
+	}
+	toRemoveEntities.clear();
+}
+
+void Simulation::RemoveEntity(ISimulationEntity* entity)
+{
+	if (!IsEntityInSimulation(entity))
+		return;
+
+	//entity will be removed at proper stage of step
+	toRemoveEntities.push_back(entity);
+}
+
 void Simulation::PrintObjects()
 {
-	for (ISimulationUpdatingEntity* updatingEntity : entities)
+	for (ISimulationEntity* entity : entities)
 	{
-		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+		GameObject* obj = dynamic_cast<GameObject*>(entity);
 		if (obj != nullptr && obj->mustBeReprinted)
 		{
 			obj->mustBeReprinted = false;
@@ -83,7 +112,7 @@ void Simulation::PrintObjects()
 void Simulation::UpdateAllEntities()
 {
 	level->Update();
-	for (ISimulationUpdatingEntity* entity : entities)
+	for (ISimulationEntity* entity : entities)
 		entity->Update();
 }
 
@@ -144,7 +173,7 @@ void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 	obj->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 } 
 
-bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
+bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
 	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 	if (objEntity != nullptr)
@@ -163,7 +192,7 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 	return true;
 }
 
-bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
+bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
 {
 	if (IsEntityInSimulation(entity))
 		return false;
@@ -183,9 +212,9 @@ bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
 		return true;
 }
 
-bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const
+bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
 {
-	for (ISimulationUpdatingEntity* entity : entities)
+	for (ISimulationEntity* entity : entities)
 		if (newEntity == entity)
 			return true;
 
@@ -219,28 +248,11 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	return true;
 }
 
-void Simulation::RemoveEntity(ISimulationUpdatingEntity* entity)
-{
-	if (!IsEntityInSimulation(entity))
-		return;
-
-	entities.remove(entity);
-
-	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-	if (objEntity != nullptr)
-	{
-		worldSpace.RemoveObject(objEntity);
-		simulationPrinter->ClearObject(objEntity);
-	}
-
-	delete(entity);
-}
-
 void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
 
-	for (ISimulationUpdatingEntity* obj : entities)
+	for (ISimulationEntity* obj : entities)
 		delete(obj);
 
 	entities.clear();

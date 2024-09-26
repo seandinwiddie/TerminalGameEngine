@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ISimulationUpdatingEntity.h"
+#include "ISimulationEntity.h"
 #include "Terminal.h"
 
 #include <vector>
 #include "Frame.h"
 
-class Level : public ISimulationUpdatingEntity
+class Level : public ISimulationEntity
 {
     friend class Simulation;
 

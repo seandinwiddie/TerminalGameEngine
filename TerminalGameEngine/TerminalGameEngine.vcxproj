@@ -207,7 +207,7 @@
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="ISimulationUpdatingEntity.h" />
+    <ClInclude Include="ISimulationEntity.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Terminal.h" />
     <ClInclude Include="TimeHelper.h" />

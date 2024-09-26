@@ -1,7 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "GridDirection.h"
-#include "ISimulationUpdatingEntity.h"
+#include "ISimulationEntity.h"
 #include "Terminal.h"
 #include "Event.h"
 
@@ -14,7 +14,7 @@ using Model = std::vector<std::vector<char>>;
 template<typename T> using uset = std::unordered_set<T>;
 template<typename T> using vector = std::vector<T>;
 
-class GameObject : public ISimulationUpdatingEntity
+class GameObject : public ISimulationEntity
 {
 friend class Simulation;
 

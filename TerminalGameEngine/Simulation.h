@@ -2,7 +2,7 @@
 #include "Config.h"
 #include "GridDirection.h"
 #include "Singleton.h"
-#include "ISimulationUpdatingEntity.h"
+#include "ISimulationEntity.h"
 #include "Level.h"
 #include "Event.h"
 #include "WorldSpace.h"
@@ -19,7 +19,7 @@ template<typename T> using vector = std::vector<T>;
 template<typename T> using list = std::list<T>;
 
 class GameObject;
-class ISimulationUpdatingEntity;
+class ISimulationEntity;
 class Frame;
 class SimulationPrinter;
 
@@ -49,7 +49,8 @@ private:
 	Level* level;
 
 	WorldSpace worldSpace;
-	list<ISimulationUpdatingEntity*> entities;
+	list<ISimulationEntity*> entities;
+	list<ISimulationEntity*> toRemoveEntities;
 
 	// move requests are sorted from slower to faster
 	// slower objects have to move before faster ones to prevent false collisions detection
@@ -59,8 +60,8 @@ private:
 public:
 	void LoadLevel(Level* level);
 	void Step();
-	bool TryAddEntity(ISimulationUpdatingEntity* entity);
-	void RemoveEntity(ISimulationUpdatingEntity* obj);
+	bool TryAddEntity(ISimulationEntity* entity);
+	void RemoveEntity(ISimulationEntity* entity);
 	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
 	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
 	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
@@ -73,8 +74,8 @@ public:
 
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
-	bool CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const;
-	bool IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const;
+	bool CanEntityBeAdded(const ISimulationEntity* entity) const;
+	bool IsEntityInSimulation(const ISimulationEntity* newEntity) const;
 	void UpdateObjectEndedCollisions(GameObject* collidingObj);
 	void ResetPrinters(const Level* level);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
@@ -82,6 +83,7 @@ private:
 	void ExecuteMoveRequests();
 	void UpdateAllObjectsEndedCollisions();
 	void PrintObjects();
+	void RemoveMarkedEntities();
 
 	bool IsInsideScreenX(int xPos) const;
 	bool IsInsideScreenY(int yPos) const;
