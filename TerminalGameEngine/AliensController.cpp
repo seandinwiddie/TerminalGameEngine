@@ -14,7 +14,7 @@ AliensController::AliensController(int aliensCountX, int aliensCountY)
 
 void AliensController::Update()
 {
-	for (int y = 0; y < GetAliensGridHeight(); ++y)
+	/*for (int y = 0; y < GetAliensGridHeight(); ++y)
 	{
 		for (int x = 0; x < GetAliensGridWidth(); ++x)
 		{
@@ -22,7 +22,7 @@ void AliensController::Update()
 			if (alien != nullptr)
 				alien->TryMove(aliensMoveDirectionX, GetCurrentSpeedX());
 		}
-	}
+	}*/
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
