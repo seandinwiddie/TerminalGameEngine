@@ -40,7 +40,7 @@ public:
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;
 
-    void IncreasePlayerScore(size_t increment) { score += increment; }
+    void IncreasePlayerScore(size_t increment);
 
 protected:
     virtual void Update()override;

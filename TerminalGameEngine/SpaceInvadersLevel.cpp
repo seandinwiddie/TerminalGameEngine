@@ -36,6 +36,12 @@ void SpaceInvadersLevel::Update()
 
 }
 
+void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
+{ 
+	score += increment; 
+	PrintScore();
+}
+
 void SpaceInvadersLevel::InitHeader()
 {
 	PrintScore();
