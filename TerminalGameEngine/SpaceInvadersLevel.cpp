@@ -4,6 +4,7 @@
 #include "AlienMidScore.h"
 #include "AlienHighScore.h"
 #include "PlayerTank.h"
+#include "AliensController.h"
 
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
@@ -34,6 +35,16 @@ void SpaceInvadersLevel::NotifyGameOver()
 void SpaceInvadersLevel::Update()
 {
 
+}
+
+void SpaceInvadersLevel::OnPostGameOverDelayEnded()
+{
+
+}
+
+void SpaceInvadersLevel::ShowGameOverScreen()
+{
+	// mostrare pannello con victory / defeat
 }
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
@@ -75,15 +86,6 @@ void SpaceInvadersLevel::PrintWave()
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 
-void SpaceInvadersLevel::OnPostGameOverDelayEnded()
-{
-
-}
-
-void SpaceInvadersLevel::ShowGameOverScreen()
-{
-	// mostrare pannello con victory / defeat
-}
 
 void SpaceInvadersLevel::LoadPlayerTank()
 {
@@ -95,6 +97,7 @@ void SpaceInvadersLevel::LoadPlayerTank()
 
 void SpaceInvadersLevel::LoadAliens()
 {
+
 	int yPos = GetScreenMaxY() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
 	int addedRows = 0;
 	while (addedRows < ALIENS_ROWS_COUNT)

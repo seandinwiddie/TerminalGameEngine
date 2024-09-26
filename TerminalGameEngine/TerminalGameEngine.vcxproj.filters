@@ -240,6 +240,9 @@
     <ClInclude Include="EnemyProjectile.h">
       <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
     </ClInclude>
+    <ClInclude Include="AliensController.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">

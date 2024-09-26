@@ -1,8 +1,12 @@
 #pragma once
 #include "GameObject.h"
+#include "AliensController.h"
 
 class Alien : public GameObject
 {
+friend class AliensController;
+
+//------------------------------------------------------ Fields
 protected:
 	bool showFirstAnimFrame;
 //------------------------------------------------------ Methods
