@@ -44,12 +44,10 @@ void PlayerTank::HandleShooting()
 
         if (time - lastTimeShot > SHOTS_DELAY)
         {
-
             lastTimeShot = TimeHelper::Instance().GetTime();
             PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILES_MOVE_SPEED);
             Simulation::Instance().TryAddEntity(projectile);
             AudioManager::Instance().PlayFx("SpaceInv/shot1.wav");
         }
-
     }
 }

@@ -9,15 +9,6 @@ size_t Frame::GetSizeX() const
 
     return chars[0].size();
 }
-//
-//void Frame::ResizeX(size_t size)
-//{
-//    for (int y = 0; y < GetSizeY(); ++y)
-//    {
-//        chars[y].resize(size);
-//        colors[y].resize(size);
-//    }
-//}
 
 void Frame::ReadFromFile(const string& fileName)
 {
@@ -48,12 +39,8 @@ void Frame::ReadFromFile(const string& fileName)
 
         line = "";
         ++y;
-
-        //remove this?
-        //if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
     }
 
-    //std::reverse(chars.begin(), chars.end());
     return;
 }
 

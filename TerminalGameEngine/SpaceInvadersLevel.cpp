@@ -89,13 +89,15 @@ void SpaceInvadersLevel::InitHeader()
 
 void SpaceInvadersLevel::PrintScore()
 {
-	int xPos = Simulation::Instance().GetScreenSizeX() / 2;
-	Simulation::Instance().GetUIPrinter().PrintOnHeader("score: " + std::to_string(score), xPos, Terminal::WHITE);
+	string scoreString = "score: " + std::to_string(score);
+	int xPos = Simulation::Instance().GetScreenSizeX() / 2 - scoreString.size()/2;
+	Simulation::Instance().GetUIPrinter().PrintOnHeader(scoreString, xPos, Terminal::WHITE);
 }
 
 void SpaceInvadersLevel::PrintHealth()
 {
-	int xPos = 0;
+	// 1 because of left margin
+	int xPos = 1;
 
 	string healthStr = "";
 	for (int i = 0; i < health; i++)
@@ -108,8 +110,7 @@ void SpaceInvadersLevel::PrintWave()
 {
 	int xPos = GetScreenMaxX();
 	string waveStr = "wave: " + std::to_string(waveNumber);
-	xPos -= waveStr.length() - 2;
-
+	xPos -= waveStr.length();
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 
