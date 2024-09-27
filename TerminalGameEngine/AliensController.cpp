@@ -1,4 +1,5 @@
 #pragma once
+#include "Config.h"
 #include "AliensController.h"
 #include "Alien.h"
 #include "Level.h"
@@ -36,14 +37,16 @@ AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, 
 
 void AliensController::Update()
 {
-	double delayReduction1 = GetEliminatedAliensSpeedBoost();
-	double delayReduction2 = GetWaveSpeedBoost();
-	string debugStr = std::to_string(GetSpeedX()) + " - " + std::to_string(delayReduction1) + " - " + std::to_string(delayReduction2);
+#if DEBUG_MODE
+	string totBoost = "tot boost: " + std::to_string(GetSpeedX());
+	string eliminationsBoost = " elim.boost:"+ std::to_string(GetEliminatedAliensSpeedBoost());
+	string waveBoost = " wave boost:" + std::to_string(GetWaveSpeedBoost());
+	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
 	DebugManager::Instance().PrintGenericLog(debugStr);
+#endif
 
 	if (isTimeToMoveAliensDown)
 	{
-		auto t = GetFrontlineMinY();
 		if (GetFrontlineMinY() - 1 == GAME_OVER_Y + level->GetScreenPadding())
 			level->NotifyGameOver();
 

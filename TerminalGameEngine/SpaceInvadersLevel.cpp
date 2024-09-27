@@ -5,6 +5,7 @@
 #include "AlienHighScore.h"
 #include "PlayerTank.h"
 #include "AliensController.h"
+#include "AudioManager.h"
 
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
@@ -32,22 +33,47 @@ void SpaceInvadersLevel::LoadInSimulation()
 
 void SpaceInvadersLevel::NotifyGameOver()
 {
+	if (IsGameOver())
+		return;
 
+	Level::NotifyGameOver();
+	AudioManager::Instance().StopMusic();
+	AudioManager::Instance().PlayFx("SpaceInv/gameover.wav");
 }
 
 void SpaceInvadersLevel::Update()
 {
-
+	Level::Update();
 }
 
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
+	Level::OnPostGameOverDelayEnded();
+	/*int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
+	int score = static_cast<int>(GetLevelTime());
 
+	if (score > bestScore)
+		Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
+
+	ShowGameOverScreen(score, bestScore);*/
+	AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
 
 void SpaceInvadersLevel::ShowGameOverScreen()
 {
-	// mostrare pannello con victory / defeat
+	//setup gameover message
+	//string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+	//string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+
+	////center message
+	//string leftSpacing = "";
+	//for (int i = 0; i < (42 - message.size()) / 2; ++i)
+	//	leftSpacing += " ";
+	//message = leftSpacing + message;
+
+	//gameOverWindow.ReplaceChar(message, '$');
+
+	//Simulation::Instance().GetUIPrinter().PrintGameOverWindow(gameOverWindow, Terminal::WHITE);
 }
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
