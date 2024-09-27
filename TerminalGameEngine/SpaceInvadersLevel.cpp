@@ -127,7 +127,7 @@ void SpaceInvadersLevel::LoadPlayerTank()
 
 void SpaceInvadersLevel::LoadAliens(AliensController* controller)
 {
-	int yPos = GetScreenMaxY() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
+	int yPos = GetWorldSizeY() - GetScreenPadding() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
 	int yIndex = 0;
 	while (yIndex < ALIENS_COUNT_Y)
 	{
