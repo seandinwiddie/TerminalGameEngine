@@ -1,14 +1,7 @@
 #pragma once
+
 #include "Config.h"
-#include "GridDirection.h"
-#include "Singleton.h"
-#include "ISimulationEntity.h"
-#include "Level.h"
-#include "Event.h"
 #include "WorldSpace.h"
-#include "SimulationPrinter.h"
-#include "UIPrinter.h"
-#include "DebugPrinter.h"
 
 #include <list>
 #include <vector>
@@ -22,6 +15,8 @@ class GameObject;
 class ISimulationEntity;
 class Frame;
 class SimulationPrinter;
+class UIPrinter;
+class Level;
 
 class Simulation : public Singleton<Simulation>
 {
@@ -63,14 +58,14 @@ public:
 	bool TryAddEntity(ISimulationEntity* entity);
 	void RemoveEntity(ISimulationEntity* entity);
 	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
-	size_t GetWorldSizeX() const { return level->GetWorldSizeX(); }
-	size_t GetWorldSizeY() const { return level->GetWorldSizeY(); }
-	size_t GetScreenPadding() const { return level->GetScreenPadding(); }
-	size_t GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
-	size_t GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
-	Level* GetActiveLevel() { return level; }
+	size_t GetWorldSizeX() const;
+	size_t GetWorldSizeY() const;
+	size_t GetScreenPadding() const;
+	size_t GetScreenSizeX() const;
+	size_t GetScreenSizeY() const;
+	Level* GetActiveLevel();
 
-	UIPrinter& GetUIPrinter() { return *uiPrinter; }
+	UIPrinter& GetUIPrinter();
 
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);

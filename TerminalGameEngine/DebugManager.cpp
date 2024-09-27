@@ -2,6 +2,12 @@
 
 #if DEBUG_MODE
 
+#include "Terminal.h"
+#include "TimeHelper.h"
+#include "DebugPrinter.h"
+
+void DebugManager::PrintGenericLog(const string& str){ debugPrinter->PrintGenericLog(str); }
+
 void DebugManager::Reset
 (
 	size_t screenSizeX,

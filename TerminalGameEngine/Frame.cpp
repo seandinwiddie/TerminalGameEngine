@@ -19,6 +19,9 @@ void Frame::ResizeX(size_t size)
 
 void Frame::ReadFromFile(const string& fileName, size_t screenSizeX, size_t screenSizeY)
 {
+    if(fileName == "")
+        return;
+
     std::ifstream file(fileName, std::ios::binary);
     if (!file)
     {

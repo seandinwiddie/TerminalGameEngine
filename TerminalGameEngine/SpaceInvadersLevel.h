@@ -1,5 +1,5 @@
 #pragma once
-#include "Level.h"
+#include "ScoreLevel.h"
 
 class Alien;
 class AliensController;
@@ -11,9 +11,9 @@ class AliensController;
 
 using type_info = std::type_info;
 
-class SpaceInvadersLevel : public Level
+class SpaceInvadersLevel : public ScoreLevel
 {
-//------------------------------------------------------------------- World settings
+//------------------------------------------------------------------- World Settings
 private:
     static const size_t ALIEN_WIDTH = 4;
     static const size_t ALIEN_HEIGHT = 2;
@@ -25,6 +25,9 @@ private:
 
     static const size_t ALIENS_SPACE_FROM_MARGINS_X = 4;
     static const size_t ALIENS_SPACE_FROM_TOP_MARGIN = 3;
+
+//------------------------------------------------------------------- Other Settings
+    const string PERSISTENCE_FILE_NAME = "Persistence/spaceInvaders.txt";
 
 //------------------------------------------------------------------- Fields
 private:
@@ -48,8 +51,9 @@ public:
 protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 0.1; }
+    virtual string GetGameOverWindowPath() override { return "spaceInvaders.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
-    void ShowGameOverScreen();
+    virtual void ShowGameOverScreen(int score, int bestScore) override;
 
 private:
     void LoadAliens(AliensController* controller);

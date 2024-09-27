@@ -19,6 +19,15 @@ void Level::LoadInSimulation()
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnPostGameOverDelayEnded = false;
+
+    string gameOverWindowCompletePath = "GameOverWindows/" + GetGameOverWindowPath();
+    
+    gameOverWindow.ReadFromFile
+    (
+        gameOverWindowCompletePath,
+        Simulation::Instance().GetScreenSizeX(),
+        Simulation::Instance().GetScreenSizeY()
+    );
 }
 
 bool Level::IsPostGameOverPauseEnded() const

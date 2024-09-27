@@ -48,6 +48,7 @@ protected:
     virtual void Update() override;
     virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
     virtual void LoadInSimulation();
+    virtual string GetGameOverWindowPath() { return ""; }
 
     bool IsPostGameOverPauseEnded() const;
     bool CanPlayerPressKeyToRestartGame() const;

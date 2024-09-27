@@ -1,24 +1,18 @@
 #include "EndlessRunnerLevel.h"
 #include "Simulation.h"
-#include "SimulationPrinter.h"
 #include "StaticCollider.h"
 #include "Persistence.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "Bunny.h"
 #include "ObstaclesSpawner.h"
+#include "SimulationPrinter.h"
+#include "UIPrinter.h"
 #include "Frame.h"
 
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
-    Level::OnPostGameOverDelayEnded();
-    int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
-    int score = static_cast<int>(GetLevelTime());
-
-    if (score > bestScore)
-        Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
-
-    ShowGameOverScreen(score, bestScore);
+    ScoreLevel::OnPostGameOverDelayEnded();
     AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
 
@@ -36,7 +30,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameOverWindow.ReplaceChar(message, '$');
 
-    Simulation::Instance().GetUIPrinter().PrintGameOverWindow(gameOverWindow, Terminal::WHITE);
+    Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
 }
 
 void EndlessRunnerLevel::NotifyGameOver()
@@ -44,24 +38,15 @@ void EndlessRunnerLevel::NotifyGameOver()
     if (IsGameOver())
         return;
 
-    Level::NotifyGameOver();
+    ScoreLevel::NotifyGameOver();
     AudioManager::Instance().StopMusic();
     AudioManager::Instance().PlayFx("Platform/gameover.wav");
 }
 
 void EndlessRunnerLevel::LoadInSimulation()
 {
-    Level::LoadInSimulation();
+    ScoreLevel::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
-
-
-    //----------------- read game over window
-    gameOverWindow.ReadFromFile
-    (
-        "GameOverWindows/endlessRunnerGameOverWindow.txt", 
-        simulation.GetScreenSizeX(),
-        simulation.GetScreenSizeY()
-    );
 
     //----------------- bunny setup
     int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
@@ -121,7 +106,7 @@ void EndlessRunnerLevel::LoadInSimulation()
 
 void EndlessRunnerLevel::Update()
 {
-    Level::Update();
+    ScoreLevel::Update();
     double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
     int newTime = static_cast<int>(runTime);
     if (shownTime != newTime)

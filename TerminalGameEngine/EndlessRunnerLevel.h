@@ -1,13 +1,12 @@
 #pragma once
 #include "Config.h"
-#include "Level.h"
+#include "ScoreLevel.h"
 #include <string>
 
-class EndlessRunnerLevel : public Level
+class EndlessRunnerLevel : public ScoreLevel
 {
 //---------------------------------------------------------- Settings
 private:
-    const string PERSISTENCE_FILE_NAME = "Persistence/obstaclesLevelPersistence.txt";
     const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunnerBackground.txt";
     int shownTime = -1;
 
@@ -25,5 +24,7 @@ protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
     virtual void OnPostGameOverDelayEnded() override;
-    void ShowGameOverScreen(int score, int bestScore);
+    virtual string GetPersistenceFilePath() { return "Persistence/obstaclesLevel.txt"; }
+    virtual string GetGameOverWindowPath() { return "endlessRunnerGameOverWindow.txt"; }
+    virtual void ShowGameOverScreen(int score, int bestScore) override;
 };

@@ -7,10 +7,19 @@
 #include "TimeHelper.h"
 #include "WorldSpace.h"
 #include "DebugManager.h"
+#include "UIPrinter.h"
 
 #include <Windows.h>
 #include <cassert>
 #include <stdexcept>
+
+size_t Simulation::GetWorldSizeX() const { return level->GetWorldSizeX(); }
+size_t Simulation::GetWorldSizeY() const { return level->GetWorldSizeY(); }
+size_t Simulation::GetScreenPadding() const { return level->GetScreenPadding(); }
+size_t Simulation::GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
+size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
+Level* Simulation::GetActiveLevel() { return level; }
+UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
 void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
@@ -282,6 +291,7 @@ void Simulation::ResetPrinters(const Level* level)
 
 	if (uiPrinter != nullptr)
 		delete(uiPrinter);
+
 	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), level->GetMarginsColor());
 }
 

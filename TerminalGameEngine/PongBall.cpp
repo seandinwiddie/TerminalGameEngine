@@ -2,6 +2,8 @@
 #include "PongBar.h"
 #include "Simulation.h"
 #include "AudioManager.h"
+#include "PongLevel.h"
+#include "RandomUtils.h"
 
 PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed) 
     :

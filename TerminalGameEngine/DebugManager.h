@@ -3,14 +3,14 @@
 
 #if DEBUG_MODE
 
-#include "Terminal.h"
 #include "Singleton.h"
-#include "TimeHelper.h"
-#include "DebugPrinter.h"
+
 #include <list>
 #include <string>
 
 using string = std::string;
+
+class DebugPrinter;
 
 class DebugManager : public Singleton<DebugManager>
 {
@@ -33,7 +33,7 @@ public:
 	void Reset(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
 	void ShowAverageFPS();
 	void IncrementCoutCalls();
-	void PrintGenericLog(const string& str) { debugPrinter->PrintGenericLog(str); }
+	void PrintGenericLog(const string& str);
 
 private:
 	size_t GetAverageFps();

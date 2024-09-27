@@ -3,6 +3,7 @@
 #include "InputUtils.h"
 #include "PlayerProjectile.h"
 #include "TimeHelper.h"
+#include "Level.h"
 #include "AudioManager.h"
 
 using namespace InputUtils;

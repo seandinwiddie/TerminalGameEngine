@@ -6,6 +6,7 @@
 #include "PlayerTank.h"
 #include "AliensController.h"
 #include "AudioManager.h"
+#include "UIPrinter.h"
 
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
@@ -48,18 +49,11 @@ void SpaceInvadersLevel::Update()
 
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
-	Level::OnPostGameOverDelayEnded();
-	/*int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
-	int score = static_cast<int>(GetLevelTime());
-
-	if (score > bestScore)
-		Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
-
-	ShowGameOverScreen(score, bestScore);*/
+	ScoreLevel::OnPostGameOverDelayEnded();
 	AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
 
-void SpaceInvadersLevel::ShowGameOverScreen()
+void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 {
 	//setup gameover message
 	//string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));

@@ -2,6 +2,8 @@
 #include "Simulation.h"
 #include "PongBar.h"
 #include "PongBall.h"
+#include "AudioManager.h"
+#include "UIPrinter.h"
 
 size_t PongLevel::scorePlayer1 = 0;
 size_t PongLevel::scorePlayer2 = 0;

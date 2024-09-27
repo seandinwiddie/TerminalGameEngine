@@ -1,6 +1,7 @@
 #include "PongBar.h"
 #include "InputUtils.h"
 #include "Simulation.h"
+#include "Level.h"
 
 using namespace InputUtils;
 
