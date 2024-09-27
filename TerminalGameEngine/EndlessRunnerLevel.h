@@ -7,7 +7,6 @@ class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunner.txt";
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods
@@ -15,7 +14,7 @@ public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 23; }
     virtual int GetScreenPadding() const override { return 4; }
-    virtual const string& GetBackgroundFileName()const override { return BACKGROUND_FILE_NAME; }
+    virtual const string& GetBackgroundFileName()const override { return "Backgrounds/endlessRunner.txt"; }
 
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;
