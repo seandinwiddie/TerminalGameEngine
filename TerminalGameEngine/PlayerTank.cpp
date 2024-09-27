@@ -10,8 +10,8 @@ using namespace InputUtils;
 
 const Model PlayerTank::MODEL =
 {
+    {'_', '_', 'A', '_', '_'},
     {'|', '=', '=', '=', '|'},
-    {'_', '_', 'A', '_', '_'}
 };
 
 void PlayerTank::Update()

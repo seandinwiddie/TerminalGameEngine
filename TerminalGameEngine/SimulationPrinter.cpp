@@ -58,7 +58,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize
             if (go == nullptr)
                 line += background.IsSetup() ? background.chars[screenSizeY - yScreen -1][xScreen] : ' ';
             else
-                line += go->GetModel()[yModel][xModel];
+                line += go->GetModel()[go->GetModelHeight() -1 - yModel][xModel];
         }
         if (lineTerminalPosX < MARGIN_OFFSET_X)
             lineTerminalPosX = MARGIN_OFFSET_X;

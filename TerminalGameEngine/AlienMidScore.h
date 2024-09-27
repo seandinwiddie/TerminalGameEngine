@@ -20,12 +20,12 @@ protected:
 
 const Model AlienMidScore::MODEL_1 =
 {
-	{ 'V', '~', '~', 'v' },
-	{ '(', 'o', 'O', ')' }
+	{ '(', 'o', 'O', ')' },
+	{ 'V', '~', '~', 'v' }
 };
 
 const Model AlienMidScore::MODEL_2 =
 {
-	{ 'v', '~', '~', 'V' },
-	{ '(', 'O', 'o', ')' }
+	{ '(', 'O', 'o', ')' },
+	{ 'v', '~', '~', 'V' }
 };
