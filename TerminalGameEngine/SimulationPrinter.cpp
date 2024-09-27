@@ -47,22 +47,22 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize
     terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
     for (int yScreen = ConvertWorldPosToScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)
     {
-        if (yScreen + MARGIN_OFFSET_TOP_Y < MARGIN_OFFSET_TOP_Y) continue;
-        int lineTerminalPosX = ConvertWorldPosToScreenPos(worldXPos) + MARGIN_OFFSET_X;
+        if (yScreen + TOP_MARGIN_SIZE < TOP_MARGIN_SIZE) continue;
+        int lineTerminalPosX = ConvertWorldPosToScreenPos(worldXPos) + LEFT_MARGIN_SIZE;
         string line = "";
 
         for (int xScreen = ConvertWorldPosToScreenPos(worldXPos), xModel = 0; xModel < xSize && xScreen < screenSizeX; ++xScreen, ++xModel)
         {
-            if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
+            if (xScreen + LEFT_MARGIN_SIZE < LEFT_MARGIN_SIZE)continue;
 
             if (go == nullptr)
                 line += background.IsSetup() ? background.chars[screenSizeY - yScreen -1][xScreen] : ' ';
             else
                 line += go->GetModel()[go->GetModelHeight() -1 - yModel][xModel];
         }
-        if (lineTerminalPosX < MARGIN_OFFSET_X)
-            lineTerminalPosX = MARGIN_OFFSET_X;
-        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + MARGIN_OFFSET_BOTTOM_Y);
+        if (lineTerminalPosX < LEFT_MARGIN_SIZE)
+            lineTerminalPosX = LEFT_MARGIN_SIZE;
+        terminal.SetCursorPosition(lineTerminalPosX, screenSizeY - yScreen + BOTTOM_MARGIN_SIZE);
         terminal.Cout(line);
     }
 }
@@ -85,7 +85,7 @@ void SimulationPrinter::PrintBackground()
             char charToPrint = background.chars[y][x];
             line += charToPrint;
         }
-        terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);
+        terminal.SetCursorPosition(LEFT_MARGIN_SIZE, y + TOP_MARGIN_SIZE);
         terminal.Cout(line);
         line.clear();
     }

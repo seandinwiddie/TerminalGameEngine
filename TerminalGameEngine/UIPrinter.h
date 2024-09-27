@@ -39,7 +39,7 @@ public:
             break;
             
             case WindowPosition::CenterX_TopY:
-                printStartY = MARGIN_OFFSET_TOP_Y;
+                printStartY = TOP_MARGIN_SIZE;
                 break;
         }
 
@@ -51,7 +51,7 @@ public:
                 line += window.chars[y][x];
 
             //terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
-            terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, y + printStartY);
+            terminal.SetCursorPosition(leftwindowOffset + LEFT_MARGIN_SIZE, y + printStartY);
             terminal.Cout(line);
         }
     }
@@ -74,7 +74,7 @@ private:
         DrawHorizontalMargin();
 
         //vertical
-        for (size_t y = MARGIN_OFFSET_TOP_Y; y < GetMaxTerminalY(); ++y)
+        for (size_t y = TOP_MARGIN_SIZE; y < GetMaxTerminalY(); ++y)
         {
             terminal.SetCursorPosition(size_t(0), y);
             terminal.Cout(MARGIN_VERTICAL_CHAR);

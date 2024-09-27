@@ -8,6 +8,7 @@
 #include "AudioManager.h"
 #include "Persistence.h"
 #include "UIPrinter.h"
+#include "Printer.h"
 
 using WindowPosition = UIPrinter::WindowPosition;
 
@@ -96,8 +97,7 @@ void SpaceInvadersLevel::PrintScore()
 
 void SpaceInvadersLevel::PrintHealth()
 {
-	// 1 because of left margin
-	int xPos = 1;
+	int xPos = Printer::LEFT_MARGIN_SIZE;
 
 	string healthStr = "";
 	for (int i = 0; i < health; i++)
@@ -108,9 +108,9 @@ void SpaceInvadersLevel::PrintHealth()
 
 void SpaceInvadersLevel::PrintWave()
 {
-	int xPos = GetScreenMaxX();
 	string waveStr = "wave: " + std::to_string(waveNumber);
-	xPos -= waveStr.length();
+
+	int xPos = GetScreenMaxX() + Printer::LEFT_MARGIN_SIZE - waveStr.length(); 
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 

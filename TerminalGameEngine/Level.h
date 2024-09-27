@@ -40,8 +40,8 @@ public:
 
     //todo try to merge this with simulation printer ones
     //todo try to use this in other levels
-    virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding(); }
-    virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding(); }
+    virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding()*2; }
+    virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding()*2; }
 
 protected:
     virtual double ShowGameOverScreenDelay() const = 0;

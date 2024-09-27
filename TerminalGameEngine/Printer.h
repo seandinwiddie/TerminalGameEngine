@@ -4,10 +4,10 @@
 class Printer
 {
 //---------------------------------------------------------- Margins
-protected:
-	static const size_t MARGIN_OFFSET_X = 1;
-	static const size_t MARGIN_OFFSET_TOP_Y = 2;
-	static const size_t MARGIN_OFFSET_BOTTOM_Y = 1;
+public:
+	static const size_t LEFT_MARGIN_SIZE = 1;
+	static const size_t TOP_MARGIN_SIZE = 2;
+	static const size_t BOTTOM_MARGIN_SIZE = 1;
 
 //---------------------------------------------------------- Fields
 protected:
@@ -30,8 +30,8 @@ public:
 		padding(screenPadding)
 	{ }
 
-	size_t GetMaxTerminalX() const { return screenSizeX + MARGIN_OFFSET_X; }
-	size_t GetMaxTerminalY() const { return screenSizeY + MARGIN_OFFSET_TOP_Y; }
+	size_t GetMaxTerminalX() const { return screenSizeX + LEFT_MARGIN_SIZE; }
+	size_t GetMaxTerminalY() const { return screenSizeY + TOP_MARGIN_SIZE; }
 
 protected:
 	int ConvertWorldPosToScreenPos(int worldPos) const { return worldPos - static_cast<int>(padding); }
