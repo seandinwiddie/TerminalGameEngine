@@ -25,7 +25,7 @@ void Frame::ReadFromFile(const string& fileName, size_t screenSizeX, size_t scre
     std::ifstream file(fileName, std::ios::binary);
     if (!file)
     {
-        std::cerr << "Error opening file." << std::endl;
+        std::cerr << "Error opening frame file." << std::endl;
         return;
     }
 

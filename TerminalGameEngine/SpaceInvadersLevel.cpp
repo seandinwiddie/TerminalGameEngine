@@ -51,14 +51,13 @@ void SpaceInvadersLevel::Update()
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
 	Level::OnPostGameOverDelayEnded();
-	int bestScore = Persistence::GetBestScoreConsideringNewOne(GetGameOverWindowPath(), score);
+	int bestScore = Persistence::GetBestScoreComparingToNewOne(GetGameOverWindowPath(), score);
 	ShowGameOverScreen(score, bestScore);
 	AudioManager::Instance().PlayFx("SpaceInv/showEndScreen.wav");
 }
 
 void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 {
-	//setup gameover message
 	//string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
 	//string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
 
@@ -70,7 +69,7 @@ void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 
 	//gameOverWindow.ReplaceChar(message, '$');
 
-	//Simulation::Instance().GetUIPrinter().PrintGameOverWindow(gameOverWindow, Terminal::WHITE);
+	//Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
 }
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
