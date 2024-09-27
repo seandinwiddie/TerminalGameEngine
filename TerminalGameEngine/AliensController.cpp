@@ -10,18 +10,29 @@
 
 double AliensController::GetSpeedX() const
 {
-	return BASE_MOVE_SPEED + GetEliminatedAliensSpeedBoost() + GetWaveSpeedBoost();
+	return BASE_MOVE_SPEED + 
+		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE +
+		GetWaveMultiplier() * HARDEST_WAVE_MOVE_SPEED_INCREASE;
 }
 
-double AliensController::GetEliminatedAliensSpeedBoost()const
+double AliensController::GetShotsDelay()const
 {
-	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount()-1) * ALL_ALIENS_ELIMINATED_SPEED_INCREASE;
+	return BASE_SHOTS_DELAY - 
+		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION - 
+		GetWaveMultiplier() * HARDEST_WAVE_SHOTS_DELAY_REDUCTION;
 }
 
-double AliensController::GetWaveSpeedBoost()const
+double AliensController::GetEliminatedAliensMultiplier()const
 {
-	return level->GetWaveNumber() / MAX_SPEED_WAVE * HARDEST_WAVE_SPEED_INCREASE;
+	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount() - 1) * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION;
 }
+
+double AliensController::GetWaveMultiplier()const
+{ 
+	return level->GetWaveNumber() / HARDEST_WAVE;
+}
+
+//---
 
 AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY) : level(level)
 {
@@ -32,15 +43,14 @@ AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, 
 		aliensGrid[y].resize(aliensCountX);
 
 	frontLine.resize(aliensCountX);
-
 }
 
 void AliensController::Update()
 {
 #if DEBUG_MODE
 	string totBoost = "tot boost: " + std::to_string(GetSpeedX());
-	string eliminationsBoost = " elim.boost:"+ std::to_string(GetEliminatedAliensSpeedBoost());
-	string waveBoost = " wave boost:" + std::to_string(GetWaveSpeedBoost());
+	string eliminationsBoost = " lim. multiplier:"+ std::to_string(GetEliminatedAliensMultiplier());
+	string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
 	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
 	DebugManager::Instance().PrintGenericLog(debugStr);
 #endif

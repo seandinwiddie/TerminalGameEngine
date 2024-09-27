@@ -12,14 +12,19 @@ class GameObject;
 
 class AliensController : public ISimulationEntity
 {
-//------------------------------------------------------------------- Speed boost settings
-	double const BASE_MOVE_SPEED = 1;
-
-	const double ALL_ALIENS_ELIMINATED_SPEED_INCREASE = 16;
-
-	const double HARDEST_WAVE_SPEED_INCREASE = 4;
-	const double MAX_SPEED_WAVE = 5;
 //------------------------------------------------------------------- Aliens Settings
+	const double HARDEST_WAVE = 5;
+//movement
+	double const BASE_MOVE_SPEED = 1;
+	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 16;
+	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 4;
+
+//shooting
+	const double BASE_SHOTS_DELAY = 2;
+	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.5;
+	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.5;
+	
+//------------------------------------------------------------------- Other Settings
 	const size_t GAME_OVER_Y = 10;
 
 //------------------------------------------------------------------- Fields
@@ -43,8 +48,10 @@ public:
 
 private:
 	double GetSpeedX()const;
-	double GetEliminatedAliensSpeedBoost() const;
-	double GetWaveSpeedBoost() const;
+
+	double GetShotsDelay()const;
+	double GetWaveMultiplier()const { return level->GetWaveNumber() / HARDEST_WAVE; }
+	double GetEliminatedAliensMultiplier()const;
 
 	size_t GetAliensGridHeight() const { return aliensGrid.size(); }
 	size_t GetAliensGridWidth() const { return GetAliensGridHeight() == 0 ? 0 : aliensGrid[0].size(); }
