@@ -32,8 +32,6 @@ double AliensController::GetWaveMultiplier()const
 	return level->GetWaveNumber() / HARDEST_WAVE;
 }
 
-//---
-
 AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY) : level(level)
 {
 	aliensCount = aliensCountX * aliensCountY;
@@ -57,7 +55,9 @@ void AliensController::Update()
 
 	if (isTimeToMoveAliensDown)
 	{
-		if (GetFrontlineMinY() - 1 == GAME_OVER_Y + level->GetScreenPadding())
+		auto minY = GetFrontlineMinY();
+
+		if (GetFrontlineMinY() - 1 <= GAME_OVER_Y)
 			level->NotifyGameOver();
 
 		MoveAliens(Direction::down, 9999);
@@ -93,10 +93,6 @@ void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDir
 {
 	if (moveDirection == xMoveDirection)
 	{
-		auto t = level->GetScreenPadding();
-		auto t1 = alien->GetPosX() == level->GetScreenPadding();
-		auto t2 = level->GetScreenMaxX() - level->GetScreenPadding() - alien->GetModelWidth();
-
 		int alienXPos = alien->GetPosX();
 		if (
 			alienXPos == level->GetScreenPadding() || 
