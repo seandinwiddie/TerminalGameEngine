@@ -1,9 +1,9 @@
 #pragma once
 #include "Config.h"
-#include "ScoreLevel.h"
+#include "Level.h"
 #include <string>
 
-class EndlessRunnerLevel : public ScoreLevel
+class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
@@ -26,5 +26,5 @@ protected:
     virtual void OnPostGameOverDelayEnded() override;
     virtual string GetPersistenceFilePath() { return "Persistence/obstaclesLevel.txt"; }
     virtual string GetGameOverWindowPath() { return "endlessRunnerGameOverWindow.txt"; }
-    virtual void ShowGameOverScreen(int score, int bestScore) override;
+    virtual void ShowGameOverScreen(int score, int bestScore);
 };

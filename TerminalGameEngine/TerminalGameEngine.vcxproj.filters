@@ -115,12 +115,6 @@
     <ClCompile Include="AliensController.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreLevel.h">
-      <Filter>Headers\Engine\AbstractLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreLevel.cpp">
-      <Filter>Cpp</Filter>
-    </ClCompile>
     <ClCompile Include="UIPrinter.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClCompile>

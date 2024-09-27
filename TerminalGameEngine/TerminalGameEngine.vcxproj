@@ -163,8 +163,6 @@
     <ClCompile Include="RandomUtils.h" />
     <ClCompile Include="ObstaclesSpawner.cpp" />
     <ClCompile Include="PushableObject.h" />
-    <ClCompile Include="ScoreLevel.cpp" />
-    <ClCompile Include="ScoreLevel.h" />
     <ClCompile Include="SimulationPrinter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulation.cpp" />

@@ -25,4 +25,16 @@ namespace Persistence
 		infile >> bestScore;
 		return bestScore;
 	}
+
+	inline int GetBestScoreConsideringNewOne(const string& persistenceFilePath,int newScore)
+	{
+		int bestScore = LoadBestScore(persistenceFilePath);
+		if (newScore > bestScore)
+		{
+			bestScore = newScore;
+			SaveBestScore(persistenceFilePath, newScore);
+		}
+		
+		return bestScore;
+	}
 }

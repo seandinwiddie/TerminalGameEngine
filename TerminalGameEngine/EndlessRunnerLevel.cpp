@@ -12,7 +12,10 @@
 
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
-    ScoreLevel::OnPostGameOverDelayEnded();
+    Level::OnPostGameOverDelayEnded();
+    int score = static_cast<int>(GetLevelTime());
+    int bestScore = Persistence::GetBestScoreConsideringNewOne(GetGameOverWindowPath(), score);
+    ShowGameOverScreen(score, bestScore);
     AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
 
@@ -38,14 +41,14 @@ void EndlessRunnerLevel::NotifyGameOver()
     if (IsGameOver())
         return;
 
-    ScoreLevel::NotifyGameOver();
+    Level::NotifyGameOver();
     AudioManager::Instance().StopMusic();
     AudioManager::Instance().PlayFx("Platform/gameover.wav");
 }
 
 void EndlessRunnerLevel::LoadInSimulation()
 {
-    ScoreLevel::LoadInSimulation();
+    Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
 
     //----------------- bunny setup
@@ -106,7 +109,7 @@ void EndlessRunnerLevel::LoadInSimulation()
 
 void EndlessRunnerLevel::Update()
 {
-    ScoreLevel::Update();
+    Level::Update();
     double runTime = Simulation::Instance().GetActiveLevel()->GetLevelTime();
     int newTime = static_cast<int>(runTime);
     if (shownTime != newTime)

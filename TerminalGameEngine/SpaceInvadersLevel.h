@@ -1,5 +1,5 @@
 #pragma once
-#include "ScoreLevel.h"
+#include "Level.h"
 
 class Alien;
 class AliensController;
@@ -11,7 +11,7 @@ class AliensController;
 
 using type_info = std::type_info;
 
-class SpaceInvadersLevel : public ScoreLevel
+class SpaceInvadersLevel : public Level
 {
 //------------------------------------------------------------------- World Settings
 private:
@@ -53,7 +53,7 @@ protected:
     virtual double ShowGameOverScreenDelay() const { return 0.1; }
     virtual string GetGameOverWindowPath() override { return "spaceInvaders.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
-    virtual void ShowGameOverScreen(int score, int bestScore) override;
+    virtual void ShowGameOverScreen(int score, int bestScore);
 
 private:
     void LoadAliens(AliensController* controller);
