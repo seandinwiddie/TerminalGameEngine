@@ -5,6 +5,7 @@
 
 class PushableObject : public GameObject
 {
+//---------------------------------------------------------- Fields
 private:
     Model model = CreteModelUsingChar('@', 4, 2);
 //---------------------------------------------------------- Methods

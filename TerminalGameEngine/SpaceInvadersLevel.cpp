@@ -9,6 +9,7 @@
 #include "Persistence.h"
 #include "UIPrinter.h"
 #include "Printer.h"
+#include "ShieldPart.h"
 
 using WindowPosition = UIPrinter::WindowPosition;
 
@@ -34,6 +35,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 	LoadAliens(aliensController);
 	LoadPlayerTank();
 	InitHeader();
+	LoadShield(10, 9);
 }
 
 void SpaceInvadersLevel::NotifyGameOver()
@@ -171,4 +173,23 @@ Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPo
 		return new AlienLowScore(xPos, yPos, xIndex, yIndex);
 	else
 		throw std::invalid_argument("invalid alien type receiveds");
+}
+
+void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
+{
+	for (int y = 0; y < SHIELD_SIZE_Y; ++y)
+	{
+		for (int x = 0; x < SHIELD_SIZE_X; ++x)
+		{
+			// bottom hole
+			if (y == 0 && x > 1 && x < SHIELD_SIZE_X - 2)
+				continue;
+			//smooth angles
+			if (y == SHIELD_SIZE_Y - 1 && (x == 0 || x == SHIELD_SIZE_X - 1))
+				continue;
+
+			ShieldPart* shieldPart = new ShieldPart(xPos + x, yPos + y);
+			Simulation::Instance().TryAddEntity(shieldPart);
+		}
+	}
 }

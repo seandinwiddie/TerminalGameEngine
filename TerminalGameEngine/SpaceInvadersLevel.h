@@ -13,7 +13,7 @@ using type_info = std::type_info;
 
 class SpaceInvadersLevel : public Level
 {
-//------------------------------------------------------------------- World Settings
+//------------------------------------------------------------------- Aliens Position Settings
 private:
     static const size_t ALIEN_WIDTH = 4;
     static const size_t ALIEN_HEIGHT = 2;
@@ -25,6 +25,10 @@ private:
 
     static const size_t ALIENS_SPACE_FROM_MARGINS_X = 4;
     static const size_t ALIENS_SPACE_FROM_TOP_MARGIN = 3;
+
+ //------------------------------------------------------------------- Aliens Position Settings
+    static const size_t SHIELD_SIZE_X = 7;
+    static const size_t SHIELD_SIZE_Y = 3;
 
 //------------------------------------------------------------------- Other Settings
     const string PERSISTENCE_FILE_NAME = "Persistence/spaceInvaders.txt";
@@ -59,6 +63,7 @@ protected:
 private:
     void LoadAliens(AliensController* controller);
     void LoadPlayerTank();
+    void LoadShield(int xPos, int yPos);
 
     void InitHeader();
     void PrintScore();
