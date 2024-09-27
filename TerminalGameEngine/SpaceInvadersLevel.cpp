@@ -58,18 +58,18 @@ void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 
 void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 {
-	//string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-	//string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+	string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+	string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
 
-	////center message
-	//string leftSpacing = "";
-	//for (int i = 0; i < (42 - message.size()) / 2; ++i)
-	//	leftSpacing += " ";
-	//message = leftSpacing + message;
+	//center message
+	string leftSpacing = "";
+	for (int i = 0; i < (42 - message.size()) / 2; ++i)
+		leftSpacing += " ";
+	message = leftSpacing + message;
 
-	//gameOverWindow.ReplaceChar(message, '$');
+	gameOverWindow.ReplaceChar(message, '$');
 
-	//Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
+	Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
 }
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)

@@ -6,7 +6,6 @@ class UIPrinter : public Printer
 {
 //---------------------------------------------------------- Fields
 private:
-	static const char GAME_OVER_FRAME_IGNORED_CHAR = '#';
 	static const char MARGIN_HORIZONTAL_CHAR = '=';
 	static const char MARGIN_VERTICAL_CHAR = '|';
 
@@ -25,18 +24,19 @@ public:
         if (window.GetSizeY() == 0)
             return;
 
+        assert(screenSizeX > window.GetSizeX());
+        size_t leftwindowOffset = (screenSizeX - window.GetSizeX())/2;
+
         Terminal::Instance().SetColor(color);
-        for (size_t y = 0; y < screenSizeY; ++y)
+        for (size_t y = 0; y < window.GetSizeY(); ++y)
         {
-            for (size_t x = 0; x < screenSizeX; ++x)
-            {
-                char c = window.chars[y][x];
-                if (c != GAME_OVER_FRAME_IGNORED_CHAR)
-                {
-                    terminal.SetCursorPosition(x + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
-                    terminal.Cout(c);
-                }
-            }
+            string line = "";
+            for (size_t x = 0; x < window.GetSizeX(); ++x)
+                line += window.chars[y][x];
+
+            //terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
+            terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);
+            terminal.Cout(line);
         }
     }
     void PrintOnHeader(const string& header, int xPos, int color)

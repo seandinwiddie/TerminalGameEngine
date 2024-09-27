@@ -14,7 +14,7 @@ public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 23; }
     virtual int GetScreenPadding() const override { return 4; }
-    virtual const string& GetBackgroundFileName()const override { return "Backgrounds/endlessRunner.txt"; }
+    virtual const string GetBackgroundFileName()const override { return "Backgrounds/endlessRunner.txt"; }
 
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;

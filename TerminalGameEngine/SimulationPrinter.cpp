@@ -93,9 +93,9 @@ void SimulationPrinter::InitBackground(const string& backgroundFileName)
 {
     if (backgroundFileName == "")
     {
-        background.ResizeY(0);
+        background.SetEmpty(0);
         return;
     }
-    background.ReadFromFile(backgroundFileName, screenSizeX, screenSizeY);
+    background.ReadFromFile(backgroundFileName);
     PrintBackground();
 }

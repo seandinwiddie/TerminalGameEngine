@@ -243,6 +243,9 @@
     <ClInclude Include="Level.h">
       <Filter>Headers\Engine\AbstractLevel</Filter>
     </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Headers\Engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gameover-screen.txt">

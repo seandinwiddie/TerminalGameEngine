@@ -20,12 +20,7 @@ void Level::LoadInSimulation()
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnPostGameOverDelayEnded = false;
     
-    gameOverWindow.ReadFromFile
-    (
-        GetGameOverWindowPath(),
-        Simulation::Instance().GetScreenSizeX(),
-        Simulation::Instance().GetScreenSizeY()
-    );
+    gameOverWindow.ReadFromFile(GetGameOverWindowPath());
 }
 
 bool Level::IsPostGameOverPauseEnded() const

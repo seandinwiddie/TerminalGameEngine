@@ -280,6 +280,9 @@ void Simulation::ResetPrinters(const Level* level)
 
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
+
+	string s = level->GetBackgroundFileName();
+
 	simulationPrinter = new SimulationPrinter
 	(
 		GetScreenSizeX(),

@@ -31,7 +31,7 @@ public:
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
     virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
-    virtual const string& GetBackgroundFileName()const { return ""; }
+    virtual const string GetBackgroundFileName()const { return ""; }
     virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
 
     double GetLevelTime() const;

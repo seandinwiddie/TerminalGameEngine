@@ -210,6 +210,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ISimulationEntity.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Terminal.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />
