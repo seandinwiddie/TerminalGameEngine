@@ -13,12 +13,12 @@ class GameObject;
 class AliensController : public ISimulationEntity
 {
 //------------------------------------------------------------------- Settings
-	double const BEGINNING_MOVE_DELAY = 1.0;
+	double const BASE_MOVE_SPEED = 1;
 
-	const double MAX_DELAY_REDUCTION_ELIMINATING_ALIENS = 1;
+	const double ALL_ALIENS_ELIMINATED_SPEED_INCREASE = 4;
 
-	const double MAX_DELAY_REDUCTION_WAVES = 0;
-	const double WAVE_REACHING_MIN_DELAY = 5; //after 5th wave aliens reach max speed
+	const double HARDEST_WAVE_SPEED_INCREASE = 4;
+	const double MAX_SPEED_WAVE = 5;
 //------------------------------------------------------------------- Fields
 private:
 	// references
@@ -30,7 +30,6 @@ private:
 	size_t aliensPosX;
 	Direction xMoveDirection = Direction::right;
 	bool isTimeToMoveAliensDown = false;
-	double lastTimeMoved = -1;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -39,11 +38,15 @@ public:
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 
 private:
-	double GetMoveDelay();
-	size_t GetAliensGridHeight() { return aliens.size(); }
-	size_t GetAliensGridWidth() { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
-	size_t GetStartingAliensCount() { return GetAliensGridWidth() * GetAliensGridHeight(); }
-	size_t GetDestroyedAliensCount() { return GetStartingAliensCount() - aliensCount; }
+	//double GetMoveDelay();
+	double GetSpeedX()const;
+	double GetEliminatedAliensSpeedBoost() const;
+	double GetWaveSpeedBoost() const;
+
+	size_t GetAliensGridHeight() const { return aliens.size(); }
+	size_t GetAliensGridWidth() const { return GetAliensGridHeight() == 0 ? 0 : aliens[0].size(); }
+	size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
+	size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliensCount; }
 
 	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
 	void OnAlienDestroyedCallback(int xIndex, int yIndex);

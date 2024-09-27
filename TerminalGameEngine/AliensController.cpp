@@ -7,19 +7,28 @@
 #include "DebugManager.h"
 #include <cassert>
 
-double AliensController::GetMoveDelay()
-{ 
-	double delay =
-		BEGINNING_MOVE_DELAY -
+double AliensController::GetSpeedX() const
+{
+	auto t1 = GetEliminatedAliensSpeedBoost();
+	auto t = GetWaveSpeedBoost();
+	
+	return BASE_MOVE_SPEED + GetEliminatedAliensSpeedBoost() + GetWaveSpeedBoost();
+}
 
-		//waves progress reduces timer (wave reaching min delay reached -> max reduction)
-		level->GetWaveNumber() / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES -
-		//5 / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES -
+double AliensController::GetEliminatedAliensSpeedBoost()const
+{
+	auto t1 = GetDestroyedAliensCount();
+	auto t = GetStartingAliensCount();
+	auto t3 = aliensCount;
 
-		//killing aliens reduces timer (all enemies destroyed = max timer reduction)
-		MAX_DELAY_REDUCTION_ELIMINATING_ALIENS * (GetDestroyedAliensCount()+1) / GetStartingAliensCount();
+	return static_cast<double>(GetDestroyedAliensCount()) / GetStartingAliensCount() * ALL_ALIENS_ELIMINATED_SPEED_INCREASE;
+}
 
-	return delay;
+double AliensController::GetWaveSpeedBoost()const
+{
+	auto t1 = level->GetWaveNumber() / MAX_SPEED_WAVE * HARDEST_WAVE_SPEED_INCREASE;
+
+	return level->GetWaveNumber() / MAX_SPEED_WAVE * HARDEST_WAVE_SPEED_INCREASE;
 }
 
 AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY) : level(level)
@@ -33,24 +42,18 @@ AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, 
 
 void AliensController::Update()
 {
-	double time = TimeHelper::Instance().GetTime();
-	if (time - lastTimeMoved > GetMoveDelay())
+	double delayReduction1 = GetEliminatedAliensSpeedBoost();
+	double delayReduction2 = GetWaveSpeedBoost();
+	string debugStr = std::to_string(GetSpeedX()) + " - " + std::to_string(delayReduction1) + " - " + std::to_string(delayReduction2);
+	DebugManager::Instance().PrintGenericLog(debugStr);
+
+	if (isTimeToMoveAliensDown)
 	{
-
-		double delayReduction1 = level->GetWaveNumber() / WAVE_REACHING_MIN_DELAY * MAX_DELAY_REDUCTION_WAVES;
-		double delayReduction2 = MAX_DELAY_REDUCTION_ELIMINATING_ALIENS * (GetDestroyedAliensCount() + 1) / GetStartingAliensCount();
-		string debugStr = std::to_string(GetMoveDelay()) +" - "+ std::to_string(delayReduction1)+ " - " + std::to_string(delayReduction2);
-		DebugManager::Instance().PrintGenericLog(debugStr);
-
-
-		if (isTimeToMoveAliensDown)
-		{
-			MoveAliens(Direction::down, 9999);
-			isTimeToMoveAliensDown = false;
-		}
-		else
-			MoveAliens(xMoveDirection, 9999);
+		MoveAliens(Direction::down, 9999);
+		isTimeToMoveAliensDown = false;
 	}
+	else
+	MoveAliens(xMoveDirection, GetSpeedX());
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
@@ -88,8 +91,6 @@ void AliensController::MoveAliens(Direction dir, double speed)
 		for (int x = 0; x < GetAliensGridWidth(); ++x)
 			if (aliens[y][x] != nullptr)
 				aliens[y][x]->TryMove(dir, speed);
-
-	lastTimeMoved = TimeHelper::Instance().GetTime();
 }
 
 void AliensController::OnAliensReachMargin()
