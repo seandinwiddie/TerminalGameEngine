@@ -7,6 +7,7 @@ const Model PlayerProjectile::MODEL = { {'|'} };
 
 void PlayerProjectile::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
+	Projectile::OnCollisionEnter(other, collisionDir);
 	SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Simulation::Instance().GetActiveLevel());
 	assert(level != nullptr);
 

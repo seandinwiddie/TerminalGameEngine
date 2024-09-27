@@ -152,6 +152,7 @@
     <ClCompile Include="PongBall.cpp" />
     <ClCompile Include="PongBar.cpp" />
     <ClCompile Include="PongLevel.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PuzzleLevel.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
