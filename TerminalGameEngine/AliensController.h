@@ -15,7 +15,7 @@ class AliensController : public ISimulationEntity
 //------------------------------------------------------------------- Settings
 	double const BASE_MOVE_SPEED = 1;
 
-	const double ALL_ALIENS_ELIMINATED_SPEED_INCREASE = 4;
+	const double ALL_ALIENS_ELIMINATED_SPEED_INCREASE = 16;
 
 	const double HARDEST_WAVE_SPEED_INCREASE = 4;
 	const double MAX_SPEED_WAVE = 5;

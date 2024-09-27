@@ -21,7 +21,7 @@ double AliensController::GetEliminatedAliensSpeedBoost()const
 	auto t = GetStartingAliensCount();
 	auto t3 = aliensCount;
 
-	return static_cast<double>(GetDestroyedAliensCount()) / GetStartingAliensCount() * ALL_ALIENS_ELIMINATED_SPEED_INCREASE;
+	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount()-1) * ALL_ALIENS_ELIMINATED_SPEED_INCREASE;
 }
 
 double AliensController::GetWaveSpeedBoost()const

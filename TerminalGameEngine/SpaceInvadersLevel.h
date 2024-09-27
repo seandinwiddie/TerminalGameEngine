@@ -29,7 +29,7 @@ private:
 //------------------------------------------------------------------- Fields
 private:
     size_t health = 3;
-    size_t waveNumber = 0;
+    size_t waveNumber = 5;
     size_t score = 0;
 
 //------------------------------------------------------------------- Methods
