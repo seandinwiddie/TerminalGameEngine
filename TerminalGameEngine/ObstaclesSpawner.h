@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class ObstaclesSpawner : public ISimulationUpdatingEntity
+class ObstaclesSpawner : public ISimulationEntity
 {
 //---------------------------------------------------------- Fields
 private:

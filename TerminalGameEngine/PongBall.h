@@ -1,9 +1,8 @@
 #pragma once
 #include "GameObject.h"	
-#include "PongLevel.h"
-#include "RandomUtils.h"
 
 class PongBar;
+class PongLevel;
 
 class PongBall : public GameObject
 {

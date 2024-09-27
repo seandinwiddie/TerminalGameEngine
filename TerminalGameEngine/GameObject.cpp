@@ -95,10 +95,6 @@ void GameObject::SetModel(const Model& newModel)
 
 void GameObject::CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir)
 {
-	Bunny* b = dynamic_cast<Bunny*>(this);
-	if (collisionDir != Direction::down && b != nullptr)
-		int a = 1;
-
 	uset<GameObject*>& directionCollisions = collisions[collisionDir];
 	for (GameObject* obj : collidingObjects)
 	{
@@ -161,6 +157,6 @@ void GameObject::CALLED_BY_SIM_Move(Direction direction)
 		xPosContinuous = xPos;
 		break;
 	}
-	OnMove.Notify(direction);
+	OnMove.Notify(this, direction);
 }
 

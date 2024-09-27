@@ -1,23 +1,22 @@
 #include "EndlessRunnerLevel.h"
 #include "Simulation.h"
-#include "SimulationPrinter.h"
 #include "StaticCollider.h"
 #include "Persistence.h"
 #include "InputUtils.h"
 #include "AudioManager.h"
 #include "Bunny.h"
 #include "ObstaclesSpawner.h"
+#include "SimulationPrinter.h"
+#include "UIPrinter.h"
 #include "Frame.h"
+
+using WindowPosition = UIPrinter::WindowPosition;
 
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
     Level::OnPostGameOverDelayEnded();
-    int bestScore = Persistence::LoadBestScore(PERSISTENCE_FILE_NAME);
     int score = static_cast<int>(GetLevelTime());
-
-    if (score > bestScore)
-        Persistence::SaveBestScore(PERSISTENCE_FILE_NAME, score);
-
+    int bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
     ShowGameOverScreen(score, bestScore);
     AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
@@ -36,7 +35,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameOverWindow.ReplaceChar(message, '$');
 
-    Simulation::Instance().PrintGameOverWindow(gameOverWindow);
+    Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE, WindowPosition::CenterX_TopY);
 }
 
 void EndlessRunnerLevel::NotifyGameOver()
@@ -53,15 +52,6 @@ void EndlessRunnerLevel::LoadInSimulation()
 {
     Level::LoadInSimulation();
     Simulation& simulation = Simulation::Instance();
-
-
-    //----------------- read game over window
-    gameOverWindow.ReadFromFile
-    (
-        "GameOverWindows/endlessRunnerGameOverWindow.txt", 
-        simulation.GetScreenSizeX(),
-        simulation.GetScreenSizeY()
-    );
 
     //----------------- bunny setup
     int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
@@ -127,7 +117,7 @@ void EndlessRunnerLevel::Update()
     if (shownTime != newTime)
     {
         string header = "TIME: " + std::to_string(newTime);
-        Simulation::Instance().SetTerminalHeader(header);
+        Simulation::Instance().GetUIPrinter().PrintOnHeader(header, 0, Terminal::WHITE);
         shownTime = newTime;
     }
 }

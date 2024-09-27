@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="AliensController.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
@@ -144,6 +146,9 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
     <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="PlayerProjectile.cpp" />
+    <ClCompile Include="PlayerProjectile.h" />
+    <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PongBall.cpp" />
     <ClCompile Include="PongBar.cpp" />
     <ClCompile Include="PongLevel.cpp" />
@@ -161,17 +166,27 @@
     <ClCompile Include="SimulationPrinter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulation.cpp" />
+    <ClCompile Include="SpaceInvadersLevel.cpp" />
+    <ClCompile Include="SpaceInvadersLevel.h" />
     <ClCompile Include="StaticCollider.cpp" />
     <ClCompile Include="StaticCollider.h" />
     <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="UIPrinter.h" />
     <ClCompile Include="WorldSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="AlienHighScore.h" />
+    <ClInclude Include="AlienLowScore.h" />
+    <ClInclude Include="AlienMidScore.h" />
+    <ClInclude Include="AliensController.h" />
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DebugManager.h" />
+    <ClInclude Include="DebugPrinter.h" />
+    <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="FakeGameObejct.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameObject.h" />
@@ -182,16 +197,20 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="EndlessRunnerLevel.h" />
     <ClInclude Include="Persistence.h" />
+    <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PongBall.h" />
     <ClInclude Include="PongBar.h" />
     <ClInclude Include="PongLevel.h" />
     <ClInclude Include="PressurePlate.h" />
+    <ClInclude Include="Printer.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="PuzzleLevel.h" />
     <ClInclude Include="SimulationPrinter.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="ISimulationUpdatingEntity.h" />
+    <ClInclude Include="ISimulationEntity.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Terminal.h" />
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="Obstacle.h" />

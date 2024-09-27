@@ -2,6 +2,8 @@
 #include "Simulation.h"
 #include "PongBar.h"
 #include "PongBall.h"
+#include "AudioManager.h"
+#include "UIPrinter.h"
 
 size_t PongLevel::scorePlayer1 = 0;
 size_t PongLevel::scorePlayer2 = 0;
@@ -66,7 +68,8 @@ void PongLevel::IncreaseP2Score()
 
 void PongLevel::RefreshHeader()
 {
-	Simulation::Instance().SetTerminalHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2));
+	Simulation::Instance().GetUIPrinter().
+		PrintOnHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2),0,Terminal::WHITE);
 }
 
 void PongLevel::OnPostGameOverDelayEnded()

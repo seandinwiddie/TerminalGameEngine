@@ -10,51 +10,51 @@ using namespace InputUtils;
 //---------------------------------------------------------- Models
 const Model Bunny::MODEL_WALK_LEFT
 {
-    {'/',-36, CHAR_CHEST, '_', '|'},
-    {'(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')'},
-    {'(', 92, '(', 92, ' '}
+    { '(',  92, '(',  92, ' '  },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { '/', -36, CHAR_CHEST, '_', '|' }
 };
 
 const Model Bunny::MODEL_WALK_RIGHT
 {
-     { '|','_',CHAR_CHEST,-36,92},
-     { '(',CHAR_EYE, CHAR_NOSE, CHAR_EYE,')'},
-     { ' ','/',')','/',')'}
+    { ' ', '/', ')', '/', ')' },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { '|', '_', CHAR_CHEST, -36, 92 }
 };
 
 const Model Bunny::MODEL_JUMP_RIGHT
 {
-    {92,-36,CHAR_CHEST,-36,'/'},
-    {'(', CHAR_EYE ,CHAR_NOSE, CHAR_EYE,')'},
-    {' ','/',')','/',')'}
+    { ' ', '/', ')', '/', ')' },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { 92, -36, CHAR_CHEST, -36, '/' },
 };
 
 const Model Bunny::MODEL_JUMP_LEFT
 {
-    {92,-36,CHAR_CHEST,-36,'/'},
-    {'(', CHAR_EYE,CHAR_NOSE, CHAR_EYE,')'},
-    {'(', 92, '(', 92, ' '}
+    { '(', 92, '(', 92, ' '  },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { 92, -36, CHAR_CHEST, -36, '/' }
 };
 
 const Model Bunny::MODEL_DEFEATED
 {
-    {'|',-36,CHAR_CHEST,-36,'|'},
-    {'(',CHAR_GAMEOVER_EYE,CHAR_NOSE,CHAR_GAMEOVER_EYE,')'},
-    {' ','/',')','/',')'}
+    { ' ', '/', ')', '/', ')' },
+    { '(', CHAR_GAMEOVER_EYE, CHAR_NOSE, CHAR_GAMEOVER_EYE, ')' },
+    { '|', -36, CHAR_CHEST, -36, '|' }
 };
 
 const Model Bunny::MODEL_IDLE_RIGHT
 {
-    {'|','_',CHAR_CHEST,'_','|'},
-    {'(', CHAR_EYE ,CHAR_NOSE, CHAR_EYE,')'},
-    {' ','/',')','/',')'}
+    { ' ', '/', ')', '/', ')' },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { '|', '_', CHAR_CHEST, '_', '|' }
 };
 
 const Model Bunny::MODEL_IDLE_LEFT
 {
-    {'|','_',CHAR_CHEST,'_','|'},
-    {'(', CHAR_EYE, CHAR_NOSE, CHAR_EYE,')'},
-    {'(', 92, '(', 92, ' '}
+    { '(', 92, '(', 92, ' '  },
+    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
+    { '|', '_', CHAR_CHEST, '_', '|' }
 };
 
 //---------------------------------------------------------- Methods
@@ -64,7 +64,7 @@ Bunny::Bunny(int xPos, int yPos, Level* level) : GameObject(xPos, yPos), level(l
     SetState(State::idle);
     ActivateLeftModels(true);
     previousPositionX = GetPosX();
-    OnMove.Subscribe([this](Direction dir) { OnMoveCallback(dir); });
+    OnMove.Subscribe([this](GameObject* _,Direction dir) { OnMoveCallback(dir); });
 }
 
 void Bunny::Update()
@@ -193,9 +193,6 @@ void Bunny::SetState(State newState)
 
     if (state == State::defeated)
         return;
-
-    if (newState == State::jumpingDown || newState == State::jumpingUp)
-        int a = 0;
 
     HandleSounds(state, newState);
 

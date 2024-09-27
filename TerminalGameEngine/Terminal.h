@@ -1,6 +1,9 @@
 #pragma once
 #include "Singleton.h"
 #include <Windows.h>
+#include <string>
+
+using string = std::string;
 
 class Terminal : public Singleton<Terminal>
 {
@@ -37,6 +40,9 @@ public:
     void SetCursorPosition(const COORD& coord);
     void SetCursorPosition(size_t x, size_t y);
     COORD GetCursorPosition();
+
+    void Cout(const string& s) const;
+    void Cout(char c) const;
 
 protected:
     Terminal(){HideCursor();}

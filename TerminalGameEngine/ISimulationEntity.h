@@ -1,6 +1,6 @@
 #pragma once
 
-class ISimulationUpdatingEntity
+class ISimulationEntity
 {
 friend class Simulation;
 //---------------------------------------------------------- Methods

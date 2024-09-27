@@ -1,16 +1,25 @@
 #include "Simulation.h"
 #include "GameObject.h"
 #include "SimulationPrinter.h"
-#include "ISimulationUpdatingEntity.h"
+#include "ISimulationEntity.h"
 #include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
 #include "WorldSpace.h"
 #include "DebugManager.h"
+#include "UIPrinter.h"
 
 #include <Windows.h>
 #include <cassert>
 #include <stdexcept>
+
+size_t Simulation::GetWorldSizeX() const { return level->GetWorldSizeX(); }
+size_t Simulation::GetWorldSizeY() const { return level->GetWorldSizeY(); }
+size_t Simulation::GetScreenPadding() const { return level->GetScreenPadding(); }
+size_t Simulation::GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
+size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
+Level* Simulation::GetActiveLevel() { return level; }
+UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
 void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
@@ -56,6 +65,8 @@ void Simulation::Step()
 
 	ExecuteMoveRequests();
 
+	RemoveMarkedEntities();
+
 	UpdateAllObjectsEndedCollisions();
 
 	PrintObjects();
@@ -63,15 +74,41 @@ void Simulation::Step()
 	OnFrameGenerated.Notify();
 
 #if DEBUG_MODE && SHOW_FPS
-	simulationPrinter->DEBUG_PrintFpsString(DebugManager::Instance().GetAverageFps());
+	DebugManager::Instance().ShowAverageFPS();
 #endif
+}
+
+void Simulation::RemoveMarkedEntities()
+{
+	for (ISimulationEntity* entity : toRemoveEntities)
+	{
+		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+		if (objEntity != nullptr)
+		{
+			objEntity->CALLED_BY_SIM_OnDestroy();
+			worldSpace.RemoveObject(objEntity);
+			simulationPrinter->ClearObject(objEntity);
+		}
+		entities.remove(entity);
+		delete(entity);
+	}
+	toRemoveEntities.clear();
+}
+
+void Simulation::RemoveEntity(ISimulationEntity* entity)
+{
+	if (!IsEntityInSimulation(entity))
+		return;
+
+	//entity will be removed at proper stage of step
+	toRemoveEntities.push_back(entity);
 }
 
 void Simulation::PrintObjects()
 {
-	for (ISimulationUpdatingEntity* updatingEntity : entities)
+	for (ISimulationEntity* entity : entities)
 	{
-		GameObject* obj = dynamic_cast<GameObject*>(updatingEntity);
+		GameObject* obj = dynamic_cast<GameObject*>(entity);
 		if (obj != nullptr && obj->mustBeReprinted)
 		{
 			obj->mustBeReprinted = false;
@@ -83,7 +120,7 @@ void Simulation::PrintObjects()
 void Simulation::UpdateAllEntities()
 {
 	level->Update();
-	for (ISimulationUpdatingEntity* entity : entities)
+	for (ISimulationEntity* entity : entities)
 		entity->Update();
 }
 
@@ -144,7 +181,7 @@ void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 	obj->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 } 
 
-bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
+bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
 	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 	if (objEntity != nullptr)
@@ -163,7 +200,7 @@ bool Simulation::TryAddEntity(ISimulationUpdatingEntity* entity)
 	return true;
 }
 
-bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
+bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
 {
 	if (IsEntityInSimulation(entity))
 		return false;
@@ -183,9 +220,9 @@ bool Simulation::CanEntityBeAdded(const ISimulationUpdatingEntity* entity) const
 		return true;
 }
 
-bool Simulation::IsEntityInSimulation(const ISimulationUpdatingEntity* newEntity) const
+bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
 {
-	for (ISimulationUpdatingEntity* entity : entities)
+	for (ISimulationEntity* entity : entities)
 		if (newEntity == entity)
 			return true;
 
@@ -200,7 +237,7 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	{
 		if (outCollidingObjects.find(WorldSpace::WORLD_MARGIN) != outCollidingObjects.end())
 		{
-			RemoveObject(obj);
+			RemoveEntity(obj);
 		}
 		else
 		{
@@ -219,36 +256,46 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 	return true;
 }
 
-void Simulation::RemoveObject(GameObject* obj)
-{
-	worldSpace.RemoveObject(obj);
-	entities.remove(obj);
-	simulationPrinter->ClearObject(obj);
-	delete(obj);
-}
-
 void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
 
-	for (ISimulationUpdatingEntity* obj : entities)
+	for (ISimulationEntity* obj : entities)
 		delete(obj);
 
 	entities.clear();
-	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), GetScreenPadding());
-	ResetScreenManager(level->GetBackgroundFileName());
-	level->LoadInSimulation();
+	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
 
 #if DEBUG_MODE
-	DebugManager::Instance().Reset();
+	DebugManager::Instance().Reset(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding());
 #endif
+	
+	ResetPrinters(level);
+	level->LoadInSimulation();
 }
 
-void Simulation::ResetScreenManager(const string& backgroundFileName)
+void Simulation::ResetPrinters(const Level* level)
 {
+	Terminal::Instance().Clear();
+
 	if (simulationPrinter != nullptr)
 		delete(simulationPrinter);
-	simulationPrinter = new SimulationPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), backgroundFileName);
+
+	string s = level->GetBackgroundFileName();
+
+	simulationPrinter = new SimulationPrinter
+	(
+		GetScreenSizeX(),
+		GetScreenSizeY(),
+		GetScreenPadding(), 
+		level->GetBackgroundColor(),
+		level->GetBackgroundFileName()
+	);
+
+	if (uiPrinter != nullptr)
+		delete(uiPrinter);
+
+	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), level->GetMarginsColor());
 }
 
 bool Simulation::IsInsideScreenY(int yPos) const

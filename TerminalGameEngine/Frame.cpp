@@ -1,4 +1,6 @@
 #include "Frame.h"
+#include "StringUtils.h"
+#include <cassert>
 
 size_t Frame::GetSizeX() const
 {
@@ -8,46 +10,46 @@ size_t Frame::GetSizeX() const
     return chars[0].size();
 }
 
-void Frame::ResizeX(size_t size)
+void Frame::ReadFromFile(const string& fileName)
 {
-    for (int y = 0; y < GetSizeY(); ++y)
-    {
-        chars[y].resize(size);
-        colors[y].resize(size);
-    }
-}
+    if(fileName == "")
+        return;
 
-void Frame::ReadFromFile(const string& fileName, size_t screenSizeX, size_t screenSizeY)
-{
     std::ifstream file(fileName, std::ios::binary);
     if (!file)
     {
-        std::cerr << "Error opening file." << std::endl;
+        std::cerr << "Error opening frame file: " << fileName << std::endl;
         return;
     }
 
-    ResizeY(screenSizeY);
-    ResizeX(screenSizeX);
-
-    //Read the data into the vector
-    for (int y = 0; y < screenSizeY; ++y)
+    string line = "";
+    int y = 0;
+    //Read data into the vector
+    while(std::getline(file, line))
     {
-        for (int x = 0; x < screenSizeX; ++x)
-        {
-            char c = file.get();
+        RemoveNotAllowedChars(line);
 
-            //ignore invisible characters
-            if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
-            {
-                --x;
-                continue;
-            }
-            chars[y][x] = c;
-        }
+        chars.resize(y+1);
+        chars[y].resize(line.length());
+
+        for (int x = 0; x < line.length(); ++x)
+            chars[y][x] = line[x];
+
+        assert(line.size() == chars[0].size());
+
+        line = "";
+        ++y;
     }
 
-    std::reverse(chars.begin(), chars.end());
     return;
+}
+
+void Frame::RemoveNotAllowedChars(string& str)
+{
+    StringUtils::RemoveInstancesOfChar(str, '\n');
+    StringUtils::RemoveInstancesOfChar(str, '\r');
+    StringUtils::RemoveInstancesOfChar(str, '\t');
+    StringUtils::RemoveInstancesOfChar(str, '\0');
 }
 
 void Frame::ReplaceChar(const string& writenString, char writeOverChar)
@@ -76,3 +78,4 @@ void Frame::InsertString(const string& str, size_t x, size_t y)
     for (int i = 0; i < str.size(); ++i)
         chars[y][x + i] = str[i];
 }
+

@@ -94,6 +94,30 @@
     <ClCompile Include="CollisionsTestLevel.h">
       <Filter>Headers\Levels\CollisionTests</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceInvadersLevel.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceInvadersLevel.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectile.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AliensController.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPrinter.h">
+      <Filter>Headers\Engine\Simulation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -117,9 +141,6 @@
     <ClInclude Include="Simulation.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationPrinter.h">
-      <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="PuzzleLevel.h">
       <Filter>Headers\Levels\Platformer\PuzzleLevel</Filter>
     </ClInclude>
@@ -135,7 +156,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
-    <ClInclude Include="ISimulationUpdatingEntity.h">
+    <ClInclude Include="ISimulationEntity.h">
       <Filter>Headers\Engine\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="MovingStraightObject.h">
@@ -155,15 +176,6 @@
     </ClInclude>
     <ClInclude Include="PongLevel.h">
       <Filter>Headers\Levels\Pong</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Headers\Engine\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="PongBar.h">
-      <Filter>Headers\Levels\Pong\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="PongBall.h">
-      <Filter>Headers\Levels\Pong\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Headers\Engine\Simulation</Filter>
@@ -188,6 +200,51 @@
     </ClInclude>
     <ClInclude Include="DebugManager.h">
       <Filter>Headers\Engine\Managers/Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBall.h">
+      <Filter>Headers\Levels\Pong</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBar.h">
+      <Filter>Headers\Levels\Pong</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Headers\Levels\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugPrinter.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="Printer.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationPrinter.h">
+      <Filter>Headers\Engine\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienHighScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienLowScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienMidScore.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Headers\Levels\SpaceInvaders\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="AliensController.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Headers\Engine\AbstractLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Headers\Engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,8 +310,17 @@
     <Filter Include="Headers\Levels\Pong">
       <UniqueIdentifier>{ca770533-641d-4c91-9b82-559a1d855e6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Levels\Pong\Objects">
-      <UniqueIdentifier>{7939144c-3950-4813-b543-e3195ec57cdd}</UniqueIdentifier>
+    <Filter Include="Headers\Engine\Printers">
+      <UniqueIdentifier>{b22f59a7-aead-457f-bd85-1b66789b6a48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\SpaceInvaders\Aliens">
+      <UniqueIdentifier>{c1e0a236-4009-4edf-a31a-304c396b9576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Levels\SpaceInvaders\Projectiles">
+      <UniqueIdentifier>{9ab4d804-bc37-428e-ba0e-77cf22a7d63b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Engine\AbstractLevel">
+      <UniqueIdentifier>{057585c1-21c8-4caf-ba04-12e894db1b4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
