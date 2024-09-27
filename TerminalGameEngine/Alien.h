@@ -9,29 +9,28 @@ friend class AliensController;
 
 //------------------------------------------------------ Fields
 public:
-	Event<int, int> OnDestroy;
+	Event<GameObject*> OnDestroy;
 
 private:
-	int xIndexInMatrix;
-	int yIndexInMatrix;
+	size_t gridIndexX;
+	size_t gridIndexY;
 
 protected:
 	bool showFirstAnimFrame;
 //------------------------------------------------------ Methods
 public:
-	Alien(int xPos, int yPos, int xIndexInMatrix, int yIndexInMatrix) : 
-		GameObject(xPos, yPos), xIndexInMatrix(xIndexInMatrix), yIndexInMatrix(yIndexInMatrix) { }
+	Alien(int xPos, int yPos, size_t xIndexInFormation, size_t yIndexInFormation) :
+		GameObject(xPos, yPos), gridIndexX(xIndexInFormation), gridIndexY(yIndexInFormation) { }
 
 public:
 	virtual bool CanExitScreenSpace() const override { return false; }
 	virtual size_t GetScore() const = 0;
+	size_t GetIndexInGridX() { return gridIndexX; }
+	size_t GetIndexInGridY() { return gridIndexY; }
 
 protected:
 	virtual double GetGravityScale() const override { return 0; }
 	virtual void CALLED_BY_SIM_OnDestroy() override;
-
 	virtual void Update();
-
 	virtual void StepAnimation() = 0;
-
 };

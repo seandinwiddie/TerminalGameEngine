@@ -9,25 +9,16 @@
 
 double AliensController::GetSpeedX() const
 {
-	auto t1 = GetEliminatedAliensSpeedBoost();
-	auto t = GetWaveSpeedBoost();
-	
 	return BASE_MOVE_SPEED + GetEliminatedAliensSpeedBoost() + GetWaveSpeedBoost();
 }
 
 double AliensController::GetEliminatedAliensSpeedBoost()const
 {
-	auto t1 = GetDestroyedAliensCount();
-	auto t = GetStartingAliensCount();
-	auto t3 = aliensCount;
-
 	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount()-1) * ALL_ALIENS_ELIMINATED_SPEED_INCREASE;
 }
 
 double AliensController::GetWaveSpeedBoost()const
 {
-	auto t1 = level->GetWaveNumber() / MAX_SPEED_WAVE * HARDEST_WAVE_SPEED_INCREASE;
-
 	return level->GetWaveNumber() / MAX_SPEED_WAVE * HARDEST_WAVE_SPEED_INCREASE;
 }
 
@@ -35,9 +26,12 @@ AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, 
 {
 	aliensCount = aliensCountX * aliensCountY;
 
-	aliens.resize(aliensCountY);
+	aliensGrid.resize(aliensCountY);
 	for (int y = 0; y < aliensCountY; ++y)
-		aliens[y].resize(aliensCountX);
+		aliensGrid[y].resize(aliensCountX);
+
+	frontLine.resize(aliensCountX);
+
 }
 
 void AliensController::Update()
@@ -49,11 +43,15 @@ void AliensController::Update()
 
 	if (isTimeToMoveAliensDown)
 	{
+		auto t = GetFrontlineMinY();
+		if (GetFrontlineMinY() - 1 == GAME_OVER_Y + level->GetScreenPadding())
+			level->NotifyGameOver();
+
 		MoveAliens(Direction::down, 9999);
 		isTimeToMoveAliensDown = false;
 	}
 	else
-	MoveAliens(xMoveDirection, GetSpeedX());
+		MoveAliens(xMoveDirection, GetSpeedX());
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
@@ -62,7 +60,10 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 	assert(yPos < GetAliensGridHeight());
 	assert(xPos < GetAliensGridWidth());
 
-	aliens[yPos][xPos] = alien;
+	aliensGrid[yPos][xPos] = alien;
+
+	if (yPos == GetAliensGridHeight()-1)
+		frontLine[xPos] = alien;
 
 	alien->OnMove.Subscribe
 	(
@@ -71,7 +72,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 
 	alien->OnDestroy.Subscribe
 	(
-		[this](int xIndex, int yIndex) { OnAlienDestroyedCallback(xIndex, yIndex); }
+		[this](GameObject* alienObj) { OnAlienDestroyedCallback(alienObj); }
 	);
 }
 
@@ -89,8 +90,8 @@ void AliensController::MoveAliens(Direction dir, double speed)
 {
 	for (int y = 0; y < GetAliensGridHeight(); ++y)
 		for (int x = 0; x < GetAliensGridWidth(); ++x)
-			if (aliens[y][x] != nullptr)
-				aliens[y][x]->TryMove(dir, speed);
+			if (aliensGrid[y][x] != nullptr)
+				aliensGrid[y][x]->TryMove(dir, speed);
 }
 
 void AliensController::OnAliensReachMargin()
@@ -99,8 +100,37 @@ void AliensController::OnAliensReachMargin()
 	isTimeToMoveAliensDown = true;
 }
 
-void AliensController::OnAlienDestroyedCallback(int xIndex, int yIndex)
+void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
-	aliens[yIndex][xIndex] = nullptr;
+	Alien* alien = dynamic_cast<Alien*>(alienObj);
+	size_t destroyedX = alien->GetIndexInGridX();
+	size_t destroyedY = alien->GetIndexInGridY();
+
 	--aliensCount;
+	aliensGrid[destroyedY][destroyedX] = nullptr;
+
+	if (frontLine[destroyedX] == alien)
+	{
+		for (int y = destroyedY - 1; y >= 0; --y)
+		{
+			if (aliensGrid[y][destroyedX] != nullptr)
+			{
+				frontLine[destroyedX] = aliensGrid[y][destroyedX];
+				return;
+			}
+		}
+	}
+	
+	//all column eliminated
+	frontLine[destroyedX] = nullptr;
+}
+
+size_t AliensController::GetFrontlineMinY()
+{
+	size_t min = SIZE_MAX;
+	for (Alien* alien : frontLine)
+		if (alien != nullptr && alien->GetPosY() < min)
+			min = alien->GetPosY();
+
+	return min;
 }
