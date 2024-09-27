@@ -7,7 +7,7 @@ class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunnerBackground.txt";
+    const string BACKGROUND_FILE_NAME = "Backgrounds/endlessRunner.txt";
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods
@@ -24,7 +24,7 @@ protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
     virtual void OnPostGameOverDelayEnded() override;
-    virtual string GetPersistenceFilePath() { return "Persistence/obstaclesLevel.txt"; }
-    virtual string GetGameOverWindowPath() { return "endlessRunnerGameOverWindow.txt"; }
+    virtual string GetPersistenceFilePath() { return "Persistence/endlessRunner.txt"; }
+    virtual string GetGameOverWindowPath() { return "GameOverWindows/endlessRunner.txt"; }
     virtual void ShowGameOverScreen(int score, int bestScore);
 };

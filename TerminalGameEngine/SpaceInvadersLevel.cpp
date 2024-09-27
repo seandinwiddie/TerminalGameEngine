@@ -51,7 +51,7 @@ void SpaceInvadersLevel::Update()
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
 	Level::OnPostGameOverDelayEnded();
-	int bestScore = Persistence::GetBestScoreComparingToNewOne(GetGameOverWindowPath(), score);
+	int bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
 	ShowGameOverScreen(score, bestScore);
 	AudioManager::Instance().PlayFx("SpaceInv/showEndScreen.wav");
 }

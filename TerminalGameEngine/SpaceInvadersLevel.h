@@ -51,7 +51,8 @@ public:
 protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 0.1; }
-    virtual string GetGameOverWindowPath() override { return "Persistence/spaceInvaders.txt"; }
+    virtual string GetPersistenceFilePath() { return "Persistence/spaceInv.txt"; }
+    virtual string GetGameOverWindowPath() { return "GameOverWindows/spaceInv.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
     virtual void ShowGameOverScreen(int score, int bestScore);
 

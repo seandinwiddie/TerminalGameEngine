@@ -19,16 +19,10 @@ void Level::LoadInSimulation()
     gameOverTime = -1;
     levelStartedTime = TimeHelper::Instance().GetTime();
     hasCalledOnPostGameOverDelayEnded = false;
-
-    string gameOverPath = GetGameOverWindowPath();
-    if (gameOverPath == "")
-        return;
-
-    string gameOverWindowCompletePath = "GameOverWindows/" + gameOverPath;
     
     gameOverWindow.ReadFromFile
     (
-        gameOverWindowCompletePath,
+        GetGameOverWindowPath(),
         Simulation::Instance().GetScreenSizeX(),
         Simulation::Instance().GetScreenSizeY()
     );
