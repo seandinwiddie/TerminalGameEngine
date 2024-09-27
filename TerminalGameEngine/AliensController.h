@@ -50,7 +50,7 @@ private:
 	double GetSpeedX()const;
 
 	double GetShotsDelay()const;
-	double GetWaveMultiplier()const { return level->GetWaveNumber() / HARDEST_WAVE; }
+	double GetWaveMultiplier()const;
 	double GetEliminatedAliensMultiplier()const;
 
 	size_t GetAliensGridHeight() const { return aliensGrid.size(); }
