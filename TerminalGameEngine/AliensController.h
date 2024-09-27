@@ -25,7 +25,7 @@ class AliensController : public ISimulationEntity
 	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.5;
 	
 //------------------------------------------------------------------- Other Settings
-	const size_t GAME_OVER_Y = 12;
+	const size_t GAME_OVER_Y = 11;
 
 //------------------------------------------------------------------- Fields
 private:

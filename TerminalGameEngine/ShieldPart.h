@@ -16,4 +16,5 @@ protected:
     virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::GREEN; }
     virtual void InitModel() { SetModel(model); }
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir);
 };
