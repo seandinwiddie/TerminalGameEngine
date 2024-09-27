@@ -24,7 +24,7 @@ double AliensController::GetShotsDelay()const
 
 double AliensController::GetEliminatedAliensMultiplier()const
 {
-	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount() - 1) * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION;
+	return static_cast<double>(GetDestroyedAliensCount()) / (GetStartingAliensCount() - 1);
 }
 
 double AliensController::GetWaveMultiplier()const
@@ -49,7 +49,7 @@ void AliensController::Update()
 {
 #if DEBUG_MODE
 	string totBoost = "tot boost: " + std::to_string(GetSpeedX());
-	string eliminationsBoost = " lim. multiplier:"+ std::to_string(GetEliminatedAliensMultiplier());
+	string eliminationsBoost = " elim. multiplier:"+ std::to_string(GetEliminatedAliensMultiplier());
 	string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
 	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
 	DebugManager::Instance().PrintGenericLog(debugStr);
