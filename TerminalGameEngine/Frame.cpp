@@ -53,7 +53,7 @@ void Frame::ReadFromFile(const string& fileName)
         //if (c == '\n' || c == '\r' || c == '\t' || c == '\0')
     }
 
-    std::reverse(chars.begin(), chars.end());
+    //std::reverse(chars.begin(), chars.end());
     return;
 }
 

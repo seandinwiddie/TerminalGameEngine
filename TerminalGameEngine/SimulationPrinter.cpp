@@ -56,7 +56,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize
             if (xScreen + MARGIN_OFFSET_X < MARGIN_OFFSET_X)continue;
 
             if (go == nullptr)
-                line += background.IsSetup() ? background.chars[yScreen][xScreen] : ' ';
+                line += background.IsSetup() ? background.chars[screenSizeY - yScreen -1][xScreen] : ' ';
             else
                 line += go->GetModel()[yModel][xModel];
         }
@@ -75,12 +75,14 @@ void SimulationPrinter::PrintBackground()
     terminal.SetColor(backgroundColor);
 
     string line = "";
+
+
     for (int y = 0; y < screenSizeY; ++y)
     {
         for (int x = 0; x < screenSizeX; ++x)
         {
             //reversing y order
-            char charToPrint = background.chars[screenSizeY - y - MARGIN_OFFSET_BOTTOM_Y][x];
+            char charToPrint = background.chars[y][x];
             line += charToPrint;
         }
         terminal.SetCursorPosition(MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);

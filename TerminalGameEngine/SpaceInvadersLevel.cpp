@@ -9,6 +9,8 @@
 #include "Persistence.h"
 #include "UIPrinter.h"
 
+using WindowPosition = UIPrinter::WindowPosition;
+
 int SpaceInvadersLevel::GetWorldSizeX() const
 {
 	return
@@ -69,7 +71,7 @@ void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 
 	gameOverWindow.ReplaceChar(message, '$');
 
-	Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
+	Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE, WindowPosition::CenterX_CenterY);
 }
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)

@@ -10,6 +10,8 @@
 #include "UIPrinter.h"
 #include "Frame.h"
 
+using WindowPosition = UIPrinter::WindowPosition;
+
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
     Level::OnPostGameOverDelayEnded();
@@ -33,7 +35,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 
     gameOverWindow.ReplaceChar(message, '$');
 
-    Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE);
+    Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE, WindowPosition::CenterX_TopY);
 }
 
 void EndlessRunnerLevel::NotifyGameOver()

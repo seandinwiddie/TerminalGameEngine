@@ -5,6 +5,10 @@
 class UIPrinter : public Printer
 {
 //---------------------------------------------------------- Fields
+
+public:
+    enum class WindowPosition{CenterX_TopY, CenterX_CenterY};
+
 private:
 	static const char MARGIN_HORIZONTAL_CHAR = '=';
 	static const char MARGIN_VERTICAL_CHAR = '|';
@@ -19,13 +23,25 @@ public:
         DrawMargins(marginsColor);
     };
 
-    void PrintWindow(const Frame& window, int color)
+    void PrintWindow(const Frame& window, int color, WindowPosition windowPosition)
     {
         if (window.GetSizeY() == 0)
             return;
 
         assert(screenSizeX > window.GetSizeX());
         size_t leftwindowOffset = (screenSizeX - window.GetSizeX())/2;
+
+        size_t printStartY;
+        switch (windowPosition)
+        {
+            case WindowPosition::CenterX_CenterY:
+                printStartY = screenSizeY / 2 - window.GetSizeY() / 2;
+            break;
+            
+            case WindowPosition::CenterX_TopY:
+                printStartY = MARGIN_OFFSET_TOP_Y;
+                break;
+        }
 
         Terminal::Instance().SetColor(color);
         for (size_t y = 0; y < window.GetSizeY(); ++y)
@@ -35,7 +51,7 @@ public:
                 line += window.chars[y][x];
 
             //terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
-            terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, y + MARGIN_OFFSET_TOP_Y);
+            terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, y + printStartY);
             terminal.Cout(line);
         }
     }
