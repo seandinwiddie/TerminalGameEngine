@@ -93,8 +93,15 @@ void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDir
 {
 	if (moveDirection == xMoveDirection)
 	{
+		auto t = level->GetScreenPadding();
+		auto t1 = alien->GetPosX() == level->GetScreenPadding();
+		auto t2 = level->GetScreenMaxX() - level->GetScreenPadding() - alien->GetModelWidth();
+
 		int alienXPos = alien->GetPosX();
-		if (alienXPos == level->GetScreenPadding() || alienXPos == level->GetScreenMaxX() - alien->GetModelWidth())
+		if (
+			alienXPos == level->GetScreenPadding() || 
+			alienXPos == level->GetWorldSizeX() - level->GetScreenPadding() - alien->GetModelWidth()
+			)
 			OnAliensReachMargin();
 	}
 }
