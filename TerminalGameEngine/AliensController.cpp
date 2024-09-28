@@ -57,7 +57,7 @@ void AliensController::Update()
 
 	if (isTimeToMoveAliensDown)
 	{
-		if (frontLine.GetMinY() - 1 <= GAME_OVER_Y)
+		if (frontLine.GetMinY() - 1 <= level->GAME_OVER_Y)
 			level->NotifyGameOver();
 
 		MoveAliens(Direction::down, 9999);
@@ -120,8 +120,11 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
 	Alien* alien = dynamic_cast<Alien*>(alienObj);
 
-	--aliensCount;
 	aliensGrid[alien->GetIndexInGridY()][alien->GetIndexInGridX()] = nullptr;
 
 	frontLine.ReplaceDestroyedElement(alien, aliensGrid);
+
+	--aliensCount;
+	if (aliensCount == 0)
+		OnWaveCompleted.Notify();
 }

@@ -2,6 +2,7 @@
 #include "ISimulationEntity.h"
 #include "GridDirection.h"
 #include "AliensFrontline.h"
+#include "Event.h"
 #include <vector>
 
 template <typename T> using vector = std::vector<T>;
@@ -24,11 +25,11 @@ class AliensController : public ISimulationEntity
 	const double BASE_SHOTS_DELAY = 2;
 	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.5;
 	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.5;
-	
-//------------------------------------------------------------------- Other Settings
-	const size_t GAME_OVER_Y = 8;
 
 //------------------------------------------------------------------- Fields
+public:
+	Event<> OnWaveCompleted;
+
 private:
 	// references
 	SpaceInvadersLevel* level;

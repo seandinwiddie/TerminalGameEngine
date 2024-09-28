@@ -31,6 +31,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 
 	AliensController* aliensController = new AliensController(this, ALIENS_COUNT_X, ALIENS_COUNT_Y);
 	Simulation::Instance().TryAddEntity(aliensController);
+	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
 
 	LoadAliens(aliensController);
 	LoadPlayerTank();
@@ -209,4 +210,9 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 			Simulation::Instance().TryAddEntity(shieldPart);
 		}
 	}
+}
+
+void SpaceInvadersLevel::OnWaveCompleted()
+{
+	int a = 5;
 }

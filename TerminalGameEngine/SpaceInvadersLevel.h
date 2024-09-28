@@ -14,7 +14,7 @@ using type_info = std::type_info;
 class SpaceInvadersLevel : public Level
 {
 //------------------------------------------------------------------- Aliens Position Settings
-private:
+public:
     static const size_t ALIEN_WIDTH = 4;
     static const size_t ALIEN_HEIGHT = 2;
 
@@ -31,7 +31,7 @@ private:
     static const size_t SHIELD_SIZE_Y = 3;
 
 //------------------------------------------------------------------- Other Settings
-    const string PERSISTENCE_FILE_NAME = "Persistence/spaceInvaders.txt";
+    static const size_t GAME_OVER_Y = 8;
 
 //------------------------------------------------------------------- Fields
 private:
@@ -70,8 +70,9 @@ private:
     void PrintScore();
     void PrintHealth();
     void PrintWave();
-    
+
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int yPos, int rowIndex, AliensController* controller);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
+    void OnWaveCompleted();
 };
