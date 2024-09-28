@@ -124,6 +124,9 @@
     <ClCompile Include="ShieldPart.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="CoroutineUtils.h">
+      <Filter>Headers\Engine\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">

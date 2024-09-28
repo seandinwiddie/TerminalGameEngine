@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+class SpaceInvadersLevel;
+
 class PlayerTank : public GameObject
 {
 //---------------------------------------------------------- Settings
@@ -12,11 +14,12 @@ private:
 //---------------------------------------------------------- Fields
 private:
     static const Model MODEL;
+    SpaceInvadersLevel* level;
     double lastTimeShot = -1;
 
 //---------------------------------------------------------- Methods
 public:
-    PlayerTank(int xPos, int yPos) : GameObject(xPos, yPos) {};
+    PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : GameObject(xPos, yPos), level(level) {};
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }

@@ -126,7 +126,7 @@ void SpaceInvadersLevel::LoadPlayerTank()
 {
 	int xPos = GetWorldSizeX() / 2;
 	int yPos = GetScreenPadding();
-	PlayerTank* playerTank = new PlayerTank(xPos, yPos);
+	PlayerTank* playerTank = new PlayerTank(xPos, yPos, this);
 	Simulation::Instance().TryAddEntity(playerTank);
 }
 
@@ -161,7 +161,6 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex)
 	while (xIndex < ALIENS_COUNT_X)
 	{
 		Alien* alien = CreateAlienOfType(alienType,xPos,yPos, xIndex, yIndex);
-		Simulation::Instance().TryAddEntity(alien);
 		aliensController->RegisterAlien(alien, xIndex, yIndex);
 
 		++xIndex;
@@ -215,8 +214,16 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 
 void SpaceInvadersLevel::OnWaveCompleted()
 {
+	OnWaveCompletedCor();
+}
+
+Task SpaceInvadersLevel::OnWaveCompletedCor()
+{
+	isLoadingNewWave = true;
+	co_await sleep_for(std::chrono::milliseconds(2000)); // Coroutine-friendly sleep
+
 	waveNumber++;
 	PrintWave();
-
 	LoadAliens();
+	isLoadingNewWave = false;
 }

@@ -5,6 +5,7 @@
 #include "TimeHelper.h"
 #include "Level.h"
 #include "AudioManager.h"
+#include "SpaceInvadersLevel.h"
 
 using namespace InputUtils;
 
@@ -33,6 +34,9 @@ void PlayerTank::HandleMovement()
 
 void PlayerTank::HandleShooting()
 {
+    if (level->IsLoadingNewWave())
+        return;
+
     if (IsKeyPressed(Key::SPACE))
     {
         double time = TimeHelper::Instance().GetTime();
