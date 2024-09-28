@@ -36,8 +36,10 @@ void SpaceInvadersLevel::LoadInSimulation()
 	LoadPlayerTank();
 	InitHeader();
 
+#if !CHEAT_SPACEINV_DISABLE_SHIELDS
 	vector<size_t> shieldsSpacing = {9,9,8,9,9 };
 	LoadShields(9,4,shieldsSpacing);
+#endif
 }
 
 void SpaceInvadersLevel::NotifyGameOver()
