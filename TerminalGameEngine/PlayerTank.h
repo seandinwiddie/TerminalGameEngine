@@ -8,7 +8,7 @@ class PlayerTank : public GameObject
 //---------------------------------------------------------- Settings
 private:
     double const MOVE_SPEED = 24;
-    double const PROJECTILES_MOVE_SPEED = 32;
+    double const PROJECTILE_SPEED = 32;
     double const SHOTS_DELAY = 0.5;
 
 //---------------------------------------------------------- Fields

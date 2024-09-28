@@ -78,7 +78,5 @@ private:
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int yPos, int rowIndex);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
-    void OnWaveCompleted();
-
     Task OnWaveCompletedCor();
 };

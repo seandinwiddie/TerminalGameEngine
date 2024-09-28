@@ -7,6 +7,10 @@ class Alien : public GameObject
 {
 friend class AliensController;
 
+//------------------------------------------------------ Settings
+private:
+	static const size_t PROJECTILE_SPEED = 8;
+
 //------------------------------------------------------ Fields
 public:
 	Event<GameObject*> OnDestroy;
@@ -24,9 +28,10 @@ public:
 
 public:
 	virtual bool CanExitScreenSpace() const override { return false; }
-	virtual size_t GetScore() const = 0;
 	size_t GetIndexInGridX() { return gridIndexX; }
 	size_t GetIndexInGridY() { return gridIndexY; }
+	virtual size_t GetScore() const = 0;
+	void Shot();
 
 protected:
 	virtual double GetGravityScale() const override { return 0; }
