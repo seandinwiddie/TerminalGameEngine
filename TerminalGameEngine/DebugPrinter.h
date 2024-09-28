@@ -49,10 +49,10 @@ public:
         std::cout << output;
     }
 
-    void PrintGenericLog(const string& log)
+    void PrintGenericLog(const string& log, int lineIndex)
     {
         terminal.SetColor(DEBUG_COLOR);
-        terminal.SetCursorPosition(0, GetMaxTerminalY() + GENERIC_LOG_POSITION);
+        terminal.SetCursorPosition(0, GetMaxTerminalY() + GENERIC_LOG_POSITION + lineIndex  );
         std::cout << log;
     }
 };

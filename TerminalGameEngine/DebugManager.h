@@ -33,7 +33,7 @@ public:
 	void Reset(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
 	void ShowAverageFPS();
 	void IncrementCoutCalls();
-	void PrintGenericLog(const string& str);
+	void PrintGenericLog(const string& str, int lineIndex);
 
 private:
 	size_t GetAverageFps();

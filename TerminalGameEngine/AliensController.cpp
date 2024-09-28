@@ -50,13 +50,13 @@ void AliensController::Update()
 	string eliminationsBoost = " elim. multiplier:"+ std::to_string(GetEliminatedAliensMultiplier());
 	string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
 	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
-	DebugManager::Instance().PrintGenericLog(debugStr);
+	DebugManager::Instance().PrintGenericLog(debugStr,0);
+
+	DebugManager::Instance().PrintGenericLog(std::to_string(GetFrontlineMinY()), 1);
 #endif
 
 	if (isTimeToMoveAliensDown)
 	{
-		auto minY = GetFrontlineMinY();
-
 		if (GetFrontlineMinY() - 1 <= GAME_OVER_Y)
 			level->NotifyGameOver();
 
@@ -125,19 +125,20 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 	--aliensCount;
 	aliensGrid[destroyedY][destroyedX] = nullptr;
 
-	if (frontLine[destroyedX] == alien)
+	if (frontLine[destroyedX] != alien)
+		return;
+
+	//try find new front line element
+	for (int y = GetAliensGridHeight()-1; y >= 0; --y)
 	{
-		for (int y = destroyedY - 1; y >= 0; --y)
+		if (aliensGrid[y][destroyedX] != nullptr)
 		{
-			if (aliensGrid[y][destroyedX] != nullptr)
-			{
-				frontLine[destroyedX] = aliensGrid[y][destroyedX];
-				return;
-			}
+			frontLine[destroyedX] = aliensGrid[y][destroyedX];
+			return;
 		}
 	}
 	
-	//all column eliminated
+	//whole column eliminated
 	frontLine[destroyedX] = nullptr;
 }
 

@@ -122,7 +122,6 @@ void Bunny::UpdateModel()
 
 void Bunny::SwitchWalkIdleState()
 {
-    auto debugTime = TimeHelper::Instance().GetTime();
     if (TimeHelper::Instance().GetTime() - lastTimeMovedOnX > 0.2)
     {
         if (state == State::walking)

@@ -6,7 +6,7 @@
 #include "TimeHelper.h"
 #include "DebugPrinter.h"
 
-void DebugManager::PrintGenericLog(const string& str){ debugPrinter->PrintGenericLog(str); }
+void DebugManager::PrintGenericLog(const string& str, int lineIndex){ debugPrinter->PrintGenericLog(str, lineIndex); }
 
 void DebugManager::Reset
 (
