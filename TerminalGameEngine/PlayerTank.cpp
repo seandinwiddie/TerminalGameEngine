@@ -58,6 +58,8 @@ void PlayerTank::HandleShooting()
 
 void PlayerTank::TakeDamage()
 {
+#if !CHEAT_SPACEINV_INVINCIBILITY
     health--;
     OnDamageTaken.Notify(health);
+#endif
 }
