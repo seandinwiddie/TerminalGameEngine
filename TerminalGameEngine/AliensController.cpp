@@ -128,7 +128,4 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 	--aliensCount;
 	if (aliensCount == 0)
 		OnWaveCompleted.Notify();
-
-	DebugManager::Instance().PrintGenericLog("                              ", 5);
-     DebugManager::Instance().PrintGenericLog(std::to_string(aliensCount), 5);
 }

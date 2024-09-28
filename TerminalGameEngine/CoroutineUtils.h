@@ -5,6 +5,8 @@
 #include <chrono>
 #include <future>
 
+//todo use coroutines in other code where needed
+
 struct SleepAwaitable
 {
     std::chrono::milliseconds duration;
