@@ -1,6 +1,7 @@
 #pragma once
 #include "ISimulationEntity.h"
 #include "GridDirection.h"
+#include "AliensFrontline.h"
 #include <vector>
 
 template <typename T> using vector = std::vector<T>;
@@ -32,7 +33,7 @@ private:
 	// references
 	SpaceInvadersLevel* level;
 	vector<vector<Alien*>> aliensGrid;
-	vector<Alien*> frontLine;
+	AliensFrontline frontLine;
 	
 	// state
 	size_t aliensCount;
@@ -62,5 +63,4 @@ private:
 	void OnAlienDestroyedCallback(GameObject* alienObj);
 	void OnAliensReachMargin();
 	void MoveAliens(Direction dir, double speed);
-	size_t GetFrontlineMinY();
 };

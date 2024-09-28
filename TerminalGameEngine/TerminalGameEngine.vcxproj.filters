@@ -118,6 +118,10 @@
     <ClCompile Include="UIPrinter.h">
       <Filter>Headers\Engine\Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="ShieldPart.cpp" />
+    <ClCompile Include="AliensFrontline.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -245,6 +249,10 @@
     </ClInclude>
     <ClInclude Include="StringUtils.h">
       <Filter>Headers\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldPart.h" />
+    <ClInclude Include="AliensFrontline.h">
+      <Filter>Headers\Levels\SpaceInvaders\Aliens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

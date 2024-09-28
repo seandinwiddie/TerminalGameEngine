@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="AliensController.cpp" />
+    <ClCompile Include="AliensFrontline.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AutomaticDoor.cpp" />
     <ClCompile Include="Bunny.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="AlienLowScore.h" />
     <ClInclude Include="AlienMidScore.h" />
     <ClInclude Include="AliensController.h" />
+    <ClInclude Include="AliensFrontline.h" />
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="Config.h" />

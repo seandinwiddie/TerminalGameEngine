@@ -40,7 +40,7 @@ AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, 
 	for (int y = 0; y < aliensCountY; ++y)
 		aliensGrid[y].resize(aliensCountX);
 
-	frontLine.resize(aliensCountX);
+	frontLine.Init(aliensCountX);
 }
 
 void AliensController::Update()
@@ -52,12 +52,12 @@ void AliensController::Update()
 	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
 	DebugManager::Instance().PrintGenericLog(debugStr,0);
 
-	DebugManager::Instance().PrintGenericLog(std::to_string(GetFrontlineMinY()), 1);
+	DebugManager::Instance().PrintGenericLog(std::to_string(frontLine.GetMinY()), 1);
 #endif
 
 	if (isTimeToMoveAliensDown)
 	{
-		if (GetFrontlineMinY() - 1 <= GAME_OVER_Y)
+		if (frontLine.GetMinY() - 1 <= GAME_OVER_Y)
 			level->NotifyGameOver();
 
 		MoveAliens(Direction::down, 9999);
@@ -76,7 +76,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 	aliensGrid[yPos][xPos] = alien;
 
 	if (yPos == GetAliensGridHeight()-1)
-		frontLine[xPos] = alien;
+		frontLine.Set(xPos,alien);
 
 	alien->OnMove.Subscribe
 	(
@@ -119,35 +119,9 @@ void AliensController::OnAliensReachMargin()
 void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
 	Alien* alien = dynamic_cast<Alien*>(alienObj);
-	size_t destroyedX = alien->GetIndexInGridX();
-	size_t destroyedY = alien->GetIndexInGridY();
 
 	--aliensCount;
-	aliensGrid[destroyedY][destroyedX] = nullptr;
+	aliensGrid[alien->GetIndexInGridY()][alien->GetIndexInGridX()] = nullptr;
 
-	if (frontLine[destroyedX] != alien)
-		return;
-
-	//try find new front line element
-	for (int y = GetAliensGridHeight()-1; y >= 0; --y)
-	{
-		if (aliensGrid[y][destroyedX] != nullptr)
-		{
-			frontLine[destroyedX] = aliensGrid[y][destroyedX];
-			return;
-		}
-	}
-	
-	//whole column eliminated
-	frontLine[destroyedX] = nullptr;
-}
-
-size_t AliensController::GetFrontlineMinY()
-{
-	size_t min = SIZE_MAX;
-	for (Alien* alien : frontLine)
-		if (alien != nullptr && alien->GetPosY() < min)
-			min = alien->GetPosY();
-
-	return min;
+	frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 }
