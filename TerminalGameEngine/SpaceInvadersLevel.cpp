@@ -29,11 +29,11 @@ void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
 
-	AliensController* aliensController = new AliensController(this, ALIENS_COUNT_X, ALIENS_COUNT_Y);
+	aliensController = new AliensController(this);
 	Simulation::Instance().TryAddEntity(aliensController);
 	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
 
-	LoadAliens(aliensController);
+	LoadAliens();
 	LoadPlayerTank();
 	InitHeader();
 
@@ -130,13 +130,14 @@ void SpaceInvadersLevel::LoadPlayerTank()
 	Simulation::Instance().TryAddEntity(playerTank);
 }
 
-void SpaceInvadersLevel::LoadAliens(AliensController* controller)
+void SpaceInvadersLevel::LoadAliens()
 {
+	aliensController->Reset(ALIENS_COUNT_X, ALIENS_COUNT_Y);
 	int yPos = GetWorldSizeY() - GetScreenPadding() - ALIENS_SPACE_FROM_TOP_MARGIN - ALIEN_HEIGHT;
 	int yIndex = 0;
 	while (yIndex < ALIENS_COUNT_Y)
 	{
-		AddAliensRowToSimulation(yPos, yIndex, controller);
+		AddAliensRowToSimulation(yPos, yIndex);
 		yPos -= (ALIEN_HEIGHT + SPACE_BETWEEN_ALIENS_Y);
 		++yIndex;
 	}
@@ -152,7 +153,7 @@ const type_info& SpaceInvadersLevel::GetAlienTypeForRow(int yIndex)
 		return typeid(AlienLowScore);
 }
 
-void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex, AliensController* controller)
+void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex)
 {
 	int xPos = GetScreenPadding() + ALIENS_SPACE_FROM_MARGINS_X;
 	const type_info& alienType = GetAlienTypeForRow(yIndex);
@@ -161,7 +162,7 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex, AliensCo
 	{
 		Alien* alien = CreateAlienOfType(alienType,xPos,yPos, xIndex, yIndex);
 		Simulation::Instance().TryAddEntity(alien);
-		controller->RegisterAlien(alien, xIndex, yIndex);
+		aliensController->RegisterAlien(alien, xIndex, yIndex);
 
 		++xIndex;
 		xPos += ALIEN_WIDTH + SPACE_BETWEEN_ALIENS_X;
@@ -214,5 +215,8 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 
 void SpaceInvadersLevel::OnWaveCompleted()
 {
-	int a = 5;
+	waveNumber++;
+	PrintWave();
+
+	LoadAliens();
 }

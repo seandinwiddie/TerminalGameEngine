@@ -44,7 +44,8 @@ private:
 
 //------------------------------------------------------------------- Methods
 public:
-	AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY);
+	AliensController(SpaceInvadersLevel* level) : level(level) { }
+;	void Reset(int aliensCountX, int aliensCountY);
 	void Update() override;
 	void RegisterAlien(Alien* alien, int xPos, int yPos);
 

@@ -38,7 +38,7 @@ void PlayerTank::HandleShooting()
         double time = TimeHelper::Instance().GetTime();
 
 #if CHEAT_SPACEINV_FAST_FIRE
-        if(time-lastTimeShot > 0.1)
+        if(time-lastTimeShot > 0.08)
             lastTimeShot = -99;
 #endif
 

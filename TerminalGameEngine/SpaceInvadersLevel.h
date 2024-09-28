@@ -38,6 +38,7 @@ private:
     size_t health = 3;
     size_t waveNumber = 1;
     size_t score = 0;
+    AliensController* aliensController;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -61,7 +62,7 @@ protected:
     virtual void ShowGameOverScreen(int score, int bestScore);
 
 private:
-    void LoadAliens(AliensController* controller);
+    void LoadAliens();
     void LoadPlayerTank();
     void LoadShield(int xPos, int yPos);
     void LoadShields(size_t yPos, size_t count, vector<size_t> spacing);
@@ -72,7 +73,7 @@ private:
     void PrintWave();
 
     const type_info& GetAlienTypeForRow(int rowIndex);
-    void AddAliensRowToSimulation(int yPos, int rowIndex, AliensController* controller);
+    void AddAliensRowToSimulation(int yPos, int rowIndex);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
     void OnWaveCompleted();
 };

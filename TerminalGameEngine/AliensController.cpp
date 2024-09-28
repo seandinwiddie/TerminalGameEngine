@@ -32,10 +32,9 @@ double AliensController::GetWaveMultiplier()const
 	return level->GetWaveNumber() / HARDEST_WAVE;
 }
 
-AliensController::AliensController(SpaceInvadersLevel* level, int aliensCountX, int aliensCountY) : level(level)
+void AliensController::Reset(int aliensCountX, int aliensCountY)
 {
 	aliensCount = aliensCountX * aliensCountY;
-
 	aliensGrid.resize(aliensCountY);
 	for (int y = 0; y < aliensCountY; ++y)
 		aliensGrid[y].resize(aliensCountX);
@@ -116,6 +115,8 @@ void AliensController::OnAliensReachMargin()
 	isTimeToMoveAliensDown = true;
 }
 
+static int calledTimes = 0;
+
 void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
 	Alien* alien = dynamic_cast<Alien*>(alienObj);
@@ -127,4 +128,7 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 	--aliensCount;
 	if (aliensCount == 0)
 		OnWaveCompleted.Notify();
+
+	DebugManager::Instance().PrintGenericLog("                              ", 5);
+     DebugManager::Instance().PrintGenericLog(std::to_string(aliensCount), 5);
 }
