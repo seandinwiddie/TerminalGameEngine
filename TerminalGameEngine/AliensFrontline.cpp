@@ -31,3 +31,9 @@ void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vecto
 	//whole column eliminated
 	frontLine[destroyedX] = nullptr;
 }
+
+Alien* AliensFrontline::GetRandom()
+{
+	auto t = RandomUtils::GetRandomInt(0, frontLine.size() - 1);
+	return GetAt(RandomUtils::GetRandomInt(0, frontLine.size()-1));
+}

@@ -143,7 +143,6 @@
     <ClCompile Include="Bunny.cpp" />
     <ClCompile Include="CollisionsTestLevel.cpp" />
     <ClCompile Include="CollisionsTestLevel.h" />
-    <ClCompile Include="CoroutineUtils.h" />
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />

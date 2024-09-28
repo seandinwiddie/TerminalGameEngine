@@ -9,7 +9,7 @@ friend class AliensController;
 
 //------------------------------------------------------ Settings
 private:
-	static const size_t PROJECTILE_SPEED = 8;
+	static const size_t PROJECTILE_SPEED = 24;
 
 //------------------------------------------------------ Fields
 public:

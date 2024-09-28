@@ -17,6 +17,4 @@ void PlayerProjectile::OnCollisionEnter(GameObject* other, Direction collisionDi
 		level->IncreasePlayerScore(otherAlien->GetScore());
 		Simulation::Instance().RemoveEntity(otherAlien);
 	}
-
-	Simulation::Instance().RemoveEntity(this);
 }

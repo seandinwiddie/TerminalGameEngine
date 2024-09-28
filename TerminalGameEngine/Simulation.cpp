@@ -97,6 +97,9 @@ void Simulation::RemoveMarkedEntities()
 
 void Simulation::RemoveEntity(ISimulationEntity* entity)
 {
+	if (entity == nullptr)
+		return;
+
 	if (!IsEntityInSimulation(entity))
 		return;
 

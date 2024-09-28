@@ -34,7 +34,7 @@ void PlayerTank::HandleMovement()
 
 void PlayerTank::HandleShooting()
 {
-    if (level->IsLoadingNewWave())
+    if (level->IsLoadingWave())
         return;
 
     if (IsKeyPressed(Key::SPACE))

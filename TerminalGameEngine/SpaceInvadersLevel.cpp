@@ -31,7 +31,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 
 	aliensController = new AliensController(this);
 	Simulation::Instance().TryAddEntity(aliensController);
-	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompletedCor(); });
+	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
 
 	LoadAliens();
 	LoadPlayerTank();
@@ -56,6 +56,7 @@ void SpaceInvadersLevel::NotifyGameOver()
 void SpaceInvadersLevel::Update()
 {
 	Level::Update();
+	LoadNewWave();
 }
 
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
@@ -213,13 +214,19 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 	}
 }
 
-Task SpaceInvadersLevel::OnWaveCompletedCor()
+void SpaceInvadersLevel::OnWaveCompleted()
 {
-	isLoadingNewWave = true;
-	co_await sleep_for(std::chrono::milliseconds(2000)); // Coroutine-friendly sleep
-
+	isLoadingWave = true;
 	waveNumber++;
 	PrintWave();
-	LoadAliens();
-	isLoadingNewWave = false;
+	startedLoadingWaveTime = TimeHelper::Instance().GetTime();
+}
+
+void SpaceInvadersLevel::LoadNewWave()
+{
+	if (isLoadingWave && TimeHelper::Instance().GetTime() - startedLoadingWaveTime > LOAD_WAVE_TIME)
+	{
+		LoadAliens();
+		isLoadingWave = false;
+	}
 }

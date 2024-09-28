@@ -22,9 +22,10 @@ class AliensController : public ISimulationEntity
 	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 4;
 
 //shooting
-	const double BASE_SHOTS_DELAY = 2;
-	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.5;
-	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.5;
+	const size_t BASE_SHOTS_DELAY = 2000;
+	const size_t ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 500;
+	const size_t HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 500;
+	const int SHOTS_RANDOMNESS = 500;
 
 //------------------------------------------------------------------- Fields
 public:
@@ -52,7 +53,7 @@ public:
 private:
 	double GetSpeedX()const;
 
-	double GetShotsDelay()const;
+	size_t GetNextShotDelayMilliseconds()const;
 	double GetWaveMultiplier()const;
 	double GetEliminatedAliensMultiplier()const;
 
@@ -65,4 +66,5 @@ private:
 	void OnAlienDestroyedCallback(GameObject* alienObj);
 	void OnAliensReachMargin();
 	void MoveAliens(Direction dir, double speed);
+	void HandleShooting();
 };

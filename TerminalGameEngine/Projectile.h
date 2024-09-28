@@ -1,5 +1,6 @@
 #pragma once
 #include "MovingStraightObject.h"
+#include "Simulation.h"
 
 class Projectile : public MovingStraightObject
 {
@@ -10,5 +11,10 @@ public:
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
+    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir)
+    {
+        MovingStraightObject::OnCollisionEnter(other, collisionDir);
+        Simulation::Instance().RemoveEntity(this);
+    }
 };
 

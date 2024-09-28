@@ -1,6 +1,5 @@
 #pragma once
 #include "Level.h"
-#include "CoroutineUtils.h"
 
 class Alien;
 class AliensController;
@@ -33,6 +32,7 @@ public:
 
 //------------------------------------------------------------------- Other Settings
     static const size_t GAME_OVER_Y = 8;
+    static constexpr double LOAD_WAVE_TIME = 2;
 
 //------------------------------------------------------------------- Fields
 private:
@@ -40,7 +40,8 @@ private:
     size_t waveNumber = 1;
     size_t score = 0;
     AliensController* aliensController;
-    bool isLoadingNewWave = false;
+    bool isLoadingWave = false;
+    double startedLoadingWaveTime = -1;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -54,7 +55,7 @@ public:
     size_t GetWaveNumber() { return waveNumber; }
 
     void IncreasePlayerScore(size_t increment);
-    bool IsLoadingNewWave() { return isLoadingNewWave; }
+    bool IsLoadingWave() { return isLoadingWave; }
 
 protected:
     virtual void Update()override;
@@ -78,5 +79,7 @@ private:
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int yPos, int rowIndex);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
-    Task OnWaveCompletedCor();
+
+    void OnWaveCompleted();
+    void LoadNewWave();
 };

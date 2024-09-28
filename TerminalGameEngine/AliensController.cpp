@@ -6,6 +6,7 @@
 #include "TimeHelper.h"
 #include "SpaceInvadersLevel.h"
 #include "DebugManager.h"
+#include "RandomUtils.h"
 #include <cassert>
 
 double AliensController::GetSpeedX() const
@@ -15,11 +16,12 @@ double AliensController::GetSpeedX() const
 		GetWaveMultiplier() * HARDEST_WAVE_MOVE_SPEED_INCREASE;
 }
 
-double AliensController::GetShotsDelay()const
+size_t AliensController::GetNextShotDelayMilliseconds()const
 {
-	return BASE_SHOTS_DELAY - 
-		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION - 
-		GetWaveMultiplier() * HARDEST_WAVE_SHOTS_DELAY_REDUCTION;
+	return BASE_SHOTS_DELAY -
+		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION -
+		GetWaveMultiplier() * HARDEST_WAVE_SHOTS_DELAY_REDUCTION +
+		RandomUtils::GetRandomInt(-SHOTS_RANDOMNESS/2, SHOTS_RANDOMNESS/2);
 }
 
 double AliensController::GetEliminatedAliensMultiplier()const
@@ -50,8 +52,6 @@ void AliensController::Update()
 	string waveBoost = " wave multiplier:" + std::to_string(GetWaveMultiplier());
 	string debugStr = totBoost + " | " + eliminationsBoost + " | " + waveBoost;
 	DebugManager::Instance().PrintGenericLog(debugStr,0);
-
-	DebugManager::Instance().PrintGenericLog(std::to_string(frontLine.GetMinY()), 1);
 #endif
 
 	if (isTimeToMoveAliensDown)
@@ -64,6 +64,8 @@ void AliensController::Update()
 	}
 	else
 		MoveAliens(xMoveDirection, GetSpeedX());
+
+	HandleShooting();
 }
 
 void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
@@ -128,4 +130,9 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 	--aliensCount;
 	if (aliensCount == 0)
 		OnWaveCompleted.Notify();
+}
+
+void AliensController::HandleShooting()
+{
+
 }
