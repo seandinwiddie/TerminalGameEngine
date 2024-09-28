@@ -64,6 +64,7 @@ private:
     void LoadAliens(AliensController* controller);
     void LoadPlayerTank();
     void LoadShield(int xPos, int yPos);
+    void LoadShields(size_t yPos, size_t count, vector<size_t> spacing);
 
     void InitHeader();
     void PrintScore();

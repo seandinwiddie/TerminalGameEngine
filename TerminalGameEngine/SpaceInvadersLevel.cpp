@@ -35,7 +35,9 @@ void SpaceInvadersLevel::LoadInSimulation()
 	LoadAliens(aliensController);
 	LoadPlayerTank();
 	InitHeader();
-	LoadShield(10, 9);
+
+	vector<size_t> shieldsSpacing = {9,9,8,9,9 };
+	LoadShields(9,4,shieldsSpacing);
 }
 
 void SpaceInvadersLevel::NotifyGameOver()
@@ -173,6 +175,19 @@ Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPo
 		return new AlienLowScore(xPos, yPos, xIndex, yIndex);
 	else
 		throw std::invalid_argument("invalid alien type receiveds");
+}
+
+void SpaceInvadersLevel::LoadShields(size_t yPos, size_t count, vector<size_t> spacing)
+{
+	for (int i = 0; i < count; ++i)
+	{
+		int shieldSpacing = 0;
+		for (int j = 0; j <= i; ++j)
+			shieldSpacing += spacing[j];
+
+		int x = GetScreenPadding() + shieldSpacing + SHIELD_SIZE_X * i;
+		LoadShield(x, yPos);
+	}
 }
 
 void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
