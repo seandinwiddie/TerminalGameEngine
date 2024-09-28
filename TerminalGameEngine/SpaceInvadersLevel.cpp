@@ -161,6 +161,7 @@ void SpaceInvadersLevel::AddAliensRowToSimulation(int yPos, int yIndex)
 	while (xIndex < ALIENS_COUNT_X)
 	{
 		Alien* alien = CreateAlienOfType(alienType,xPos,yPos, xIndex, yIndex);
+		Simulation::Instance().TryAddEntity(alien);
 		aliensController->RegisterAlien(alien, xIndex, yIndex);
 
 		++xIndex;
