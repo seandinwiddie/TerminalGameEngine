@@ -36,7 +36,6 @@ public:
 
 //------------------------------------------------------------------- Fields
 private:
-    size_t health = 3;
     size_t waveNumber = 1;
     size_t score = 0;
     AliensController* aliensController;
@@ -73,7 +72,7 @@ private:
 
     void InitHeader();
     void PrintScore();
-    void PrintHealth();
+    void PrintHealth(size_t health);
     void PrintWave();
 
     const type_info& GetAlienTypeForRow(int rowIndex);
@@ -82,4 +81,6 @@ private:
 
     void OnWaveCompleted();
     void LoadNewWave();
+    
+    void OnPlayerTakesDamage(size_t remainingHealth);
 };

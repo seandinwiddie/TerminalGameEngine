@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "AliensController.h"
 #include "Event.h"
 
 class Alien : public GameObject
@@ -9,7 +8,7 @@ friend class AliensController;
 
 //------------------------------------------------------ Settings
 private:
-	static const size_t PROJECTILE_SPEED = 24;
+	static const size_t PROJECTILE_SPEED = 8;
 
 //------------------------------------------------------ Fields
 public:

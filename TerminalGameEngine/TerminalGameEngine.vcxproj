@@ -144,6 +144,7 @@
     <ClCompile Include="CollisionsTestLevel.cpp" />
     <ClCompile Include="CollisionsTestLevel.h" />
     <ClCompile Include="DebugManager.cpp" />
+    <ClCompile Include="EnemmyProjectile.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="EndlessRunnerLevel.cpp" />
     <ClCompile Include="GameLoop.cpp" />

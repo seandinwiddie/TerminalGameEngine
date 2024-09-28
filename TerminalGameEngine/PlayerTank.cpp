@@ -55,3 +55,9 @@ void PlayerTank::HandleShooting()
         }
     }
 }
+
+void PlayerTank::TakeDamage()
+{
+    health--;
+    OnDamageTaken.Notify(health);
+}

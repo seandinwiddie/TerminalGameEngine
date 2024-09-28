@@ -22,10 +22,10 @@ class AliensController : public ISimulationEntity
 	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 4;
 
 //shooting
-	const size_t BASE_SHOTS_DELAY = 2000;
-	const size_t ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 500;
-	const size_t HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 500;
-	const int SHOTS_RANDOMNESS = 500;
+	const double BASE_SHOTS_DELAY = 1.5;
+	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.7;
+	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.7;
+	const int SHOTS_RANDOMNESS = 0.5;
 
 //------------------------------------------------------------------- Fields
 public:
@@ -43,6 +43,8 @@ private:
 	Direction xMoveDirection = Direction::right;
 	bool isTimeToMoveAliensDown = false;
 
+	double lastShotTime = -1;
+	double shotDelay = 0;
 //------------------------------------------------------------------- Methods
 public:
 	AliensController(SpaceInvadersLevel* level) : level(level) { }
@@ -53,7 +55,7 @@ public:
 private:
 	double GetSpeedX()const;
 
-	size_t GetNextShotDelayMilliseconds()const;
+	double GetNextShotDelay()const;
 	double GetWaveMultiplier()const;
 	double GetEliminatedAliensMultiplier()const;
 
@@ -67,4 +69,5 @@ private:
 	void OnAliensReachMargin();
 	void MoveAliens(Direction dir, double speed);
 	void HandleShooting();
+	void HandleMovement();
 };

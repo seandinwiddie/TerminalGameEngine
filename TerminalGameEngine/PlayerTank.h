@@ -6,16 +6,20 @@ class SpaceInvadersLevel;
 class PlayerTank : public GameObject
 {
 //---------------------------------------------------------- Settings
-private:
-    double const MOVE_SPEED = 24;
-    double const PROJECTILE_SPEED = 32;
-    double const SHOTS_DELAY = 0.5;
-
+public:
+    static double constexpr MOVE_SPEED = 24;
+    static double constexpr PROJECTILE_SPEED = 32;
+    static double constexpr SHOTS_DELAY = 0.5;
+    static size_t const MAX_HEALTH = 3;
 //---------------------------------------------------------- Fields
+public:
+    Event<size_t> OnDamageTaken;
+
 private:
     static const Model MODEL;
     SpaceInvadersLevel* level;
     double lastTimeShot = -1;
+    size_t health = MAX_HEALTH;
 
 //---------------------------------------------------------- Methods
 public:
@@ -28,6 +32,8 @@ public:
 
     void HandleMovement();
     void HandleShooting();
+    void TakeDamage();
+    size_t GetHealth() { return health; }
 
 protected:
     virtual void Update() override;

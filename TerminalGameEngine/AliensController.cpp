@@ -16,7 +16,7 @@ double AliensController::GetSpeedX() const
 		GetWaveMultiplier() * HARDEST_WAVE_MOVE_SPEED_INCREASE;
 }
 
-size_t AliensController::GetNextShotDelayMilliseconds()const
+double AliensController::GetNextShotDelay()const
 {
 	return BASE_SHOTS_DELAY -
 		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION -
@@ -54,17 +54,7 @@ void AliensController::Update()
 	DebugManager::Instance().PrintGenericLog(debugStr,0);
 #endif
 
-	if (isTimeToMoveAliensDown)
-	{
-		if (frontLine.GetMinY() - 1 <= level->GAME_OVER_Y)
-			level->NotifyGameOver();
-
-		MoveAliens(Direction::down, 9999);
-		isTimeToMoveAliensDown = false;
-	}
-	else
-		MoveAliens(xMoveDirection, GetSpeedX());
-
+	HandleMovement();
 	HandleShooting();
 }
 
@@ -134,5 +124,27 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 
 void AliensController::HandleShooting()
 {
+	if (TimeHelper::Instance().GetTime() - lastShotTime > shotDelay)
+	{
+		Alien* frontLineAlien = frontLine.GetRandom();
+		if (frontLineAlien == nullptr)
+			return;
+		frontLineAlien->Shot();
+		lastShotTime = TimeHelper::Instance().GetTime();
+		shotDelay = GetNextShotDelay();
+	}
+}
 
+void AliensController::HandleMovement()
+{
+	if (isTimeToMoveAliensDown)
+	{
+		if (frontLine.GetMinY() - 1 <= level->GAME_OVER_Y)
+			level->NotifyGameOver();
+
+		MoveAliens(Direction::down, 9999);
+		isTimeToMoveAliensDown = false;
+	}
+	else
+		MoveAliens(xMoveDirection, GetSpeedX());
 }

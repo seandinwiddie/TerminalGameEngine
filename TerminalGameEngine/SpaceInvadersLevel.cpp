@@ -92,7 +92,6 @@ void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
 void SpaceInvadersLevel::InitHeader()
 {
 	PrintScore();
-	PrintHealth();
 	PrintWave();
 }
 
@@ -103,13 +102,13 @@ void SpaceInvadersLevel::PrintScore()
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(scoreString, xPos, Terminal::WHITE);
 }
 
-void SpaceInvadersLevel::PrintHealth()
+void SpaceInvadersLevel::PrintHealth(size_t health)
 {
 	int xPos = Printer::LEFT_MARGIN_SIZE;
 
 	string healthStr = "";
-	for (int i = 0; i < health; i++)
-		healthStr += "<3 ";
+	for (int i = 1; i <= PlayerTank::MAX_HEALTH; i++)
+		healthStr += i <= health ? "<3 " : "  ";
 
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(healthStr, xPos, Terminal::RED);
 }
@@ -128,7 +127,19 @@ void SpaceInvadersLevel::LoadPlayerTank()
 	int xPos = GetWorldSizeX() / 2;
 	int yPos = GetScreenPadding();
 	PlayerTank* playerTank = new PlayerTank(xPos, yPos, this);
+
+	playerTank->OnDamageTaken.Subscribe([this](size_t health) { OnPlayerTakesDamage(health); });
+
+	PrintHealth(playerTank->GetHealth());
+
 	Simulation::Instance().TryAddEntity(playerTank);
+}
+
+void SpaceInvadersLevel::OnPlayerTakesDamage(size_t remainingHealth)
+{
+	PrintHealth(remainingHealth);
+	if (remainingHealth == 0)
+		NotifyGameOver();
 }
 
 void SpaceInvadersLevel::LoadAliens()
