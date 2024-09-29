@@ -17,9 +17,9 @@ class AliensController : public ISimulationEntity
 //------------------------------------------------------------------- Aliens Settings
 	const double HARDEST_WAVE = 5;
 //movement
-	double const BASE_MOVE_SPEED = 0.1;
-	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 16;
-	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 4;
+	double const BASE_MOVE_SPEED = 1;
+	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 0;
+	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 0;
 
 //shooting
 	const double BASE_SHOTS_DELAY = 1.5;

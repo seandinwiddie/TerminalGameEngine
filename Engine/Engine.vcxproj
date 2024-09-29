@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\TerminalGameEngine\AudioManager.h" />
-    <ClInclude Include="..\TerminalGameEngine\Config.h" />
     <ClInclude Include="..\TerminalGameEngine\DebugManager.h" />
     <ClInclude Include="..\TerminalGameEngine\DebugPrinter.h" />
     <ClInclude Include="..\TerminalGameEngine\Event.h" />

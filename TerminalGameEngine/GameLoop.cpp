@@ -48,28 +48,26 @@ Level* GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();
 
-    Terminal::Instance().SetColor(Terminal::CYAN);
+    Terminal::Instance().SetColor(Terminal::WHITE);
     cout << "Terminal Game Engine demos:" << endl << endl;
 
-    Terminal::Instance().SetColor(Terminal::GREEN);
+    Terminal::Instance().SetColor(Terminal::RED);
     cout << "1 -> space invaders" << endl;
     Terminal::Instance().SetColor(Terminal::CYAN_DARK);
     cout << "2 -> endless runner" << endl;
-    Terminal::Instance().SetColor(Terminal::YELLOW);
+    Terminal::Instance().SetColor(Terminal::GREEN);
     cout << "3 -> puzzle game" << endl;
-    Terminal::Instance().SetColor(Terminal::RED);
+    Terminal::Instance().SetColor(Terminal::CYAN);
     cout << "4 -> pong" << endl;
-
+    Terminal::Instance().SetColor(Terminal::WHITE);
+    cout << "esc -> return to main menu" << endl;
 #if DEBUG_MODE
     Terminal::Instance().SetColor(Terminal::WHITE);
     cout << "5 -> collisions test" << endl;
-#endif
-    
-    Terminal::Instance().SetColor(Terminal::CYAN);
-    cout << endl
-        << "esc -> return to main menu" << endl;
+#endif;
 
-    cout << "music by 'Cody O'Quinn'" << endl;
+    cout << endl;
+    cout << "Music by 'Cody O'Quinn'" << endl;
 
     while (true)
     {

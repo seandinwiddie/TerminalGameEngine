@@ -154,6 +154,7 @@
     <ClInclude Include="..\TerminalGameEngine\AliensController.h" />
     <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h" />
     <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.h" />
+    <ClInclude Include="..\TerminalGameEngine\Config.h" />
     <ClInclude Include="..\TerminalGameEngine\EnemyProjectile.h" />
     <ClInclude Include="..\TerminalGameEngine\PlayerTank.h" />
     <ClInclude Include="..\TerminalGameEngine\Projectile.h" />
