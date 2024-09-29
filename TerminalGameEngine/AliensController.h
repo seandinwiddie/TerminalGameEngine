@@ -24,8 +24,8 @@ class AliensController : public ISimulationEntity
 	const double BASE_SHOOT_DELAY = 1.5;
 	const double ALL_ALIENS_ELIMINATED_SHOOT_DELAY_REDUCTION = 0.5;
 	const double WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR = 0.1;
-	const int SHOTS_RANDOMNESS = 0.5;
-	const int MIN_SHOW_DELAY = 0.1;
+	const double SHOTS_RANDOMNESS = 0.5;
+	const double MIN_SHOW_DELAY = 0.1;
 //------------------------------------------------------------------- Fields
 public:
 	Event<> OnWaveCompleted;
