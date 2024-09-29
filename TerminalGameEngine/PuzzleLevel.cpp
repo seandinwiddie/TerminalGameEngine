@@ -5,7 +5,9 @@
 #include "StaticCollider.h"
 #include "AutomaticDoor.h"
 #include "PressurePlate.h"
+#include "LevelEndFlag.h"
 #include "AudioManager.h"
+#include "PushableObject.h"
 
 
 void PuzzleLevel::LoadInSimulation()
@@ -27,8 +29,8 @@ void PuzzleLevel::LoadInSimulation()
     simulation.TryAddEntity(flagPlatform);
 
     //------------ flag
-    //LevelEndFlag* flag = new LevelEndFlag(this, 70, 16);
-    //simulation.TryAddEntity(flag);
+    LevelEndFlag* flag = new LevelEndFlag(this, 70, 16);
+    simulation.TryAddEntity(flag);
 
     //------------ automatic door
     AutomaticDoor* automaticDoor = new AutomaticDoor(60, 4, 2, 6, '|', 4);
@@ -43,14 +45,14 @@ void PuzzleLevel::LoadInSimulation()
 
     //------------ pressure plate left
     PressurePlate* pressurePlate1 = new PressurePlate(14, 4, 8);
-    //pressurePlate1->OnPress.Subscribe
-    //(
-    //    [this]()
-    //    {
-    //        PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 2);
-    //        Simulation::Instance().TryAddEntity(pushableObj1);
-    //    }
-    //);
+    pressurePlate1->OnPress.Subscribe
+    (
+        [this]()
+        {
+            PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 2);
+            Simulation::Instance().TryAddEntity(pushableObj1);
+        }
+    );
     simulation.TryAddEntity(pressurePlate1);
 
     //------------ pressure plate center
