@@ -47,17 +47,29 @@ bool GameLoop::LoopSimulation(Level* level)
 Level* GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();
+
+    Terminal::Instance().SetColor(Terminal::CYAN);
+    cout << "Terminal Game Engine demos:" << endl << endl;
+
+    Terminal::Instance().SetColor(Terminal::GREEN);
+    cout << "1 -> space invaders" << endl;
+    Terminal::Instance().SetColor(Terminal::CYAN_DARK);
+    cout << "2 -> endless runner" << endl;
+    Terminal::Instance().SetColor(Terminal::YELLOW);
+    cout << "3 -> puzzle game" << endl;
+    Terminal::Instance().SetColor(Terminal::RED);
+    cout << "4 -> pong" << endl;
+
+#if DEBUG_MODE
     Terminal::Instance().SetColor(Terminal::WHITE);
-    cout << "Press:" << endl
-         << "1 -> play space invaders demo" << endl
-         << "2 -> play endless runner demo" << endl
-         << "3 -> play puzzle game demo" << endl
-         << "4 -> play pong game demo" << endl
-         << "5 -> collisions test" << endl
-         << endl
-         << "esc (inside levels) -> return to main menu" << endl
-         << endl
-         << "Music by 'Cody O'Quinn'" << endl;
+    cout << "5 -> collisions test" << endl;
+#endif
+    
+    Terminal::Instance().SetColor(Terminal::CYAN);
+    cout << endl
+        << "esc -> return to main menu" << endl;
+
+    cout << "music by 'Cody O'Quinn'" << endl;
 
     while (true)
     {
@@ -81,10 +93,12 @@ Level* GameLoop::ShowLevelSelection()
             return new PongLevel();
             break;
         }
+#if DEBUG_MODE
         else if (IsKeyPressed(Key::NUM_5))
         {
             return new CollisionsTestLevel();
             break;
         }
+#endif
     }
 }
