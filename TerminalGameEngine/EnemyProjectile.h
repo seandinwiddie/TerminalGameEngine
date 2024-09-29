@@ -5,7 +5,7 @@ class EnemyProjectile : public Projectile
 {
 //---------------------------------------------------------- Fields
 private:
-	const Model MODEL = { {'|'} }; //todo make static
+	static const Model MODEL;
 
 //---------------------------------------------------------- Methodss
 public:
