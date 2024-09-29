@@ -23,7 +23,7 @@ private:
 	//fps
 	std::list<double> fpsRecord;
 	double lastTimePrintedFps = 0;
-	size_t averageFPS = 0;
+	double averageFPS = 0;
 
 	//cout calls
 	int coutCallsCount = 0;
