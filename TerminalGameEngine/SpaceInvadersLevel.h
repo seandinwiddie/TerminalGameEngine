@@ -54,13 +54,13 @@ protected:
     virtual string GetPersistenceFilePath() { return "Persistence/spaceInv.txt"; }
     virtual string GetGameOverWindowPath() { return "GameOverWindows/spaceInv.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
-    virtual void ShowGameOverScreen(int score, int bestScore);
+    virtual void ShowGameOverScreen(size_t score, size_t bestScore);
 
 private:
     void LoadAliens();
     void LoadPlayerTank();
     void LoadShield(int xPos, int yPos);
-    void LoadShields(size_t yPos, size_t count, vector<size_t> spacing);
+    void LoadShields(int yPos, size_t count, vector<size_t> spacing);
     void InitHeader();
     void PrintScore();
     void PrintHealth(size_t health);

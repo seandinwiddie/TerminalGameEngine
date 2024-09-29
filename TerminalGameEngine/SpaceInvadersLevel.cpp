@@ -62,12 +62,12 @@ void SpaceInvadersLevel::Update()
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
 	Level::OnPostGameOverDelayEnded();
-	int bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
+	size_t bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
 	ShowGameOverScreen(score, bestScore);
 	AudioManager::Instance().PlayFx("SpaceInv/showEndScreen.wav");
 }
 
-void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
+void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
 {
 	string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
 	string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
@@ -98,7 +98,7 @@ void SpaceInvadersLevel::InitHeader()
 void SpaceInvadersLevel::PrintScore()
 {
 	string scoreString = "score: " + std::to_string(score);
-	int xPos = Simulation::Instance().GetScreenSizeX() / 2 - scoreString.size()/2;
+	int xPos = static_cast<int>(Simulation::Instance().GetScreenSizeX() / 2 - scoreString.size()/2);
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(scoreString, xPos, Terminal::WHITE);
 }
 
@@ -117,7 +117,7 @@ void SpaceInvadersLevel::PrintWave()
 {
 	string waveStr = "wave: " + std::to_string(waveNumber);
 
-	int xPos = GetScreenMaxX() + Printer::LEFT_MARGIN_SIZE - waveStr.length(); 
+	int xPos = static_cast<int>(GetScreenMaxX() + Printer::LEFT_MARGIN_SIZE - waveStr.length()); 
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 
@@ -193,15 +193,15 @@ Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPo
 		throw std::invalid_argument("invalid alien type receiveds");
 }
 
-void SpaceInvadersLevel::LoadShields(size_t yPos, size_t count, vector<size_t> spacing)
+void SpaceInvadersLevel::LoadShields(int yPos, size_t count, vector<size_t> spacing)
 {
 	for (int i = 0; i < count; ++i)
 	{
-		int shieldSpacing = 0;
+		size_t shieldSpacing = 0;
 		for (int j = 0; j <= i; ++j)
 			shieldSpacing += spacing[j];
 
-		int x = GetScreenPadding() + shieldSpacing + SHIELD_SIZE_X * i;
+		int x = static_cast<int>(GetScreenPadding() + shieldSpacing + SHIELD_SIZE_X * i);
 		LoadShield(x, yPos);
 	}
 }

@@ -26,7 +26,7 @@ namespace Persistence
 		return bestScore;
 	}
 
-	inline int GetBestScoreComparingToNewOne(const string& persistenceFilePath,int newScore)
+	inline int GetBestScoreComparingToNewOne(const string& persistenceFilePath,size_t newScore)
 	{
 		int bestScore = LoadBestScore(persistenceFilePath);
 		if (newScore > bestScore)
