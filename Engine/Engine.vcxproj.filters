@@ -45,9 +45,6 @@
     <ClCompile Include="..\TerminalGameEngine\StaticCollider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\UIPrinter.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClCompile>
     <ClCompile Include="..\TerminalGameEngine\AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +79,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\TerminalGameEngine\WorldSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\UIPrinter.h">
+      <Filter>Header Files\Printers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\UIPrinter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -149,6 +149,7 @@
     <ClCompile Include="..\TerminalGameEngine\RandomUtils.h" />
     <ClCompile Include="..\TerminalGameEngine\Simulation.cpp" />
     <ClCompile Include="..\TerminalGameEngine\SimulationPrinter.cpp" />
+    <ClCompile Include="..\TerminalGameEngine\UIPrinter.cpp" />
     <ClCompile Include="..\TerminalGameEngine\StaticCollider.cpp" />
     <ClCompile Include="..\TerminalGameEngine\Terminal.cpp" />
     <ClCompile Include="..\TerminalGameEngine\TimeHelper.cpp" />

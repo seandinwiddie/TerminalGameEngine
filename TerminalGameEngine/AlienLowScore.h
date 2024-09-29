@@ -11,7 +11,7 @@ public:
 	using Alien::Alien;
 
 	virtual size_t GetScore() const { return 10; }
-	virtual int GetColor() const override { return Terminal::GREEN; }
+	virtual int GetColor() const override { return Terminal::YELLOW_DARK; }
 
 protected:
 	virtual void InitModel() { SetModel(MODEL_1); }
