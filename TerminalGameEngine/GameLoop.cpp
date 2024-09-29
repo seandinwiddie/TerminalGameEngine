@@ -49,24 +49,40 @@ Level* GameLoop::ShowLevelSelection()
     Terminal::Instance().Clear();
 
     Terminal::Instance().SetColor(Terminal::WHITE);
-    cout << "Terminal Game Engine demos:" << endl << endl;
+    cout << "==========================" << endl;
+    cout << "   Terminal Game Engine   " << endl;
+    cout << "==========================" << endl<<endl;
 
+    cout << "Select a demo game:" << endl;
     Terminal::Instance().SetColor(Terminal::RED);
     cout << "1 -> space invaders" << endl;
-    Terminal::Instance().SetColor(Terminal::CYAN_DARK);
-    cout << "2 -> endless runner" << endl;
     Terminal::Instance().SetColor(Terminal::GREEN);
+    cout << "2 -> endless runner" << endl;
+    Terminal::Instance().SetColor(Terminal::CYAN_DARK);
     cout << "3 -> puzzle game" << endl;
-    Terminal::Instance().SetColor(Terminal::CYAN);
-    cout << "4 -> pong" << endl;
+    Terminal::Instance().SetColor(Terminal::YELLOW);
+    cout << "4 -> pong (local multiplayer)" << endl;
+
     Terminal::Instance().SetColor(Terminal::WHITE);
-    cout << "esc -> return to main menu" << endl;
 #if DEBUG_MODE
-    Terminal::Instance().SetColor(Terminal::WHITE);
     cout << "5 -> collisions test" << endl;
 #endif;
+    cout << "esc -> return to main menu" << endl;
 
     cout << endl;
+    cout << "--------------------------- Controls:" << endl;
+
+    cout << "Space invaders:" << endl;
+    cout << "wasd: move, space bar: shoot" << endl << endl;
+
+    cout << "Platformers:" << endl;
+    cout << "wasd: move, spacebar: jump" << endl << endl;
+
+    cout << "Pong:" << endl;
+    cout << "a/d: Player 1 move, left/right arrow: Player 2 move" << endl << endl;
+
+    cout << "--------------------------- Credits:" << endl;
+
     cout << "Music by 'Cody O'Quinn'" << endl;
 
     while (true)
