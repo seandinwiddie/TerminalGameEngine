@@ -7,10 +7,10 @@
 void Alien::Update()
 {
 	bool showFirstAnimFrameNew = TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
-	if (showFirstAnimFrame != showFirstAnimFrameNew)
+	if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
 	{
 		StepAnimation();
-		showFirstAnimFrame = showFirstAnimFrameNew;
+		isFirsAnimationFrameTime = showFirstAnimFrameNew;
 	}
 }
 

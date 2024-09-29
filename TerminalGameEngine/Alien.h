@@ -19,7 +19,7 @@ private:
 	size_t gridIndexY;
 
 protected:
-	bool showFirstAnimFrame;
+	bool isFirsAnimationFrameTime;
 //------------------------------------------------------ Methods
 public:
 	Alien(int xPos, int yPos, size_t xIndexInFormation, size_t yIndexInFormation) :
