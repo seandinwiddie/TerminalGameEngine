@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Aliens">
+      <UniqueIdentifier>{4b393791-bb07-4400-9d35-5aab2c61681f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Projectiles">
+      <UniqueIdentifier>{697187eb-a087-4700-8bc2-a6f7a49922f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\TerminalGameEngine\Alien.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AlienHighScore.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AlienLowScore.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AlienMidScore.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AliensController.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h">
+      <Filter>Header Files\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\EnemyProjectile.h">
+      <Filter>Header Files\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\Projectile.h">
+      <Filter>Header Files\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\PlayerTank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\ShieldPart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.h">
+      <Filter>Header Files\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\Alien.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\AliensController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\AliensFrontline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\EnemmyProjectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\PlayerTank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\ShieldPart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

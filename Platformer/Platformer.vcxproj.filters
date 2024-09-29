@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\EndlessRunnerLevel">
+      <UniqueIdentifier>{6b9e5f2e-81a9-45a3-92fd-ca81ebd00433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EndlessRunnerLevel\backgrounds">
+      <UniqueIdentifier>{a39f01ff-458e-4671-8777-7747566d6355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{a9db763a-1bce-4062-8939-220127c3e99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PuzzleLevel">
+      <UniqueIdentifier>{3c9c3509-488f-4e9d-84e4-2c421643e71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CollisionTests">
+      <UniqueIdentifier>{52d01e01-55ed-40b0-9c7d-7fe102a81d3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\TerminalGameEngine\EndlessRunnerLevel.h">
+      <Filter>Header Files\EndlessRunnerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AutomaticDoor.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\Bunny.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\PressurePlate.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\Obstacle.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\ObstaclesSpawner.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\PuzzleLevel.h">
+      <Filter>Header Files\PuzzleLevel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\TerminalGameEngine\endlessRunnerBackground.txt">
+      <Filter>Header Files\EndlessRunnerLevel\backgrounds</Filter>
+    </Text>
+    <Text Include="..\TerminalGameEngine\gameover-screen.txt">
+      <Filter>Header Files\EndlessRunnerLevel\backgrounds</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\TerminalGameEngine\LevelEndFlag.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\PushableObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\CollisionsTestLevel.h">
+      <Filter>Header Files\CollisionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\AutomaticDoor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\Bunny.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\CollisionsTestLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\EndlessRunnerLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\LevelEndFlag.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\Obstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\ObstaclesSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\PressurePlate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TerminalGameEngine\PuzzleLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
