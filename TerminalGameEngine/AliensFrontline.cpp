@@ -19,7 +19,7 @@ void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vecto
 		return;
 
 	//try find new front line element
-	for (int y = aliensGrid.size() - 1; y >= 0; --y)
+	for (size_t y = aliensGrid.size() - 1; y >= 0; --y)
 	{
 		if (aliensGrid[y][destroyedX] != nullptr)
 		{
@@ -34,6 +34,5 @@ void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vecto
 
 Alien* AliensFrontline::GetRandom()
 {
-	auto t = RandomUtils::GetRandomInt(0, frontLine.size() - 1);
-	return GetAt(RandomUtils::GetRandomInt(0, frontLine.size()-1));
+	return GetAt(RandomUtils::GetRandomInt( 0, static_cast<int>(frontLine.size())-1) );
 }
