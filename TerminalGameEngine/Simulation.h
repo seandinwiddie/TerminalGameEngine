@@ -66,7 +66,6 @@ public:
 	size_t GetScreenSizeX() const;
 	size_t GetScreenSizeY() const;
 	Level* GetActiveLevel();
-
 	UIPrinter& GetUIPrinter();
 
 private:

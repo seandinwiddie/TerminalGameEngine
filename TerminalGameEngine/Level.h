@@ -33,13 +33,9 @@ public:
     virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
     virtual const string GetBackgroundFileName()const { return ""; }
     virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
-
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }
     bool IsTerminated() const { return isTerminated; }
-
-    //todo try to merge this with simulation printer ones
-    //todo try to use this in other levels
     virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding()*2; }
     virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding()*2; }
 
