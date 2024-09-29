@@ -250,7 +250,6 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 		return false;
 	}
 
-	//todo try to unify this
 	worldSpace.MoveObject(obj, direction);
 	obj->CALLED_BY_SIM_Move(direction);
 	return true;
