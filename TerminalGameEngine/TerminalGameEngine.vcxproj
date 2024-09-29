@@ -45,6 +45,7 @@
     <ProjectGuid>{e000e311-d409-48ec-a81e-94b76c54b7f5}</ProjectGuid>
     <RootNamespace>BunnyGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Main</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
