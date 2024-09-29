@@ -59,7 +59,7 @@ public:
 protected:
 	virtual void InitModel() = 0;
 	virtual double GetGravityScale() const = 0;
-	virtual void CALLED_BY_SIM_OnDestroy(){}
+	virtual void OnDestroy(){} // called by simulation
 
 	virtual void TryMove(Direction direction, double moveSpeed);
 	virtual void Update();

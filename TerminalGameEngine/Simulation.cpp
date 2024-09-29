@@ -85,7 +85,7 @@ void Simulation::RemoveMarkedEntities()
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 		if (objEntity != nullptr)
 		{
-			objEntity->CALLED_BY_SIM_OnDestroy();
+			objEntity->OnDestroy();
 			worldSpace.RemoveObject(objEntity);
 			simulationPrinter->ClearObject(objEntity);
 		}

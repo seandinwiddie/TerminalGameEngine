@@ -76,7 +76,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 		[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 	);
 
-	alien->OnDestroy.Subscribe
+	alien->OnDestroyEvent.Subscribe
 	(
 		[this](GameObject* alienObj) { OnAlienDestroyedCallback(alienObj); }
 	);

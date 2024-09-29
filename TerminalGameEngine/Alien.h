@@ -12,7 +12,7 @@ private:
 
 //------------------------------------------------------ Fields
 public:
-	Event<GameObject*> OnDestroy;
+	Event<GameObject*> OnDestroyEvent;
 
 private:
 	size_t gridIndexX;
@@ -34,7 +34,7 @@ public:
 
 protected:
 	virtual double GetGravityScale() const override { return 0; }
-	virtual void CALLED_BY_SIM_OnDestroy() override;
+	virtual void OnDestroy() override;
 	virtual void Update();
 	virtual void StepAnimation() = 0;
 };

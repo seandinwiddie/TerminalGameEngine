@@ -14,10 +14,11 @@ void Alien::Update()
 	}
 }
 
-void Alien::CALLED_BY_SIM_OnDestroy()
+void Alien::OnDestroy()
 {
+	GameObject::OnDestroy();
 	AudioManager::Instance().PlayFx("SpaceInv/alienDeath2.wav");
-	OnDestroy.Notify(this);
+	OnDestroyEvent.Notify(this);
 }
 
 void Alien::Shot()
