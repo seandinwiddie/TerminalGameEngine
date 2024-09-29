@@ -1,7 +1,6 @@
 #include "GameObject.h"
 #include "TimeHelper.h"
 #include "Simulation.h"
-#include "Bunny.h" //todo remove
 
 GameObject::GameObject(int xPos, int yPos): 
 	xPos(xPos), 
@@ -9,7 +8,7 @@ GameObject::GameObject(int xPos, int yPos):
 	xPosContinuous(xPos), 
 	yPosContinuous(yPos)
 {
-	collisions.resize(4); //todo move in declaration
+	collisions.resize(4);
 	ResetPartialMovement();
 }
 

@@ -2,11 +2,11 @@
 #include "Bunny.h"
 #include "Level.h"
 
-const Model LevelEndFlag::flagModel//todo reverse model later
+const Model LevelEndFlag::flagModel
 {
-     {'|',' '},
+     {'|','\\'},
      {'|','/'},
-     {'|','\\'}
+     {'|',' '}
 };
 
 LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : GameObject(xPos, yPos), level(level) { }
