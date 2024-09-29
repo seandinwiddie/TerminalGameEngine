@@ -16,12 +16,12 @@ class AliensController : public ISimulationEntity
 {
 //------------------------------------------------------------------- Aliens Settings
 //movement
-	double const BASE_MOVE_SPEED = 16;
+	double const BASE_MOVE_SPEED = 0.5;
 	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 16;
 	const double WAVE_NUMBER_SPEED_INCREASE_FACTOR = 1;
 
 //shooting
-	const double BASE_SHOTS_DELAY = 0.1;
+	const double BASE_SHOTS_DELAY = 1.5;
 	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.5;
 	const double WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR = 0.1;
 	const int SHOTS_RANDOMNESS = 0.5;
