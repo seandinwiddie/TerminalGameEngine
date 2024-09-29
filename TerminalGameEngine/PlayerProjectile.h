@@ -9,7 +9,6 @@ private:
 
 //---------------------------------------------------------- Methodss
 public:
-	//todo use this in other classes where needed
 	using Projectile::Projectile;
 
 protected:

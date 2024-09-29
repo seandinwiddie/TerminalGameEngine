@@ -20,9 +20,11 @@ class Level;
 
 class Simulation : public Singleton<Simulation>
 {
+//------------------------------------------------------------------------------------ Friend Classes
 friend class Singleton;
 friend class GameObject;
 
+//------------------------------------------------------------------------------------ Structs
 	struct MoveRequest
 	{
 		GameObject* object;

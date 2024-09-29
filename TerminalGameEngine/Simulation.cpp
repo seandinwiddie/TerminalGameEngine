@@ -21,6 +21,36 @@ size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * 
 Level* Simulation::GetActiveLevel() { return level; }
 UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
+void Simulation::Step()
+{
+	if (level->IsTerminated())
+		return;
+
+	if (level->IsPostGameOverPauseEnded())
+	{
+		level->Update();
+		return;
+	}
+
+	moveRequests.clear();
+
+	UpdateAllEntities();
+
+	ExecuteMoveRequests();
+
+	RemoveMarkedEntities();
+
+	UpdateAllObjectsEndedCollisions();
+
+	PrintObjects();
+
+	OnFrameGenerated.Notify();
+
+#if DEBUG_MODE && SHOW_FPS
+	DebugManager::Instance().ShowAverageFPS();
+#endif
+}
+
 void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
 	if (IsEntityInSimulation(applicantObj) == false)
@@ -43,39 +73,6 @@ void Simulation::EnqueueMoveRequestSortingBySpeed(MoveRequest request)
 		++it;
 	}
 	moveRequests.insert(it, request);
-}
-
-void Simulation::Step()
-{
-	//todo polish this
-	//---------------- prevent step
-	if (level->IsTerminated())
-		return;
-
-	if (level->IsPostGameOverPauseEnded())
-	{
-		level->Update();
-		return;
-	}	
-
-	//---------------- 
-	moveRequests.clear();
-
-	UpdateAllEntities();
-
-	ExecuteMoveRequests();
-
-	RemoveMarkedEntities();
-
-	UpdateAllObjectsEndedCollisions();
-
-	PrintObjects();
-	
-	OnFrameGenerated.Notify();
-
-#if DEBUG_MODE && SHOW_FPS
-	DebugManager::Instance().ShowAverageFPS();
-#endif
 }
 
 void Simulation::RemoveMarkedEntities()
