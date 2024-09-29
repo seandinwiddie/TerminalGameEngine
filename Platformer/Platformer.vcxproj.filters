@@ -16,9 +16,6 @@
     <Filter Include="Header Files\EndlessRunnerLevel">
       <UniqueIdentifier>{6b9e5f2e-81a9-45a3-92fd-ca81ebd00433}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\EndlessRunnerLevel\backgrounds">
-      <UniqueIdentifier>{a39f01ff-458e-4671-8777-7747566d6355}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{a9db763a-1bce-4062-8939-220127c3e99a}</UniqueIdentifier>
     </Filter>
@@ -54,10 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\TerminalGameEngine\endlessRunnerBackground.txt">
-      <Filter>Header Files\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Resource Files</Filter>
     </Text>
     <Text Include="..\TerminalGameEngine\gameover-screen.txt">
-      <Filter>Header Files\EndlessRunnerLevel\backgrounds</Filter>
+      <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

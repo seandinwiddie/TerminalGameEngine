@@ -33,12 +33,6 @@
     <ClInclude Include="..\TerminalGameEngine\AlienMidScore.h">
       <Filter>Header Files\Aliens</Filter>
     </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AliensController.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
     <ClInclude Include="..\TerminalGameEngine\EnemyProjectile.h">
       <Filter>Header Files\Projectiles</Filter>
     </ClInclude>
@@ -49,6 +43,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\TerminalGameEngine\ShieldPart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AliensController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
