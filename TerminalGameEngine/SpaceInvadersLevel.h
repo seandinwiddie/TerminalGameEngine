@@ -4,11 +4,6 @@
 class Alien;
 class AliensController;
 
-// 11 x 4 -> 44
-// + 2 alieni -> 52
-// + 12 padding -> 64
-// spazi = 1x10 -> 10 -> 74
-
 using type_info = std::type_info;
 
 class SpaceInvadersLevel : public Level
@@ -58,7 +53,7 @@ public:
 
 protected:
     virtual void Update()override;
-    virtual double ShowGameOverScreenDelay() const { return 0.1; }
+    virtual double ShowGameOverScreenDelay() const { return 1.5; }
     virtual string GetPersistenceFilePath() { return "Persistence/spaceInv.txt"; }
     virtual string GetGameOverWindowPath() { return "GameOverWindows/spaceInv.txt"; }
     virtual void OnPostGameOverDelayEnded() override;

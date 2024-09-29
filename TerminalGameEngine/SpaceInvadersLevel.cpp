@@ -50,7 +50,7 @@ void SpaceInvadersLevel::NotifyGameOver()
 
 	Level::NotifyGameOver();
 	AudioManager::Instance().StopMusic();
-	AudioManager::Instance().PlayFx("SpaceInv/gameover.wav");
+	AudioManager::Instance().PlayFx("SpaceInv/gameOver.wav");
 }
 
 void SpaceInvadersLevel::Update()
@@ -227,6 +227,7 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 
 void SpaceInvadersLevel::OnWaveCompleted()
 {
+	AudioManager::Instance().PlayFx("SpaceInv/waveComplete.wav");
 	isLoadingWave = true;
 	waveNumber++;
 	PrintWave();

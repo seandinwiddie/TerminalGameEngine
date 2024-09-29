@@ -45,7 +45,7 @@ void EndlessRunnerLevel::NotifyGameOver()
 
     Level::NotifyGameOver();
     AudioManager::Instance().StopMusic();
-    AudioManager::Instance().PlayFx("Platform/gameover.wav");
+    AudioManager::Instance().PlayFx("Platform/gameOver.wav");
 }
 
 void EndlessRunnerLevel::LoadInSimulation()

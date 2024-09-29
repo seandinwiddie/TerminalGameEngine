@@ -11,8 +11,8 @@ using namespace InputUtils;
 
 const Model PlayerTank::MODEL =
 {
-    {'_', '_', 'A', '_', '_'},
-    {'|', '=', '=', '=', '|'},
+    {' ', '_', '^', '_', ' '},
+    {'/', '_', '_', '_', '\\'},
 };
 
 void PlayerTank::Update()
@@ -61,5 +61,8 @@ void PlayerTank::TakeDamage()
 #if !CHEAT_SPACEINV_INVINCIBILITY
     health--;
     OnDamageTaken.Notify(health);
+
+    if(health > 0)
+        AudioManager::Instance().PlayFx("SpaceInv/damageTaken.wav");
 #endif
 }
