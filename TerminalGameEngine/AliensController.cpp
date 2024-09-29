@@ -12,14 +12,14 @@
 double AliensController::GetSpeedX() const
 {
 	return BASE_MOVE_SPEED + 
-		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE +
+		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREMENT +
 		GetWaveMultiplier() * WAVE_NUMBER_SPEED_INCREASE_FACTOR;
 }
 
 double AliensController::GetNextShotDelay()const
 {
-	double delay = BASE_SHOTS_DELAY -
-		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION -
+	double delay = BASE_SHOOT_DELAY -
+		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOOT_DELAY_REDUCTION -
 		GetWaveMultiplier() * WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR +
 		RandomUtils::GetRandomInt(-SHOTS_RANDOMNESS/2, SHOTS_RANDOMNESS/2);
 
@@ -149,6 +149,4 @@ void AliensController::HandleMovement()
 	}
 	else
 		MoveAliens(xMoveDirection, GetSpeedX());
-
-	DebugManager::Instance().PrintGenericLog(std::to_string(GetSpeedX()), 5);
 }

@@ -69,7 +69,7 @@ Level* GameLoop::ShowLevelSelection()
 #endif;
     cout << "esc -> return to main menu" << endl;
 
-    cout << endl;
+    cout << endl << endl << endl;
     cout << "--------------------------- Controls:" << endl;
 
     cout << "Space invaders:" << endl;
@@ -79,8 +79,9 @@ Level* GameLoop::ShowLevelSelection()
     cout << "wasd: move, spacebar: jump" << endl << endl;
 
     cout << "Pong:" << endl;
-    cout << "a/d: Player 1 move, left/right arrow: Player 2 move" << endl << endl;
+    cout << "a/d: Player 1 move, left/right arrow: Player 2 move"<<endl;
 
+    cout << endl << endl << endl;
     cout << "--------------------------- Credits:" << endl;
 
     cout << "Music by 'Cody O'Quinn'" << endl;

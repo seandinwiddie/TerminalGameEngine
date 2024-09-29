@@ -12,6 +12,7 @@ public:
     static double constexpr PROJECTILE_SPEED = 32;
     static double constexpr SHOTS_DELAY = 0.3;
     static size_t const MAX_HEALTH = 3;
+
 //---------------------------------------------------------- Fields
 public:
     Event<size_t> OnDamageTaken;
@@ -30,7 +31,6 @@ public:
     virtual double GetGravityScale() const override { return 0; }
     virtual int GetColor() const { return Terminal::GREEN; }
     virtual void InitModel() { SetModel(MODEL); }
-
     void HandleMovement();
     void HandleShooting();
     void TakeDamage();

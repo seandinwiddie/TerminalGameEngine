@@ -42,12 +42,9 @@ public:
     virtual int GetWorldSizeX() const override;
     virtual int GetWorldSizeY() const override { return 50; }
     virtual int GetScreenPadding() const override { return 6; }
-
     virtual void LoadInSimulation() override;
     virtual void NotifyGameOver() override;
-
     size_t GetWaveNumber() { return waveNumber; }
-
     void IncreasePlayerScore(size_t increment);
     bool IsLoadingWave() { return isLoadingWave; }
 
@@ -64,18 +61,14 @@ private:
     void LoadPlayerTank();
     void LoadShield(int xPos, int yPos);
     void LoadShields(size_t yPos, size_t count, vector<size_t> spacing);
-
     void InitHeader();
     void PrintScore();
     void PrintHealth(size_t health);
     void PrintWave();
-
     const type_info& GetAlienTypeForRow(int rowIndex);
     void AddAliensRowToSimulation(int yPos, int rowIndex);
     Alien* CreateAlienOfType (const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
-
     void OnWaveCompleted();
     void LoadNewWave();
-    
     void OnPlayerTakesDamage(size_t remainingHealth);
 };
