@@ -21,67 +21,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\TerminalGameEngine\Alien.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AlienHighScore.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AlienLowScore.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AlienMidScore.h">
-      <Filter>Header Files\Aliens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\EnemyProjectile.h">
-      <Filter>Header Files\Projectiles</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Projectile.h">
-      <Filter>Header Files\Projectiles</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\PlayerTank.h">
+    <ClCompile Include="Alien.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AliensController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AliensFrontline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemmyProjectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceInvadersLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldPart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Alien.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\ShieldPart.h">
+    <ClInclude Include="AlienHighScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AliensController.h">
+    <ClInclude Include="AlienLowScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h">
+    <ClInclude Include="AlienMidScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AliensController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AliensFrontline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceInvadersLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldPart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.h">
-      <Filter>Header Files\Projectiles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.h">
+    <Text Include="spaceInvaders.txt">
       <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\Alien.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\AliensController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\AliensFrontline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\EnemmyProjectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\PlayerTank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\ShieldPart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    </Text>
   </ItemGroup>
 </Project>

@@ -39,124 +39,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\RandomUtils.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\StaticCollider.h">
-      <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\DebugManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\Frame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\MovingStraightObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\Simulation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\SimulationPrinter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\StaticCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\Terminal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\TimeHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\WorldSpace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\UIPrinter.h">
-      <Filter>Header Files\Printers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\UIPrinter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\TerminalGameEngine\InputUtils.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\StringUtils.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Level.h">
-      <Filter>Header Files\AbstractLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Frame.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\GridDirection.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Event.h">
-      <Filter>Header Files\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Singleton.h">
-      <Filter>Header Files\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\GameObject.h">
-      <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\ISimulationEntity.h">
-      <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\MovingStraightObject.h">
-      <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\VariableSizeCollider.h">
-      <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\AudioManager.h">
-      <Filter>Header Files\Managers/Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\DebugManager.h">
-      <Filter>Header Files\Managers/Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Persistence.h">
-      <Filter>Header Files\Managers/Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Terminal.h">
-      <Filter>Header Files\Managers/Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\TimeHelper.h">
-      <Filter>Header Files\Managers/Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\DebugPrinter.h">
-      <Filter>Header Files\Printers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Printer.h">
-      <Filter>Header Files\Printers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\SimulationPrinter.h">
-      <Filter>Header Files\Printers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\FakeGameObejct.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Simulation.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\WorldSpace.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\Config.h">
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="DebugManager.h" />
+    <ClInclude Include="DebugPrinter.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="FakeGameObejct.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GridDirection.h" />
+    <ClInclude Include="InputUtils.h" />
+    <ClInclude Include="ISimulationEntity.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Persistence.h" />
+    <ClInclude Include="Printer.h" />
+    <ClInclude Include="RandomUtils.h" />
+    <ClInclude Include="Simulation.h" />
+    <ClInclude Include="SimulationPrinter.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="StaticCollider.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="Terminal.h" />
+    <ClInclude Include="TimeHelper.h" />
+    <ClInclude Include="UIPrinter.h" />
+    <ClInclude Include="VariableSizeCollider.h" />
+    <ClInclude Include="WorldSpace.h" />
+    <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MovingStraightObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="DebugManager.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Simulation.cpp" />
+    <ClCompile Include="SimulationPrinter.cpp" />
+    <ClCompile Include="StaticCollider.cpp" />
+    <ClCompile Include="Terminal.cpp" />
+    <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="UIPrinter.cpp" />
+    <ClCompile Include="WorldSpace.cpp" />
+    <ClCompile Include="MovingStraightObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

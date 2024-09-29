@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,13 +111,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>winmm.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SFML\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -128,8 +130,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,50 +140,51 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>winmm.lib;sfml-audio-s.lib;sfml-system-s.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SFML\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\AudioManager.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\DebugManager.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\Frame.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\GameObject.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\Level.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\MovingStraightObject.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\RandomUtils.h" />
-    <ClCompile Include="..\TerminalGameEngine\Simulation.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\SimulationPrinter.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\UIPrinter.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\StaticCollider.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\Terminal.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\TimeHelper.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\WorldSpace.cpp" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="DebugManager.h" />
+    <ClInclude Include="DebugPrinter.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="FakeGameObejct.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GridDirection.h" />
+    <ClInclude Include="InputUtils.h" />
+    <ClInclude Include="ISimulationEntity.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="MovingStraightObject.h" />
+    <ClInclude Include="Persistence.h" />
+    <ClInclude Include="Printer.h" />
+    <ClInclude Include="RandomUtils.h" />
+    <ClInclude Include="Simulation.h" />
+    <ClInclude Include="SimulationPrinter.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="StaticCollider.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="Terminal.h" />
+    <ClInclude Include="TimeHelper.h" />
+    <ClInclude Include="UIPrinter.h" />
+    <ClInclude Include="VariableSizeCollider.h" />
+    <ClInclude Include="WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\TerminalGameEngine\AudioManager.h" />
-    <ClInclude Include="..\TerminalGameEngine\Config.h" />
-    <ClInclude Include="..\TerminalGameEngine\DebugManager.h" />
-    <ClInclude Include="..\TerminalGameEngine\DebugPrinter.h" />
-    <ClInclude Include="..\TerminalGameEngine\Event.h" />
-    <ClInclude Include="..\TerminalGameEngine\FakeGameObejct.h" />
-    <ClInclude Include="..\TerminalGameEngine\Frame.h" />
-    <ClInclude Include="..\TerminalGameEngine\GameObject.h" />
-    <ClInclude Include="..\TerminalGameEngine\GridDirection.h" />
-    <ClInclude Include="..\TerminalGameEngine\InputUtils.h" />
-    <ClInclude Include="..\TerminalGameEngine\ISimulationEntity.h" />
-    <ClInclude Include="..\TerminalGameEngine\Level.h" />
-    <ClInclude Include="..\TerminalGameEngine\MovingStraightObject.h" />
-    <ClInclude Include="..\TerminalGameEngine\Persistence.h" />
-    <ClInclude Include="..\TerminalGameEngine\Printer.h" />
-    <ClInclude Include="..\TerminalGameEngine\Simulation.h" />
-    <ClInclude Include="..\TerminalGameEngine\SimulationPrinter.h" />
-    <ClInclude Include="..\TerminalGameEngine\Singleton.h" />
-    <ClCompile Include="..\TerminalGameEngine\StaticCollider.h" />
-    <ClInclude Include="..\TerminalGameEngine\StringUtils.h" />
-    <ClInclude Include="..\TerminalGameEngine\Terminal.h" />
-    <ClInclude Include="..\TerminalGameEngine\TimeHelper.h" />
-    <ClCompile Include="..\TerminalGameEngine\UIPrinter.h" />
-    <ClInclude Include="..\TerminalGameEngine\VariableSizeCollider.h" />
-    <ClInclude Include="..\TerminalGameEngine\WorldSpace.h" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="DebugManager.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="MovingStraightObject.cpp" />
+    <ClCompile Include="Simulation.cpp" />
+    <ClCompile Include="SimulationPrinter.cpp" />
+    <ClCompile Include="StaticCollider.cpp" />
+    <ClCompile Include="Terminal.cpp" />
+    <ClCompile Include="TimeHelper.cpp" />
+    <ClCompile Include="UIPrinter.cpp" />
+    <ClCompile Include="WorldSpace.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

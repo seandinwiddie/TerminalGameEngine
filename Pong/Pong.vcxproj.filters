@@ -15,25 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\TerminalGameEngine\PongBall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\PongBar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TerminalGameEngine\PongLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="PongBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PongBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PongLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\PongBall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\PongBar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TerminalGameEngine\PongLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="PongBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PongBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PongLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

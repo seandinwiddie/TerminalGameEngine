@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Engine\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Engine\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,8 +108,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine; $(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,8 +127,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine; $(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,34 +141,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\AutomaticDoor.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\Bunny.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\CollisionsTestLevel.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\EndlessRunnerLevel.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\LevelEndFlag.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\Obstacle.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\ObstaclesSpawner.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\PressurePlate.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\PuzzleLevel.cpp" />
-    <ClInclude Include="..\TerminalGameEngine\AutomaticDoor.h" />
-    <ClInclude Include="..\TerminalGameEngine\Bunny.h" />
-    <ClCompile Include="..\TerminalGameEngine\CollisionsTestLevel.h" />
-    <ClInclude Include="..\TerminalGameEngine\EndlessRunnerLevel.h" />
-    <ClCompile Include="..\TerminalGameEngine\LevelEndFlag.h" />
-    <ClCompile Include="..\TerminalGameEngine\PushableObject.h" />
-    <ClInclude Include="..\TerminalGameEngine\Obstacle.h" />
-    <ClInclude Include="..\TerminalGameEngine\ObstaclesSpawner.h" />
-    <ClInclude Include="..\TerminalGameEngine\PressurePlate.h" />
     <ClInclude Include="..\TerminalGameEngine\PuzzleLevel.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\TerminalGameEngine\endlessRunnerBackground.txt" />
-    <Text Include="..\TerminalGameEngine\gameover-screen.txt" />
+    <ClInclude Include="AutomaticDoor.h" />
+    <ClInclude Include="Bunny.h" />
+    <ClInclude Include="CollisionsTestLevel.h" />
+    <ClInclude Include="EndlessRunnerLevel.h" />
+    <ClInclude Include="LevelEndFlag.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstaclesSpawner.h" />
+    <ClInclude Include="PressurePlate.h" />
+    <ClInclude Include="PushableObject.h" />
+    <ClInclude Include="PuzzleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{cedfd7b6-32ba-46fa-9b5f-96a82968d7c2}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AutomaticDoor.cpp" />
+    <ClCompile Include="Bunny.cpp" />
+    <ClCompile Include="CollisionsTestLevel.cpp" />
+    <ClCompile Include="EndlessRunnerLevel.cpp" />
+    <ClCompile Include="LevelEndFlag.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstaclesSpawner.cpp" />
+    <ClCompile Include="PressurePlate.cpp" />
+    <ClCompile Include="PuzzleLevel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="endlessRunner (2).txt" />
+    <Text Include="endlessRunner (3).txt" />
+    <Text Include="endlessRunner.txt" />
+    <Text Include="endlessRunnerGameOverWindow.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

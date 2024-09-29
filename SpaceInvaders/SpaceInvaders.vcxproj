@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,8 +108,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine; $(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,8 +127,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine; $(SolutionDir)Dependencies\SFML\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,31 +141,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\TerminalGameEngine\Alien.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\AliensController.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\AliensFrontline.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\EnemmyProjectile.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\PlayerTank.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\ShieldPart.cpp" />
-    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.cpp" />
-    <ClInclude Include="..\TerminalGameEngine\Alien.h" />
-    <ClInclude Include="..\TerminalGameEngine\AlienHighScore.h" />
-    <ClInclude Include="..\TerminalGameEngine\AlienLowScore.h" />
-    <ClInclude Include="..\TerminalGameEngine\AlienMidScore.h" />
-    <ClInclude Include="..\TerminalGameEngine\AliensController.h" />
-    <ClInclude Include="..\TerminalGameEngine\AliensFrontline.h" />
-    <ClCompile Include="..\TerminalGameEngine\PlayerProjectile.h" />
-    <ClInclude Include="..\TerminalGameEngine\EnemyProjectile.h" />
-    <ClInclude Include="..\TerminalGameEngine\PlayerTank.h" />
-    <ClInclude Include="..\TerminalGameEngine\Projectile.h" />
-    <ClInclude Include="..\TerminalGameEngine\ShieldPart.h" />
-    <ClCompile Include="..\TerminalGameEngine\SpaceInvadersLevel.h" />
+    <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="AliensController.cpp" />
+    <ClCompile Include="AliensFrontline.cpp" />
+    <ClCompile Include="EnemmyProjectile.cpp" />
+    <ClCompile Include="PlayerProjectile.cpp" />
+    <ClCompile Include="PlayerTank.cpp" />
+    <ClCompile Include="ShieldPart.cpp" />
+    <ClCompile Include="SpaceInvadersLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{cedfd7b6-32ba-46fa-9b5f-96a82968d7c2}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="AlienHighScore.h" />
+    <ClInclude Include="AlienLowScore.h" />
+    <ClInclude Include="AlienMidScore.h" />
+    <ClInclude Include="AliensController.h" />
+    <ClInclude Include="AliensFrontline.h" />
+    <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="PlayerProjectile.h" />
+    <ClInclude Include="PlayerTank.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="ShieldPart.h" />
+    <ClInclude Include="SpaceInvadersLevel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="spaceInvaders.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
