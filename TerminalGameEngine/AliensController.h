@@ -15,18 +15,17 @@ class GameObject;
 class AliensController : public ISimulationEntity
 {
 //------------------------------------------------------------------- Aliens Settings
-	const double HARDEST_WAVE = 5;
 //movement
-	double const BASE_MOVE_SPEED = 1;
-	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 0;
-	const double HARDEST_WAVE_MOVE_SPEED_INCREASE = 0;
+	double const BASE_MOVE_SPEED = 0.5;
+	const double ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE = 16;
+	const double WAVE_NUMBER_SPEED_INCREASE_FACTOR = 1;
 
 //shooting
 	const double BASE_SHOTS_DELAY = 1.5;
-	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.7;
-	const double HARDEST_WAVE_SHOTS_DELAY_REDUCTION = 0.7;
+	const double ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION = 0.5;
+	const double WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR = 0.1;
 	const int SHOTS_RANDOMNESS = 0.5;
-
+	const int MIN_SHOW_DELAY = 0.1;
 //------------------------------------------------------------------- Fields
 public:
 	Event<> OnWaveCompleted;

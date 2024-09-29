@@ -10,7 +10,7 @@ class PlayerTank : public GameObject
 public:
     static double constexpr MOVE_SPEED = 24;
     static double constexpr PROJECTILE_SPEED = 32;
-    static double constexpr SHOTS_DELAY = 0.5;
+    static double constexpr SHOTS_DELAY = 0.3;
     static size_t const MAX_HEALTH = 3;
 //---------------------------------------------------------- Fields
 public:

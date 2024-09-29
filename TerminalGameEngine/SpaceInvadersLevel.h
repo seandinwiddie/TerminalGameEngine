@@ -53,7 +53,7 @@ public:
 
 protected:
     virtual void Update()override;
-    virtual double ShowGameOverScreenDelay() const { return 1.5; }
+    virtual double ShowGameOverScreenDelay() const { return 0.2; }
     virtual string GetPersistenceFilePath() { return "Persistence/spaceInv.txt"; }
     virtual string GetGameOverWindowPath() { return "GameOverWindows/spaceInv.txt"; }
     virtual void OnPostGameOverDelayEnded() override;

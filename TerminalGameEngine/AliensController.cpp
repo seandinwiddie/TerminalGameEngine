@@ -13,15 +13,17 @@ double AliensController::GetSpeedX() const
 {
 	return BASE_MOVE_SPEED + 
 		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_MOVE_SPEED_INCREASE +
-		GetWaveMultiplier() * HARDEST_WAVE_MOVE_SPEED_INCREASE;
+		GetWaveMultiplier() * WAVE_NUMBER_SPEED_INCREASE_FACTOR;
 }
 
 double AliensController::GetNextShotDelay()const
 {
-	return BASE_SHOTS_DELAY -
+	double delay = BASE_SHOTS_DELAY -
 		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOTS_DELAY_REDUCTION -
-		GetWaveMultiplier() * HARDEST_WAVE_SHOTS_DELAY_REDUCTION +
+		GetWaveMultiplier() * WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR +
 		RandomUtils::GetRandomInt(-SHOTS_RANDOMNESS/2, SHOTS_RANDOMNESS/2);
+
+	return delay > MIN_SHOW_DELAY ? delay : MIN_SHOW_DELAY;
 }
 
 double AliensController::GetEliminatedAliensMultiplier()const
@@ -31,14 +33,14 @@ double AliensController::GetEliminatedAliensMultiplier()const
 
 double AliensController::GetWaveMultiplier()const
 { 
-	return level->GetWaveNumber() / HARDEST_WAVE;
+	return (level->GetWaveNumber() - 1);
 }
 
 void AliensController::Reset(int aliensCountX, int aliensCountY)
 {
 	aliensCount = aliensCountX * aliensCountY;
 	aliensGrid.resize(aliensCountY);
-	for (int y = 0; y < aliensCountY; ++y)
+	for (int y = 0; y < aliensCountY; ++y) 
 		aliensGrid[y].resize(aliensCountX);
 
 	frontLine.Init(aliensCountX);
@@ -147,4 +149,6 @@ void AliensController::HandleMovement()
 	}
 	else
 		MoveAliens(xMoveDirection, GetSpeedX());
+
+	DebugManager::Instance().PrintGenericLog(std::to_string(GetSpeedX()), 5);
 }
