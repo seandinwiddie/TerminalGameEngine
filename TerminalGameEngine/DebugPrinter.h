@@ -18,12 +18,7 @@ private:
 
 //------------------------------------------ Methodss
 public:
-    DebugPrinter
-    (
-        size_t screenSizeX,
-        size_t screenSizeY,
-        size_t screenPadding
-    ) : Printer(screenSizeX, screenSizeY, screenPadding){ }
+    using Printer::Printer;
 
 public:
     void PrintCoutCallsCount(size_t coutCallsCount)

@@ -8,7 +8,7 @@ private:
     static Model model;
 //---------------------------------------------------------- Methods
 public:
-    Obstacle(int xPos, int yPos, Direction moveDir, double moveSpeed);
+    using MovingStraightObject::MovingStraightObject;
 
     virtual bool CanExitScreenSpace() const override { return true; }
     virtual double GetGravityScale() const override { return 0; }

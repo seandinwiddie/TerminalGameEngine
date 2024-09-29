@@ -10,7 +10,7 @@ private:
     Model model = CreteModelUsingChar('@', 4, 2);
 //---------------------------------------------------------- Methods
 public:
-    PushableObject(int xPos, int yPos) :GameObject(xPos, yPos){}
+    using GameObject::GameObject;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 8; }
     virtual int GetColor() const { return Terminal::BLUE; }

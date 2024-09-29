@@ -3,7 +3,7 @@
 #include "VariableSizeCollider.h"
 
 class StaticCollider : public VariableSizeCollider
-{    
+{
 //---------------------------------------------------------- Methods
 public:
     StaticCollider

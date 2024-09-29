@@ -4,7 +4,6 @@
 #if DEBUG_MODE
 
 #include "Singleton.h"
-
 #include <list>
 #include <string>
 

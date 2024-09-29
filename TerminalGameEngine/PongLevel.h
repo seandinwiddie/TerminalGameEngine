@@ -20,7 +20,6 @@ public:
     void IncreaseP1Score();
     void IncreaseP2Score();
 
-
 protected:
     virtual double ShowGameOverScreenDelay() const override { return 0.5; }
     virtual void OnPostGameOverDelayEnded() override;
