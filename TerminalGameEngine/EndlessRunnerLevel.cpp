@@ -15,13 +15,13 @@ using WindowPosition = UIPrinter::WindowPosition;
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
     Level::OnPostGameOverDelayEnded();
-    int score = static_cast<int>(GetLevelTime());
-    int bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
+    size_t score = static_cast<size_t>(GetLevelTime());
+    size_t bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
     ShowGameOverScreen(score, bestScore);
     AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
 }
 
-void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
+void EndlessRunnerLevel::ShowGameOverScreen(size_t score, size_t bestScore)
 {
     //setup gameover message
     string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
