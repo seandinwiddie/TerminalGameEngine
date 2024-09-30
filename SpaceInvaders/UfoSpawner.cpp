@@ -20,8 +20,6 @@ void UfoSpawner::Update()
 		lastTimeSpawned = TimeHelper::Instance().GetTime();
 		SetNextSpawnDelay();
 	}
-	DebugManager::Instance().PrintGenericLog(std::to_string(TimeHelper::Instance().GetTime()),5);
-	DebugManager::Instance().PrintGenericLog(std::to_string(nextSpawnTime), 6);
 }
 
 void UfoSpawner::SetNextSpawnDelay()
