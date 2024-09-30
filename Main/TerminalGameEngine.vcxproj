@@ -33,11 +33,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Main\GameLoop.cpp" />
-    <ClCompile Include="..\Main\main.cpp" />
+    <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Main\GameLoop.h" />
+    <ClInclude Include="GameLoop.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
