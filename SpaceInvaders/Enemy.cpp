@@ -1,12 +1,11 @@
 #include "Enemy.h"
 #include "TimeHelper.h"
+#include "Simulation.h"
+#include "SpaceInvadersLevel.h"
 
-void Enemy::Update()
+void Enemy::OnDestroy()
 {
-	bool showFirstAnimFrameNew = TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
-	if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
-	{
-		StepAnimation();
-		isFirsAnimationFrameTime = showFirstAnimFrameNew;
-	}
+	SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Simulation::Instance().GetActiveLevel());
+	assert(level != nullptr);
+	level->IncreasePlayerScore(GetScore());
 }

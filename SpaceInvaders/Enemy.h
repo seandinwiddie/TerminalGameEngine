@@ -15,6 +15,5 @@ public:
 
 protected:
 	virtual double GetGravityScale() const override { return 0; }
-	virtual void StepAnimation() = 0;
-	virtual void Update() override;
+	virtual void OnDestroy() override;
 };

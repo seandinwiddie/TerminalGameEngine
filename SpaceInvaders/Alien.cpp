@@ -16,3 +16,13 @@ void Alien::Shot()
 	EnemyProjectile* projectile = new EnemyProjectile(GetMidPosX(), GetPosY() -2 , Direction::down, PROJECTILE_SPEED);
 	Simulation::Instance().TryAddEntity(projectile);
 }
+
+void Alien::Update()
+{
+	bool showFirstAnimFrameNew = TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
+	if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
+	{
+		StepAnimation();
+		isFirsAnimationFrameTime = showFirstAnimFrameNew;
+	}
+}

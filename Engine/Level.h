@@ -36,8 +36,8 @@ public:
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }
     bool IsTerminated() const { return isTerminated; }
-    virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding()*2; }
-    virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding()*2; }
+    virtual int GetScreenMaxX() { return GetWorldSizeX() - GetScreenPadding(); }
+    virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding(); }
 
 protected:
     virtual void OnGameOver();

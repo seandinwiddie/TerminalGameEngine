@@ -23,7 +23,6 @@ public:
 	Alien(int xPos, int yPos, size_t xIndexInFormation, size_t yIndexInFormation) :
 		Enemy(xPos, yPos), gridIndexX(xIndexInFormation), gridIndexY(yIndexInFormation) { }
 
-public:
 	virtual bool CanExitScreenSpace() const override { return false; }
 	size_t GetIndexInGridX() { return gridIndexX; }
 	size_t GetIndexInGridY() { return gridIndexY; }
@@ -32,4 +31,6 @@ public:
 
 protected:
 	virtual void OnDestroy() override;
+	virtual void Update() override;
+	virtual void StepAnimation() = 0;
 };
