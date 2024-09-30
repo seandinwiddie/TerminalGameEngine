@@ -151,7 +151,6 @@
     <ClInclude Include="ObstaclesSpawner.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PushableObject.h" />
-    <ClInclude Include="PuzzleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
