@@ -42,8 +42,7 @@ void AudioManager::PlayRandomMusic()
 #if ALLOW_SOUNDS
 	StopMusic();
 	int randomIndex = RandomUtils::GetRandomInt(0, static_cast<int>(MUSIC_TRACKS.size()) - 1);
-	string randomMusicFile = "Music/" + MUSIC_TRACKS[randomIndex];
-	if (music.openFromFile(randomMusicFile) == false)
+	if (music.openFromFile(MUSIC_TRACKS[randomIndex]) == false)
 		return;
 	music.play();
 #endif
