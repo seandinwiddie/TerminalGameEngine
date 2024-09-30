@@ -18,7 +18,7 @@ public:
     static const size_t SPACE_BETWEEN_ALIENS_X = 2;
     static const size_t SPACE_BETWEEN_ALIENS_Y = 1;
 
-    static const size_t ALIENS_SPACE_FROM_MARGINS_X = 4;
+    static const size_t ALIENS_SPACE_FROM_MARGINS_X = 5;
     static const size_t ALIENS_SPACE_FROM_TOP_MARGIN = 3;
 
  //------------------------------------------------------------------- Aliens Position Settings
