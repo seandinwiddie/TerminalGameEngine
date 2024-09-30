@@ -131,7 +131,8 @@ void SpaceInvadersLevel::PrintWave()
 {
 	string waveStr = "wave: " + std::to_string(waveNumber);
 
-	int xPos = static_cast<int>(GetScreenMaxX() + Printer::LEFT_MARGIN_SIZE - waveStr.length()); 
+	int a = GetScreenMaxX();
+	int xPos = static_cast<int>(GetScreenMaxX() - waveStr.length() -5); //todo fix this better
 	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
 }
 
