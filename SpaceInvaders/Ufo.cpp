@@ -22,8 +22,8 @@ void Ufo::Update()
 	TryMove(moveDirection, MOVE_SPEED);
 }
 
-void Ufo::OnDestroy()
+void Ufo::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
-	Enemy::OnDestroy();
+	Enemy::OnCollisionEnter(other, collisionDir);
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/UfoDefeated.wav");
 }

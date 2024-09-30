@@ -9,7 +9,7 @@ class UfoSpawner : public ISimulationEntity
 //---------------------------------------------------------- Settings
 private:
 	static const int MIN_SPAWN_DELAY = 15;
-	static const int MAX_SPAWN_DELAY = 30;
+	static const int MAX_SPAWN_DELAY = 25;
 
 //---------------------------------------------------------- Fields
 private:
@@ -17,7 +17,7 @@ private:
 	int ySpawnPos;
 	Direction ufoMoveDirection;
 	double lastTimeSpawned = -1;
-	double nextSpawnDelay = -1;
+	double nextSpawnTime = -1;
 
 //---------------------------------------------------------- Methods
 public:
