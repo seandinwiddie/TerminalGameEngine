@@ -1,6 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "GameObject.h"
+#include "Event.h"
 #include <string>
 
 class Level;
@@ -31,10 +32,8 @@ private:
     static const Model MODEL_IDLE_RIGHT;
     static const Model MODEL_IDLE_LEFT;
 
-    Level* level;
-
 //---------------------------------------------------------- Settings
-
+private:
     static const size_t JUMP_HEIGHT = 10;
     static constexpr double MOVE_UP_SPEED = 24;
     static constexpr double MOVE_DOWN_SPEED = 24;
@@ -43,6 +42,9 @@ private:
     static constexpr double STEP_ANIM_EVERY_SECONDS = 0.7f;
 
 //---------------------------------------------------------- Fields
+public:
+    Event<> OnObstacleHit;
+private:
     State state;
     double lastTimeMovedOnX = 0;
     int previousPositionX;
@@ -53,7 +55,7 @@ private:
     Model activeModelWalk;
 //---------------------------------------------------------- Methods
 public:
-    Bunny(int xPos, int yPos, Level* level);
+    Bunny(int xPos, int yPos);
    
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override;

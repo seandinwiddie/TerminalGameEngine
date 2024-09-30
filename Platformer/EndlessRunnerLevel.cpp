@@ -42,12 +42,12 @@ void EndlessRunnerLevel::ShowGameOverScreen(size_t score, size_t bestScore)
     Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE, WindowPosition::CenterX_TopY);
 }
 
-void EndlessRunnerLevel::NotifyGameOver()
+void EndlessRunnerLevel::OnGameOver()
 {
     if (IsGameOver())
         return;
 
-    Level::NotifyGameOver();
+    Level::OnGameOver();
     AudioManager::Instance().StopMusic();
     AudioManager::Instance().PlayFx("Resources/Sounds/Platform/GameOver.wav");
 }
@@ -59,7 +59,8 @@ void EndlessRunnerLevel::LoadInSimulation()
 
     //----------------- bunny setup
     int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
-    Bunny* bunny = new Bunny(9, bunnyStartingY, this);
+    Bunny* bunny = new Bunny(9, bunnyStartingY);
+    bunny->OnObstacleHit.Subscribe([this]() { OnGameOver(); });
     simulation.TryAddEntity(bunny);
 
     //----------------- obstacles spawner setup

@@ -17,7 +17,6 @@ public:
     virtual const string GetBackgroundFileName()const override { return "Resources/Backgrounds/EndlessRunner.txt"; }
 
     virtual void LoadInSimulation() override;
-    virtual void NotifyGameOver() override;
 
 protected:
     virtual void Update()override;
@@ -26,4 +25,5 @@ protected:
     virtual string GetPersistenceFilePath() { return "Resources/Persistence/EndlessRunner.txt"; }
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }
     virtual void ShowGameOverScreen(size_t score, size_t bestScore);
+    virtual void OnGameOver() override;
 };

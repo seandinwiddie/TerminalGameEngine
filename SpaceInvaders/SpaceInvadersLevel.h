@@ -43,7 +43,6 @@ public:
     virtual int GetWorldSizeY() const override { return 50; }
     virtual int GetScreenPadding() const override { return 6; }
     virtual void LoadInSimulation() override;
-    virtual void NotifyGameOver() override;
     size_t GetWaveNumber() { return waveNumber; }
     void IncreasePlayerScore(size_t increment);
     bool IsLoadingWave() { return isLoadingWave; }
@@ -55,6 +54,7 @@ protected:
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
     virtual void ShowGameOverScreen(size_t score, size_t savedBestScore);
+    virtual void OnGameOver() override;
 
 private:
     void LoadAliens();

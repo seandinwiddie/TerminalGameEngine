@@ -35,8 +35,9 @@ void SpaceInvadersLevel::LoadInSimulation()
 	double startedLoadingWaveTime = -1;
 
 	aliensController = new AliensController(this);
-	Simulation::Instance().TryAddEntity(aliensController);
 	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
+	aliensController->OnGroundTouched.Subscribe([this]() { OnGameOver(); });
+	Simulation::Instance().TryAddEntity(aliensController);
 
 	LoadAliens();
 	LoadPlayerTank();
@@ -48,12 +49,12 @@ void SpaceInvadersLevel::LoadInSimulation()
 #endif
 }
 
-void SpaceInvadersLevel::NotifyGameOver()
+void SpaceInvadersLevel::OnGameOver()
 {
 	if (IsGameOver())
 		return;
 
-	Level::NotifyGameOver();
+	Level::OnGameOver();
 	AudioManager::Instance().StopMusic();
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/gameOver.wav");
 }
@@ -148,7 +149,7 @@ void SpaceInvadersLevel::OnPlayerTakesDamage(size_t remainingHealth)
 {
 	PrintHealth(remainingHealth);
 	if (remainingHealth == 0)
-		NotifyGameOver();
+		OnGameOver();
 }
 
 void SpaceInvadersLevel::LoadAliens()

@@ -11,6 +11,6 @@ public:
     virtual int GetScreenPadding() const override { return 4; }
 
     virtual void LoadInSimulation() override;
-    virtual void NotifyGameOver() override;
+    virtual void OnGameOver() override;
     virtual void OnPostGameOverDelayEnded() override;
 };

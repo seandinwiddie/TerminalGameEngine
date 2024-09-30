@@ -29,6 +29,7 @@ class AliensController : public ISimulationEntity
 //------------------------------------------------------------------- Fields
 public:
 	Event<> OnWaveCompleted;
+	Event<> OnGroundTouched;
 
 private:
 	SpaceInvadersLevel* level;

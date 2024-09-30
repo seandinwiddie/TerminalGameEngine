@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"	
+#include "Event.h"
 
 class PongBar;
 class PongLevel;
@@ -7,6 +8,8 @@ class PongLevel;
 class PongBall : public GameObject
 {
 //---------------------------------------------------------- Fields
+public:
+    Event<> OnGoal;
 private:
     PongLevel* level;
     double ySpeed;

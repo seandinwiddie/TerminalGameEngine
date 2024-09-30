@@ -3,6 +3,7 @@
 #include "InputUtils.h"
 #include "TimeHelper.h"
 #include "AudioManager.h"
+#include "Simulation.h"
 #include "Obstacle.h"
 
 using namespace InputUtils;
@@ -59,7 +60,7 @@ const Model Bunny::MODEL_IDLE_LEFT
 
 //---------------------------------------------------------- Methods
 
-Bunny::Bunny(int xPos, int yPos, Level* level) : GameObject(xPos, yPos), level(level)
+Bunny::Bunny(int xPos, int yPos) : GameObject(xPos, yPos)
 {
     SetState(State::idle);
     ActivateLeftModels(true);
@@ -81,7 +82,7 @@ void Bunny::Update()
     }
 
     //prevent movement when game is over
-    if (level->IsGameOver() == false)
+    if (Simulation::Instance().GetActiveLevel()->IsGameOver() == false)
     {
         HandleVerticalMovement();
         HandleHorizontalMovement();
@@ -226,7 +227,7 @@ void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDir)
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {
         SetState(State::defeated);
-        level->NotifyGameOver();
+        OnObstacleHit.Notify();
         return;
     }
 

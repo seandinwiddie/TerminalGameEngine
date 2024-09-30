@@ -50,6 +50,7 @@ void PongLevel::LoadInSimulation()
 	//--------------- ball
 	double ballSpeed = 16;
 	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
+	pongBall->OnGoal.Subscribe([this](){ OnGameOver(); });
 	simulation.TryAddEntity(pongBall);
 	RefreshHeader();
 }
@@ -78,8 +79,8 @@ void PongLevel::OnPostGameOverDelayEnded()
 	Terminate();
 }
 
-void PongLevel::NotifyGameOver()
+void PongLevel::OnGameOver()
 { 
-	Level::NotifyGameOver();
+	Level::OnGameOver();
 	AudioManager::Instance().PlayFx("Resources/Sounds/Pong/Goal.wav"); 
 }

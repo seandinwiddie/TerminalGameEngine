@@ -25,8 +25,8 @@ protected:
     Frame gameOverWindow;
 
 //---------------------------------------------------------- Methods
-public:   
-    virtual void NotifyGameOver();
+
+public:
     virtual int GetWorldSizeX() const = 0;
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
@@ -40,6 +40,7 @@ public:
     virtual int GetScreenMaxY() { return GetWorldSizeY() - GetScreenPadding()*2; }
 
 protected:
+    virtual void OnGameOver();
     virtual double ShowGameOverScreenDelay() const = 0;
     virtual void Update() override;
     virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }

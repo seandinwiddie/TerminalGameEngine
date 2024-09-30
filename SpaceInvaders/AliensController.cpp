@@ -142,7 +142,7 @@ void AliensController::HandleMovement()
 	if (isTimeToMoveAliensDown)
 	{
 		if (frontLine.GetMinY() - 1 <= level->GAME_OVER_Y)
-			level->NotifyGameOver();
+			OnGroundTouched.Notify();
 
 		MoveAliens(Direction::down, 9999);
 		isTimeToMoveAliensDown = false;

@@ -17,7 +17,7 @@ void PuzzleLevel::LoadInSimulation()
 
     //------------ bunny
     //Bunny* bunny = new Bunny(5, 4, this);
-    Bunny* bunny = new Bunny(5, 8, this);
+    Bunny* bunny = new Bunny(5, 8);
     simulation.TryAddEntity(bunny);
 
     //------------ left platform
@@ -30,6 +30,7 @@ void PuzzleLevel::LoadInSimulation()
 
     //------------ flag
     LevelEndFlag* flag = new LevelEndFlag(this, 70, 16);
+    flag->OnTouchBunny.Subscribe([this](){ OnGameOver(); });
     simulation.TryAddEntity(flag);
 
     //------------ automatic door
@@ -68,9 +69,9 @@ void PuzzleLevel::LoadInSimulation()
     simulation.TryAddEntity(openDoorPressurePlateRight);
 }
 
-void PuzzleLevel::NotifyGameOver()
+void PuzzleLevel::OnGameOver()
 {
-    Level::NotifyGameOver();
+    Level::OnGameOver();
     AudioManager::Instance().PlayFx("Resources/Sounds/Platform/LevelWon.wav");
 }
 
