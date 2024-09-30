@@ -29,6 +29,11 @@ void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
 
+	waveNumber = 1;
+	score = 0;
+	isLoadingWave = false;
+	double startedLoadingWaveTime = -1;
+
 	aliensController = new AliensController(this);
 	Simulation::Instance().TryAddEntity(aliensController);
 	aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
@@ -62,14 +67,18 @@ void SpaceInvadersLevel::Update()
 void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
 	Level::OnPostGameOverDelayEnded();
-	size_t bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
-	ShowGameOverScreen(score, bestScore);
+
+	size_t savedBestScore = Persistence::LoadBestScore(GetPersistenceFilePath());
+	if (score > savedBestScore)
+		Persistence::SaveBestScore(GetPersistenceFilePath(), score);
+
+	ShowGameOverScreen(score, savedBestScore);
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShowEndScreen.wav");
 }
 
 void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
 {
-	string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
+	string messageEnding = score > bestScore ? ", new record!" : (", best: " + std::to_string(bestScore));
 	string message = "score: " + std::to_string(score) + messageEnding;
 
 	//center message

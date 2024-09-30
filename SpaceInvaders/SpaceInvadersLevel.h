@@ -31,11 +31,11 @@ public:
 
 //------------------------------------------------------------------- Fields
 private:
-    size_t waveNumber = 1;
-    size_t score = 0;
+    size_t waveNumber;
+    size_t score;
+    bool isLoadingWave;
+    double startedLoadingWaveTime;
     AliensController* aliensController;
-    bool isLoadingWave = false;
-    double startedLoadingWaveTime = -1;
 
 //------------------------------------------------------------------- Methods
 public:
@@ -54,7 +54,7 @@ protected:
     virtual string GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; }
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; } //todo setup this
     virtual void OnPostGameOverDelayEnded() override;
-    virtual void ShowGameOverScreen(size_t score, size_t bestScore);
+    virtual void ShowGameOverScreen(size_t score, size_t savedBestScore);
 
 private:
     void LoadAliens();
