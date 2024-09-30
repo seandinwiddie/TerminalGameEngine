@@ -4,19 +4,9 @@
 #include "EnemyProjectile.h"
 #include "Simulation.h"
 
-void Alien::Update()
-{
-	bool showFirstAnimFrameNew = TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
-	if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
-	{
-		StepAnimation();
-		isFirsAnimationFrameTime = showFirstAnimFrameNew;
-	}
-}
-
 void Alien::OnDestroy()
 {
-	GameObject::OnDestroy();
+	Enemy::OnDestroy();
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
 	OnDestroyEvent.Notify(this);
 }
