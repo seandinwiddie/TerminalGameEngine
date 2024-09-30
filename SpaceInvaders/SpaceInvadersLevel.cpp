@@ -10,6 +10,7 @@
 #include "UIPrinter.h"
 #include "Printer.h"
 #include "ShieldPart.h"
+#include "UfoSpawner.h"
 
 using WindowPosition = UIPrinter::WindowPosition;
 
@@ -42,6 +43,9 @@ void SpaceInvadersLevel::LoadInSimulation()
 	LoadAliens();
 	LoadPlayerTank();
 	InitHeader();
+	
+	UfoSpawner* ufoSpawner = new UfoSpawner(GetWorldSizeX() - 5, GetScreenMaxY() - 2, Direction::left);
+	Simulation::Instance().TryAddEntity(ufoSpawner);
 
 #if !CHEAT_SPACEINV_DISABLE_SHIELDS
 	vector<size_t> shieldsSpacing = {9,9,10,9,9 };

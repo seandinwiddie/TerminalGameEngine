@@ -1,6 +1,6 @@
 #include "PlayerProjectile.h"
 #include "Simulation.h"
-#include "Alien.h"
+#include "Enemy.h"
 #include "SpaceInvadersLevel.h"
 
 const Model PlayerProjectile::MODEL = { {'|'} };
@@ -8,13 +8,9 @@ const Model PlayerProjectile::MODEL = { {'|'} };
 void PlayerProjectile::OnCollisionEnter(GameObject* other, Direction collisionDir)
 {
 	Projectile::OnCollisionEnter(other, collisionDir);
-	SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Simulation::Instance().GetActiveLevel());
-	assert(level != nullptr);
-
-	Alien* otherAlien = dynamic_cast<Alien*>(other);
-	if (otherAlien != nullptr)
+	Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
+	if (otherEnemy != nullptr)
 	{
-		level->IncreasePlayerScore(otherAlien->GetScore());
-		Simulation::Instance().RemoveEntity(otherAlien);
+		Simulation::Instance().RemoveEntity(otherEnemy);
 	}
 }

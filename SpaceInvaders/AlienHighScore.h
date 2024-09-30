@@ -15,7 +15,7 @@ public:
 
 protected:
 	virtual void InitModel() { SetModel(MODEL_1); }
-	virtual void StepAnimation() { SetModel(isFirsAnimationFrameTime ? MODEL_1 : MODEL_2); }
+	virtual void StepAnimation() { SetModel(isFirsAnimationFrameTime ? MODEL_1 : MODEL_2); } //todo this is duplicated in every alien
 };
 
 const Model AlienHighScore::MODEL_1 =

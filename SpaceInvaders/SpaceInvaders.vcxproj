@@ -145,10 +145,13 @@
     <ClCompile Include="AliensController.cpp" />
     <ClCompile Include="AliensFrontline.cpp" />
     <ClCompile Include="EnemmyProjectile.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="PlayerProjectile.cpp" />
     <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="ShieldPart.cpp" />
     <ClCompile Include="SpaceInvadersLevel.cpp" />
+    <ClCompile Include="Ufo.cpp" />
+    <ClCompile Include="UfoSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -162,12 +165,15 @@
     <ClInclude Include="AlienMidScore.h" />
     <ClInclude Include="AliensController.h" />
     <ClInclude Include="AliensFrontline.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ShieldPart.h" />
     <ClInclude Include="SpaceInvadersLevel.h" />
+    <ClInclude Include="Ufo.h" />
+    <ClInclude Include="UfoSpawner.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
