@@ -37,12 +37,11 @@ void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 #endif
 }
 
-void AudioManager::PlayRandomMusic()
+void AudioManager::PlayMusic(const string& fileName)
 {
 #if ALLOW_SOUNDS
 	StopMusic();
-	int randomIndex = RandomUtils::GetRandomInt(0, static_cast<int>(MUSIC_TRACKS.size()) - 1);
-	if (music.openFromFile(MUSIC_TRACKS[randomIndex]) == false)
+	if (music.openFromFile(fileName) == false)
 		return;
 	music.play();
 #endif

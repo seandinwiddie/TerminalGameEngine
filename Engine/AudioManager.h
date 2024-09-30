@@ -30,7 +30,7 @@ private:
 //---------------------------------------------------------- Methods
 public:
 	void PlayFx(const string& fileName, double randomPitch = 0.0);
-	void PlayRandomMusic();
+	void PlayMusic(const string& fileName);
 	void StopMusic();
 
 private:

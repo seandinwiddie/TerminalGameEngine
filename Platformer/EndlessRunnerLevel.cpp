@@ -9,8 +9,11 @@
 #include "SimulationPrinter.h"
 #include "UIPrinter.h"
 #include "Frame.h"
+#include "RandomUtils.h"
 
 using WindowPosition = UIPrinter::WindowPosition;
+
+const vector<string> EndlessRunnerLevel::MUSIC_FILES = { "Resources/Music/1.wav","Resources/Music/2.wav","Resources/Music/3.wav" };
 
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
@@ -111,7 +114,14 @@ void EndlessRunnerLevel::LoadInSimulation()
     );
 
     simulation.TryAddEntity(spawner);
-    AudioManager::Instance().PlayRandomMusic();
+
+    PlayRandomMusic();
+}
+
+void EndlessRunnerLevel::PlayRandomMusic()
+{
+    const string& randomMusic = MUSIC_FILES[RandomUtils::GetRandomInt(0, MUSIC_FILES.size() - 1)];
+    AudioManager::Instance().PlayMusic(randomMusic);
 }
 
 void EndlessRunnerLevel::Update()

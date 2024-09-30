@@ -2,11 +2,13 @@
 #include "Config.h"
 #include "Level.h"
 #include <string>
+#include <vector>
 
 class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
+    static const vector<string> MUSIC_FILES;
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods
@@ -26,4 +28,7 @@ protected:
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }
     virtual void ShowGameOverScreen(size_t score, size_t bestScore);
     virtual void OnGameOver() override;
+
+private:
+    void PlayRandomMusic();
 };
