@@ -19,7 +19,7 @@ void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vecto
 		return;
 
 	//try find new front line element
-	for (size_t y = aliensGrid.size() - 1; y >= 0; --y)
+	for (int y = aliensGrid.size() - 1; y >= 0; --y)
 	{
 		if (aliensGrid[y][destroyedX] != nullptr)
 		{

@@ -70,7 +70,7 @@ void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
 {
 	string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));
-	string message = "you survived for " + std::to_string(score) + " seconds, " + messageEnding;
+	string message = "score: " + std::to_string(score) + messageEnding;
 
 	//center message
 	string leftSpacing = "";
