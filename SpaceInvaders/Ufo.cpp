@@ -1,5 +1,6 @@
 #include "Ufo.h"
 #include "RandomUtils.h"
+#include "AudioManager.h"
 
 const vector<size_t> Ufo::POSSIBLE_SCORES = { 50,100,150,200,250,300 };
 
@@ -19,4 +20,10 @@ size_t Ufo::GetScore() const
 void Ufo::Update()
 {
 	TryMove(moveDirection, MOVE_SPEED);
+}
+
+void Ufo::OnDestroy()
+{
+	Enemy::OnDestroy();
+	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/UfoDefeated.wav");
 }

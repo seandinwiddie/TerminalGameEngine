@@ -24,5 +24,8 @@ public:
 	virtual int GetColor() const override { return Terminal::RED; }
 	virtual void InitModel() { SetModel(MODEL_1); }
 	virtual size_t GetScore() const;
+
+protected:
 	virtual void Update() override;
+	virtual void OnDestroy()override;
 };
