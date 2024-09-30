@@ -50,7 +50,7 @@ void SpaceInvadersLevel::NotifyGameOver()
 
 	Level::NotifyGameOver();
 	AudioManager::Instance().StopMusic();
-	AudioManager::Instance().PlayFx("SpaceInv/gameOver.wav");
+	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/gameOver.wav");
 }
 
 void SpaceInvadersLevel::Update()
@@ -64,7 +64,7 @@ void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 	Level::OnPostGameOverDelayEnded();
 	size_t bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
 	ShowGameOverScreen(score, bestScore);
-	AudioManager::Instance().PlayFx("SpaceInv/showEndScreen.wav");
+	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShowEndScreen.wav");
 }
 
 void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
@@ -227,7 +227,7 @@ void SpaceInvadersLevel::LoadShield(int xPos, int yPos)
 
 void SpaceInvadersLevel::OnWaveCompleted()
 {
-	AudioManager::Instance().PlayFx("SpaceInv/waveComplete.wav");
+	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/WaveComplete.wav");
 	isLoadingWave = true;
 	waveNumber++;
 	PrintWave();

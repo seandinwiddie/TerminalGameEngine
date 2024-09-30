@@ -17,7 +17,7 @@ void Alien::Update()
 void Alien::OnDestroy()
 {
 	GameObject::OnDestroy();
-	AudioManager::Instance().PlayFx("SpaceInv/alienDeath2.wav");
+	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
 	OnDestroyEvent.Notify(this);
 }
 

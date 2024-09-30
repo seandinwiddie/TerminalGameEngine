@@ -201,7 +201,7 @@ void Bunny::SetState(State newState)
 void Bunny::HandleSounds(State oldState, State newState)
 {
     if (newState == State::jumpingUp)
-        AudioManager::Instance().PlayFx("Platform/jump.wav",0.1);
+        AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Jump.wav",0.1);
 }
 
 double Bunny::GetGravityScale() const

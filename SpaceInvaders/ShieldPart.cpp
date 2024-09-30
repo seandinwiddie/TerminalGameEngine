@@ -11,7 +11,7 @@ void ShieldPart::OnCollisionEnter(GameObject* other, Direction collisionDir)
     Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
     if (otherProjectile != nullptr)
     {
-        AudioManager::Instance().PlayFx("SpaceInv/shieldBreak.wav");
+        AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShieldBreak.wav");
         Simulation::Instance().RemoveEntity(this);
         return;
     }

@@ -51,7 +51,7 @@ void PlayerTank::HandleShooting()
             lastTimeShot = TimeHelper::Instance().GetTime();
             PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILE_SPEED);
             Simulation::Instance().TryAddEntity(projectile);
-            AudioManager::Instance().PlayFx("SpaceInv/shot1.wav");
+            AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/Shot1.wav");
         }
     }
 }
@@ -63,6 +63,6 @@ void PlayerTank::TakeDamage()
     OnDamageTaken.Notify(health);
 
     if(health > 0)
-        AudioManager::Instance().PlayFx("SpaceInv/damageTaken.wav");
+        AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/DamageTaken.wav");
 #endif
 }

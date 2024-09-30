@@ -169,9 +169,6 @@
     <ClInclude Include="ShieldPart.h" />
     <ClInclude Include="SpaceInvadersLevel.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="spaceInvaders.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

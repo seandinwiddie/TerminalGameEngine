@@ -15,10 +15,17 @@ friend class Singleton;
 //---------------------------------------------------------- Fields
 private:
 	static const size_t SOUND_SOURCES_SIZE = 6;
-	const vector<string> MUSIC_TRACKS = { "music-1.wav","music-2.wav", "music-3.wav" };
 	vector<Sound> sounds;
 	vector<SoundBuffer> buffers;
 	Music music;
+
+	//todo this must be given from level
+	const vector<string> MUSIC_TRACKS =
+	{ 
+		"Resources/Music/Music-1.wav",
+		"Resources/Music/Music-2.wav", 
+		"Resources/Music/Music-3.wav"
+	};
 
 //---------------------------------------------------------- Methods
 public:

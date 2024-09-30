@@ -27,7 +27,7 @@ protected:
         else
         {
             if (dynamic_cast<Bunny*>(other) == nullptr)
-                AudioManager::Instance().PlayFx("Platform/hit.wav", 0.2);
+                AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Hit.wav", 0.2);
         }
     }
 };

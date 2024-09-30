@@ -18,7 +18,7 @@ void EndlessRunnerLevel::OnPostGameOverDelayEnded()
     size_t score = static_cast<size_t>(GetLevelTime());
     size_t bestScore = Persistence::GetBestScoreComparingToNewOne(GetPersistenceFilePath(), score);
     ShowGameOverScreen(score, bestScore);
-    AudioManager::Instance().PlayFx("Platform/showEndScreen.wav");
+    AudioManager::Instance().PlayFx("Resources/Sounds/Platform/ShowEndScreen.wav");
 }
 
 void EndlessRunnerLevel::ShowGameOverScreen(size_t score, size_t bestScore)
@@ -45,7 +45,7 @@ void EndlessRunnerLevel::NotifyGameOver()
 
     Level::NotifyGameOver();
     AudioManager::Instance().StopMusic();
-    AudioManager::Instance().PlayFx("Platform/gameOver.wav");
+    AudioManager::Instance().PlayFx("Resources/Sounds/Platform/GameOver.wav");
 }
 
 void EndlessRunnerLevel::LoadInSimulation()

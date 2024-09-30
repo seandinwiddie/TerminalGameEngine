@@ -18,7 +18,6 @@ AudioManager::AudioManager()
 void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 {
 #if ALLOW_SOUNDS
-	string completeFileName = "Sounds/" + fileName;
 	Sound* sound = nullptr;
 	SoundBuffer* buffer = nullptr;
 
@@ -26,7 +25,7 @@ void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 	if (TryGetBufferAndSound(buffer, sound) == false)
 		return;
 
-	if (!buffer->loadFromFile(completeFileName))
+	if (!buffer->loadFromFile(fileName))
 		return;
 
 	float pitch = 1;

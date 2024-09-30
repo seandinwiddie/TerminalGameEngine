@@ -13,7 +13,7 @@ void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDir)
     {
         OnPress.Notify();
         SetModel(pressedModel);
-        AudioManager::Instance().PlayFx("Platform/buttonPress.wav");
+        AudioManager::Instance().PlayFx("Resources/Sounds/Platform/ButtonPress.wav");
     }
 }
 
@@ -23,7 +23,7 @@ void PressurePlate::OnCollisionExit(Direction endingCollisionDir)
     {
         OnRelease.Notify();
         SetModel(unpressedModel);
-        AudioManager::Instance().PlayFx("Platform/buttonRelease.wav");
+        AudioManager::Instance().PlayFx("Resources/Sounds/Platform/ButtonRelease.wav");
     }
        
 }
