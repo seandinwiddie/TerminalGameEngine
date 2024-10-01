@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "SimulationPrinter.h"
 #include "ISimulationEntity.h"
-#include "GameObject.h"
+#include "KinematicObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
 #include "WorldSpace.h"
@@ -51,7 +51,7 @@ void Simulation::Step()
 #endif
 }
 
-void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
+void Simulation::RequestMovement(KinematicObject* applicantObj, Direction moveDir, double moveSpeed)
 {
 	if (IsEntityInSimulation(applicantObj) == false)
 	{
@@ -79,12 +79,15 @@ void Simulation::RemoveMarkedEntities()
 {
 	for (ISimulationEntity* entity : toRemoveEntities)
 	{
-		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-		if (objEntity != nullptr)
+		KinematicObject* kinObjEntity = dynamic_cast<KinematicObject*>(entity);
+		if (kinObjEntity != nullptr)
 		{
-			objEntity->OnDestroy();
-			worldSpace.RemoveObject(objEntity);
-			simulationPrinter->ClearObject(objEntity);
+			kinObjEntity->OnDestroy();
+			simulationPrinter->ClearObject(kinObjEntity);
+
+			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+			if(objEntity != nullptr)
+				worldSpace.RemoveObject(objEntity);
 		}
 		entities.remove(entity);
 		delete(entity);
@@ -108,7 +111,7 @@ void Simulation::PrintObjects()
 {
 	for (ISimulationEntity* entity : entities)
 	{
-		GameObject* obj = dynamic_cast<GameObject*>(entity);
+		KinematicObject* obj = dynamic_cast<KinematicObject*>(entity);
 		if (obj != nullptr && obj->mustBeReprinted)
 		{
 			obj->mustBeReprinted = false;
@@ -183,18 +186,19 @@ void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 
 bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
-	GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-	if (objEntity != nullptr)
-		objEntity->Init();
+	KinematicObject* kinObjEntity = dynamic_cast<KinematicObject*>(entity);
+	if (kinObjEntity != nullptr)
+		kinObjEntity->Init();
 
 	if (!CanEntityBeAdded(entity))
 	{
 		delete(entity);
 		return false;
 	}
-	
-	if (objEntity != nullptr)
-		worldSpace.InsertObject(objEntity);
+
+	GameObject* gameObjEntity = dynamic_cast<GameObject*>(entity);
+	if (gameObjEntity != nullptr)
+		worldSpace.InsertObject(gameObjEntity);
 
 	entities.push_back(entity);
 	return true;
@@ -221,7 +225,7 @@ bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
 }
 
 bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
-{
+{//todo could use dictionary instead
 	for (ISimulationEntity* entity : entities)
 		if (newEntity == entity)
 			return true;
@@ -229,29 +233,38 @@ bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
 	return false;
 }
 
-bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
+bool Simulation::TryMoveObjectAtDirection(KinematicObject* kinObj, Direction direction)
 {
 	uset<GameObject*> outCollidingObjects;
 
-	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
+	GameObject* gameObj = dynamic_cast<GameObject*>(kinObj);
+
+	if (worldSpace.CanObjectMoveAtDirection(kinObj, direction, outCollidingObjects) == false)
 	{
+		//remove entity if trying to move out of world space
 		if (outCollidingObjects.find(WorldSpace::WORLD_MARGIN) != outCollidingObjects.end())
 		{
-			RemoveEntity(obj);
+			RemoveEntity(kinObj);
 		}
 		else
 		{
-			obj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
+			if (gameObj != nullptr)
+			{
+				gameObj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-			for(GameObject* item : outCollidingObjects)
-				if (item != WorldSpace::SCREEN_MARGIN)
-					item->CALLED_BY_SIM_NotifyCollisionEnter(obj, GetInverseDirection(direction));
+				for (GameObject* item : outCollidingObjects)
+					if (item != WorldSpace::SCREEN_MARGIN)
+						item->CALLED_BY_SIM_NotifyCollisionEnter(gameObj, GetInverseDirection(direction));
+			}
 		}
 		return false;
 	}
 
-	worldSpace.MoveObject(obj, direction);
-	obj->CALLED_BY_SIM_Move(direction);
+	if(gameObj != nullptr)
+		worldSpace.MoveObject(gameObj, direction);
+
+	kinObj->CALLED_BY_SIM_Move(direction);
+
 	return true;
 }
 

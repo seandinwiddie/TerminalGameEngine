@@ -179,6 +179,7 @@
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="KinematicObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MovingStraightObject.cpp" />
     <ClCompile Include="Particle.cpp" />

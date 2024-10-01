@@ -120,16 +120,18 @@ bool WorldSpace::IsInsideSpaceY(int yPos) const
 
 bool WorldSpace::CanObjectMoveAtDirection
 (
-	const GameObject* obj,
+	const KinematicObject* kinObj,
 	Direction direction,
 	uset<GameObject*>& collidingObjects
 ) const
 {
+	const GameObject* gameObj = dynamic_cast<const GameObject*>(kinObj);
+
 	switch (direction)
 	{
 	case Direction::up:
 	{
-		int movingToY = obj->GetMaxPosY() + 1;
+		int movingToY = kinObj->GetMaxPosY() + 1;
 
 		//exiting world
 		if (movingToY == GetSizeY())
@@ -139,21 +141,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((obj->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
+		if ((kinObj->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(obj->GetPosX(), movingToY, obj->GetModelWidth(), 1, collidingObjects) == false)
+		if (gameObj != nullptr && IsAreaEmpty(gameObj->GetPosX(), movingToY, gameObj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 		
 		return true;
 	}
 	case Direction::down:
 	{
-		int movingToY = obj->GetPosY() - 1;
+		int movingToY = kinObj->GetPosY() - 1;
 
 		//exiting world
 		if (movingToY == -1)
@@ -163,21 +165,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((obj->CanExitScreenSpace() == false) && (movingToY == screenPadding - 1))
+		if ((kinObj->CanExitScreenSpace() == false) && (movingToY == screenPadding - 1))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(obj->GetPosX(), movingToY, obj->GetModelWidth(), 1, collidingObjects) == false)
+		if (gameObj != nullptr && IsAreaEmpty(gameObj->GetPosX(), movingToY, gameObj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::right:
 	{
-		int movingToX = obj->GetMaxPosX() + 1;
+		int movingToX = kinObj->GetMaxPosX() + 1;
 
 		//exiting world
 		if (movingToX == GetSizeX())
@@ -187,21 +189,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((obj->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
+		if ((kinObj->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(movingToX, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+		if (gameObj != nullptr && IsAreaEmpty(movingToX, gameObj->GetPosY(), 1, gameObj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::left:
 	{
-		int movingToX = obj->GetPosX() - 1;
+		int movingToX = kinObj->GetPosX() - 1;
 
 		//exiting world
 		if (movingToX == -1)
@@ -211,14 +213,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((obj->CanExitScreenSpace() == false) && (movingToX == screenPadding - 1))
+		if ((kinObj->CanExitScreenSpace() == false) && (movingToX == screenPadding - 1))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (IsAreaEmpty(movingToX, obj->GetPosY(), 1, obj->GetModelHeight(), collidingObjects) == false)
+		if (gameObj != nullptr && IsAreaEmpty(movingToX, gameObj->GetPosY(), 1, gameObj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;

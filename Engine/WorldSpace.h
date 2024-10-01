@@ -28,7 +28,7 @@ public:
 public:
 	void Init(int xSize, int ySize, size_t screenPadding);
 
-	bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, uset<GameObject*>& collidingObjects) const;
+	bool CanObjectMoveAtDirection(const KinematicObject* obj, Direction direction, uset<GameObject*>& collidingObjects) const;
 	void InsertObject(GameObject* obj);
 	void RemoveObject(GameObject* obj);
 	void MoveObject(GameObject* obj, Direction direction);
