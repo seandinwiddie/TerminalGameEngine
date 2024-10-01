@@ -120,7 +120,7 @@ void EndlessRunnerLevel::LoadInSimulation()
 
 void EndlessRunnerLevel::PlayRandomMusic()
 {
-    const string& randomMusic = MUSIC_FILES[RandomUtils::GetRandomInt(0, MUSIC_FILES.size() - 1)];
+    const string& randomMusic = MUSIC_FILES[RandomUtils::GetRandomInt(0, static_cast<int>(MUSIC_FILES.size() - 1))];
     AudioManager::Instance().PlayMusic(randomMusic);
 }
 

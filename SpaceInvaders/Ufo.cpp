@@ -13,7 +13,7 @@ const Model Ufo::MODEL_1 =
 
 size_t Ufo::GetScore() const
 {
-	int randomIndex = RandomUtils::GetRandomInt(0, POSSIBLE_SCORES.size()-1);
+	int randomIndex = RandomUtils::GetRandomInt(0, static_cast<int>(POSSIBLE_SCORES.size()-1));
 	return POSSIBLE_SCORES[randomIndex];
 }
 
