@@ -28,7 +28,7 @@ void Particle::InitModel()
 void Particle::Update()
 {
 	for (Direction dir : moveDirections)
-		TryMove(dir, 8);
+		TryMove(dir, moveSpeed);
 }
 
 void Particle::OnMoveCallback()
