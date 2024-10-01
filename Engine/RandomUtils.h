@@ -14,4 +14,9 @@ namespace RandomUtils
 	{ 
 		return minInclusive + std::rand() % (maxInclusive - minInclusive + 1); 
 	}
+
+	inline bool GetRandomBool()
+	{
+		return GetRandomInt(0, 1) == 0;
+	}
 }

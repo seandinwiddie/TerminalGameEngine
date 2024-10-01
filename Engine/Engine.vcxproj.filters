@@ -126,9 +126,6 @@
     <ClInclude Include="Particle.h">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleGroup.h">
-      <Filter>Header Files\Particles</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClInclude>

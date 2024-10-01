@@ -62,6 +62,5 @@ protected:
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 	void ApplyGravity();
-
 	void CALLED_BY_SIM_Move(Direction direction);
 };

@@ -159,7 +159,6 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MovingStraightObject.h" />
     <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleGroup.h" />
     <ClInclude Include="ParticlesHandler.h" />
     <ClInclude Include="Persistence.h" />
     <ClInclude Include="Printer.h" />
