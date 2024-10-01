@@ -1,6 +1,7 @@
 #pragma once
 #include "MovingStraightObject.h"
 #include "Simulation.h"
+#include "Enemy.h"
 
 class Projectile : public MovingStraightObject
 {
@@ -16,8 +17,8 @@ protected:
         MovingStraightObject::OnCollisionEnter(other, collisionDir);
         Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
         
-        Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
-        if (otherProjectile != nullptr || other == WorldSpace::SCREEN_MARGIN)
+        Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
+        if (otherEnemy == nullptr)
         {
             Simulation::Instance().SpawnParticles
             (
@@ -25,13 +26,15 @@ protected:
                 GetPosY(),
                 GetModelWidth(),
                 GetModelHeight(),
-                '*', GetColor(),
+                '*',
+                GetColor(),
                 12,     //speed
                 4,      //movement life
                 5,      //density
                 collisionOppositeDirection
             );
         }
+
         Simulation::Instance().RemoveEntity(this);
     }
 };
