@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "SimulationPrinter.h"
 #include "ISimulationEntity.h"
-#include "KinematicObject.h"
+#include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
 #include "WorldSpace.h"
@@ -51,7 +51,7 @@ void Simulation::Step()
 #endif
 }
 
-void Simulation::RequestMovement(KinematicObject* applicantObj, Direction moveDir, double moveSpeed)
+void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
 {
 	if (IsEntityInSimulation(applicantObj) == false)
 	{
@@ -79,7 +79,7 @@ void Simulation::RemoveMarkedEntities()
 {
 	for (ISimulationEntity* entity : toRemoveEntities)
 	{
-		KinematicObject* objectEntity = dynamic_cast<KinematicObject*>(entity);
+		GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
 		if (objectEntity != nullptr)
 		{
 			objectEntity->OnDestroy();
@@ -111,7 +111,7 @@ void Simulation::PrintObjects()
 {
 	for (ISimulationEntity* entity : entities)
 	{
-		KinematicObject* objEntity = dynamic_cast<KinematicObject*>(entity);
+		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 		if (objEntity != nullptr && objEntity->mustBeReprinted)
 		{
 			objEntity->mustBeReprinted = false;
@@ -186,7 +186,7 @@ void Simulation::UpdateObjectEndedCollisions(Collider* collider)
 
 bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
-	KinematicObject* objectEntity = dynamic_cast<KinematicObject*>(entity);
+	GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
 	if (objectEntity != nullptr)
 		objectEntity->Init();
 
@@ -233,7 +233,7 @@ bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
 	return false;
 }
 
-bool Simulation::TryMoveObjectAtDirection(KinematicObject* obj, Direction direction)
+bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 {
 	uset<Collider*> outCollidingObjects;
 

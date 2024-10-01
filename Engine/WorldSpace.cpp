@@ -120,7 +120,7 @@ bool WorldSpace::IsInsideSpaceY(int yPos) const
 
 bool WorldSpace::CanObjectMoveAtDirection
 (
-	const KinematicObject* object,
+	const GameObject* object,
 	Direction direction,
 	uset<Collider*>& collidingObjects
 ) const

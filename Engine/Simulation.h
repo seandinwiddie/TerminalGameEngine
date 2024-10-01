@@ -12,7 +12,7 @@ template<typename T> using vector = std::vector<T>;
 template<typename T> using list = std::list<T>;
 
 class Collider;
-class KinematicObject;
+class GameObject;
 class ISimulationEntity;
 class Frame;
 class SimulationPrinter;
@@ -24,16 +24,16 @@ class Simulation : public Singleton<Simulation>
 //------------------------------------------------------------------------------------ Friend Classes
 friend class Singleton; //todo remove
 friend class Collider;
-friend class KinematicObject;
+friend class GameObject;
 
 //------------------------------------------------------------------------------------ Structs
 	struct MoveRequest
 	{
-		KinematicObject* object;
+		GameObject* object;
 		Direction moveDir;
 		double moveSpeed;
 
-		MoveRequest(KinematicObject* object, Direction direction, double speed)
+		MoveRequest(GameObject* object, Direction direction, double speed)
 			:object(object),moveDir(direction), moveSpeed(speed){}
 	};
 
@@ -61,7 +61,7 @@ public:
 	void Step();
 	bool TryAddEntity(ISimulationEntity* entity);
 	void RemoveEntity(ISimulationEntity* entity);
-	void RequestMovement(KinematicObject* applicantObj, Direction moveDir, double moveSpeed);
+	void RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed);
 	size_t GetWorldSizeX() const;
 	size_t GetWorldSizeY() const;
 	size_t GetScreenPadding() const;
@@ -71,7 +71,7 @@ public:
 	UIPrinter& GetUIPrinter();
 
 private:
-	bool TryMoveObjectAtDirection(KinematicObject* obj, Direction direction);
+	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationEntity* newEntity) const;
 	void UpdateObjectEndedCollisions(Collider* collidingObj);

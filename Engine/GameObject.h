@@ -12,13 +12,13 @@ template<typename T> using vector = std::vector<T>;
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
 
-class KinematicObject : public ISimulationEntity
+class GameObject : public ISimulationEntity
 {
 	friend class Simulation;
 
 //---------------------------------------------------------- Fields
 public:
-	Event<KinematicObject*, Direction> OnMove;
+	Event<GameObject*, Direction> OnMove;
 	// generic on destroy event could be added
 
 protected:
@@ -38,7 +38,7 @@ private:
 public:
 	virtual int GetColor() const { return Terminal::WHITE; }
 	void Init() { InitModel(); }
-	KinematicObject(int xPos, int yPos);
+	GameObject(int xPos, int yPos);
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
 	int GetMaxPosX()const { return xPos + static_cast<int>(GetModelWidth()) - 1; }

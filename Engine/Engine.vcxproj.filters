@@ -129,6 +129,9 @@
     <ClInclude Include="ParticleGroup.h">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\GenericSimulationEntities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MovingStraightObject.cpp">
@@ -176,7 +179,7 @@
     <ClCompile Include="ParticlesHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KinematicObject.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

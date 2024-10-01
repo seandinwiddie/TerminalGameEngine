@@ -1,7 +1,7 @@
 #include "SimulationPrinter.h"
 
 #include "Collider.h"
-#include "KinematicObject.h"
+#include "GameObject.h"
 #include "Simulation.h"
 #include "Config.h"
 #include "Level.h"
@@ -25,7 +25,7 @@ SimulationPrinter::SimulationPrinter
     InitBackground(backgroundFileName);
 }
 
-void SimulationPrinter::PrintObject(KinematicObject* go)
+void SimulationPrinter::PrintObject(GameObject* go)
 {
     Model model = go->GetModel();
     assert(model.size() > 0 && model[0].size() > 0);
@@ -33,7 +33,7 @@ void SimulationPrinter::PrintObject(KinematicObject* go)
     PrintInternal(go->GetPosX(), go->GetPosY(), go->GetModelWidth(), go->GetModelHeight(), go);
 }
 
-void SimulationPrinter::ClearObject(KinematicObject* obj)
+void SimulationPrinter::ClearObject(GameObject* obj)
 {
     PrintInternal(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
 }
@@ -43,7 +43,7 @@ void SimulationPrinter::ClearArea(int worldXPos, int worldYPos, size_t xSize, si
     PrintInternal(worldXPos, worldYPos, xSize, ySize, nullptr);
 }
 
-void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, KinematicObject* go)
+void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go)
 {
     terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
     for (int yScreen = ConvertWorldPosToScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)

@@ -73,7 +73,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 
 	alien->OnMove.Subscribe
 	(
-		[this](KinematicObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
+		[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 	);
 
 	alien->OnDestroyEvent.Subscribe
@@ -82,7 +82,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 	);
 }
 
-void AliensController::OnAlienMovedCallback(KinematicObject* alien, Direction moveDirection)
+void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDirection)
 {
 	if (moveDirection == xMoveDirection)
 	{
@@ -111,7 +111,7 @@ void AliensController::OnAliensReachMargin()
 
 static int calledTimes = 0;
 
-void AliensController::OnAlienDestroyedCallback(KinematicObject* alienObj)
+void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
 	Alien* alien = dynamic_cast<Alien*>(alienObj);
 

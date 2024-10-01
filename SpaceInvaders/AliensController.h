@@ -10,7 +10,7 @@ using namespace GridDirection;
 
 class Alien;
 class SpaceInvadersLevel;
-class KinematicObject;
+class GameObject;
 
 class AliensController : public ISimulationEntity
 {
@@ -58,8 +58,8 @@ private:
 	size_t GetAliensGridWidth() const { return GetAliensGridHeight() == 0 ? 0 : aliensGrid[0].size(); }
 	size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
 	size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliensCount; }
-	void OnAlienMovedCallback(KinematicObject* alien, Direction moveDirection);
-	void OnAlienDestroyedCallback(KinematicObject* alienObj);
+	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
+	void OnAlienDestroyedCallback(GameObject* alienObj);
 	void OnAliensReachMargin();
 	void MoveAliens(Direction dir, double speed);
 	void HandleShooting();

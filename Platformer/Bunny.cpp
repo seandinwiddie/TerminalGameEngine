@@ -65,7 +65,7 @@ Bunny::Bunny(int xPos, int yPos) : Collider(xPos, yPos)
     SetState(State::idle);
     ActivateLeftModels(true);
     previousPositionX = GetPosX();
-    OnMove.Subscribe([this](KinematicObject* _,Direction dir) { OnMoveCallback(dir); });
+    OnMove.Subscribe([this](GameObject* _,Direction dir) { OnMoveCallback(dir); });
 }
 
 void Bunny::Update()

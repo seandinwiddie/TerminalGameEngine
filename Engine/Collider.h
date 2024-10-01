@@ -1,10 +1,10 @@
 #pragma once
-#include "KinematicObject.h"
+#include "GameObject.h"
 #include <unordered_set>
 
 template<typename T> using uset = std::unordered_set<T>;
 
-class Collider : public KinematicObject
+class Collider : public GameObject
 {
 friend class Simulation;
 
@@ -15,7 +15,7 @@ protected:
 
 //---------------------------------------------------------- Methods
 public:
-	Collider(int xPos, int yPos):KinematicObject(xPos, yPos){ collisions.resize(4); }
+	Collider(int xPos, int yPos):GameObject(xPos, yPos){ collisions.resize(4); }
 
 protected:
 	

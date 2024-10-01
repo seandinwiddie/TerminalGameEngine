@@ -1,8 +1,8 @@
-#include "KinematicObject.h"
+#include "GameObject.h"
 #include "TimeHelper.h"
 #include "Simulation.h"
 
-KinematicObject::KinematicObject(int xPos, int yPos) :
+GameObject::GameObject(int xPos, int yPos) :
 	xPos(xPos),
 	yPos(yPos),
 	xPosContinuous(xPos),
@@ -11,19 +11,19 @@ KinematicObject::KinematicObject(int xPos, int yPos) :
 	ResetPartialMovement();
 }
 
-size_t KinematicObject::GetModelWidth()const
+size_t GameObject::GetModelWidth()const
 {
 	if (GetModelHeight() == 0)
 		return 0;
 	return GetModel()[0].size();
 }
 
-void KinematicObject::Update()
+void GameObject::Update()
 {
 	ApplyGravity();
 }
 
-void KinematicObject::ApplyGravity()
+void GameObject::ApplyGravity()
 {
 	double gravityScale = GetGravityScale();
 	if (gravityScale == 0)
@@ -34,7 +34,7 @@ void KinematicObject::ApplyGravity()
 		TryMove(Direction::up, gravityScale);
 }
 
-void KinematicObject::TryMove(Direction direction, double moveSpeed)
+void GameObject::TryMove(Direction direction, double moveSpeed)
 {
 	if (canMove == false)
 		return;
@@ -67,7 +67,7 @@ void KinematicObject::TryMove(Direction direction, double moveSpeed)
 		Simulation::Instance().RequestMovement(this, direction, moveSpeed);
 }
 
-Model KinematicObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
+Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
 {
 	Model result;
 	result.resize(sizeY);
@@ -82,7 +82,7 @@ Model KinematicObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t 
 	return result;
 }
 
-void KinematicObject::SetModel(const Model& newModel)
+void GameObject::SetModel(const Model& newModel)
 {
 	if (model == &newModel)
 		return;
@@ -91,7 +91,7 @@ void KinematicObject::SetModel(const Model& newModel)
 	model = &newModel;
 }
 
-void KinematicObject::CALLED_BY_SIM_Move(Direction direction)
+void GameObject::CALLED_BY_SIM_Move(Direction direction)
 {
 	switch (direction)
 	{
