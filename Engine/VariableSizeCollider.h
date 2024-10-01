@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 
-class VariableSizeCollider : public GameObject
+class VariableSizeCollider : public Collider
 {
 //---------------------------------------------------------- Fields
     char modelChar;
@@ -18,7 +18,7 @@ public:
         size_t modelSizeY,
         char modelChar
     ) : 
-        GameObject(xPos, yPos), 
+        Collider(xPos, yPos), 
         modelSizeX(modelSizeX), 
         modelSizeY(modelSizeY), 
         modelChar(modelChar)

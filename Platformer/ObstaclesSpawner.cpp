@@ -64,7 +64,7 @@ void ObstaclesSpawner::Update()
         obstacleSpeed = abs(obstacleSpeed);
         Obstacle* obstacle = new Obstacle(xPos, randomPosY, direction, obstacleSpeed);
 
-        Simulation::Instance().TryAddEntity(dynamic_cast<GameObject*>(obstacle));
+        Simulation::Instance().TryAddEntity(dynamic_cast<Collider*>(obstacle));
     }
 }
 
@@ -82,5 +82,5 @@ void ObstaclesSpawner::TryIncreaseIntensity(double time)
 
 double ObstaclesSpawner::GetNextSpawnObstacleTime() const
 {
-    return TimeHelper::Instance().GetTime() + RandomUtils::GetRandomDoubleBetween(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
+    return TimeHelper::Instance().GetTime() + RandomUtils::GetRandomDouble(GetCurrentMinSpawnDelay(), GetCurrentMaxSpawnDelay());
 }

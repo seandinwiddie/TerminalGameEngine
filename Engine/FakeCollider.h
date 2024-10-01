@@ -1,12 +1,12 @@
 #pragma once
 
-#include "GameObject.h"
+#include "Collider.h"
 #include <cassert>
 
-class FakeGameObject : public GameObject
+class FakeCollider : public Collider
 {
 public:
-	FakeGameObject() : GameObject(0, 0) {}
+	FakeCollider() : Collider(0, 0) {}
 private:
 	virtual bool CanExitScreenSpace() const override { assert(false); return true; }
 	virtual double GetGravityScale() const override { assert(false); return 0; }

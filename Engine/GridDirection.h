@@ -21,4 +21,23 @@ namespace GridDirection
 			throw std::invalid_argument("Invalid direction");
 		}
 	}
+
+	static Direction GetClockwiseDirection(Direction direction)
+	{
+		switch (direction)
+		{
+		case Direction::up:
+			return Direction::right;
+		case Direction::down:
+			return Direction::left;
+		case Direction::left:
+			return Direction::up;
+		case Direction::right:
+			return Direction::down;
+		default:
+			throw std::invalid_argument("Invalid direction");
+		}
+	}
+
+
 }

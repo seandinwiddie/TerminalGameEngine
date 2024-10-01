@@ -15,6 +15,6 @@ public:
     virtual int GetColor() const { return Terminal::RED; }
 
 protected:
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
+    virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
     virtual void InitModel();
 };

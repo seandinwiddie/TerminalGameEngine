@@ -26,5 +26,5 @@ void UfoSpawner::SetNextSpawnDelay()
 {
 	nextSpawnTime =
 		TimeHelper::Instance().GetTime() +
-		RandomUtils::GetRandomDoubleBetween(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY);
+		RandomUtils::GetRandomDouble(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY);
 }

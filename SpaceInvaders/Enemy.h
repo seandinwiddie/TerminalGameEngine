@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 
-class Enemy : public GameObject
+class Enemy : public Collider
 {
 //------------------------------------------------------ Fields
 public:
-	using GameObject::GameObject;
+	using Collider::Collider;
 protected:
 	bool isFirsAnimationFrameTime;
 

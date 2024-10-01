@@ -1,10 +1,10 @@
 #pragma once
 #include "Config.h"
-#include "GameObject.h"
+#include "Collider.h"
 
 class SpaceInvadersLevel;
 
-class PlayerTank : public GameObject
+class PlayerTank : public Collider
 {
 //---------------------------------------------------------- Settings
 public:
@@ -25,7 +25,7 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-    PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : GameObject(xPos, yPos), level(level) {};
+    PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : Collider(xPos, yPos), level(level) {};
 
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }

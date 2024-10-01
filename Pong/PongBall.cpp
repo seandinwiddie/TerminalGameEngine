@@ -7,7 +7,7 @@
 
 PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed) 
     :
-    GameObject(xPos, yPos), 
+    Collider(xPos, yPos), 
     level(level),
     ySpeed(ySpeed)
 {
@@ -18,7 +18,7 @@ PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed)
         this->ySpeed = -ySpeed;
 }
 
-void PongBall::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void PongBall::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
     iSFirstLaunch = false;
 
@@ -71,7 +71,7 @@ void PongBall::Update()
     if (level->IsGameOver())
         return;
 
-    GameObject::Update();
+    Collider::Update();
 
     if (xSpeed > 0)
         TryMove(Direction::right, xSpeed);

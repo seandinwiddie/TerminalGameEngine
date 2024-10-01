@@ -1,23 +1,23 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 #include "Bunny.h"
 #include "AudioManager.h"
 
-class PushableObject : public GameObject
+class PushableObject : public Collider
 {
 //---------------------------------------------------------- Fields
 private:
     Model model = CreteModelUsingChar('@', 4, 2);
 //---------------------------------------------------------- Methods
 public:
-    using GameObject::GameObject;
+    using Collider::Collider;
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 8; }
     virtual int GetColor() const { return Terminal::BLUE; }
 
 protected:
     virtual void InitModel() override { SetModel(model); }
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir)override
+    virtual void OnCollisionEnter(Collider* other, Direction collisionDir)override
     {
         if (collisionDir == Direction::right || collisionDir == Direction::left)
         {

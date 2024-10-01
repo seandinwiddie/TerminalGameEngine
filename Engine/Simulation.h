@@ -11,6 +11,7 @@ using string = std::string;
 template<typename T> using vector = std::vector<T>;
 template<typename T> using list = std::list<T>;
 
+class Collider;
 class GameObject;
 class ISimulationEntity;
 class Frame;
@@ -21,7 +22,8 @@ class Level;
 class Simulation : public Singleton<Simulation>
 {
 //------------------------------------------------------------------------------------ Friend Classes
-friend class Singleton;
+friend class Singleton; //todo remove
+friend class Collider;
 friend class GameObject;
 
 //------------------------------------------------------------------------------------ Structs
@@ -46,7 +48,7 @@ private:
 	Level* level;
 
 	WorldSpace worldSpace;
-	list<ISimulationEntity*> entities;
+	list<ISimulationEntity*> entities; //todo create list for colliders/entities/objects to prevent casts
 	list<ISimulationEntity*> toRemoveEntities;
 
 	// move requests are sorted from slower to faster
@@ -68,11 +70,24 @@ public:
 	Level* GetActiveLevel();
 	UIPrinter& GetUIPrinter();
 
+	void SpawnParticles
+	(
+		int posX, 
+		int posY, 
+		size_t width, 
+		size_t height, 
+		char modelChar, 
+		int color,
+		double speed, 
+		size_t movementLifeTime,
+		double density
+	);
+
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationEntity* newEntity) const;
-	void UpdateObjectEndedCollisions(GameObject* collidingObj);
+	void UpdateObjectEndedCollisions(Collider* collidingObj);
 	void ResetPrinters(const Level* level);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();

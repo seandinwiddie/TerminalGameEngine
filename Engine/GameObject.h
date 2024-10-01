@@ -7,16 +7,14 @@
 
 #include <Windows.h>
 #include <vector>
-#include <unordered_set>
 
+template<typename T> using vector = std::vector<T>;
 using namespace GridDirection;
 using Model = std::vector<std::vector<char>>;
-template<typename T> using uset = std::unordered_set<T>;
-template<typename T> using vector = std::vector<T>;
 
 class GameObject : public ISimulationEntity
 {
-friend class Simulation;
+	friend class Simulation;
 
 //---------------------------------------------------------- Fields
 public:
@@ -25,7 +23,6 @@ public:
 
 protected:
 	bool canMove = true;
-	vector<uset<GameObject*>> collisions;
 
 private:
 	int xPos;
@@ -37,13 +34,9 @@ private:
 	bool mustBeReprinted = true;
 	const Model* model = nullptr;
 
-
-
 //---------------------------------------------------------- Methods
 public:
 	virtual int GetColor() const { return Terminal::WHITE; }
-	virtual bool CanExitScreenSpace() const = 0;
-
 	void Init() { InitModel(); }
 	GameObject(int xPos, int yPos);
 	int GetPosX() const { return xPos; }
@@ -55,27 +48,19 @@ public:
 	size_t GetModelWidth()const;
 	size_t GetModelHeight()const { return GetModel().size(); }
 	const Model& GetModel()const { return *model; }
+	virtual bool CanExitScreenSpace() const = 0;
 
 protected:
 	virtual void InitModel() = 0;
 	virtual double GetGravityScale() const = 0;
-	virtual void OnDestroy(){} // called by simulation
-
+	virtual void OnDestroy() {} // called by simulation
 	virtual void TryMove(Direction direction, double moveSpeed);
 	virtual void Update();
-	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir){}
-	virtual void OnCollisionExit(Direction endingCollisionDir){}
-
-
 	Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
 	void SetModel(const Model& newModel);
 
 private:
 	void ResetPartialMovement() { xPosContinuous = xPos; yPosContinuous = yPos; }
 	void ApplyGravity();
-
 	void CALLED_BY_SIM_Move(Direction direction);
-	void CALLED_BY_SIM_NotifyCollisionEnter(uset<GameObject*>collidingObjects, Direction collisionDir);
-	void CALLED_BY_SIM_NotifyCollisionEnter(GameObject* collidingObject, Direction collisionDir);
-	void CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<GameObject*>>& collisions);
 };

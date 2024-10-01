@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 
 class ObstaclesSpawner : public ISimulationEntity
 {

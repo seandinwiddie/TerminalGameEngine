@@ -12,7 +12,7 @@ private:
 
 //------------------------------------------------------ Fields
 public:
-	Event<GameObject*> OnDestroyEvent;
+	Event<Collider*> OnDestroyEvent;
 
 private:
 	size_t gridIndexX;

@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Simulation">
       <UniqueIdentifier>{29b7de09-9354-468a-ad17-34c928873312}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{551a517d-59fe-48fb-a863-2e62dc139a98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -54,13 +57,13 @@
     <ClInclude Include="Event.h">
       <Filter>Header Files\General</Filter>
     </ClInclude>
-    <ClInclude Include="FakeGameObejct.h">
+    <ClInclude Include="FakeCollider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="Collider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="GridDirection.h">
@@ -117,6 +120,12 @@
     <ClInclude Include="WorldSpace.h">
       <Filter>Header Files\Simulation</Filter>
     </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\GenericSimulationEntities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MovingStraightObject.cpp">
@@ -131,7 +140,7 @@
     <ClCompile Include="Frame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
@@ -156,6 +165,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

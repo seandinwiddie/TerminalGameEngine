@@ -3,7 +3,7 @@
 
 const Model EnemyProjectile::MODEL = { {'|'} };
 
-void EnemyProjectile::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void EnemyProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
 	Projectile::OnCollisionEnter(other, collisionDir);
 	

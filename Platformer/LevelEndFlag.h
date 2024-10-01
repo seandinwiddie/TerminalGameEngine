@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 #include "Event.h"
 
 class Level;
 
-class LevelEndFlag : public GameObject
+class LevelEndFlag : public Collider
 {
 //---------------------------------------------------------- Fieldds
 
@@ -23,6 +23,6 @@ public:
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir);
+    virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
     virtual void InitModel() { SetModel(flagModel); }
 };

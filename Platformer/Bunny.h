@@ -1,12 +1,12 @@
 #pragma once
 #include "Config.h"
-#include "GameObject.h"
+#include "Collider.h"
 #include "Event.h"
 #include <string>
 
 class Level;
 
-class Bunny : public GameObject
+class Bunny : public Collider
 {
     enum class State
     {
@@ -63,7 +63,7 @@ public:
 
 protected:
     void Update() override;
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
+    virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
     virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
 private:
