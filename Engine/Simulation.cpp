@@ -15,6 +15,8 @@
 #include <cassert>
 #include <stdexcept>
 
+template<typename T> using uset = std::unordered_set<T>;
+
 size_t Simulation::GetWorldSizeX() const { return level->GetWorldSizeX(); }
 size_t Simulation::GetWorldSizeY() const { return level->GetWorldSizeY(); }
 size_t Simulation::GetScreenPadding() const { return level->GetScreenPadding(); }
@@ -125,6 +127,15 @@ void Simulation::RemoveMarkedEntities()
 			Collider* colliderEntity = dynamic_cast<Collider*>(entity);
 			if(colliderEntity != nullptr)
 				worldSpace.RemoveObject(colliderEntity);
+			else
+			{
+				//todo: if a colliding object moves over a non colliding object, now it is not reprinted, improve in the future
+				//if entity is not a collider and was covering other objects, they must be reprinted
+				uset<Collider*> coveredObjects;
+				if (!worldSpace.IsAreaEmpty(objectEntity->GetPosX(), objectEntity->GetPosY(), objectEntity->GetModelWidth(), objectEntity->GetModelHeight(), coveredObjects))
+					for (Collider* elem : coveredObjects)
+						elem->mustBeReprinted = true;
+			}
 		}
 		entities.remove(entity);
 		delete(entity);
@@ -146,11 +157,9 @@ void Simulation::RemoveEntity(ISimulationEntity* entity)
 
 void Simulation::PrintObjects()
 {
-	//todo: if an object moves over a particle now it covers it, if the particle moves
-	//again its shown. for fast particles this is not a big problem,
-	//but a system to fix if particles should be rendered in front or behind other objects
-	//could be setup (when an object moves you should detect if it covered a particle and eventually
-	//mark it as to reprint).
+	//todo:if a colliding object and a non colliding object are in same tile, now there is no rule
+	// to define which should be in front. for fast particles this is not a big problem, but in the future you may want to 
+	//add a system to define if particles should be rendered in front or behind other objects.
 	for (ISimulationEntity* entity : entities)
 	{
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);

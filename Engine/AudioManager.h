@@ -19,7 +19,6 @@ private:
 	vector<SoundBuffer> buffers;
 	Music music;
 
-	//todo this must be given from level
 	const vector<string> MUSIC_TRACKS =
 	{ 
 		"Resources/Music/Music-1.wav",

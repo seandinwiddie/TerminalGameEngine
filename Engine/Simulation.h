@@ -49,7 +49,7 @@ private:
 	Level* level;
 
 	WorldSpace worldSpace;
-	list<ISimulationEntity*> entities; //todo create list for colliders/entities/objects to prevent casts
+	list<ISimulationEntity*> entities;
 	list<ISimulationEntity*> toRemoveEntities;
 
 	// move requests are sorted from slower to faster
