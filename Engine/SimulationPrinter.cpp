@@ -1,6 +1,6 @@
 #include "SimulationPrinter.h"
 
-#include "GameObject.h"
+#include "Collider.h"
 #include "KinematicObject.h"
 #include "Simulation.h"
 #include "Config.h"

@@ -11,7 +11,7 @@ using string = std::string;
 template<typename T> using vector = std::vector<T>;
 template<typename T> using list = std::list<T>;
 
-class GameObject;
+class Collider;
 class KinematicObject;
 class ISimulationEntity;
 class Frame;
@@ -23,7 +23,7 @@ class Simulation : public Singleton<Simulation>
 {
 //------------------------------------------------------------------------------------ Friend Classes
 friend class Singleton; //todo remove
-friend class GameObject;
+friend class Collider;
 friend class KinematicObject;
 
 //------------------------------------------------------------------------------------ Structs
@@ -74,7 +74,7 @@ private:
 	bool TryMoveObjectAtDirection(KinematicObject* obj, Direction direction);
 	bool CanEntityBeAdded(const ISimulationEntity* entity) const;
 	bool IsEntityInSimulation(const ISimulationEntity* newEntity) const;
-	void UpdateObjectEndedCollisions(GameObject* collidingObj);
+	void UpdateObjectEndedCollisions(Collider* collidingObj);
 	void ResetPrinters(const Level* level);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 	void UpdateAllEntities();

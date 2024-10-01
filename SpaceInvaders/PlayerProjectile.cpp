@@ -5,7 +5,7 @@
 
 const Model PlayerProjectile::MODEL = { {'|'} };
 
-void PlayerProjectile::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void PlayerProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
 	Projectile::OnCollisionEnter(other, collisionDir);
 	Enemy* otherEnemy = dynamic_cast<Enemy*>(other);

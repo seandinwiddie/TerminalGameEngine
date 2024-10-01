@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"	
+#include "Collider.h"	
 #include "Event.h"
 
 class PongBar;
 class PongLevel;
 
-class PongBall : public GameObject
+class PongBall : public Collider
 {
 //---------------------------------------------------------- Fields
 public:
@@ -25,7 +25,7 @@ public:
 protected:
     virtual bool CanExitScreenSpace() const override { return false; }
     virtual double GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(GameObject* other, Direction collisionDir);
+    virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
     virtual void Update() override;
     virtual void InitModel() override { SetModel(model); }
 

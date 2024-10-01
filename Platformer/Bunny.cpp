@@ -60,7 +60,7 @@ const Model Bunny::MODEL_IDLE_LEFT
 
 //---------------------------------------------------------- Methods
 
-Bunny::Bunny(int xPos, int yPos) : GameObject(xPos, yPos)
+Bunny::Bunny(int xPos, int yPos) : Collider(xPos, yPos)
 {
     SetState(State::idle);
     ActivateLeftModels(true);
@@ -70,7 +70,7 @@ Bunny::Bunny(int xPos, int yPos) : GameObject(xPos, yPos)
 
 void Bunny::Update()
 {
-    GameObject::Update();
+    Collider::Update();
 
     SwitchWalkIdleState();
 
@@ -222,7 +222,7 @@ void Bunny::OnMoveCallback(Direction dir)
         lastTimeMovedOnX = TimeHelper::Instance().GetTime();
 }
 
-void Bunny::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void Bunny::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
     if (dynamic_cast<Obstacle*>(other) != nullptr)
     {

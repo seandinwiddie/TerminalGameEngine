@@ -27,6 +27,6 @@ public:
 
 protected:
 	virtual void Update() override;
-	virtual void OnCollisionEnter(GameObject* other, Direction collisionDir) override;
+	virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
 
 };

@@ -149,9 +149,9 @@
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="DebugPrinter.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="FakeGameObejct.h" />
+    <ClInclude Include="FakeCollider.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="GridDirection.h" />
     <ClInclude Include="InputUtils.h" />
     <ClInclude Include="ISimulationEntity.h" />
@@ -178,7 +178,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="KinematicObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MovingStraightObject.cpp" />

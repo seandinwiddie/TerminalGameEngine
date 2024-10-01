@@ -1,11 +1,11 @@
 #include "WorldSpace.h"
-#include "GameObject.h"
+#include "Collider.h"
 
-FakeGameObject WorldSpace::WORLD_MARGIN_MEMORY;
-FakeGameObject WorldSpace::SCREEN_MARGIN_MEMORY;
+FakeCollider WorldSpace::WORLD_MARGIN_MEMORY;
+FakeCollider WorldSpace::SCREEN_MARGIN_MEMORY;
 
-FakeGameObject* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
-FakeGameObject* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
+FakeCollider* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
+FakeCollider* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
 
 void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 {
@@ -14,23 +14,23 @@ void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 	for (int y = 0; y < ySize; ++y)
 	{
 		space[y].resize(xSize);
-		for (GameObject* elem : space[y])
+		for (Collider* elem : space[y])
 			elem = nullptr;
 	}
 	this->screenPadding = screenPadding;
 }
 
-void WorldSpace::InsertObject(GameObject* obj)
+void WorldSpace::InsertObject(Collider* obj)
 {
 	WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 }
 
-void WorldSpace::RemoveObject(GameObject* obj)
+void WorldSpace::RemoveObject(Collider* obj)
 {
 	WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
 }
 
-void WorldSpace::MoveObject(GameObject* obj, Direction direction)
+void WorldSpace::MoveObject(Collider* obj, Direction direction)
 {
 	switch (direction)
 	{
@@ -70,7 +70,7 @@ void WorldSpace::MoveObject(GameObject* obj, Direction direction)
 	}
 }
 
-void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value)
+void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, Collider* value)
 {
 	for (int y = yStart; y < yStart + height; ++y)
 	{
@@ -81,7 +81,7 @@ void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height,
 	}
 }
 
-bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<GameObject*>& areaObjects) const
+bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
@@ -120,18 +120,18 @@ bool WorldSpace::IsInsideSpaceY(int yPos) const
 
 bool WorldSpace::CanObjectMoveAtDirection
 (
-	const KinematicObject* kinObj,
+	const KinematicObject* object,
 	Direction direction,
-	uset<GameObject*>& collidingObjects
+	uset<Collider*>& collidingObjects
 ) const
 {
-	const GameObject* gameObj = dynamic_cast<const GameObject*>(kinObj);
+	const Collider* colliderObj = dynamic_cast<const Collider*>(object);
 
 	switch (direction)
 	{
 	case Direction::up:
 	{
-		int movingToY = kinObj->GetMaxPosY() + 1;
+		int movingToY = object->GetMaxPosY() + 1;
 
 		//exiting world
 		if (movingToY == GetSizeY())
@@ -141,21 +141,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((kinObj->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
+		if ((object->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (gameObj != nullptr && IsAreaEmpty(gameObj->GetPosX(), movingToY, gameObj->GetModelWidth(), 1, collidingObjects) == false)
+		if (colliderObj != nullptr && IsAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 		
 		return true;
 	}
 	case Direction::down:
 	{
-		int movingToY = kinObj->GetPosY() - 1;
+		int movingToY = object->GetPosY() - 1;
 
 		//exiting world
 		if (movingToY == -1)
@@ -165,21 +165,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((kinObj->CanExitScreenSpace() == false) && (movingToY == screenPadding - 1))
+		if ((object->CanExitScreenSpace() == false) && (movingToY == screenPadding - 1))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (gameObj != nullptr && IsAreaEmpty(gameObj->GetPosX(), movingToY, gameObj->GetModelWidth(), 1, collidingObjects) == false)
+		if (colliderObj != nullptr && IsAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::right:
 	{
-		int movingToX = kinObj->GetMaxPosX() + 1;
+		int movingToX = object->GetMaxPosX() + 1;
 
 		//exiting world
 		if (movingToX == GetSizeX())
@@ -189,21 +189,21 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((kinObj->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
+		if ((object->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (gameObj != nullptr && IsAreaEmpty(movingToX, gameObj->GetPosY(), 1, gameObj->GetModelHeight(), collidingObjects) == false)
+		if (colliderObj != nullptr && IsAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;
 	}
 	case Direction::left:
 	{
-		int movingToX = kinObj->GetPosX() - 1;
+		int movingToX = object->GetPosX() - 1;
 
 		//exiting world
 		if (movingToX == -1)
@@ -213,14 +213,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		}
 
 		//exiting screen space
-		if ((kinObj->CanExitScreenSpace() == false) && (movingToX == screenPadding - 1))
+		if ((object->CanExitScreenSpace() == false) && (movingToX == screenPadding - 1))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
 		}
 
 		//obj collision
-		if (gameObj != nullptr && IsAreaEmpty(movingToX, gameObj->GetPosY(), 1, gameObj->GetModelHeight(), collidingObjects) == false)
+		if (colliderObj != nullptr && IsAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
 			return false;
 
 		return true;

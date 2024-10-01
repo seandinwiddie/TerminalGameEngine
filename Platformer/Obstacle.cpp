@@ -5,7 +5,7 @@
 
 Model Obstacle::model = {};
 
-void Obstacle::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void Obstacle::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
     AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Hit.wav", 0.2);
 }

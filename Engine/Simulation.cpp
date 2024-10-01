@@ -1,5 +1,5 @@
 #include "Simulation.h"
-#include "GameObject.h"
+#include "Collider.h"
 #include "SimulationPrinter.h"
 #include "ISimulationEntity.h"
 #include "KinematicObject.h"
@@ -79,15 +79,15 @@ void Simulation::RemoveMarkedEntities()
 {
 	for (ISimulationEntity* entity : toRemoveEntities)
 	{
-		KinematicObject* kinObjEntity = dynamic_cast<KinematicObject*>(entity);
-		if (kinObjEntity != nullptr)
+		KinematicObject* objectEntity = dynamic_cast<KinematicObject*>(entity);
+		if (objectEntity != nullptr)
 		{
-			kinObjEntity->OnDestroy();
-			simulationPrinter->ClearObject(kinObjEntity);
+			objectEntity->OnDestroy();
+			simulationPrinter->ClearObject(objectEntity);
 
-			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-			if(objEntity != nullptr)
-				worldSpace.RemoveObject(objEntity);
+			Collider* colliderEntity = dynamic_cast<Collider*>(entity);
+			if(colliderEntity != nullptr)
+				worldSpace.RemoveObject(colliderEntity);
 		}
 		entities.remove(entity);
 		delete(entity);
@@ -111,11 +111,11 @@ void Simulation::PrintObjects()
 {
 	for (ISimulationEntity* entity : entities)
 	{
-		KinematicObject* obj = dynamic_cast<KinematicObject*>(entity);
-		if (obj != nullptr && obj->mustBeReprinted)
+		KinematicObject* objEntity = dynamic_cast<KinematicObject*>(entity);
+		if (objEntity != nullptr && objEntity->mustBeReprinted)
 		{
-			obj->mustBeReprinted = false;
-			simulationPrinter->PrintObject(obj);
+			objEntity->mustBeReprinted = false;
+			simulationPrinter->PrintObject(objEntity);
 		}
 }
 }
@@ -146,24 +146,24 @@ void Simulation::UpdateAllObjectsEndedCollisions()
 {
 	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
 	{
-		GameObject* obj = dynamic_cast<GameObject*>((*it));
-		if (obj != nullptr)
-			UpdateObjectEndedCollisions(obj);
+		Collider* collider = dynamic_cast<Collider*>((*it));
+		if (collider != nullptr)
+			UpdateObjectEndedCollisions(collider);
 	}
 }
 
-void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
+void Simulation::UpdateObjectEndedCollisions(Collider* collider)
 {
-	int xPos = obj->GetPosX();
-	int yPos = obj->GetPosY();
-	int xMax = obj->GetMaxPosX();
-	int yMax = obj->GetMaxPosY();
-	size_t width = obj->GetModelWidth();
-	size_t height = obj->GetModelHeight();
-	bool canExitScreen = obj->CanExitScreenSpace();
+	int xPos = collider->GetPosX();
+	int yPos = collider->GetPosY();
+	int xMax = collider->GetMaxPosX();
+	int yMax = collider->GetMaxPosY();
+	size_t width = collider->GetModelWidth();
+	size_t height = collider->GetModelHeight();
+	bool canExitScreen = collider->CanExitScreenSpace();
 
 	//vector<bool> collisions(4);
-	vector<uset<GameObject*>> collisions (4);
+	vector<uset<Collider*>> collisions (4);
 
 	//screen collisions
 	if (!canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1))
@@ -181,14 +181,14 @@ void Simulation::UpdateObjectEndedCollisions(GameObject* obj)
 	worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
 	worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
 	
-	obj->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
+	collider->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 } 
 
 bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
-	KinematicObject* kinObjEntity = dynamic_cast<KinematicObject*>(entity);
-	if (kinObjEntity != nullptr)
-		kinObjEntity->Init();
+	KinematicObject* objectEntity = dynamic_cast<KinematicObject*>(entity);
+	if (objectEntity != nullptr)
+		objectEntity->Init();
 
 	if (!CanEntityBeAdded(entity))
 	{
@@ -196,9 +196,9 @@ bool Simulation::TryAddEntity(ISimulationEntity* entity)
 		return false;
 	}
 
-	GameObject* gameObjEntity = dynamic_cast<GameObject*>(entity);
-	if (gameObjEntity != nullptr)
-		worldSpace.InsertObject(gameObjEntity);
+	Collider* collider = dynamic_cast<Collider*>(entity);
+	if (collider != nullptr)
+		worldSpace.InsertObject(collider);
 
 	entities.push_back(entity);
 	return true;
@@ -209,15 +209,15 @@ bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
 	if (IsEntityInSimulation(entity))
 		return false;
 
-	const GameObject* objEntity = dynamic_cast<const GameObject*>(entity);
-	if (objEntity != nullptr)
+	const Collider* collider = dynamic_cast<const Collider*>(entity);
+	if (collider != nullptr)
 	{
 		return worldSpace.IsAreaEmpty
 		(
-			objEntity->GetPosX(), 
-			objEntity->GetPosY(), 
-			objEntity->GetModelWidth(),
-			objEntity->GetModelHeight()
+			collider->GetPosX(), 
+			collider->GetPosY(), 
+			collider->GetModelWidth(),
+			collider->GetModelHeight()
 		);
 	}
 	else
@@ -233,37 +233,37 @@ bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
 	return false;
 }
 
-bool Simulation::TryMoveObjectAtDirection(KinematicObject* kinObj, Direction direction)
+bool Simulation::TryMoveObjectAtDirection(KinematicObject* obj, Direction direction)
 {
-	uset<GameObject*> outCollidingObjects;
+	uset<Collider*> outCollidingObjects;
 
-	GameObject* gameObj = dynamic_cast<GameObject*>(kinObj);
+	Collider* colliderObj = dynamic_cast<Collider*>(obj);
 
-	if (worldSpace.CanObjectMoveAtDirection(kinObj, direction, outCollidingObjects) == false)
+	if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
 	{
 		//remove entity if trying to move out of world space
 		if (outCollidingObjects.find(WorldSpace::WORLD_MARGIN) != outCollidingObjects.end())
 		{
-			RemoveEntity(kinObj);
+			RemoveEntity(obj);
 		}
 		else
 		{
-			if (gameObj != nullptr)
+			if (colliderObj != nullptr)
 			{
-				gameObj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
+				colliderObj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-				for (GameObject* item : outCollidingObjects)
+				for (Collider* item : outCollidingObjects)
 					if (item != WorldSpace::SCREEN_MARGIN)
-						item->CALLED_BY_SIM_NotifyCollisionEnter(gameObj, GetInverseDirection(direction));
+						item->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, GetInverseDirection(direction));
 			}
 		}
 		return false;
 	}
 
-	if(gameObj != nullptr)
-		worldSpace.MoveObject(gameObj, direction);
+	if(colliderObj != nullptr)
+		worldSpace.MoveObject(colliderObj, direction);
 
-	kinObj->CALLED_BY_SIM_Move(direction);
+	obj->CALLED_BY_SIM_Move(direction);
 
 	return true;
 }
@@ -272,8 +272,8 @@ void Simulation::LoadLevel (Level* level)
 {
 	this->level = level;
 
-	for (ISimulationEntity* obj : entities)
-		delete(obj);
+	for (ISimulationEntity* entity : entities)
+		delete(entity);
 
 	entities.clear();
 	worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());

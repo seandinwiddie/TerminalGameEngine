@@ -4,9 +4,9 @@
 #include "Projectile.h"
 #include "AudioManager.h"
 
-void ShieldPart::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void ShieldPart::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
-    GameObject::OnCollisionEnter(other, collisionDir);
+    Collider::OnCollisionEnter(other, collisionDir);
 
     Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
     if (otherProjectile != nullptr)

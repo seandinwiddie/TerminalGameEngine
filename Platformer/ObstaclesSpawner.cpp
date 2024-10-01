@@ -64,7 +64,7 @@ void ObstaclesSpawner::Update()
         obstacleSpeed = abs(obstacleSpeed);
         Obstacle* obstacle = new Obstacle(xPos, randomPosY, direction, obstacleSpeed);
 
-        Simulation::Instance().TryAddEntity(dynamic_cast<GameObject*>(obstacle));
+        Simulation::Instance().TryAddEntity(dynamic_cast<Collider*>(obstacle));
     }
 }
 

@@ -1,13 +1,13 @@
 #include "PressurePlate.h"
 #include "AudioManager.h"
 
-PressurePlate::PressurePlate(int xPos, int yPos, size_t width) : GameObject(xPos, yPos)
+PressurePlate::PressurePlate(int xPos, int yPos, size_t width) : Collider(xPos, yPos)
 { 
     unpressedModel = CreteModelUsingChar('=', width, 1);
     pressedModel = CreteModelUsingChar('_', width, 1);
 }
 
-void PressurePlate::OnCollisionEnter(GameObject* other, Direction collisionDir)
+void PressurePlate::OnCollisionEnter(Collider* other, Direction collisionDir)
 {
     if (collisionDir == Direction::up && collisions[Direction::up].size() == 1)
     {
