@@ -17,11 +17,9 @@ Particle::Particle
 	GameObject(xPos, yPos),
 	modelChar(modelChar), 
 	color(color), 
-	moveSpeed(moveSpeed), 
 	remainingMovementsBeforeDestruction(movesBeforeDestruction)
 {
 	//--------- evaluate main direction
-
 	
 	if (!mainDirection.has_value()) //main direction = random value
 	{
@@ -41,19 +39,20 @@ Particle::Particle
 		}
 	}
 		
-	//--------- evaluate secondary direction 
-	// 2/3 chanche to apply also a secondary direction, which may be one of the two possible orthogonals
-	int directionRandomness = RandomUtils::GetRandomInt(0, 2);
-	if (directionRandomness > 0)
-	{
-		Direction SecondaryDir = GridDirection::GetClockwiseDirection(moveDirections[0]);
-		if (directionRandomness == 1)
-			SecondaryDir = GetInverseDirection(SecondaryDir);
-		moveDirections.push_back(SecondaryDir);
+	//--------- evaluate orthogonal direction
+	
+	Direction orthogonalDirection = GetClockwiseDirection(moveDirections[0]);
+	if (RandomUtils::GetRandomBool())
+		orthogonalDirection = GetInverseDirection(orthogonalDirection);
+	moveDirections.push_back(orthogonalDirection);
 
-		//prevent particles with diagonal direction from disappearing earlier
-		remainingMovementsBeforeDestruction *= 2;
-	}
+	//--------- evaluate directions speeds
+
+	double orthogonalSpeed = RandomUtils::GetRandomDouble(0, moveSpeed);
+	moveSpeed -= orthogonalSpeed;
+	
+	moveSpeeds.push_back(moveSpeed);
+	moveSpeeds.push_back(orthogonalSpeed);
 
 	OnMove.Subscribe([this](GameObject* _, Direction __) { OnMoveCallback(); });
 }
@@ -66,14 +65,12 @@ void Particle::InitModel()
 
 void Particle::Update()
 {
-	for (Direction dir : moveDirections)
-		TryMove(dir, moveSpeed);
+	for(int i = 0; i < moveDirections.size(); ++i)
+		TryMove(moveDirections[i], moveSpeeds[i]);		
 }
 
 void Particle::OnMoveCallback()
 {
-	
-
 	if (--remainingMovementsBeforeDestruction == 0)
 		Simulation::Instance().RemoveEntity(this);
 }

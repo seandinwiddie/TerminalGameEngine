@@ -12,8 +12,8 @@ class Particle : public GameObject
 {
 private:
 	vector<Direction> moveDirections;
+	vector<double> moveSpeeds;
 	char modelChar;
-	double moveSpeed;
 	size_t remainingMovementsBeforeDestruction;
 	int color;
 	Model model;

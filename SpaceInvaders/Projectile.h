@@ -15,7 +15,18 @@ protected:
     {
         MovingStraightObject::OnCollisionEnter(other, collisionDir);
         Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
-        Simulation::Instance().SpawnParticles(GetPosX(), GetPosY(), GetModelWidth(), GetModelHeight(), '*', GetColor(), 8, 3, 3, collisionOppositeDirection);
+        Simulation::Instance().SpawnParticles
+        (
+            GetPosX(), 
+            GetPosY(), 
+            GetModelWidth(),
+            GetModelHeight(),
+            '*', GetColor(),
+            12,     //speed
+            4,      //movement life
+            5,      //density
+            collisionOppositeDirection
+        );
         Simulation::Instance().RemoveEntity(this);
     }
 };
