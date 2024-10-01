@@ -14,9 +14,15 @@ private:
 	char modelChar;
 	double moveSpeed;
 	size_t remainingMovementsBeforeDestruction;
+	int color;
+	Model model;
 	
 public:
-	Particle(int xPos, int yPos, char modelChar, double moveSpeed, size_t movesBeforeDestruction);
+	Particle(int xPos, int yPos, char modelChar, int color, double moveSpeed, size_t movementLifeTime);
+
+	virtual bool CanExitScreenSpace() const override { return true; }
+	virtual double GetGravityScale() const override { return 0; }
+	virtual int GetColor() const { return color; }
 
 protected:
 	virtual void InitModel();

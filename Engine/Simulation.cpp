@@ -8,6 +8,8 @@
 #include "WorldSpace.h"
 #include "DebugManager.h"
 #include "UIPrinter.h"
+#include "RandomUtils.h"
+#include "Particle.h"
 
 #include <Windows.h>
 #include <cassert>
@@ -20,6 +22,33 @@ size_t Simulation::GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * 
 size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
 Level* Simulation::GetActiveLevel() { return level; }
 UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
+
+
+void Simulation::SpawnParticles
+(
+	int posX,
+	int posY,
+	size_t width,
+	size_t height,
+	char modelChar,
+	int color,
+	double speed,
+	size_t movementLifeTime,
+	double density
+)
+{
+	for (int y = posY; y < posY + height; ++y)
+	{
+		for (int x = posX; x < posX + width; ++x)
+		{
+			if (RandomUtils::GetRandomDouble(0, 1) < density)
+			{
+				Particle* particle = new Particle(x, y, modelChar, color, speed, movementLifeTime);
+				TryAddEntity(particle);
+			}
+		}
+	}
+}
 
 void Simulation::Step()
 {

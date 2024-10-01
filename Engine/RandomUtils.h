@@ -4,7 +4,7 @@
 
 namespace RandomUtils
 {
-	inline double GetRandomDoubleBetween(double min, double max)
+	inline double GetRandomDouble(double min, double max)
 	{
 		double r = rand() / static_cast<double>(RAND_MAX);
 		return ((max - min) * r + min);

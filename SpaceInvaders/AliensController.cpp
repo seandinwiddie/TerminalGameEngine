@@ -21,7 +21,7 @@ double AliensController::GetNextShotDelay()const
 	double delay = BASE_SHOOT_DELAY -
 		GetEliminatedAliensMultiplier() * ALL_ALIENS_ELIMINATED_SHOOT_DELAY_REDUCTION -
 		GetWaveMultiplier() * WAVE_NUMBER_SHOT_DELAY_REDUCTION_FACTOR +
-		RandomUtils::GetRandomDoubleBetween(-SHOTS_RANDOMNESS/2, SHOTS_RANDOMNESS/2);
+		RandomUtils::GetRandomDouble(-SHOTS_RANDOMNESS/2, SHOTS_RANDOMNESS/2);
 
 	return delay > MIN_SHOW_DELAY ? delay : MIN_SHOW_DELAY;
 }

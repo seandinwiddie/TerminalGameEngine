@@ -3,12 +3,11 @@
 #include "GridDirection.h"
 #include "Simulation.h"
 
-Particle::Particle(int xPos, int yPos, char modelChar, double moveSpeed, size_t movesBeforeDestruction) 
-	: GameObject(xPos, yPos), modelChar(modelChar), moveSpeed(moveSpeed), remainingMovementsBeforeDestruction(movesBeforeDestruction)
+Particle::Particle(int xPos, int yPos, char modelChar, int color, double moveSpeed, size_t movesBeforeDestruction) 
+	: GameObject(xPos, yPos), modelChar(modelChar), color(color), moveSpeed(moveSpeed), remainingMovementsBeforeDestruction(movesBeforeDestruction)
 {
 	Direction randomDir = static_cast<Direction>(RandomUtils::GetRandomInt(0, Direction::COUNT - 1));
 	moveDirections.push_back(randomDir);
-
 	if (RandomUtils::GetRandomBool())
 	{
 		Direction SecondaryDir = GridDirection::GetClockwiseDirection(randomDir);
@@ -22,7 +21,8 @@ Particle::Particle(int xPos, int yPos, char modelChar, double moveSpeed, size_t 
 
 void Particle::InitModel()
 {
-	SetModel(CreteModelUsingChar(modelChar,1,1));
+	model = CreteModelUsingChar(modelChar, 1, 1);
+	SetModel(model);
 }
 
 void Particle::Update()

@@ -48,7 +48,7 @@ private:
 	Level* level;
 
 	WorldSpace worldSpace;
-	list<ISimulationEntity*> entities;
+	list<ISimulationEntity*> entities; //todo create list for colliders/entities/objects to prevent casts
 	list<ISimulationEntity*> toRemoveEntities;
 
 	// move requests are sorted from slower to faster
@@ -69,6 +69,19 @@ public:
 	size_t GetScreenSizeY() const;
 	Level* GetActiveLevel();
 	UIPrinter& GetUIPrinter();
+
+	void SpawnParticles
+	(
+		int posX, 
+		int posY, 
+		size_t width, 
+		size_t height, 
+		char modelChar, 
+		int color,
+		double speed, 
+		size_t movementLifeTime,
+		double density
+	);
 
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);

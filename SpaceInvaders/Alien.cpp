@@ -9,6 +9,7 @@ void Alien::OnDestroy()
 	Enemy::OnDestroy();
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
 	OnDestroyEvent.Notify(this);
+	Simulation::Instance().SpawnParticles(GetPosX(), GetPosY(), GetModelWidth(), GetModelHeight(), '*', GetColor(),0.1,3, 1.0);
 }
 
 void Alien::Shot()
