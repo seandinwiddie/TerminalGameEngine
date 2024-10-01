@@ -141,12 +141,13 @@ void Simulation::PrintObjects()
 	for (ISimulationEntity* entity : entities)
 	{
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-		if (objEntity != nullptr && objEntity->mustBeReprinted)
+		Particle* objParticle = dynamic_cast<Particle*>(entity);
+		if (objParticle != nullptr || (objEntity != nullptr && objEntity->mustBeReprinted))
 		{
 			objEntity->mustBeReprinted = false;
 			simulationPrinter->PrintObject(objEntity);
 		}
-}
+	}
 }
 
 void Simulation::UpdateAllEntities()
