@@ -23,7 +23,6 @@ size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * 
 Level* Simulation::GetActiveLevel() { return level; }
 UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
-
 void Simulation::SpawnParticles
 (
 	int posX,
@@ -37,12 +36,20 @@ void Simulation::SpawnParticles
 	double density
 )
 {
+	int densityIntPart = static_cast<int>(density);
+	double densityDecimalPart = density - densityIntPart;
+
 	for (int y = posY; y < posY + height; ++y)
 	{
 		for (int x = posX; x < posX + width; ++x)
 		{
-			if (RandomUtils::GetRandomDouble(0, 1) < density)
+			//add particles depending on density int part
+			for (int density = 0; density <= densityIntPart; ++density)
 			{
+				//add particles depending on density fractional part
+				if (density == densityIntPart && RandomUtils::GetRandomDouble(0, 1) > densityDecimalPart)
+					continue;
+
 				Particle* particle = new Particle(x, y, modelChar, color, speed, movementLifeTime);
 				TryAddEntity(particle);
 			}
