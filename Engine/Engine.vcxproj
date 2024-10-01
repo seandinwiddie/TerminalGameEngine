@@ -157,6 +157,9 @@
     <ClInclude Include="ISimulationEntity.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MovingStraightObject.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleGroup.h" />
+    <ClInclude Include="ParticlesHandler.h" />
     <ClInclude Include="Persistence.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="RandomUtils.h" />
@@ -178,6 +181,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MovingStraightObject.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticlesHandler.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationPrinter.cpp" />
     <ClCompile Include="StaticCollider.cpp" />

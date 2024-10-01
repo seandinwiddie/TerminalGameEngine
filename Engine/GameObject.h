@@ -1,30 +1,16 @@
 #pragma once
-#include "Config.h"
-#include "GridDirection.h"
-#include "ISimulationEntity.h"
-#include "Terminal.h"
-#include "Event.h"
-
-#include <Windows.h>
-#include <vector>
+#include "KinematicObject.h"
 #include <unordered_set>
 
-using namespace GridDirection;
-using Model = std::vector<std::vector<char>>;
 template<typename T> using uset = std::unordered_set<T>;
-template<typename T> using vector = std::vector<T>;
 
-class GameObject : public ISimulationEntity
+class GameObject : public KinematicObject
 {
 friend class Simulation;
 
 //---------------------------------------------------------- Fields
-public:
-	Event<GameObject*, Direction> OnMove;
-	// generic on destroy event could be added
 
 protected:
-	bool canMove = true;
 	vector<uset<GameObject*>> collisions;
 
 private:
@@ -36,8 +22,6 @@ private:
 
 	bool mustBeReprinted = true;
 	const Model* model = nullptr;
-
-
 
 //---------------------------------------------------------- Methods
 public:

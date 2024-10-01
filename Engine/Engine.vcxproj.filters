@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Simulation">
       <UniqueIdentifier>{29b7de09-9354-468a-ad17-34c928873312}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{551a517d-59fe-48fb-a863-2e62dc139a98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -117,6 +120,15 @@
     <ClInclude Include="WorldSpace.h">
       <Filter>Header Files\Simulation</Filter>
     </ClInclude>
+    <ClInclude Include="ParticlesHandler.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleGroup.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MovingStraightObject.cpp">
@@ -156,6 +168,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlesHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
