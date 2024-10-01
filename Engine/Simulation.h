@@ -5,6 +5,7 @@
 
 #include <list>
 #include <vector>
+#include <optional>
 
 using namespace GridDirection;
 using string = std::string;
@@ -80,7 +81,8 @@ public:
 		int color,
 		double speed, 
 		size_t movementLifeTime,
-		double density
+		double density,
+		std::optional<Direction> mainDirection = std::nullopt
 	);
 
 private:

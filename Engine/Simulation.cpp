@@ -33,7 +33,8 @@ void Simulation::SpawnParticles
 	int color,
 	double speed,
 	size_t movementLifeTime,
-	double density
+	double density,
+	std::optional<Direction> mainDirection
 )
 {
 	int densityIntPart = static_cast<int>(density);
@@ -50,7 +51,7 @@ void Simulation::SpawnParticles
 				if (density == densityIntPart && RandomUtils::GetRandomDouble(0, 1) > densityDecimalPart)
 					continue;
 
-				Particle* particle = new Particle(x, y, modelChar, color, speed, movementLifeTime);
+				Particle* particle = new Particle(x, y, modelChar, color, speed, movementLifeTime, mainDirection);
 				TryAddEntity(particle);
 			}
 		}

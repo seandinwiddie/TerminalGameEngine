@@ -14,6 +14,8 @@ protected:
     virtual void OnCollisionEnter(Collider* other, Direction collisionDir)
     {
         MovingStraightObject::OnCollisionEnter(other, collisionDir);
+        Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
+        Simulation::Instance().SpawnParticles(GetPosX(), GetPosY(), GetModelWidth(), GetModelHeight(), '*', GetColor(), 8, 3, 3, collisionOppositeDirection);
         Simulation::Instance().RemoveEntity(this);
     }
 };
