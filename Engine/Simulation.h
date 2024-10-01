@@ -23,9 +23,7 @@ class Level;
 class Simulation : public Singleton<Simulation>
 {
 //------------------------------------------------------------------------------------ Friend Classes
-friend class Singleton; //todo remove
-friend class Collider;
-friend class GameObject;
+friend class Singleton;
 
 //------------------------------------------------------------------------------------ Structs
 	struct MoveRequest
