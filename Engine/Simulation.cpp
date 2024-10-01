@@ -138,11 +138,16 @@ void Simulation::RemoveEntity(ISimulationEntity* entity)
 
 void Simulation::PrintObjects()
 {
+	//todo: if an object moves over a particle now it covers it, if the particle moves
+	//again its shown. for fast particles this is not a big problem,
+	//but a system to fix if particles should be rendered in front or behind other objects
+	//could be setup (when an object moves you should detect if it covered a particle and eventually
+	//mark it as to reprint).
 	for (ISimulationEntity* entity : entities)
 	{
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-		Particle* objParticle = dynamic_cast<Particle*>(entity);
-		if (objParticle != nullptr || (objEntity != nullptr && objEntity->mustBeReprinted))
+		Particle* objParticle = nullptr;
+		if (objEntity != nullptr && objEntity->mustBeReprinted)
 		{
 			objEntity->mustBeReprinted = false;
 			simulationPrinter->PrintObject(objEntity);
