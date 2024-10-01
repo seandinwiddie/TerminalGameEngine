@@ -15,18 +15,23 @@ protected:
     {
         MovingStraightObject::OnCollisionEnter(other, collisionDir);
         Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
-        Simulation::Instance().SpawnParticles
-        (
-            GetPosX(), 
-            GetPosY(), 
-            GetModelWidth(),
-            GetModelHeight(),
-            '*', GetColor(),
-            12,     //speed
-            4,      //movement life
-            5,      //density
-            collisionOppositeDirection
-        );
+        
+        Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
+        if (otherProjectile != nullptr || other == WorldSpace::SCREEN_MARGIN)
+        {
+            Simulation::Instance().SpawnParticles
+            (
+                GetPosX(),
+                GetPosY(),
+                GetModelWidth(),
+                GetModelHeight(),
+                '*', GetColor(),
+                12,     //speed
+                4,      //movement life
+                5,      //density
+                collisionOppositeDirection
+            );
+        }
         Simulation::Instance().RemoveEntity(this);
     }
 };
