@@ -44,7 +44,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 	LoadPlayerTank();
 	InitHeader();
 	
-	UfoSpawner* ufoSpawner = new UfoSpawner(GetWorldSizeX() - 5, GetScreenMaxY() - 2, Direction::left);
+	UfoSpawner* ufoSpawner = new UfoSpawner(GetWorldSizeX() - 5, GetWorldSizeY() - GetScreenPadding() - 2, Direction::left);
 	Simulation::Instance().TryAddEntity(ufoSpawner);
 
 #if !CHEAT_SPACEINV_DISABLE_SHIELDS
@@ -129,11 +129,11 @@ void SpaceInvadersLevel::PrintHealth(size_t health)
 
 void SpaceInvadersLevel::PrintWave()
 {
+	UIPrinter uiPrinter = Simulation::Instance().GetUIPrinter();
 	string waveStr = "wave: " + std::to_string(waveNumber);
 
-	int a = GetScreenMaxX();
-	int xPos = static_cast<int>(GetScreenMaxX() - waveStr.length() -5); //todo fix this better
-	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, xPos, Terminal::WHITE);
+	int waveStringPosX = static_cast<int>(uiPrinter.GetMaxTerminalX() - waveStr.length());
+	Simulation::Instance().GetUIPrinter().PrintOnHeader(waveStr, waveStringPosX, Terminal::WHITE);
 }
 
 
