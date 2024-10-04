@@ -1,11 +1,12 @@
 #pragma once
 #include <stdexcept>
+#include <cassert>
 
 namespace GridDirection
 {
 	enum Direction { up, down, left, right, COUNT };
 
-	static Direction GetInverseDirection(Direction direction)
+	inline Direction GetInverseDirection(Direction direction)
 	{
 		switch (direction)
 		{
@@ -22,7 +23,7 @@ namespace GridDirection
 		}
 	}
 
-	static Direction GetClockwiseDirection(Direction direction)
+	inline Direction GetClockwiseDirection(Direction direction)
 	{
 		switch (direction)
 		{
@@ -39,5 +40,10 @@ namespace GridDirection
 		}
 	}
 
+	inline bool IsHorizzontal(Direction dir)
+	{ 
+		assert(dir != Direction::COUNT);
+		return dir == Direction::left || dir == Direction::right; 
+	}
 
 }

@@ -28,9 +28,9 @@ protected:
                 GetModelHeight(),
                 '*',
                 GetColor(),
-                16,     //speed
+                12,     //speed
                 3,      //movement life
-                3,      //density
+                4,      //density
                 collisionOppositeDirection
             );
         }

@@ -8,8 +8,8 @@ Particle::Particle
 		int xPos,
 		int yPos, 
 		char modelChar, 
-		int color, double 
-		moveSpeed, 
+		int color, 
+		double moveSpeed, 
 		size_t movesBeforeDestruction, 
 		std::optional<Direction> mainDirection
 	)
@@ -44,6 +44,11 @@ Particle::Particle
 	
 	moveSpeeds.push_back(moveSpeed);
 	moveSpeeds.push_back(orthogonalSpeed);
+
+	//--------- boost horizzontal speed (cause cells are smaller on x side)
+	for (int i = 0; i < moveDirections.size(); ++i)
+		if (IsHorizzontal(moveDirections[i]))
+			moveSpeeds[i] *= 2;
 
 	OnMove.Subscribe([this](GameObject* _, Direction __) { OnMoveCallback(); });
 }
