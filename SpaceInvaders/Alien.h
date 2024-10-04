@@ -14,6 +14,10 @@ private:
 public:
 	Event<Collider*> OnDestroyEvent;
 
+protected:
+	const Model* animationModel1;
+	const Model* animationModel2;
+
 private:
 	size_t gridIndexX;
 	size_t gridIndexY;
@@ -32,5 +36,5 @@ public:
 protected:
 	virtual void OnDestroy() override;
 	virtual void Update() override;
-	virtual void StepAnimation() = 0;
+	void StepAnimation() { SetModel(isFirsAnimationFrameTime ? *animationModel1 : *animationModel2); }
 };

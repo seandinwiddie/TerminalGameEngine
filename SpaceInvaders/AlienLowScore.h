@@ -14,8 +14,13 @@ public:
 	virtual int GetColor() const override { return Terminal::YELLOW_DARK; }
 
 protected:
-	virtual void InitModel() { SetModel(MODEL_1); }
-	virtual void StepAnimation() { SetModel(isFirsAnimationFrameTime ? MODEL_1 : MODEL_2); }
+	virtual void InitModel()
+	{
+		animationModel1 = &MODEL_1;
+		animationModel2 = &MODEL_2;
+		SetModel(MODEL_1);
+	}
+	
 };
 
 const Model AlienLowScore::MODEL_1 =
