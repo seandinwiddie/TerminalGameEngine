@@ -36,9 +36,10 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
+	GameObject(int xPos, int yPos);
+
 	virtual int GetColor() const { return Terminal::WHITE; }
 	void Init() { InitModel(); }
-	GameObject(int xPos, int yPos);
 	int GetPosX() const { return xPos; }
 	int GetPosY() const { return yPos; }
 	int GetMaxPosX()const { return xPos + static_cast<int>(GetModelWidth()) - 1; }
