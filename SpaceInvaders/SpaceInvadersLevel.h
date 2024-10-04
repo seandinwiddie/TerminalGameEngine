@@ -32,7 +32,7 @@ public:
 //------------------------------------------------------------------- Fields
 private:
     size_t waveNumber;
-    size_t score;
+    int score;
     bool isLoadingWave;
     double startedLoadingWaveTime;
     AliensController* aliensController;

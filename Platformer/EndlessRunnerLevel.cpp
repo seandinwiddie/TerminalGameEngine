@@ -18,9 +18,9 @@ const vector<string> EndlessRunnerLevel::MUSIC_FILES = { "Resources/Music/1.wav"
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {
     Level::OnPostGameOverDelayEnded();
-    size_t score = static_cast<size_t>(GetLevelTime());
+    int score = static_cast<int>(GetLevelTime());
 
-    size_t savedBestScore = Persistence::LoadBestScore(GetPersistenceFilePath());
+    int savedBestScore = Persistence::LoadBestScore(GetPersistenceFilePath());
     if (score > savedBestScore)
         Persistence::SaveBestScore(GetPersistenceFilePath(), score);
 

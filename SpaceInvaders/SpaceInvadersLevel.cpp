@@ -73,7 +73,7 @@ void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 {
 	Level::OnPostGameOverDelayEnded();
 
-	size_t savedBestScore = Persistence::LoadBestScore(GetPersistenceFilePath());
+	int savedBestScore = Persistence::LoadBestScore(GetPersistenceFilePath());
 	if (score > savedBestScore)
 		Persistence::SaveBestScore(GetPersistenceFilePath(), score);
 
@@ -99,7 +99,7 @@ void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
 
 void SpaceInvadersLevel::IncreasePlayerScore(size_t increment)
 { 
-	score += increment; 
+	score += static_cast<int>(increment); 
 	PrintScore();
 }
 
