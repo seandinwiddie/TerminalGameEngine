@@ -43,9 +43,7 @@ public:
 private:
 	SimulationPrinter* simulationPrinter;
 	UIPrinter* uiPrinter;
-
 	Level* level;
-
 	WorldSpace worldSpace;
 	uset<ISimulationEntity*> entities;
 	list<ISimulationEntity*> toRemoveEntities;

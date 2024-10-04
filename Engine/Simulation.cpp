@@ -159,7 +159,7 @@ void Simulation::PrintObjects()
 {
 	//todo:if a colliding object and a non colliding object are in same tile, now there is no rule
 	// to define which should be in front. for fast particles this is not a big problem, but in the future you may want to 
-	//add a system to define if particles should be rendered in front or behind other objects.
+	//add a layer order system
 	for (ISimulationEntity* entity : entities)
 	{
 		GameObject* objEntity = dynamic_cast<GameObject*>(entity);
