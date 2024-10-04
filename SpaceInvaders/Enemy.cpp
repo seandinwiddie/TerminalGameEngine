@@ -16,7 +16,7 @@ void Enemy::OnDestroy()
 		GetModelHeight(), 
 		'*',
 		GetColor(),
-		12,	//speed
+		16,	//speed
 		4,	//lifetime
 		1	//density
 	);

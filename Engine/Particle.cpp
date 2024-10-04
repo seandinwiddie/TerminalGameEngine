@@ -27,16 +27,7 @@ Particle::Particle
 	}
 	else //main direction is chosen randomly between given direction and orthogonal ones
 	{
-		int directionRandomness = RandomUtils::GetRandomInt(0, 2);
-
-		if (directionRandomness == 0)
-			moveDirections.push_back(mainDirection.value());
-		else
-		{
-			moveDirections.push_back(GetClockwiseDirection(mainDirection.value()));
-			if (directionRandomness == 2)
-				moveDirections[0] = GetInverseDirection(moveDirections[0]);
-		}
+		moveDirections.push_back(mainDirection.value());
 	}
 		
 	//--------- evaluate orthogonal direction
