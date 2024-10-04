@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="DebugManager.cpp" />
+    <ClCompile Include="DebugPrinter.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="GameObject.cpp" />
