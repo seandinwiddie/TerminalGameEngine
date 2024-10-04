@@ -7,7 +7,6 @@
 
 using string = std::string;
 
-//todo add cpp file
 class DebugPrinter : public Printer
 {
 //------------------------------------------ Settings
