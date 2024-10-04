@@ -36,10 +36,6 @@ public:
 	bool IsInsideSpaceX(int xPos) const;
 	bool IsInsideSpaceY(int yPos) const;
 
-	// this returns only first colliding object found
-	// may be improved returning list of all colliding objects
-	// at the moment if an objects collides with many objects during same step, only one of the collisions is triggered
-	// (for now its ok cause im using only small objects and levels dont produce this kind of collision)
 	bool IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const;
 	bool IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const;
 
