@@ -30,7 +30,7 @@ void SpaceInvadersLevel::LoadInSimulation()
 {
 	Level::LoadInSimulation();
 
-	waveNumber = 3;
+	waveNumber = 1;
 	score = 0;
 	isLoadingWave = false;
 	double startedLoadingWaveTime = -1;
