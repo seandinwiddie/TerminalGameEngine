@@ -137,7 +137,7 @@ void Simulation::RemoveMarkedEntities()
 						elem->mustBeReprinted = true;
 			}
 		}
-		entities.remove(entity);
+		entities.erase(entity);
 		delete(entity);
 	}
 	toRemoveEntities.clear();
@@ -196,9 +196,9 @@ void Simulation::ExecuteMoveRequests()
 
 void Simulation::UpdateAllObjectsEndedCollisions()
 {
-	for (auto it = entities.rbegin(); it != entities.rend(); ++it)
+	for (auto entity : entities)
 	{
-		Collider* collider = dynamic_cast<Collider*>((*it));
+		Collider* collider = dynamic_cast<Collider*>((entity));
 		if (collider != nullptr)
 			UpdateObjectEndedCollisions(collider);
 	}
@@ -252,11 +252,11 @@ bool Simulation::TryAddEntity(ISimulationEntity* entity)
 	if (collider != nullptr)
 		worldSpace.InsertObject(collider);
 
-	entities.push_back(entity);
+	entities.insert(entity);
 	return true;
 }
 
-bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
+bool Simulation::CanEntityBeAdded(ISimulationEntity* entity) const
 {
 	if (IsEntityInSimulation(entity))
 		return false;
@@ -276,13 +276,10 @@ bool Simulation::CanEntityBeAdded(const ISimulationEntity* entity) const
 		return true;
 }
 
-bool Simulation::IsEntityInSimulation(const ISimulationEntity* newEntity) const
-{//todo could use dictionary instead
-	for (ISimulationEntity* entity : entities)
-		if (newEntity == entity)
-			return true;
-
-	return false;
+bool Simulation::IsEntityInSimulation(ISimulationEntity* newEntity) const
+{
+	auto it = entities.find(newEntity);
+	return it != entities.end();
 }
 
 bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)

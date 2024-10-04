@@ -4,13 +4,13 @@
 #include "WorldSpace.h"
 
 #include <list>
-#include <vector>
+#include <unordered_set>
 #include <optional>
 
 using namespace GridDirection;
 using string = std::string;
-template<typename T> using vector = std::vector<T>;
 template<typename T> using list = std::list<T>;
+template<typename T> using uset = std::unordered_set<T>;
 
 class Collider;
 class GameObject;
@@ -47,7 +47,7 @@ private:
 	Level* level;
 
 	WorldSpace worldSpace;
-	list<ISimulationEntity*> entities;
+	uset<ISimulationEntity*> entities;
 	list<ISimulationEntity*> toRemoveEntities;
 
 	// move requests are sorted from slower to faster
@@ -85,8 +85,8 @@ public:
 
 private:
 	bool TryMoveObjectAtDirection(GameObject* obj, Direction direction);
-	bool CanEntityBeAdded(const ISimulationEntity* entity) const;
-	bool IsEntityInSimulation(const ISimulationEntity* newEntity) const;
+	bool CanEntityBeAdded(ISimulationEntity* entity) const;
+	bool IsEntityInSimulation(ISimulationEntity* newEntity) const;
 	void UpdateObjectEndedCollisions(Collider* collidingObj);
 	void ResetPrinters(const Level* level);
 	void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
