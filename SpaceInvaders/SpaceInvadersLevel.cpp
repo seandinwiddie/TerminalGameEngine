@@ -81,7 +81,7 @@ void SpaceInvadersLevel::OnPostGameOverDelayEnded()
 	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShowEndScreen.wav");
 }
 
-void SpaceInvadersLevel::ShowGameOverScreen(size_t score, size_t bestScore)
+void SpaceInvadersLevel::ShowGameOverScreen(int score, int bestScore)
 {
 	string messageEnding = score > bestScore ? ", new record!" : (", best: " + std::to_string(bestScore));
 	string message = "score: " + std::to_string(score) + messageEnding;

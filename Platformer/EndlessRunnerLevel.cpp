@@ -28,7 +28,7 @@ void EndlessRunnerLevel::OnPostGameOverDelayEnded()
     AudioManager::Instance().PlayFx("Resources/Sounds/Platform/ShowEndScreen.wav");
 }
 
-void EndlessRunnerLevel::ShowGameOverScreen(size_t score, size_t bestScore)
+void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
 {
     //setup gameover message
     string messageEnding = score > bestScore ? "new record!" : ("best: " + std::to_string(bestScore));

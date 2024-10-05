@@ -26,7 +26,7 @@ protected:
     virtual void OnPostGameOverDelayEnded() override;
     virtual string GetPersistenceFilePath() { return "Resources/Persistence/EndlessRunner.txt"; }
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }
-    virtual void ShowGameOverScreen(size_t score, size_t bestScore);
+    virtual void ShowGameOverScreen(int score, int bestScore);
     virtual void OnGameOver() override;
 
 private:

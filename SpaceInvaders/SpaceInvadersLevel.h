@@ -53,7 +53,7 @@ protected:
     virtual string GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; }
     virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
     virtual void OnPostGameOverDelayEnded() override;
-    virtual void ShowGameOverScreen(size_t score, size_t savedBestScore);
+    virtual void ShowGameOverScreen(int score, int savedBestScore);
     virtual void OnGameOver() override;
 
 private:
