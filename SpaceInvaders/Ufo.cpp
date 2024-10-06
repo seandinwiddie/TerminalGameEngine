@@ -2,7 +2,7 @@
 #include "RandomUtils.h"
 #include "AudioManager.h"
 
-const vector<size_t> Ufo::POSSIBLE_SCORES = { 50,100,150,200,250,300 };
+const std::array<size_t, 6> Ufo::POSSIBLE_SCORES = { 50,100,150,200,250,300 };
 
 const Model Ufo::MODEL_1 =
 {

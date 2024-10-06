@@ -20,10 +20,8 @@ void Collider::CALLED_BY_SIM_NotifyCollisionEnter(Collider* collidingObject, Dir
 	CALLED_BY_SIM_NotifyCollisionEnter(uset<Collider*>{collidingObject}, collisionDir);
 }
 
-void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<Collider*>>& newCollisions)
+void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<Collider*>,4>& newCollisions)
 {
-	assert(newCollisions.size() == 4);
-
 	for (int i = 0; i < newCollisions.size(); ++i)
 	{
 		uset<Collider*>& directionCollisions = collisions[i];

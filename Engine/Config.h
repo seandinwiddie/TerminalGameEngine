@@ -13,5 +13,3 @@
 #define CHEAT_SPACEINV_DISABLE_ENEMY_FIRE 0
 #define CHEAT_SPACEINV_DISABLE_SHIELDS 0
 #define CHEAT_SPACEINV_INVINCIBILITY 0
-
-//todo use std::array for fixed size arrays

@@ -13,7 +13,12 @@
 
 using WindowPosition = UIPrinter::WindowPosition;
 
-const vector<string> EndlessRunnerLevel::MUSIC_FILES = { "Resources/Music/1.wav","Resources/Music/2.wav","Resources/Music/3.wav" };
+const std::array<string, EndlessRunnerLevel::MUSIC_FILES_COUNT> EndlessRunnerLevel::MUSIC_FILES =
+{
+    "Resources/Music/1.wav",
+    "Resources/Music/2.wav",
+    "Resources/Music/3.wav"
+};
 
 void EndlessRunnerLevel::OnPostGameOverDelayEnded()
 {

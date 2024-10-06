@@ -2,8 +2,7 @@
 #include "Enemy.h"
 #include "Terminal.h"
 #include "GridDirection.h"
-
-#include <vector>
+#include <array>
 
 using Direction = GridDirection::Direction;
 
@@ -12,7 +11,7 @@ class Ufo : public Enemy
 //------------------------------------------------------ Fields
 private:
 	static const Model MODEL_1;
-	static const vector<size_t> POSSIBLE_SCORES;
+	static const std::array<size_t,6> POSSIBLE_SCORES;
 	static const size_t MOVE_SPEED = 8;
 
 	Direction moveDirection;

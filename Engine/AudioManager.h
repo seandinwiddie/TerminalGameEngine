@@ -2,11 +2,11 @@
 #include "Config.h"
 #include "Singleton.h"
 
+#include <array>
 #include <SFML/Audio.hpp>
 
 using namespace sf;
 using string = std::string;
-template <typename T> using vector = std::vector<T>;
 
 class AudioManager : public Singleton<AudioManager>
 {
@@ -15,11 +15,11 @@ friend class Singleton;
 //---------------------------------------------------------- Fields
 private:
 	static const size_t SOUND_SOURCES_SIZE = 6;
-	vector<Sound> sounds;
-	vector<SoundBuffer> buffers;
+	std::array<Sound, SOUND_SOURCES_SIZE> sounds;
+	std::array<SoundBuffer, SOUND_SOURCES_SIZE> buffers;
 	Music music;
 
-	const vector<string> MUSIC_TRACKS =
+	const std::array<string,3> MUSIC_TRACKS =
 	{ 
 		"Resources/Music/Music-1.wav",
 		"Resources/Music/Music-2.wav", 

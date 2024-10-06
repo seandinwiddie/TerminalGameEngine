@@ -3,7 +3,6 @@
 #include "Frame.h"
 #include "Terminal.h"
 #include "Printer.h"
-#include <vector>
 #include <list>
 #include <string>
 
