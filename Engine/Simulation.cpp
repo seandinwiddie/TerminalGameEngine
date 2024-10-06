@@ -240,7 +240,7 @@ bool Simulation::TryAddEntity(ISimulationEntity* entity)
 {
 	GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
 	if (objectEntity != nullptr)
-		objectEntity->Init();
+		objectEntity->Init();//todo try to do this in constructor
 
 	if (!CanEntityBeAdded(entity))
 	{
@@ -319,6 +319,7 @@ bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
 
 void Simulation::LoadLevel (Level* level)
 {
+	//todo try to improve this
 	this->level = level;
 
 	for (ISimulationEntity* entity : entities)
