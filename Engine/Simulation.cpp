@@ -14,6 +14,7 @@
 #include <Windows.h>
 #include <cassert>
 #include <stdexcept>
+#include <array>
 
 template<typename T> using uset = std::unordered_set<T>;
 
@@ -215,7 +216,7 @@ void Simulation::UpdateObjectEndedCollisions(Collider* collider)
 	bool canExitScreen = collider->CanExitScreenSpace();
 
 	//vector<bool> collisions(4);
-	vector<uset<Collider*>> collisions (4);
+	std::array<uset<Collider*>, 4> collisions;
 
 	//screen collisions
 	if (!canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1))

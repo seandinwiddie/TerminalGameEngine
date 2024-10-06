@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <unordered_set>
+#include <array>
 
 template<typename T> using uset = std::unordered_set<T>;
 
@@ -11,11 +12,11 @@ friend class Simulation;
 //---------------------------------------------------------- Fields
 
 protected:
-	vector<uset<Collider*>> collisions;
+	std::array<uset<Collider*>,4> collisions;
 
 //---------------------------------------------------------- Methods
 public:
-	Collider(int xPos, int yPos):GameObject(xPos, yPos){ collisions.resize(4); }
+	using GameObject::GameObject;
 
 protected:
 	
@@ -25,5 +26,5 @@ protected:
 private:
 	void CALLED_BY_SIM_NotifyCollisionEnter(uset<Collider*>collidingObjects, Direction collisionDir);
 	void CALLED_BY_SIM_NotifyCollisionEnter(Collider* collidingObject, Direction collisionDir);
-	void CALLED_BY_SIM_UpdateEndedCollisions(const vector<uset<Collider*>>& collisions);
+	void CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<Collider*>, 4>& newCollisions);
 };
