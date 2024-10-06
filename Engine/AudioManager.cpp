@@ -5,8 +5,6 @@
 AudioManager::AudioManager()
 {
 #if ALLOW_SOUNDS
-	sounds.resize(SOUND_SOURCES_SIZE);
-	buffers.resize(SOUND_SOURCES_SIZE);
 	for (int i = 0; i < sounds.size(); ++i)
 	{
 		sounds[i].setBuffer(buffers[i]);
@@ -49,7 +47,7 @@ void AudioManager::PlayMusic(const string& fileName)
 
 bool AudioManager::TryGetBufferAndSound(SoundBuffer*& outBuffer, Sound*& outSound)
 {
-	for (int i = 0; i < SOUND_SOURCES_SIZE; ++i)
+	for (int i = 0; i < sounds.size(); ++i)
 	{
 		if (sounds[i].getStatus() == SoundSource::Status::Stopped)
 		{
