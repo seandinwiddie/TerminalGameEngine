@@ -2,13 +2,14 @@
 #include "Config.h"
 #include "Level.h"
 #include <string>
-#include <vector>
+#include <array>
 
 class EndlessRunnerLevel : public Level
 {
 //---------------------------------------------------------- Settings
 private:
-    static const vector<string> MUSIC_FILES;
+    static const size_t MUSIC_FILES_COUNT = 3;
+    static const std::array<string, MUSIC_FILES_COUNT> MUSIC_FILES;
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods
