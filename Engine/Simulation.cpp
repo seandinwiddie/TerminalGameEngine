@@ -215,7 +215,6 @@ void Simulation::UpdateObjectEndedCollisions(Collider* collider)
 	size_t height = collider->GetModelHeight();
 	bool canExitScreen = collider->CanExitScreenSpace();
 
-	//vector<bool> collisions(4);
 	std::array<uset<Collider*>, 4> collisions;
 
 	//screen collisions
