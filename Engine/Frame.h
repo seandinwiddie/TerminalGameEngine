@@ -19,7 +19,7 @@ public:
 public:
     size_t GetSizeY() const { return chars.size(); }
     size_t GetSizeX() const;
-    void SetEmpty(size_t size) { chars.resize(size); colors.resize(size); }
+    void SetEmpty() { chars.resize(0); colors.resize(0); }
 
     void ReadFromFile(const string& fileName);
     void ReplaceChar(const string& writenString, char writeOverChar);
