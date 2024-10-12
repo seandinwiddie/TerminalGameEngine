@@ -9,14 +9,12 @@ FakeCollider* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
 
 void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 {
-	space.clear();
-	space.resize(ySize);
-	for (int y = 0; y < ySize; ++y)
-	{
-		space[y].resize(xSize);
-		for (Collider* elem : space[y])
-			elem = nullptr;
-	}
+	space.Clear();
+	space.Resize(xSize, ySize);
+
+	for (Collider* collider : space)
+		collider = nullptr;
+
 	this->screenPadding = screenPadding;
 }
 
@@ -73,20 +71,16 @@ void WorldSpace::MoveObject(Collider* obj, Direction direction)
 void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, Collider* value)
 {
 	for (int y = yStart; y < yStart + height; ++y)
-	{
 		for (int x = xStart; x < xStart + width; ++x)
-		{
-			space[y][x] = value;
-		}
-	}
+			space.Set(value, x, y);
 }
 
 bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
-			if (IsCoordinateInsideSpace(x, y) && space[y][x] != nullptr)
-				areaObjects.insert(space[y][x]);
+			if (IsCoordinateInsideSpace(x, y) && space.Get(x,y) != nullptr)
+				areaObjects.insert(space.Get(x,y));
 
 	return areaObjects.size() == 0;
 }
@@ -95,7 +89,7 @@ bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t 
 {
 	for (int y = startingY; y < startingY + height; ++y)
 		for (int x = startingX; x < startingX + width; ++x)
-			if (IsCoordinateInsideSpace(x, y) && space[y][x] != nullptr)
+			if (IsCoordinateInsideSpace(x, y) && space.Get(x,y) != nullptr)
 					return false;
 
 	return true;
@@ -110,12 +104,12 @@ bool WorldSpace::IsCoordinateInsideSpace(int xPos, int yPos) const
 
 bool WorldSpace::IsInsideSpaceX(int xPos) const
 {
-	return xPos >= 0 && xPos < GetSizeX();
+	return xPos >= 0 && xPos < space.GetSizeX();
 }
 
 bool WorldSpace::IsInsideSpaceY(int yPos) const
 {
-	return yPos >= 0 && yPos < GetSizeY();
+	return yPos >= 0 && yPos < space.GetSizeY();
 }
 
 bool WorldSpace::CanObjectMoveAtDirection
@@ -134,14 +128,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		int movingToY = object->GetMaxPosY() + 1;
 
 		//exiting world
-		if (movingToY == GetSizeY())
+		if (movingToY == space.GetSizeY())
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if ((object->CanExitScreenSpace() == false) && (movingToY == GetSizeY() - screenPadding))
+		if ((object->CanExitScreenSpace() == false) && (movingToY == space.GetSizeY() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;
@@ -182,14 +176,14 @@ bool WorldSpace::CanObjectMoveAtDirection
 		int movingToX = object->GetMaxPosX() + 1;
 
 		//exiting world
-		if (movingToX == GetSizeX())
+		if (movingToX == space.GetSizeX())
 		{
 			collidingObjects.insert(WORLD_MARGIN);
 			return false;
 		}
 
 		//exiting screen space
-		if ((object->CanExitScreenSpace() == false) && (movingToX == GetSizeX() - screenPadding))
+		if ((object->CanExitScreenSpace() == false) && (movingToX == space.GetSizeX() - screenPadding))
 		{
 			collidingObjects.insert(SCREEN_MARGIN);
 			return false;

@@ -1,6 +1,7 @@
 #pragma once
 #include "GridDirection.h"
 #include "FakeCollider.h"
+#include "Vector2D.h"
 
 #include <vector>
 #include <cassert>
@@ -22,7 +23,7 @@ private:
 
 //---------------------------------------------------------- Fields
 public:
-	vector<vector<Collider*>> space;
+	Vector2D<Collider*> space;
 	size_t screenPadding;
 //---------------------------------------------------------- Methods
 public:
@@ -41,6 +42,4 @@ public:
 
 private:
 	void WriteSpace(int xStart, int yStart, size_t width, size_t height, Collider* value);
-	size_t GetSizeX()const { return GetSizeY() == 0 ? 0 : space[0].size(); }
-	size_t GetSizeY()const { return space.size(); }
 };
