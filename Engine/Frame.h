@@ -14,12 +14,11 @@ class Frame
 {
 public:
     vector<vector<char>> chars;
-    vector<vector<int>> colors;
 
 public:
     size_t GetSizeY() const { return chars.size(); }
     size_t GetSizeX() const;
-    void SetEmpty() { chars.resize(0); colors.resize(0); }
+    void SetEmpty() { chars.resize(0); }
 
     void ReadFromFile(const string& fileName);
     void ReplaceChar(const string& writenString, char writeOverChar);
