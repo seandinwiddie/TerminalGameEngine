@@ -23,7 +23,7 @@ void Frame::ReadFromFile(const string& fileName)
         RemoveNotAllowedChars(line);
 
         if (y == 0)
-            chars.SetWidth(line.size());
+            chars.Resize(line.size(),0);
 
         assert(line.size() == chars.GetSizeX());
 

@@ -22,9 +22,12 @@ public:
 	size_t GetSizeX() const { return width; }
 	size_t GetSizeY() const { return width == 0 ? 0 : vector.size() / width; }
 
-	void SetWidth(size_t width) { this->width = width;}
 	void IncreaseSizeY() { vector.resize(vector.size() + width); }
-	void SetHeight(size_t height) { vector.resize(height * width); }
+	void Resize(size_t width, size_t height)
+	{
+		this->width = width;
+		vector.resize(width * height);
+	}
 
 	void Set(T value, size_t x, size_t y) { vector[width * y + x] = value; }
 	T Get(size_t x, size_t y) const { return vector[width * y + x]; }
