@@ -17,7 +17,6 @@ void DebugManager::Reset
 	fpsRecord.clear();
 	coutCallsCount = 0;
 
-	debugPrinter.reset();
 	debugPrinter = std::make_unique<DebugPrinter>(screenSizeX, screenSizeY, screenPadding);
 }
 

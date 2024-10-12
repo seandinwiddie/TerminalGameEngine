@@ -1,13 +1,11 @@
 #include "Simulation.h"
 #include "Collider.h"
-#include "SimulationPrinter.h"
 #include "ISimulationEntity.h"
 #include "GameObject.h"
 #include "Level.h"
 #include "TimeHelper.h"
 #include "WorldSpace.h"
 #include "DebugManager.h"
-#include "UIPrinter.h"
 #include "RandomUtils.h"
 #include "Particle.h"
 
@@ -339,24 +337,17 @@ void Simulation::ResetPrinters(const Level* level)
 {
 	Terminal::Instance().Clear();
 
-	if (simulationPrinter != nullptr)
-		delete(simulationPrinter);
-
-	string s = level->GetBackgroundFileName();
-
-	simulationPrinter = new SimulationPrinter
+	simulationPrinter = std::make_unique<SimulationPrinter>
 	(
 		GetScreenSizeX(),
 		GetScreenSizeY(),
-		GetScreenPadding(), 
+		GetScreenPadding(),
 		level->GetBackgroundColor(),
 		level->GetBackgroundFileName()
 	);
 
-	if (uiPrinter != nullptr)
-		delete(uiPrinter);
-
-	uiPrinter = new UIPrinter(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), level->GetMarginsColor());
+	uiPrinter.reset();
+	uiPrinter = std::make_unique<UIPrinter>(GetScreenSizeX(), GetScreenSizeY(), GetScreenPadding(), level->GetMarginsColor());
 }
 
 bool Simulation::IsInsideScreenY(int yPos) const

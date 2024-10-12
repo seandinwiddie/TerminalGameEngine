@@ -2,15 +2,19 @@
 
 #include "Config.h"
 #include "WorldSpace.h"
+#include "UIPrinter.h"
+#include "SimulationPrinter.h"
 
 #include <list>
 #include <unordered_set>
 #include <optional>
+#include <memory>
 
 using namespace GridDirection;
 using string = std::string;
 template<typename T> using list = std::list<T>;
 template<typename T> using uset = std::unordered_set<T>;
+template<typename T> using unique_ptr = std::unique_ptr<T>;
 
 class Collider;
 class GameObject;
@@ -41,8 +45,8 @@ public:
 	Event<> OnFrameGenerated;
 
 private:
-	SimulationPrinter* simulationPrinter;
-	UIPrinter* uiPrinter;
+	unique_ptr<SimulationPrinter> simulationPrinter;
+	unique_ptr<UIPrinter> uiPrinter;
 	Level* level;
 	WorldSpace worldSpace;
 	uset<ISimulationEntity*> entities;
