@@ -1,6 +1,6 @@
 #pragma once
 
-class Level;
+#include "Level.h"
 
 class GameLoop
 {
@@ -8,6 +8,6 @@ class GameLoop
 public:
     GameLoop();
 private:
-    Level* ShowLevelSelection();
+    std::unique_ptr<Level> ShowLevelSelection();
     bool LoopSimulation(Level* level);
 };

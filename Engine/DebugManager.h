@@ -4,12 +4,13 @@
 #if DEBUG_MODE
 
 #include "Singleton.h"
+#include "DebugPrinter.h"
 #include <list>
 #include <string>
+#include <memory>
 
 using string = std::string;
-
-class DebugPrinter;
+template<typename T> using unique_ptr = std::unique_ptr<T>;
 
 class DebugManager : public Singleton<DebugManager>
 {
@@ -18,7 +19,7 @@ friend class Singleton;
 private:
 	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
 //---------------------------------------------------------- Fields
-	DebugPrinter* debugPrinter = nullptr;
+	unique_ptr<DebugPrinter> debugPrinter;
 
 	//fps
 	std::list<double> fpsRecord;

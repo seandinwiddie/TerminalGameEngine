@@ -20,15 +20,13 @@ GameLoop::GameLoop()
     while (true)
     {
         AudioManager::Instance().StopMusic();
-        Level* level = ShowLevelSelection();
+        std::unique_ptr<Level> level = ShowLevelSelection();
         while (true)
         {
-           returnToMainMenu = LoopSimulation(level);
+           returnToMainMenu = LoopSimulation(level.get());
            if (returnToMainMenu)
                break;
         }
-
-        delete(level);
     }
 }
 
@@ -44,7 +42,7 @@ bool GameLoop::LoopSimulation(Level* level)
     return false;
 }
 
-Level* GameLoop::ShowLevelSelection()
+std::unique_ptr<Level> GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();
 
@@ -90,28 +88,28 @@ Level* GameLoop::ShowLevelSelection()
     {
         if (IsKeyPressed(Key::NUM_1))
         {
-            return new SpaceInvadersLevel();
+            return std::make_unique<SpaceInvadersLevel>();
             break;
         }
         else if (IsKeyPressed(Key::NUM_2))
         {
-            return new EndlessRunnerLevel();
+            return std::make_unique<EndlessRunnerLevel>();
             break;
         }
         else if (IsKeyPressed(Key::NUM_3))
         {
-            return new PuzzleLevel();
+            return std::make_unique<PuzzleLevel>();
             break;
         }
         else if (IsKeyPressed(Key::NUM_4))
         {
-            return new PongLevel();
+            return std::make_unique<PongLevel>();
             break;
         }
 #if DEBUG_MODE
         else if (IsKeyPressed(Key::NUM_5))
         {
-            return new CollisionsTestLevel();
+            return std::make_unique<CollisionsTestLevel>();
             break;
         }
 #endif
