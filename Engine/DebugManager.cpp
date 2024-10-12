@@ -39,7 +39,7 @@ size_t DebugManager::GetAverageFps()
 	{
 		averageFPS = 0;
 
-		for (double fps : fpsRecord)
+		for (double& fps : fpsRecord)
 			averageFPS += fps;
 		averageFPS /= fpsRecord.size();
 

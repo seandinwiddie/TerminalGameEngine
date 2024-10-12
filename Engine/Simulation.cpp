@@ -197,7 +197,7 @@ void Simulation::ExecuteMoveRequests()
 
 void Simulation::UpdateAllObjectsEndedCollisions()
 {
-	for (auto entity : entities)
+	for (auto& entity : entities)
 	{
 		Collider* collider = dynamic_cast<Collider*>((entity));
 		if (collider != nullptr)

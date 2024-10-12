@@ -61,7 +61,7 @@ void Particle::InitModel()
 
 void Particle::Update()
 {
-	for(int i = 0; i < moveDirections.size(); ++i)
+	for (int i = 0; i < moveDirections.size(); ++i)
 		TryMove(moveDirections[i], moveSpeeds[i]);		
 }
 

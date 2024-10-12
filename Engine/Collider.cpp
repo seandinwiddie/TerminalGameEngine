@@ -30,7 +30,7 @@ void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<Collide
 		list<Collider*> toRemove;
 
 		//update collision direction
-		for(Collider* collider : directionCollisions)
+		for (Collider* collider : directionCollisions)
 			if (directionNewCollisions.find(collider) == directionNewCollisions.end())
 				toRemove.push_back(collider);
 
