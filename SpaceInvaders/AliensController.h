@@ -3,7 +3,7 @@
 #include "GridDirection.h"
 #include "AliensFrontline.h"
 #include "Event.h"
-#include <vector>
+#include "Vector2D.h"
 
 template <typename T> using vector = std::vector<T>;
 using namespace GridDirection;
@@ -33,11 +33,11 @@ public:
 
 private:
 	SpaceInvadersLevel* level;
-	vector<vector<Alien*>> aliensGrid;
+	Vector2D<Alien*> aliensGrid;
 	AliensFrontline frontLine;
 	
 	size_t aliensCount = 0;
-	size_t aliensPosX;
+	size_t aliensPosX = 0;
 	Direction xMoveDirection = Direction::right;
 	bool isTimeToMoveAliensDown = false;
 	double lastShotTime = -1;
@@ -54,8 +54,8 @@ private:
 	double GetNextShotDelay()const;
 	double GetWaveMultiplier()const;
 	double GetEliminatedAliensMultiplier()const;
-	size_t GetAliensGridHeight() const { return aliensGrid.size(); }
-	size_t GetAliensGridWidth() const { return GetAliensGridHeight() == 0 ? 0 : aliensGrid[0].size(); }
+	size_t GetAliensGridHeight() const { return aliensGrid.GetSizeY(); }
+	size_t GetAliensGridWidth() const { return aliensGrid.GetSizeX(); }
 	size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
 	size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliensCount; }
 	void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);

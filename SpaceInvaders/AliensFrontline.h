@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "RandomUtils.h"
+#include "Vector2D.h"
 
 template <typename T> using vector = std::vector<T>;
 
@@ -16,5 +17,5 @@ public:
 	Alien* GetRandom();
 	void Set(size_t pos, Alien* alien) {frontLine[pos] = alien; }
 	size_t GetMinY();
-	void ReplaceDestroyedElement(Alien* destroyedObj, const vector<vector<Alien*>>& aliensGrid);
+	void ReplaceDestroyedElement(Alien* destroyedAlien, const Vector2D<Alien*>& aliensGrid);
 };

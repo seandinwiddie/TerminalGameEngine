@@ -11,7 +11,7 @@ size_t AliensFrontline::GetMinY()
 	return min;
 }
 
-void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vector<vector<Alien*>>& aliensGrid)
+void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const Vector2D<Alien*>& aliensGrid)
 {
 	size_t destroyedX = destroyedAlien->GetIndexInGridX();
 	
@@ -19,11 +19,11 @@ void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const vecto
 		return;
 
 	//try find new front line element
-	for (int y = static_cast<int>(aliensGrid.size()) - 1; y >= 0; --y)
+	for (int y = static_cast<int>(aliensGrid.GetSizeY()) - 1; y >= 0; --y)
 	{
-		if (aliensGrid[y][destroyedX] != nullptr)
+		if (aliensGrid.Get(destroyedX,y) != nullptr)
 		{
-			frontLine[destroyedX] = aliensGrid[y][destroyedX];
+			frontLine[destroyedX] = aliensGrid.Get(destroyedX, y);
 			return;
 		}
 	}

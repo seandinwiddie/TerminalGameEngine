@@ -39,10 +39,7 @@ double AliensController::GetWaveMultiplier()const
 void AliensController::Reset(int aliensCountX, int aliensCountY)
 {
 	aliensCount = aliensCountX * aliensCountY;
-	aliensGrid.resize(aliensCountY);
-	for (int y = 0; y < aliensCountY; ++y) 
-		aliensGrid[y].resize(aliensCountX);
-
+	aliensGrid.Resize(aliensCountX, aliensCountY);
 	frontLine.Init(aliensCountX);
 }
 
@@ -66,7 +63,7 @@ void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
 	assert(yPos < GetAliensGridHeight());
 	assert(xPos < GetAliensGridWidth());
 
-	aliensGrid[yPos][xPos] = alien;
+	aliensGrid.Set(alien, xPos, yPos);
 
 	if (yPos == GetAliensGridHeight()-1)
 		frontLine.Set(xPos,alien);
@@ -99,8 +96,8 @@ void AliensController::MoveAliens(Direction dir, double speed)
 {
 	for (int y = 0; y < GetAliensGridHeight(); ++y)
 		for (int x = 0; x < GetAliensGridWidth(); ++x)
-			if (aliensGrid[y][x] != nullptr)
-				aliensGrid[y][x]->TryMove(dir, speed);
+			if (aliensGrid.Get(x,y) != nullptr)
+				aliensGrid.Get(x,y)->TryMove(dir, speed);
 }
 
 void AliensController::OnAliensReachMargin()
@@ -115,7 +112,7 @@ void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
 {
 	Alien* alien = dynamic_cast<Alien*>(alienObj);
 
-	aliensGrid[alien->GetIndexInGridY()][alien->GetIndexInGridX()] = nullptr;
+	aliensGrid.Set(nullptr, alien->GetIndexInGridX(), alien->GetIndexInGridY());
 
 	frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 
