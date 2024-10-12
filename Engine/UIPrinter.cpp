@@ -31,7 +31,7 @@ void UIPrinter::PrintWindow(const Frame& window, int color, WindowPosition windo
     {
         string line = "";
         for (size_t x = 0; x < window.GetSizeX(); ++x)
-            line += window.chars[y][x];
+            line += window.chars.Get(x,y);
 
         //terminal.SetCursorPosition(leftwindowOffset + MARGIN_OFFSET_X, GetMaxTerminalY() - y - MARGIN_OFFSET_BOTTOM_Y);
         terminal.SetCursorPosition(leftwindowOffset + LEFT_MARGIN_SIZE, y + printStartY);

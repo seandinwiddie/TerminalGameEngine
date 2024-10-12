@@ -57,7 +57,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize
             if (xScreen + LEFT_MARGIN_SIZE < LEFT_MARGIN_SIZE)continue;
 
             if (go == nullptr)
-                line += background.IsSetup() ? background.chars[screenSizeY - yScreen -1][xScreen] : ' ';
+                line += background.IsSetup() ? background.chars.Get(xScreen, screenSizeY - yScreen - 1) : ' ';
             else
                 line += go->GetModel()[go->GetModelHeight() -1 - yModel][xModel];
         }
@@ -83,7 +83,7 @@ void SimulationPrinter::PrintBackground()
         for (int x = 0; x < screenSizeX; ++x)
         {
             //reversing y order
-            char charToPrint = background.chars[y][x];
+            char charToPrint = background.chars.Get(x, y);
             line += charToPrint;
         }
         terminal.SetCursorPosition(LEFT_MARGIN_SIZE, y + TOP_MARGIN_SIZE);
@@ -95,10 +95,8 @@ void SimulationPrinter::PrintBackground()
 void SimulationPrinter::InitBackground(const string& backgroundFileName)
 {
     if (backgroundFileName == "")
-    {
-        background.SetEmpty();
         return;
-    }
+
     background.ReadFromFile(backgroundFileName);
     PrintBackground();
 }

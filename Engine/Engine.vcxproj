@@ -171,6 +171,7 @@
     <ClInclude Include="TimeHelper.h" />
     <ClInclude Include="UIPrinter.h" />
     <ClInclude Include="VariableSizeCollider.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="TimeHelper.cpp" />
     <ClCompile Include="UIPrinter.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="WorldSpace.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

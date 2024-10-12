@@ -9,6 +9,7 @@
 using string = std::string;
 
 class GameObject;
+class Frame;
 
 class SimulationPrinter : public Printer
 {

@@ -2,13 +2,6 @@
 #include "StringUtils.h"
 #include <cassert>
 
-size_t Frame::GetSizeX() const
-{
-    if (chars.size() == 0)
-        return 0;
-
-    return chars[0].size();
-}
 
 void Frame::ReadFromFile(const string& fileName)
 {
@@ -29,13 +22,14 @@ void Frame::ReadFromFile(const string& fileName)
     {
         RemoveNotAllowedChars(line);
 
-        chars.resize(y+1);
-        chars[y].resize(line.length());
+        if (y == 0)
+            chars.SetWidth(line.size());
 
+        assert(line.size() == chars.GetSizeX());
+
+        chars.IncreaseSizeY();
         for (int x = 0; x < line.length(); ++x)
-            chars[y][x] = line[x];
-
-        assert(line.size() == chars[0].size());
+            chars.Set(line[x], x, y);
 
         line = "";
         ++y;
@@ -54,28 +48,20 @@ void Frame::RemoveNotAllowedChars(string& str)
 
 void Frame::ReplaceChar(const string& writenString, char writeOverChar)
 {
-    for (int y = 0; y < GetSizeY(); ++y)
+    for (size_t y = 0; y < GetSizeY(); ++y)
     {
-        for (int x = 0; x < GetSizeX(); ++x)
+        for (size_t x = 0; x < GetSizeX(); ++x)
         {
-            char c = chars[y][x];
+            char c = chars.Get(x,y);
 
             // insert score message
             if (c == writeOverChar)
             {
-                InsertString(writenString, x, y);
-                x += static_cast<int>(writenString.size()) - 1;
+                for (int insertIt = 0; insertIt < writenString.size(); ++insertIt)
+                    chars.Set(writenString[insertIt], x+insertIt, y);
+                x += writenString.size() - 1;
             }
         }
     }
-}
-
-void Frame::InsertString(const string& str, size_t x, size_t y)
-{
-    assert(y < GetSizeY());
-    assert(x < GetSizeX());
-
-    for (int i = 0; i < str.size(); ++i)
-        chars[y][x + i] = str[i];
 }
 

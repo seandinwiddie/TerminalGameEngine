@@ -2,6 +2,7 @@
 #include "MovingStraightObject.h"
 #include "Simulation.h"
 #include "Enemy.h"
+#include "ShieldPart.h"
 
 class Projectile : public MovingStraightObject
 {
@@ -18,7 +19,9 @@ protected:
         Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
         
         Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
-        if (otherEnemy == nullptr)
+        ShieldPart* otherShieldPart = dynamic_cast<ShieldPart*>(other);
+
+        if (otherEnemy == nullptr && otherShieldPart == nullptr)
         {
             Simulation::Instance().SpawnParticles
             (
