@@ -4,7 +4,6 @@
 
 #include "Terminal.h"
 #include "TimeHelper.h"
-#include "DebugPrinter.h"
 
 void DebugManager::PrintGenericLog(const string& str, int lineIndex){ debugPrinter->PrintGenericLog(str, lineIndex); }
 
@@ -16,12 +15,10 @@ void DebugManager::Reset
 )
 {
 	fpsRecord.clear();
-	fpsRecord.resize(0);
 	coutCallsCount = 0;
-	
-	if (debugPrinter != nullptr)
-		delete(debugPrinter);
-	debugPrinter = new DebugPrinter(screenSizeX, screenSizeY, screenPadding);
+
+	debugPrinter.reset();
+	debugPrinter = std::make_unique<DebugPrinter>(screenSizeX, screenSizeY, screenPadding);
 }
 
 void DebugManager::ShowAverageFPS()
