@@ -164,11 +164,10 @@ namespace Engine
 		for (ISimulationEntity* entity : entities)
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
-			Particle* objParticle = nullptr;
-			if (objEntity != nullptr && objEntity->mustBeReprinted)
+			if (objEntity && objEntity->mustBeReprinted)
 			{
-				objEntity->mustBeReprinted = false;
 				simulationPrinter->PrintObject(objEntity);
+				objEntity->mustBeReprinted = false;
 			}
 		}
 	}
