@@ -46,7 +46,7 @@ void Frame::RemoveNotAllowedChars(string& str)
     StringUtils::RemoveInstancesOfChar(str, '\0');
 }
 
-void Frame::ReplaceChar(const string& writenString, char writeOverChar)
+void Frame::WriteString(const string& writenString, char writeOverChar)
 {
     for (size_t y = 0; y < GetSizeY(); ++y)
     {

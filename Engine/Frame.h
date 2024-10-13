@@ -20,7 +20,7 @@ public:
     size_t GetSizeX() const { return chars.GetSizeX(); }
 
     void ReadFromFile(const char* fileName);
-    void ReplaceChar(const string& writenString, char writeOverChar);
+    void WriteString(const string& writenString, char writeOverChar);
     bool IsSetup(){ return GetSizeY() > 0; }
 
     void RemoveNotAllowedChars(string& str);

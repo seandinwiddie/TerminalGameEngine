@@ -45,7 +45,7 @@ void EndlessRunnerLevel::ShowGameOverScreen(int score, int bestScore)
         leftSpacing += " ";
     message = leftSpacing + message;
 
-    gameOverWindow.ReplaceChar(message, '$');
+    gameOverWindow.WriteString(message, '$');
 
     Simulation::Instance().GetUIPrinter().PrintWindow(gameOverWindow, Terminal::WHITE, WindowPosition::CenterX_TopY);
 }
