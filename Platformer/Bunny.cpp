@@ -11,7 +11,7 @@ using namespace InputUtils;
 //---------------------------------------------------------- Models
 const Model Bunny::MODEL_WALK_LEFT
 (   
-    4,
+    5,
     {
         '(',  92, '(',  92, ' ' ,
         '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
@@ -22,7 +22,7 @@ const Model Bunny::MODEL_WALK_LEFT
 
 const Model Bunny::MODEL_WALK_RIGHT
 (   
-    4,
+    5,
     { 
         ' ', '/', ')', '/', ')' ,
         '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' ,
@@ -33,7 +33,7 @@ const Model Bunny::MODEL_WALK_RIGHT
 
 const Model Bunny::MODEL_JUMP_RIGHT
 (
-    4,
+    5,
     { 
         ' ', '/', ')', '/', ')' ,
          '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' ,
@@ -43,7 +43,7 @@ const Model Bunny::MODEL_JUMP_RIGHT
 
 const Model Bunny::MODEL_JUMP_LEFT
 (
-    4,
+    5,
     { 
         '(', 92, '(', 92, ' ',
         '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
@@ -53,7 +53,7 @@ const Model Bunny::MODEL_JUMP_LEFT
 
 const Model Bunny::MODEL_DEFEATED
 (
-    4,
+    5,
     {
         ' ', '/', ')', '/', ')',
         '(', CHAR_GAMEOVER_EYE, CHAR_NOSE, CHAR_GAMEOVER_EYE, ')',
@@ -63,7 +63,7 @@ const Model Bunny::MODEL_DEFEATED
 
 const Model Bunny::MODEL_IDLE_RIGHT
 (
-    4,
+    5,
     {
         ' ', '/', ')', '/', ')',
         '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
@@ -73,7 +73,7 @@ const Model Bunny::MODEL_IDLE_RIGHT
 
 const Model Bunny::MODEL_IDLE_LEFT
 (
-    4,
+    5,
     {
      '(', 92, '(', 92, ' ',
      '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',

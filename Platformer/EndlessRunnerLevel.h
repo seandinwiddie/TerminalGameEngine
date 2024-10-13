@@ -9,7 +9,7 @@ class EndlessRunnerLevel : public Level
 //---------------------------------------------------------- Settings
 private:
     static const size_t MUSIC_FILES_COUNT = 3;
-    static const std::array<string, MUSIC_FILES_COUNT> MUSIC_FILES;
+    static const std::array<const char*, MUSIC_FILES_COUNT> MUSIC_FILES;
     int shownTime = -1;
 
 //---------------------------------------------------------- Methods

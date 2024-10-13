@@ -13,7 +13,7 @@
 
 using WindowPosition = UIPrinter::WindowPosition;
 
-const std::array<string, EndlessRunnerLevel::MUSIC_FILES_COUNT> EndlessRunnerLevel::MUSIC_FILES =
+const std::array<const char*, EndlessRunnerLevel::MUSIC_FILES_COUNT> EndlessRunnerLevel::MUSIC_FILES =
 {
     "Resources/Music/1.wav",
     "Resources/Music/2.wav",
@@ -125,7 +125,7 @@ void EndlessRunnerLevel::LoadInSimulation()
 
 void EndlessRunnerLevel::PlayRandomMusic()
 {
-    const string& randomMusic = MUSIC_FILES[RandomUtils::GetRandomInt(0, static_cast<int>(MUSIC_FILES.size() - 1))];
+    const char* randomMusic = MUSIC_FILES[RandomUtils::GetRandomInt(0, static_cast<int>(MUSIC_FILES.size() - 1))];
     AudioManager::Instance().PlayMusic(randomMusic);
 }
 

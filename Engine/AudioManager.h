@@ -28,8 +28,8 @@ private:
 
 //---------------------------------------------------------- Methods
 public:
-	void PlayFx(const string& fileName, double randomPitch = 0.0);
-	void PlayMusic(const string& fileName);
+	void PlayFx(const char* fileName, double randomPitch = 0.0);
+	void PlayMusic(const char* fileName);
 	void StopMusic();
 
 private:

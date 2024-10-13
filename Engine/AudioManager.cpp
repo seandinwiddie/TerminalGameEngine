@@ -13,7 +13,7 @@ AudioManager::AudioManager()
 #endif
 }
 
-void AudioManager::PlayFx(const string& fileName, const double randomPitch)
+void AudioManager::PlayFx(const char* fileName, const double randomPitch)
 {
 #if ALLOW_SOUNDS
 	Sound* sound = nullptr;
@@ -35,7 +35,7 @@ void AudioManager::PlayFx(const string& fileName, const double randomPitch)
 #endif
 }
 
-void AudioManager::PlayMusic(const string& fileName)
+void AudioManager::PlayMusic(const char* fileName)
 {
 #if ALLOW_SOUNDS
 	StopMusic();

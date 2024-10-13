@@ -141,7 +141,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\TerminalGameEngine\PuzzleLevel.h" />
     <ClInclude Include="AutomaticDoor.h" />
     <ClInclude Include="Bunny.h" />
     <ClInclude Include="CollisionsTestLevel.h" />
@@ -151,6 +150,7 @@
     <ClInclude Include="ObstaclesSpawner.h" />
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PushableObject.h" />
+    <ClInclude Include="PuzzleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
