@@ -17,7 +17,7 @@ void Frame::ReadFromFile(const string& fileName)
 
     string line = "";
     int y = 0;
-    //Read data into the vector
+
     while(std::getline(file, line))
     {
         RemoveNotAllowedChars(line);

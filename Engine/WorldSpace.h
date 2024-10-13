@@ -3,12 +3,10 @@
 #include "FakeCollider.h"
 #include "Vector2D.h"
 
-#include <vector>
 #include <cassert>
 #include <unordered_set>
 
 using Direction = GridDirection::Direction;
-template<typename T> using vector = std::vector<T>;
 template<typename T> using uset = std::unordered_set<T>;
 
 class WorldSpace
