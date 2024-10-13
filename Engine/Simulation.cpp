@@ -133,7 +133,7 @@ namespace Engine
 					//todo: if a colliding object moves over a non colliding object, now it is not reprinted, improve in the future
 					//if entity is not a collider and was covering other objects, they must be reprinted
 					uset<Collider*> coveredObjects;
-					if (!worldSpace.IsAreaEmpty(objectEntity->GetPosX(), objectEntity->GetPosY(), objectEntity->GetModelWidth(), objectEntity->GetModelHeight(), coveredObjects))
+					if (!worldSpace.IsCollidersAreaEmpty(objectEntity->GetPosX(), objectEntity->GetPosY(), objectEntity->GetModelWidth(), objectEntity->GetModelHeight(), coveredObjects))
 						for (Collider* elem : coveredObjects)
 							elem->mustBeReprinted = true;
 				}
@@ -227,10 +227,10 @@ namespace Engine
 			collisions[Direction::left].insert(WorldSpace::SCREEN_MARGIN);
 
 		// object-object collisions
-		worldSpace.IsAreaEmpty(xPos, yMax + 1, width, 1, collisions[Direction::up]);
-		worldSpace.IsAreaEmpty(xPos, yPos - 1, width, 1, collisions[Direction::down]);
-		worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
-		worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
+		worldSpace.IsCollidersAreaEmpty(xPos, yMax + 1, width, 1, collisions[Direction::up]);
+		worldSpace.IsCollidersAreaEmpty(xPos, yPos - 1, width, 1, collisions[Direction::down]);
+		worldSpace.IsCollidersAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
+		worldSpace.IsCollidersAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
 
 		collider->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 	}
@@ -263,7 +263,7 @@ namespace Engine
 		const Collider* collider = dynamic_cast<const Collider*>(entity);
 		if (collider != nullptr)
 		{
-			return worldSpace.IsAreaEmpty
+			return worldSpace.IsCollidersAreaEmpty
 			(
 				collider->GetPosX(),
 				collider->GetPosY(),

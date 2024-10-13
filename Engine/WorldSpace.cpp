@@ -3,7 +3,6 @@
 
 namespace Engine
 {
-
 	FakeCollider WorldSpace::WORLD_MARGIN_MEMORY;
 	FakeCollider WorldSpace::SCREEN_MARGIN_MEMORY;
 
@@ -15,23 +14,26 @@ namespace Engine
 		space.Clear();
 		space.Resize(xSize, ySize);
 
-		for (Collider* collider : space)
-			collider = nullptr;
-
+		for (Cell cell : space)
+		{
+			cell.collider = nullptr;
+			cell.objects.clear();
+		}
+			
 		this->screenPadding = screenPadding;
 	}
 
-	void WorldSpace::InsertObject(Collider* obj)
+	void WorldSpace::InsertObject(GameObject* obj)
 	{
 		WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
-	void WorldSpace::RemoveObject(Collider* obj)
+	void WorldSpace::RemoveObject(GameObject* obj)
 	{
-		WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
+		EraseSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
 	}
 
-	void WorldSpace::MoveObject(Collider* obj, Direction direction)
+	void WorldSpace::MoveObject(GameObject* obj, Direction direction)
 	{
 		switch (direction)
 		{
@@ -40,7 +42,7 @@ namespace Engine
 			int yWrite = obj->GetMaxPosY() + 1;
 			int yClear = obj->GetPosY();
 			WriteSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
-			WriteSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
+			EraseSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, obj);
 			break;
 		}
 		case Direction::down:
@@ -48,7 +50,7 @@ namespace Engine
 			int yWrite = obj->GetPosY() - 1;
 			int yClear = obj->GetMaxPosY();
 			WriteSpace(obj->GetPosX(), yWrite, obj->GetModelWidth(), 1, obj);
-			WriteSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, nullptr);
+			EraseSpace(obj->GetPosX(), yClear, obj->GetModelWidth(), 1, obj);
 			break;
 		}
 		case Direction::right:
@@ -56,7 +58,7 @@ namespace Engine
 			int xWrite = obj->GetMaxPosX() + 1;
 			int xClear = obj->GetPosX();
 			WriteSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
-			WriteSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
+			EraseSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
 			break;
 		}
 
@@ -65,34 +67,70 @@ namespace Engine
 			int xWrite = obj->GetPosX() - 1;
 			int xClear = obj->GetMaxPosX();
 			WriteSpace(xWrite, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
-			WriteSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), nullptr);
+			EraseSpace(xClear, obj->GetPosY(), 1, obj->GetModelHeight(), obj);
 			break;
 		}
 		}
 	}
 
-	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, Collider* value)
+	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
 	{
+		assert(obj != nullptr);
+
 		for (int y = yStart; y < yStart + height; ++y)
 			for (int x = xStart; x < xStart + width; ++x)
-				space.Set(value, x, y);
+			{
+				Cell cell = space.Get(x, y);
+				cell.objects.insert(obj);
+
+				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				if (objCollider)
+				{
+					assert(cell.collider == nullptr || cell.collider == objCollider);
+					cell.collider = objCollider;
+				}
+			}
 	}
 
-	bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
+	void WorldSpace::EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
+	{
+		assert(obj != nullptr);
+
+		for (int y = yStart; y < yStart + height; ++y)
+			for (int x = xStart; x < xStart + width; ++x)
+			{
+				Cell cell = space.Get(x, y);
+				cell.objects.erase(obj);
+
+				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				if (objCollider)
+				{
+					assert(cell.collider == nullptr || cell.collider == objCollider);
+					cell.collider = nullptr;
+				}
+			}
+	}
+
+	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
+		{
 			for (int x = startingX; x < startingX + width; ++x)
-				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y) != nullptr)
-					areaObjects.insert(space.Get(x, y));
+			{
+				Collider* cellCollider = space.Get(x, y).collider;
+				if (IsCoordinateInsideSpace(x, y) && cellCollider != nullptr)
+					areaObjects.insert(cellCollider);
+			}
+		}
 
 		return areaObjects.size() == 0;
 	}
 
-	bool WorldSpace::IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
+	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 			for (int x = startingX; x < startingX + width; ++x)
-				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y) != nullptr)
+				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y).collider != nullptr)
 					return false;
 
 		return true;
@@ -145,7 +183,7 @@ namespace Engine
 			}
 
 			//obj collision
-			if (colliderObj != nullptr && IsAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
+			if (colliderObj != nullptr && IsCollidersAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
 				return false;
 
 			return true;
@@ -169,7 +207,7 @@ namespace Engine
 			}
 
 			//obj collision
-			if (colliderObj != nullptr && IsAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
+			if (colliderObj != nullptr && IsCollidersAreaEmpty(colliderObj->GetPosX(), movingToY, colliderObj->GetModelWidth(), 1, collidingObjects) == false)
 				return false;
 
 			return true;
@@ -193,7 +231,7 @@ namespace Engine
 			}
 
 			//obj collision
-			if (colliderObj != nullptr && IsAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
+			if (colliderObj != nullptr && IsCollidersAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
 				return false;
 
 			return true;
@@ -217,7 +255,7 @@ namespace Engine
 			}
 
 			//obj collision
-			if (colliderObj != nullptr && IsAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
+			if (colliderObj != nullptr && IsCollidersAreaEmpty(movingToX, colliderObj->GetPosY(), 1, colliderObj->GetModelHeight(), collidingObjects) == false)
 				return false;
 
 			return true;

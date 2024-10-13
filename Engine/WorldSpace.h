@@ -5,13 +5,23 @@
 
 #include <cassert>
 #include <unordered_set>
+#include <set>
 
 namespace Engine
 {
 	template<typename T> using uset = std::unordered_set<T>;
+	template<typename T> using set = std::set<T>;
 
 	class WorldSpace
 	{
+		//---------------------------------------------------------- Structs
+	private:
+		struct Cell
+		{
+			Collider* collider = nullptr;	// cell collider, max 1 for cell
+			set<GameObject*> objects; 		// all objects in cell, includeing collider if present
+		};
+
 		//---------------------------------------------------------- Margins
 	public:
 		static FakeCollider* WORLD_MARGIN;
@@ -22,24 +32,25 @@ namespace Engine
 
 		//---------------------------------------------------------- Fields
 	public:
-		Vector2D<Collider*> space;
+		Vector2D<Cell> space;
 		size_t screenPadding;
 		//---------------------------------------------------------- Methods
 	public:
 		void Init(int xSize, int ySize, size_t screenPadding);
 
 		bool CanObjectMoveAtDirection(const GameObject* obj, Direction direction, uset<Collider*>& collidingObjects) const;
-		void InsertObject(Collider* obj);
-		void RemoveObject(Collider* obj);
-		void MoveObject(Collider* obj, Direction direction);
+		void InsertObject(GameObject* obj);
+		void RemoveObject(GameObject* obj);
+		void MoveObject(GameObject* obj, Direction direction);
 		bool IsCoordinateInsideSpace(int xPos, int yPos) const;
 		bool IsInsideSpaceX(int xPos) const;
 		bool IsInsideSpaceY(int yPos) const;
 
-		bool IsAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const;
-		bool IsAreaEmpty(int startingX, int startingY, size_t width, size_t height) const;
+		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const;
+		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const;
 
 	private:
-		void WriteSpace(int xStart, int yStart, size_t width, size_t height, Collider* value);
+		void WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
+		void EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
 	};
 }
