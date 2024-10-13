@@ -22,14 +22,20 @@ protected:
 	}
 };
 
-const Model AlienHighScore::MODEL_1 =
-{
-	{ '/', 'O',  'o',  '\\' },
-	{ '/', '\'', '\'', '\\'}
-};
+const Model AlienHighScore::MODEL_1
+(
+	4,
+	{ 
+		'/', 'O',  'o',  '\\',
+		'/', '\'', '\'', '\\'
+	}
+);
 
-const Model AlienHighScore::MODEL_2 =
-{
-	{ '/', 'o', 'O', '\\' },
-	{ '|', '\'', '\'', '|'}
-};
+const Model AlienHighScore::MODEL_2
+(
+	4,
+	{
+		'/', 'o', 'O', '\\',
+		'|', '\'', '\'', '|'
+	}
+);

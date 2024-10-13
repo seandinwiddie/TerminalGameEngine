@@ -15,7 +15,7 @@ private:
     double ySpeed;
     double xSpeed;
     bool iSFirstLaunch;
-    Model model = {{-37}};
+    static const Model MODEL;
 
 //---------------------------------------------------------- Methods
 public:
@@ -27,7 +27,7 @@ protected:
     virtual double GetGravityScale() const override { return 0; }
     virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
     virtual void Update() override;
-    virtual void InitModel() override { SetModel(model); }
+    virtual void InitModel() override { SetModel(MODEL); }
 
 private:
     void HandleBarCollision(PongBar* collidingBar);

@@ -5,6 +5,8 @@
 #include "PongLevel.h"
 #include "RandomUtils.h"
 
+const Model PongBall::MODEL(1, { '|' });
+
 PongBall::PongBall(PongLevel* level, int xPos, int yPos, double ySpeed) 
     :
     Collider(xPos, yPos), 

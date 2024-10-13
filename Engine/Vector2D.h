@@ -21,6 +21,11 @@ public:
 	Vector2D() : Vector2D(0) {};
 	Vector2D(size_t width) : width(width) { vector.resize(width); }
 
+    Vector2D(size_t width, const std::vector<T>& vect) : width(width)
+    {
+        vector = vect;
+    }
+
 	size_t GetSizeX() const { return width; }
 	size_t GetSizeY() const { return width == 0 ? 0 : vector.size() / width; }
 

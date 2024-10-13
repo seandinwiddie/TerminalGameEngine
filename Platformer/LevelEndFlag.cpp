@@ -3,11 +3,14 @@
 #include "Level.h"
 
 const Model LevelEndFlag::flagModel
-{
-     {'|','\\'},
-     {'|','/'},
-     {'|',' '}
-};
+(
+    2,
+    {
+        '|','\\',
+        '|','/',
+        '|',' ' 
+    }
+);
 
 LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : Collider(xPos, yPos), level(level) { }
 

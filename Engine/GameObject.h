@@ -4,13 +4,14 @@
 #include "ISimulationEntity.h"
 #include "Terminal.h"
 #include "Event.h"
+#include "Vector2D.h"
 
 #include <Windows.h>
 #include <vector>
 
 template<typename T> using vector = std::vector<T>;
 using namespace GridDirection;
-using Model = std::vector<std::vector<char>>;
+using Model = Vector2D<char>;
 
 class GameObject : public ISimulationEntity
 {
@@ -46,8 +47,8 @@ public:
 	int GetMaxPosY()const { return yPos + static_cast<int>(GetModelHeight()) - 1; }
 	int GetMidPosX() { return GetPosX() + static_cast<int>(GetModelWidth()) / 2; }
 	int GetMidPosY() { return GetPosY() + static_cast<int>(GetModelHeight()) / 2; }
-	size_t GetModelWidth()const;
-	size_t GetModelHeight()const { return GetModel().size(); }
+	size_t GetModelWidth()const { return model->GetSizeX(); };
+	size_t GetModelHeight()const { return model->GetSizeY(); }
 	const Model& GetModel()const { return *model; }
 	virtual bool CanExitScreenSpace() const = 0;
 

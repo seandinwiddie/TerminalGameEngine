@@ -3,7 +3,7 @@
 #include "Enemy.h"
 #include "SpaceInvadersLevel.h"
 
-const Model PlayerProjectile::MODEL = { {'|'} };
+const Model PlayerProjectile::MODEL(1, { '|' });
 
 void PlayerProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
 {

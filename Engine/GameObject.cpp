@@ -11,13 +11,6 @@ GameObject::GameObject(int xPos, int yPos) :
 	ResetPartialMovement();
 }
 
-size_t GameObject::GetModelWidth()const
-{
-	if (GetModelHeight() == 0)
-		return 0;
-	return GetModel()[0].size();
-}
-
 void GameObject::Update()
 {
 	ApplyGravity();
@@ -70,15 +63,10 @@ void GameObject::TryMove(Direction direction, double moveSpeed)
 Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
 {
 	Model result;
-	result.resize(sizeY);
+	result.Resize(sizeX, sizeY);
 	for (int y = 0; y < sizeY; ++y)
-	{
 		for (int x = 0; x < sizeX; ++x)
-		{
-			result[y].resize(sizeX);
-			result[y][x] = modelChar;
-		}
-	}
+			result.Set(modelChar, x, y);
 	return result;
 }
 

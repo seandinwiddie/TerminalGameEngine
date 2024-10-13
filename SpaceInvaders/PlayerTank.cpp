@@ -9,11 +9,14 @@
 
 using namespace InputUtils;
 
-const Model PlayerTank::MODEL =
-{
-    {' ', '_', '^', '_', ' '},
-    {'/', '_', '_', '_', '\\'},
-};
+const Model PlayerTank::MODEL
+(
+    5,
+    {
+        ' ', '_', '^', '_', ' ',
+        '/', '_', '_', '_', '\\'
+    }
+);
 
 void PlayerTank::Update()
 {

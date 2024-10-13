@@ -12,7 +12,7 @@ void Obstacle::OnCollisionEnter(Collider* other, Direction collisionDir)
 
 void Obstacle::InitModel()
 {
-    if (model.size() == 0)
+    if (model.GetSizeY() == 0)
         model = CreteModelUsingChar(-37, size_t(4), size_t(2));
     SetModel(model);
 }

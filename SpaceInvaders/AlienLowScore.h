@@ -23,15 +23,20 @@ protected:
 	
 };
 
-const Model AlienLowScore::MODEL_1 =
-{
-	{ '[', ':', ':', ']' },
-	{ '/', '"', '"', '\\'}
+const Model AlienLowScore::MODEL_1
+(
+	4,
+	{
+		'[', ':', ':', ']',
+		'/', '"', '"', '\\'
+	}
+);
 
-};
-
-const Model AlienLowScore::MODEL_2 =
-{
-	{  '[', '.', '.', ']' },
-	{ '\\', '"', '"', '/' }
-};
+const Model AlienLowScore::MODEL_2
+(
+	4,
+	{
+		'[', '.', '.', ']',
+		'\\', '"', '"', '/'
+	}
+);

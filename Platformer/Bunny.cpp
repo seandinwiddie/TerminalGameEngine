@@ -10,53 +10,76 @@ using namespace InputUtils;
 
 //---------------------------------------------------------- Models
 const Model Bunny::MODEL_WALK_LEFT
-{
-    { '(',  92, '(',  92, ' '  },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { '/', -36, CHAR_CHEST, '_', '|' }
-};
+(   
+    4,
+    {
+        '(',  92, '(',  92, ' ' ,
+        '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
+        '/', -36, CHAR_CHEST, '_', '|'
+    }
+);
+
 
 const Model Bunny::MODEL_WALK_RIGHT
-{
-    { ' ', '/', ')', '/', ')' },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { '|', '_', CHAR_CHEST, -36, 92 }
-};
+(   
+    4,
+    { 
+        ' ', '/', ')', '/', ')' ,
+        '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' ,
+        '|', '_', CHAR_CHEST, -36, 92 
+    }
+);
+
 
 const Model Bunny::MODEL_JUMP_RIGHT
-{
-    { ' ', '/', ')', '/', ')' },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { 92, -36, CHAR_CHEST, -36, '/' },
-};
+(
+    4,
+    { 
+        ' ', '/', ')', '/', ')' ,
+         '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' ,
+         92, -36, CHAR_CHEST, -36, '/' 
+    }
+);
 
 const Model Bunny::MODEL_JUMP_LEFT
-{
-    { '(', 92, '(', 92, ' '  },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { 92, -36, CHAR_CHEST, -36, '/' }
-};
+(
+    4,
+    { 
+        '(', 92, '(', 92, ' ',
+        '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
+        92, -36, CHAR_CHEST, -36, '/' 
+    }
+);
 
 const Model Bunny::MODEL_DEFEATED
-{
-    { ' ', '/', ')', '/', ')' },
-    { '(', CHAR_GAMEOVER_EYE, CHAR_NOSE, CHAR_GAMEOVER_EYE, ')' },
-    { '|', -36, CHAR_CHEST, -36, '|' }
-};
+(
+    4,
+    {
+        ' ', '/', ')', '/', ')',
+        '(', CHAR_GAMEOVER_EYE, CHAR_NOSE, CHAR_GAMEOVER_EYE, ')',
+        '|', -36, CHAR_CHEST, -36, '|'
+    }
+);
 
 const Model Bunny::MODEL_IDLE_RIGHT
-{
-    { ' ', '/', ')', '/', ')' },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { '|', '_', CHAR_CHEST, '_', '|' }
-};
+(
+    4,
+    {
+        ' ', '/', ')', '/', ')',
+        '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
+        '|', '_', CHAR_CHEST, '_', '|'
+    }
+);
 
 const Model Bunny::MODEL_IDLE_LEFT
-{
-    { '(', 92, '(', 92, ' '  },
-    { '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')' },
-    { '|', '_', CHAR_CHEST, '_', '|' }
-};
+(
+    4,
+    {
+     '(', 92, '(', 92, ' ',
+     '(', CHAR_EYE, CHAR_NOSE, CHAR_EYE, ')',
+     '|', '_', CHAR_CHEST, '_', '|' 
+    }
+);
 
 //---------------------------------------------------------- Methods
 

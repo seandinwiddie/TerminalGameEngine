@@ -22,14 +22,20 @@ protected:
 	}
 };
 
-const Model AlienMidScore::MODEL_1 =
-{
-	{ '(', 'o', 'O', ')' },
-	{ 'V', '~', '~', 'v' }
-};
+const Model AlienMidScore::MODEL_1
+(
+	4,
+	{
+		'(', 'o', 'O', ')',
+		'V', '~', '~', 'v'
+	}
+);
 
-const Model AlienMidScore::MODEL_2 =
-{
-	{ '(', 'O', 'o', ')' },
-	{ 'v', '~', '~', 'V' }
-};
+const Model AlienMidScore::MODEL_2
+(
+	4,
+	{
+		'(', 'O', 'o', ')',
+		'v', '~', '~', 'V'
+	}
+);

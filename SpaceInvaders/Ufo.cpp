@@ -4,12 +4,14 @@
 
 const std::array<size_t, 6> Ufo::POSSIBLE_SCORES = { 50,100,150,200,250,300 };
 
-const Model Ufo::MODEL_1 =
-{
-	{ '/', '(', ')', '\\' },
-	{ '\\', '_', '_', '/'}
-
-};
+const Model Ufo::MODEL_1
+(
+	4,
+	{
+		'/', '(', ')', '\\',
+		'\\', '_', '_', '/'
+	}
+);
 
 size_t Ufo::GetScore() const
 {

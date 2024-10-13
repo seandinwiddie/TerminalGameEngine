@@ -28,7 +28,7 @@ SimulationPrinter::SimulationPrinter
 void SimulationPrinter::PrintObject(GameObject* go)
 {
     Model model = go->GetModel();
-    assert(model.size() > 0 && model[0].size() > 0);
+    assert(model.GetSizeX() > 0 && model.GetSizeY() > 0);
     terminal.SetColor(go->GetColor());
     PrintInternal(go->GetPosX(), go->GetPosY(), go->GetModelWidth(), go->GetModelHeight(), go);
 }
@@ -59,7 +59,7 @@ void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize
             if (go == nullptr)
                 line += background.IsSetup() ? background.chars.Get(xScreen, screenSizeY - yScreen - 1) : ' ';
             else
-                line += go->GetModel()[go->GetModelHeight() -1 - yModel][xModel];
+                line += go->GetModel().Get(xModel, go->GetModelHeight() - 1 - yModel);
         }
         if (lineTerminalPosX < LEFT_MARGIN_SIZE)
             lineTerminalPosX = LEFT_MARGIN_SIZE;
