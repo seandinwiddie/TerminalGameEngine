@@ -19,7 +19,7 @@ public:
     size_t GetSizeY() const { return chars.GetSizeY(); }
     size_t GetSizeX() const { return chars.GetSizeX(); }
 
-    void ReadFromFile(const string& fileName);
+    void ReadFromFile(const char* fileName);
     void ReplaceChar(const string& writenString, char writeOverChar);
     bool IsSetup(){ return GetSizeY() > 0; }
 

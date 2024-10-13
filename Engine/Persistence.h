@@ -4,14 +4,14 @@
 
 namespace Persistence
 {
-	inline void SaveBestScore(const string& persistenceFile , int bestScore)
+	inline void SaveBestScore(const char* persistenceFile , int bestScore)
 	{
 		std::ofstream outStream(persistenceFile);
 		assert(outStream);
 		outStream << bestScore;
 	}
 
-	inline int LoadBestScore(const string& persistenceFile)
+	inline int LoadBestScore(const char* persistenceFile)
 	{
 		std::ifstream infile(persistenceFile);
 

@@ -24,7 +24,7 @@ public:
 		size_t screenSizeY,
 		size_t screenPadding,
 		int backgroundColor,
-		const string& backgroundFileName = ""
+		const char* backgroundFileName = ""
 	);
 
 	void PrintObject(GameObject* obj);
@@ -33,6 +33,6 @@ public:
 
 private:
 	void PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go);
-	void InitBackground(const string& backgroundFileName);
+	void InitBackground(const char* backgroundFileName);
 	void PrintBackground();
 };

@@ -17,7 +17,7 @@ public:
     virtual int GetWorldSizeX() const override { return 90; }
     virtual int GetWorldSizeY() const override { return 23; }
     virtual int GetScreenPadding() const override { return 4; }
-    virtual const string GetBackgroundFileName()const override { return "Resources/Backgrounds/EndlessRunner.txt"; }
+    virtual const char* GetBackgroundFileName()const override { return "Resources/Backgrounds/EndlessRunner.txt"; }
 
     virtual void LoadInSimulation() override;
 
@@ -25,8 +25,8 @@ protected:
     virtual void Update()override;
     virtual double ShowGameOverScreenDelay() const { return 1.5; }
     virtual void OnPostGameOverDelayEnded() override;
-    virtual string GetPersistenceFilePath() { return "Resources/Persistence/EndlessRunner.txt"; }
-    virtual string GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }
+    virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/EndlessRunner.txt"; }
+    virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }
     virtual void ShowGameOverScreen(int score, int bestScore);
     virtual void OnGameOver() override;
 

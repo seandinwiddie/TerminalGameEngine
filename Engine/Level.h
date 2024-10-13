@@ -29,7 +29,7 @@ public:
     virtual int GetWorldSizeY() const = 0;
     virtual int GetScreenPadding() const = 0;
     virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
-    virtual const string GetBackgroundFileName()const { return ""; }
+    virtual const char* GetBackgroundFileName()const { return ""; }
     virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
     double GetLevelTime() const;
     bool IsGameOver() const { return gameOverTime > -1; }
@@ -41,7 +41,7 @@ protected:
     virtual void Update() override;
     virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
     virtual void LoadInSimulation();
-    virtual string GetGameOverWindowPath() { return ""; }
+    virtual const char* GetGameOverWindowPath() { return ""; }
 
     bool IsPostGameOverPauseEnded() const;
     bool CanPlayerPressKeyToRestartGame() const;

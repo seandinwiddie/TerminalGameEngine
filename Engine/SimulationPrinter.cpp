@@ -19,7 +19,7 @@ SimulationPrinter::SimulationPrinter
     size_t screenSizeY, 
     size_t screenPadding, 
     int backgroundColor,
-    const string& backgroundFileName 
+    const char* backgroundFileName 
 ) : Printer(screenSizeX, screenSizeY, screenPadding), backgroundColor(backgroundColor)
 {
     InitBackground(backgroundFileName);
@@ -92,7 +92,7 @@ void SimulationPrinter::PrintBackground()
     }
 }
 
-void SimulationPrinter::InitBackground(const string& backgroundFileName)
+void SimulationPrinter::InitBackground(const char* backgroundFileName)
 {
     if (backgroundFileName == "")
         return;

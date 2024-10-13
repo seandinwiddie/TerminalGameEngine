@@ -3,7 +3,7 @@
 #include <cassert>
 
 
-void Frame::ReadFromFile(const string& fileName)
+void Frame::ReadFromFile(const char* fileName)
 {
     if(fileName == "")
         return;
