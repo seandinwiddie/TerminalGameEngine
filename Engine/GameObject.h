@@ -7,9 +7,7 @@
 #include "Vector2D.h"
 
 #include <Windows.h>
-#include <vector>
 
-template<typename T> using vector = std::vector<T>;
 using namespace GridDirection;
 using Model = Vector2D<char>;
 

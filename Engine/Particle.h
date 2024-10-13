@@ -2,17 +2,18 @@
 #include "ISimulationEntity.h"
 #include "GridDirection.h"
 #include "GameObject.h"
-#include <vector>
+#include <array>
 #include <optional>
 
-template<typename T> using vector = std::vector<T>;
 using Direction = GridDirection::Direction;
+template<typename T, std::size_t N> using array = std::array<T, N>;
 
 class Particle : public GameObject
 {
 private:
-	vector<Direction> moveDirections;
-	vector<double> moveSpeeds;
+	array<Direction,2> moveDirections;
+	array<double,2> moveSpeeds;
+
 	char modelChar;
 	size_t remainingMovementsBeforeDestruction;
 	int color;

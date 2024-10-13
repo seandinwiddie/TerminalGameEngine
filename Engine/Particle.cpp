@@ -23,11 +23,11 @@ Particle::Particle
 	
 	if (!mainDirection.has_value()) //main direction = random value
 	{
-		moveDirections.push_back(static_cast<Direction>(RandomUtils::GetRandomInt(0, Direction::COUNT - 1)));
+		moveDirections[0] = static_cast<Direction>(RandomUtils::GetRandomInt(0, Direction::COUNT - 1));
 	}
 	else //main direction is chosen randomly between given direction and orthogonal ones
 	{
-		moveDirections.push_back(mainDirection.value());
+		moveDirections[0] = mainDirection.value();
 	}
 		
 	//--------- evaluate orthogonal direction
@@ -35,15 +35,15 @@ Particle::Particle
 	Direction orthogonalDirection = GetClockwiseDirection(moveDirections[0]);
 	if (RandomUtils::GetRandomBool())
 		orthogonalDirection = GetInverseDirection(orthogonalDirection);
-	moveDirections.push_back(orthogonalDirection);
+	moveDirections[1] = orthogonalDirection;
 
 	//--------- evaluate directions speeds
 
 	double orthogonalSpeed = RandomUtils::GetRandomDouble(0, moveSpeed);
 	moveSpeed -= orthogonalSpeed;
 	
-	moveSpeeds.push_back(moveSpeed);
-	moveSpeeds.push_back(orthogonalSpeed);
+	moveSpeeds[0] = moveSpeed;
+	moveSpeeds[1] = orthogonalSpeed;
 
 	//--------- boost horizzontal speed (cause cells are smaller on x side)
 	for (int i = 0; i < moveDirections.size(); ++i)
