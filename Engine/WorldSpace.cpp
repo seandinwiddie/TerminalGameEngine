@@ -30,7 +30,7 @@ namespace Engine
 
 	void WorldSpace::RemoveObject(GameObject* obj)
 	{
-		EraseSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
+		EraseSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
 	void WorldSpace::MoveObject(GameObject* obj, Direction direction)
