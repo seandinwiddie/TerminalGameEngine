@@ -64,9 +64,10 @@ Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY
 {
 	Model result;
 	result.Resize(sizeX, sizeY);
-	for (int y = 0; y < sizeY; ++y)
-		for (int x = 0; x < sizeX; ++x)
-			result.Set(modelChar, x, y);
+
+	for (auto& elem : result)
+		elem = modelChar;
+
 	return result;
 }
 
