@@ -49,6 +49,8 @@ namespace Engine
 		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const;
 		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const;
 
+		uset<GameObject*> GetAreaObjects(GameObject* obj);
+
 	private:
 		void WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
 		void EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);

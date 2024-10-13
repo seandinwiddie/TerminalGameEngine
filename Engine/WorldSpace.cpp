@@ -266,4 +266,19 @@ namespace Engine
 			throw std::invalid_argument("Invalid direction");
 		}
 	}
+
+	uset<GameObject*> WorldSpace::GetAreaObjects(GameObject* obj)
+	{
+		uset<GameObject*> objects;
+		for (int y = obj->GetPosY(); y < obj->GetMaxPosY(); ++y)
+		{
+			for (int x = obj->GetPosX(); x < obj->GetMaxPosX(); ++x)
+			{
+				Cell cell = space.Get(x, y);
+				if (cell.objects.size() > 0)
+					objects.insert(*space.Get(x, y).objects.begin()); //todo implement sorting order
+			}
+		}
+		return objects;
+	}
 }

@@ -23,9 +23,8 @@ namespace SpaceInvaders
             Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
 
             Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
-            ShieldPart* otherShieldPart = dynamic_cast<ShieldPart*>(other);
 
-            if (otherEnemy == nullptr && otherShieldPart == nullptr)
+            if (otherEnemy == nullptr)
             {
                 Engine::Simulation::Instance().SpawnParticles
                 (

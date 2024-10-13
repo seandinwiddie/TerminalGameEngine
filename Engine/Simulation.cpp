@@ -125,18 +125,10 @@ namespace Engine
 				objectEntity->OnDestroy();
 				simulationPrinter->ClearObject(objectEntity);
 
-				Collider* colliderEntity = dynamic_cast<Collider*>(entity);
-				if (colliderEntity != nullptr)
-					worldSpace.RemoveObject(colliderEntity);
-				else
-				{
-					//todo: if a colliding object moves over a non colliding object, now it is not reprinted, improve in the future
-					//if entity is not a collider and was covering other objects, they must be reprinted
-					uset<Collider*> coveredObjects;
-					if (!worldSpace.IsCollidersAreaEmpty(objectEntity->GetPosX(), objectEntity->GetPosY(), objectEntity->GetModelWidth(), objectEntity->GetModelHeight(), coveredObjects))
-						for (Collider* elem : coveredObjects)
-							elem->mustBeReprinted = true;
-				}
+				worldSpace.RemoveObject(objectEntity);
+				std::unordered_set<GameObject*> coveredObjects = worldSpace.GetAreaObjects(objectEntity);
+				for (GameObject* coveredObj : coveredObjects)
+					coveredObj->mustBeReprinted = true;
 			}
 			entities.erase(entity);
 			delete(entity);

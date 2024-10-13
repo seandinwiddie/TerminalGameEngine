@@ -39,6 +39,7 @@ namespace Engine
 		GameObject(int xPos, int yPos);
 
 		virtual int GetColor() const { return Terminal::WHITE; }
+		virtual size_t GetSortingOrder() const { return 100; }
 		void Init() { InitModel(); }
 		int GetPosX() const { return xPos; }
 		int GetPosY() const { return yPos; }
