@@ -3,6 +3,7 @@
 #include "Simulation.h"
 #include "TimeHelper.h"
 #include "RandomUtils.h"
+#include "Collider.h"
 #include <cstdlib>
 
 namespace Platformer

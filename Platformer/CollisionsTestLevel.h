@@ -14,5 +14,4 @@ namespace Platformer
 
         virtual void LoadInSimulation() override;
     };
-
 }

@@ -1,17 +1,20 @@
 #pragma once
-#include "Collider.h"
+#include "ISimulationEntity.h"
+#include <vector>
 
 namespace Platformer
 {
+    template<typename T> using vector = std::vector<T>;
+
     class ObstaclesSpawner : public Engine::ISimulationEntity
     {
         //---------------------------------------------------------- Fields
     private:
         int xPos;
-        std::vector<double> minSpawnDelays;
-        std::vector<double> maxSpawnDelays;
-        std::vector<double> speeds;
-        std::vector<int> ySpawnPoints;
+        vector<double> minSpawnDelays;
+        vector<double> maxSpawnDelays;
+        vector<double> speeds;
+        vector<int> ySpawnPoints;
         size_t spawnIntensity = 0;
         double stopSpawningWhenPhaseChangesDuration;
         double increaseIntensityEverySeconds;
@@ -23,10 +26,10 @@ namespace Platformer
         ObstaclesSpawner
         (
             int xPos,
-            const std::vector<double>& minSpawnDelays,
-            const std::vector<double>& maxSpawnDelays,
-            const std::vector<double>& speeds,
-            const std::vector<int>& ySpawnPoints,
+            const vector<double>& minSpawnDelays,
+            const vector<double>& maxSpawnDelays,
+            const vector<double>& speeds,
+            const vector<int>& ySpawnPoints,
             double increaseIntensityEverySeconds = -1,
             double stopSpawningWhenPhaseChangesDuration = 0
         );
@@ -36,7 +39,7 @@ namespace Platformer
             int xPos,
             double spawnDelay,
             double speed,
-            const std::vector<int>& ySpawnPoints
+            const vector<int>& ySpawnPoints
         );
 
     protected:
