@@ -269,10 +269,15 @@ namespace Engine
 
 	uset<GameObject*> WorldSpace::GetAreaObjects(GameObject* obj)
 	{
+		return GetAreaObjects(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
+	}
+
+	uset<GameObject*> WorldSpace::GetAreaObjects(int startingX, int startingY, size_t width, size_t height)
+	{
 		uset<GameObject*> objects;
-		for (int y = obj->GetPosY(); y < obj->GetMaxPosY(); ++y)
+		for (int y = startingY; y < startingY + height; ++y)
 		{
-			for (int x = obj->GetPosX(); x < obj->GetMaxPosX(); ++x)
+			for (int x = startingX; x < width; ++x)
 			{
 				Cell cell = space.Get(x, y);
 				if (cell.objects.size() > 0)

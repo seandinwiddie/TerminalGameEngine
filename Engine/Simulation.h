@@ -37,9 +37,7 @@ namespace Engine
 			double moveSpeed;
 
 			MoveRequest(GameObject* object, Direction direction, double speed)
-				:object(object), moveDir(direction), moveSpeed(speed)
-			{
-			}
+				:object(object), moveDir(direction), moveSpeed(speed){ }
 		};
 
 		//------------------------------------------------------------------------------------ Fields
