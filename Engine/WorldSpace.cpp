@@ -80,13 +80,15 @@ namespace Engine
 		for (int y = yStart; y < yStart + height; ++y)
 			for (int x = xStart; x < xStart + width; ++x)
 			{
-				Cell cell = space.Get(x, y);
+				Cell& cell = space.Get(x, y);
 				cell.objects.insert(obj);
 
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
 				if (objCollider)
 				{
 					assert(cell.collider == nullptr || cell.collider == objCollider);
+
+					auto todoDelete = space.GetSizeX();
 					cell.collider = objCollider;
 				}
 			}
@@ -99,7 +101,7 @@ namespace Engine
 		for (int y = yStart; y < yStart + height; ++y)
 			for (int x = xStart; x < xStart + width; ++x)
 			{
-				Cell cell = space.Get(x, y);
+				Cell& cell = space.Get(x, y);
 				cell.objects.erase(obj);
 
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
