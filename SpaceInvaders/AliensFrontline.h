@@ -1,7 +1,8 @@
 #pragma once
-#include <vector>
 #include "RandomUtils.h"
 #include "Vector2D.h"
+
+#include <vector>
 
 namespace SpaceInvaders
 {
