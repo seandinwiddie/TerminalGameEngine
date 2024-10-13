@@ -4,38 +4,42 @@
 #include "Obstacle.h"
 #include "ObstaclesSpawner.h"
 
-template <typename T> using vector = std::vector<T>;
-
-void CollisionsTestLevel::LoadInSimulation()
+namespace Platformer
 {
-    Level::LoadInSimulation();
-    Simulation& simulation = Simulation::Instance();
+    template <typename T> using vector = std::vector<T>;
 
-    //----------------------- spawners settings
-    double spawnDelay = 0.15;
-    double speed = 32;
+    void CollisionsTestLevel::LoadInSimulation()
+    {
+        Level::LoadInSimulation();
+        Engine::Simulation& simulation = Engine::Simulation::Instance();
 
-    //----------------------- right spawner
-    int xPosRight = 96;
-    vector<int>ySpawnPoints = { 20,18,16,14 };
-    ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
-    (
-        xPosRight,
-        spawnDelay,
-        -speed,
-        ySpawnPoints
-    );
-    simulation.TryAddEntity(spawnerRight);
+        //----------------------- spawners settings
+        double spawnDelay = 0.15;
+        double speed = 32;
 
-    //----------------------- left spawner
-    int xPosLeft = 2;
-    vector<double>speeds2 = { 8, 1 };
-    ObstaclesSpawner* spawnerLeft = new ObstaclesSpawner
-    (
-        xPosLeft,
-        spawnDelay,
-        speed,
-        ySpawnPoints
-    );
-    simulation.TryAddEntity(spawnerLeft);
+        //----------------------- right spawner
+        int xPosRight = 96;
+        vector<int>ySpawnPoints = { 20,18,16,14 };
+        ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
+        (
+            xPosRight,
+            spawnDelay,
+            -speed,
+            ySpawnPoints
+        );
+        simulation.TryAddEntity(spawnerRight);
+
+        //----------------------- left spawner
+        int xPosLeft = 2;
+        vector<double>speeds2 = { 8, 1 };
+        ObstaclesSpawner* spawnerLeft = new ObstaclesSpawner
+        (
+            xPosLeft,
+            spawnDelay,
+            speed,
+            ySpawnPoints
+        );
+        simulation.TryAddEntity(spawnerLeft);
+    }
 }
+

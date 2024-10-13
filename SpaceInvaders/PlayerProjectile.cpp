@@ -3,14 +3,17 @@
 #include "Enemy.h"
 #include "SpaceInvadersLevel.h"
 
-const Model PlayerProjectile::MODEL(1, { '|' });
-
-void PlayerProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
+namespace SpaceInvaders
 {
-	Projectile::OnCollisionEnter(other, collisionDir);
-	Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
-	if (otherEnemy != nullptr)
+	const Model PlayerProjectile::MODEL(1, { '|' });
+
+	void PlayerProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
 	{
-		Simulation::Instance().RemoveEntity(otherEnemy);
+		Projectile::OnCollisionEnter(other, collisionDir);
+		Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
+		if (otherEnemy != nullptr)
+		{
+			Engine::Simulation::Instance().RemoveEntity(otherEnemy);
+		}
 	}
 }

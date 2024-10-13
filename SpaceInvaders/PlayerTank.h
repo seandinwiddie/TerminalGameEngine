@@ -2,40 +2,45 @@
 #include "Config.h"
 #include "Collider.h"
 
-class SpaceInvadersLevel;
-
-class PlayerTank : public Collider
+namespace SpaceInvaders
 {
-//---------------------------------------------------------- Settings
-public:
-    static double constexpr MOVE_SPEED = 24;
-    static double constexpr PROJECTILE_SPEED = 32;
-    static double constexpr SHOTS_DELAY = 0.3;
-    static size_t const MAX_HEALTH = 3;
+    class SpaceInvadersLevel;
+    using Model = Engine::Model;
 
-//---------------------------------------------------------- Fields
-public:
-    Event<size_t> OnDamageTaken;
+    class PlayerTank : public Engine::Collider
+    {
+        //---------------------------------------------------------- Settings
+    public:
+        static double constexpr MOVE_SPEED = 24;
+        static double constexpr PROJECTILE_SPEED = 32;
+        static double constexpr SHOTS_DELAY = 0.3;
+        static size_t const MAX_HEALTH = 3;
 
-private:
-    static const Model MODEL;
-    SpaceInvadersLevel* level;
-    double lastTimeShot = -1;
-    size_t health = MAX_HEALTH;
+        //---------------------------------------------------------- Fields
+    public:
+        Event<size_t> OnDamageTaken;
 
-//---------------------------------------------------------- Methods
-public:
-    PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : Collider(xPos, yPos), level(level) {};
+    private:
+        static const Model MODEL;
+        SpaceInvadersLevel* level;
+        double lastTimeShot = -1;
+        size_t health = MAX_HEALTH;
 
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return Terminal::GREEN; }
-    virtual void InitModel() { SetModel(MODEL); }
-    void HandleMovement();
-    void HandleShooting();
-    void TakeDamage();
-    size_t GetHealth() { return health; }
+        //---------------------------------------------------------- Methods
+    public:
+        PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : Collider(xPos, yPos), level(level) {};
 
-protected:
-    virtual void Update() override;
-};
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+        virtual void InitModel() { SetModel(MODEL); }
+        void HandleMovement();
+        void HandleShooting();
+        void TakeDamage();
+        size_t GetHealth() { return health; }
+
+    protected:
+        virtual void Update() override;
+    };
+
+}

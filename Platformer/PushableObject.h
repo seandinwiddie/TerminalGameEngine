@@ -3,31 +3,34 @@
 #include "Bunny.h"
 #include "AudioManager.h"
 
-class PushableObject : public Collider
+namespace Platformer
 {
-//---------------------------------------------------------- Fields
-private:
-    Model model = CreteModelUsingChar('@', 4, 2);
-//---------------------------------------------------------- Methods
-public:
-    using Collider::Collider;
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 8; }
-    virtual int GetColor() const { return Terminal::BLUE; }
-
-protected:
-    virtual void InitModel() override { SetModel(model); }
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir)override
+    class PushableObject : public Engine::Collider
     {
-        if (collisionDir == Direction::right || collisionDir == Direction::left)
+        //---------------------------------------------------------- Fields
+    private:
+        Model model = CreteModelUsingChar('@', 4, 2);
+        //---------------------------------------------------------- Methods
+    public:
+        using Collider::Collider;
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 8; }
+        virtual int GetColor() const { return Engine::Terminal::BLUE; }
+
+    protected:
+        virtual void InitModel() override { SetModel(model); }
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir)override
         {
-            TryMove(GetInverseDirection(collisionDir), 9999);
-            collisions[collisionDir].clear();
+            if (collisionDir == Direction::right || collisionDir == Direction::left)
+            {
+                TryMove(GetInverseDirection(collisionDir), 9999);
+                collisions[collisionDir].clear();
+            }
+            else
+            {
+                if (dynamic_cast<Bunny*>(other) == nullptr)
+                   Engine::AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Hit.wav", 0.2);
+            }
         }
-        else
-        {
-            if (dynamic_cast<Bunny*>(other) == nullptr)
-                AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Hit.wav", 0.2);
-        }
-    }
-};
+    };
+}

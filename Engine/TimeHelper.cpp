@@ -3,32 +3,36 @@
 #include "TimeHelper.h"
 #include "Simulation.h"
 
-void TimeHelper::OnFrameGenerated()
+namespace Engine
 {
-    double currentTime = GetTime();
-    deltaTime = currentTime - lastTimeFrameGenerated;
-    lastTimeFrameGenerated = currentTime;
-}
 
-bool TimeHelper::IsTimeForFirstOfTwoModels(double changeModelEverySeconds) const
-{
-    double time = GetTime();
+    void TimeHelper::OnFrameGenerated()
+    {
+        double currentTime = GetTime();
+        deltaTime = currentTime - lastTimeFrameGenerated;
+        lastTimeFrameGenerated = currentTime;
+    }
 
-    if (time == 0)
-        return false;
+    bool TimeHelper::IsTimeForFirstOfTwoModels(double changeModelEverySeconds) const
+    {
+        double time = GetTime();
 
-    return fmod(time, changeModelEverySeconds) < changeModelEverySeconds / 2;
-}
+        if (time == 0)
+            return false;
 
-double TimeHelper::GetTime() const
-{
-    time_point now = hr_clock::now();
-    std::chrono::duration<double> elapsed = now - startTime;
-    return elapsed.count();
-}
+        return fmod(time, changeModelEverySeconds) < changeModelEverySeconds / 2;
+    }
 
-TimeHelper::TimeHelper()
-{
-    Simulation::Instance().OnFrameGenerated.Subscribe( [this]() { OnFrameGenerated(); });
-    startTime = hr_clock::now();
+    double TimeHelper::GetTime() const
+    {
+        time_point now = hr_clock::now();
+        std::chrono::duration<double> elapsed = now - startTime;
+        return elapsed.count();
+    }
+
+    TimeHelper::TimeHelper()
+    {
+        Simulation::Instance().OnFrameGenerated.Subscribe([this]() { OnFrameGenerated(); });
+        startTime = hr_clock::now();
+    }
 }

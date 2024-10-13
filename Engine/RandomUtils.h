@@ -10,9 +10,9 @@ namespace RandomUtils
 		return ((max - min) * r + min);
 	}
 
-	inline int GetRandomInt(int minInclusive, int maxInclusive) 
-	{ 
-		return minInclusive + std::rand() % (maxInclusive - minInclusive + 1); 
+	inline int GetRandomInt(int minInclusive, int maxInclusive)
+	{
+		return minInclusive + std::rand() % (maxInclusive - minInclusive + 1);
 	}
 
 	inline bool GetRandomBool()

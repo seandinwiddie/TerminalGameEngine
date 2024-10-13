@@ -1,41 +1,44 @@
 #pragma once
 #include "Alien.h"
 
-class AlienHighScore : public Alien
+namespace SpaceInvaders
 {
-private:
-	static const Model MODEL_1;
-	static const Model MODEL_2;
-	//------------------------------------------------------ Methods
-public:
-	using Alien::Alien;
-
-	virtual size_t GetScore() const { return 30; }
-	virtual int GetColor() const override { return Terminal::MAGENTA; }
-
-protected:
-	virtual void InitModel() 
+	class AlienHighScore : public Alien
 	{
-		animationModel1 = &MODEL_1;
-		animationModel2 = &MODEL_2;
-		SetModel(MODEL_1); 
-	}
-};
+	private:
+		static const Model MODEL_1;
+		static const Model MODEL_2;
+		//------------------------------------------------------ Methods
+	public:
+		using Alien::Alien;
 
-const Model AlienHighScore::MODEL_1
-(
-	4,
-	{ 
-		'/', 'O',  'o',  '\\',
-		'/', '\'', '\'', '\\'
-	}
-);
+		virtual size_t GetScore() const { return 30; }
+		virtual int GetColor() const override { return Engine::Terminal::MAGENTA; }
 
-const Model AlienHighScore::MODEL_2
-(
-	4,
-	{
-		'/', 'o', 'O', '\\',
-		'|', '\'', '\'', '|'
-	}
-);
+	protected:
+		virtual void InitModel()
+		{
+			animationModel1 = &MODEL_1;
+			animationModel2 = &MODEL_2;
+			SetModel(MODEL_1);
+		}
+	};
+
+	const Model AlienHighScore::MODEL_1
+	(
+		4,
+		{
+			'/', 'O',  'o',  '\\',
+			'/', '\'', '\'', '\\'
+		}
+	);
+
+	const Model AlienHighScore::MODEL_2
+	(
+		4,
+		{
+			'/', 'o', 'O', '\\',
+			'|', '\'', '\'', '|'
+		}
+	);
+}

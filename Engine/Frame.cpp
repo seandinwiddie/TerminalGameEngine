@@ -2,66 +2,69 @@
 #include "StringUtils.h"
 #include <cassert>
 
-
-void Frame::ReadFromFile(const char* fileName)
+namespace Engine
 {
-    if(fileName == "")
-        return;
-
-    std::ifstream file(fileName, std::ios::binary);
-    if (!file)
+    void Frame::ReadFromFile(const char* fileName)
     {
-        std::cerr << "Error opening frame file: " << fileName << std::endl;
-        return;
-    }
+        if (fileName == "")
+            return;
 
-    string line = "";
-    int y = 0;
-
-    while(std::getline(file, line))
-    {
-        RemoveNotAllowedChars(line);
-
-        if (y == 0)
-            chars.Resize(line.size(),0);
-
-        assert(line.size() == chars.GetSizeX());
-
-        chars.IncreaseSizeY();
-        for (int x = 0; x < line.length(); ++x)
-            chars.Set(line[x], x, y);
-
-        line = "";
-        ++y;
-    }
-
-    return;
-}
-
-void Frame::RemoveNotAllowedChars(string& str)
-{
-    StringUtils::RemoveInstancesOfChar(str, '\n');
-    StringUtils::RemoveInstancesOfChar(str, '\r');
-    StringUtils::RemoveInstancesOfChar(str, '\t');
-    StringUtils::RemoveInstancesOfChar(str, '\0');
-}
-
-void Frame::WriteString(const string& writenString, char writeOverChar)
-{
-    for (size_t y = 0; y < GetSizeY(); ++y)
-    {
-        for (size_t x = 0; x < GetSizeX(); ++x)
+        std::ifstream file(fileName, std::ios::binary);
+        if (!file)
         {
-            char c = chars.Get(x,y);
+            std::cerr << "Error opening frame file: " << fileName << std::endl;
+            return;
+        }
 
-            // insert score message
-            if (c == writeOverChar)
+        string line = "";
+        int y = 0;
+
+        while (std::getline(file, line))
+        {
+            RemoveNotAllowedChars(line);
+
+            if (y == 0)
+                chars.Resize(line.size(), 0);
+
+            assert(line.size() == chars.GetSizeX());
+
+            chars.IncreaseSizeY();
+            for (int x = 0; x < line.length(); ++x)
+                chars.Set(line[x], x, y);
+
+            line = "";
+            ++y;
+        }
+
+        return;
+    }
+
+    void Frame::RemoveNotAllowedChars(string& str)
+    {
+        StringUtils::RemoveInstancesOfChar(str, '\n');
+        StringUtils::RemoveInstancesOfChar(str, '\r');
+        StringUtils::RemoveInstancesOfChar(str, '\t');
+        StringUtils::RemoveInstancesOfChar(str, '\0');
+    }
+
+    void Frame::WriteString(const string& writenString, char writeOverChar)
+    {
+        for (size_t y = 0; y < GetSizeY(); ++y)
+        {
+            for (size_t x = 0; x < GetSizeX(); ++x)
             {
-                for (int insertIt = 0; insertIt < writenString.size(); ++insertIt)
-                    chars.Set(writenString[insertIt], x+insertIt, y);
-                x += writenString.size() - 1;
+                char c = chars.Get(x, y);
+
+                // insert score message
+                if (c == writeOverChar)
+                {
+                    for (int insertIt = 0; insertIt < writenString.size(); ++insertIt)
+                        chars.Set(writenString[insertIt], x + insertIt, y);
+                    x += writenString.size() - 1;
+                }
             }
         }
     }
-}
 
+
+}

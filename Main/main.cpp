@@ -2,6 +2,6 @@
 
 int main()
 {
-    GameLoop gameLoop;
+   GameLoop gameLoop;
     return 0;
 }

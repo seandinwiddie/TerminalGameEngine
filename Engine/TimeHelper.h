@@ -4,28 +4,31 @@
 #include <chrono>
 #include <math.h>
 
-using time_point = std::chrono::steady_clock::time_point;
-using hr_clock = std::chrono::high_resolution_clock;
-
-class TimeHelper : public Singleton<TimeHelper>
+namespace Engine
 {
-friend class Singleton;
+    using time_point = std::chrono::steady_clock::time_point;
+    using hr_clock = std::chrono::high_resolution_clock;
 
-//---------------------------------------------------------- Fields
-private:
-    time_point startTime;
-    double lastTimeFrameGenerated = 0;
-    double deltaTime = 1;
+    class TimeHelper : public Singleton<TimeHelper>
+    {
+        friend class Singleton;
 
-//---------------------------------------------------------- Methods
-public:
-    double GetDeltaTime() const { return deltaTime; }
-    double GetFPS() const { return 1.0 / GetDeltaTime(); }
+        //---------------------------------------------------------- Fields
+    private:
+        time_point startTime;
+        double lastTimeFrameGenerated = 0;
+        double deltaTime = 1;
 
-    void OnFrameGenerated();
-    bool IsTimeForFirstOfTwoModels (double changeModelEverySeconds) const;
-    double GetTime() const;
+        //---------------------------------------------------------- Methods
+    public:
+        double GetDeltaTime() const { return deltaTime; }
+        double GetFPS() const { return 1.0 / GetDeltaTime(); }
 
-private:
-    TimeHelper();
-};
+        void OnFrameGenerated();
+        bool IsTimeForFirstOfTwoModels(double changeModelEverySeconds) const;
+        double GetTime() const;
+
+    private:
+        TimeHelper();
+    };
+}

@@ -1,20 +1,26 @@
 #pragma once
 #include "StaticCollider.h"
 
-class ShieldPart : public Collider
+namespace SpaceInvaders
 {
-//---------------------------------------------------------- Fields
-private:
-    Model model = CreteModelUsingChar('=', 1, 1);
+    using Direction = Engine::Direction;
+    using Model = Engine::Model;
 
-//---------------------------------------------------------- Methods
-public:
-    using Collider::Collider;
+    class ShieldPart : public Engine::Collider
+    {
+        //---------------------------------------------------------- Fields
+    private:
+        Model model = CreteModelUsingChar('=', 1, 1);
 
-protected:
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return Terminal::GREEN; }
-    virtual void InitModel() { SetModel(model); }
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
-};
+        //---------------------------------------------------------- Methods
+    public:
+        using Collider::Collider;
+
+    protected:
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+        virtual void InitModel() { SetModel(model); }
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+    };
+}

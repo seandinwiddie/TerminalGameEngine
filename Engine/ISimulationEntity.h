@@ -1,10 +1,13 @@
 #pragma once
 
-class ISimulationEntity
+namespace Engine
 {
-friend class Simulation;
-//---------------------------------------------------------- Methods
-protected:
-	virtual void Update() = 0;
-	virtual ~ISimulationEntity() = default;
-};
+	class ISimulationEntity
+	{
+		friend class Simulation;
+		//---------------------------------------------------------- Methods
+	protected:
+		virtual void Update() = 0;
+		virtual ~ISimulationEntity() = default;
+	};
+}

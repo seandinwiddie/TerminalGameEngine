@@ -2,19 +2,22 @@
 #include "Config.h"
 #include "VariableSizeCollider.h"
 
-class StaticCollider : public VariableSizeCollider
+namespace Engine
 {
-//---------------------------------------------------------- Methods
-public:
-    StaticCollider
-    (
-        int xPos,
-        int yPos,
-        size_t sizeX,
-        size_t sizeY,
-        char modelChar
-    );
+    class StaticCollider : public VariableSizeCollider
+    {
+        //---------------------------------------------------------- Methods
+    public:
+        StaticCollider
+        (
+            int xPos,
+            int yPos,
+            size_t sizeX,
+            size_t sizeY,
+            char modelChar
+        );
 
-    virtual bool CanExitScreenSpace() const override { return true; }
-    virtual double GetGravityScale() const override { return 0; }
-};
+        virtual bool CanExitScreenSpace() const override { return true; }
+        virtual double GetGravityScale() const override { return 0; }
+    };
+}

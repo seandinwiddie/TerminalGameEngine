@@ -2,19 +2,25 @@
 
 #include "MovingStraightObject.h"
 
-class Obstacle : public MovingStraightObject
+namespace Platformer
 {
-private:
-    static Model model;
-//---------------------------------------------------------- Methods
-public:
-    using MovingStraightObject::MovingStraightObject;
+    using Model = Engine::Model;
+    using Direction = Engine::Direction;
 
-    virtual bool CanExitScreenSpace() const override { return true; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return Terminal::RED; }
+    class Obstacle : public Engine::MovingStraightObject
+    {
+    private:
+        static Model model;
+        //---------------------------------------------------------- Methods
+    public:
+        using MovingStraightObject::MovingStraightObject;
 
-protected:
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-    virtual void InitModel();
-};
+        virtual bool CanExitScreenSpace() const override { return true; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual int GetColor() const { return Engine::Terminal::RED; }
+
+    protected:
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+        virtual void InitModel();
+    };
+}

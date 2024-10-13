@@ -1,12 +1,15 @@
 #include "MovingStraightObject.h"
 
-MovingStraightObject::MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed)
-:Collider(xPos, yPos), moveDirection(moveDir), moveSpeed(moveSpeed){ }
-
-void MovingStraightObject::Update()
+namespace Engine
 {
-	Collider::Update();
+	MovingStraightObject::MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed)
+		:Collider(xPos, yPos), moveDirection(moveDir), moveSpeed(moveSpeed){ }
 
-	if (canMove)
-		TryMove(moveDirection, moveSpeed);
+	void MovingStraightObject::Update()
+	{
+		Collider::Update();
+
+		if (canMove)
+			TryMove(moveDirection, moveSpeed);
+	}
 }

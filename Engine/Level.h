@@ -4,47 +4,52 @@
 #include "Terminal.h"
 #include "Frame.h"
 
-class Level : public ISimulationEntity
+namespace Engine
 {
-    friend class Simulation;
+    using Frame = Engine::Frame;
 
- //---------------------------------------------------------- Settings
-private:
-    constexpr static double PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY = 1.5;
+    class Level : public ISimulationEntity
+    {
+        friend class Simulation;
 
-//---------------------------------------------------------- Fields
-private:
-    bool hasCalledOnPostGameOverDelayEnded = false;
-    double gameOverTime = -1;
-    double levelStartedTime = 0;
-    bool isTerminated = false;
+        //---------------------------------------------------------- Settings
+    private:
+        constexpr static double PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY = 1.5;
 
-protected:
-    Frame gameOverWindow;
+        //---------------------------------------------------------- Fields
+    private:
+        bool hasCalledOnPostGameOverDelayEnded = false;
+        double gameOverTime = -1;
+        double levelStartedTime = 0;
+        bool isTerminated = false;
 
-//---------------------------------------------------------- Methods
+    protected:
+        Frame gameOverWindow;
 
-public:
-    virtual int GetWorldSizeX() const = 0;
-    virtual int GetWorldSizeY() const = 0;
-    virtual int GetScreenPadding() const = 0;
-    virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
-    virtual const char* GetBackgroundFileName()const { return ""; }
-    virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
-    double GetLevelTime() const;
-    bool IsGameOver() const { return gameOverTime > -1; }
-    bool IsTerminated() const { return isTerminated; }
+        //---------------------------------------------------------- Methods
 
-protected:
-    virtual void OnGameOver();
-    virtual double ShowGameOverScreenDelay() const = 0;
-    virtual void Update() override;
-    virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
-    virtual void LoadInSimulation();
-    virtual const char* GetGameOverWindowPath() { return ""; }
+    public:
+        virtual int GetWorldSizeX() const = 0;
+        virtual int GetWorldSizeY() const = 0;
+        virtual int GetScreenPadding() const = 0;
+        virtual int GetMarginsColor() const { return Terminal::BLUE_DARK; }
+        virtual const char* GetBackgroundFileName()const { return ""; }
+        virtual int GetBackgroundColor() const { return Terminal::BLUE_DARK; }
+        double GetLevelTime() const;
+        bool IsGameOver() const { return gameOverTime > -1; }
+        bool IsTerminated() const { return isTerminated; }
 
-    bool IsPostGameOverPauseEnded() const;
-    bool CanPlayerPressKeyToRestartGame() const;
-    void Terminate() { isTerminated = true; }
+    protected:
+        virtual void OnGameOver();
+        virtual double ShowGameOverScreenDelay() const = 0;
+        virtual void Update() override;
+        virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
+        virtual void LoadInSimulation();
+        virtual const char* GetGameOverWindowPath() { return ""; }
 
-};
+        bool IsPostGameOverPauseEnded() const;
+        bool CanPlayerPressKeyToRestartGame() const;
+        void Terminate() { isTerminated = true; }
+
+    };
+}

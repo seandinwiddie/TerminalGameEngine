@@ -1,18 +1,23 @@
 #pragma once
 #include "Projectile.h"
 
-class PlayerProjectile : public Projectile
+namespace SpaceInvaders
 {
-//---------------------------------------------------------- Fields
-private:
-	static const Model MODEL;
+	using Model = Engine::Model;
 
-//---------------------------------------------------------- Methodss
-public:
-	using Projectile::Projectile;
+	class PlayerProjectile : public Projectile
+	{
+		//---------------------------------------------------------- Fields
+	private:
+		static const Model MODEL;
 
-protected:
-	virtual int GetColor() const { return Terminal::GREEN; }
-	virtual void InitModel() { SetModel(MODEL); }
-	virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
-};
+		//---------------------------------------------------------- Methodss
+	public:
+		using Projectile::Projectile;
+
+	protected:
+		virtual int GetColor() const { return Engine::Terminal::GREEN; }
+		virtual void InitModel() { SetModel(MODEL); }
+		virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+	};
+}

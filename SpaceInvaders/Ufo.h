@@ -4,28 +4,32 @@
 #include "GridDirection.h"
 #include <array>
 
-using Direction = GridDirection::Direction;
-
-class Ufo : public Enemy
+namespace SpaceInvaders
 {
-//------------------------------------------------------ Fields
-private:
-	static const Model MODEL_1;
-	static const std::array<size_t,6> POSSIBLE_SCORES;
-	static const size_t MOVE_SPEED = 8;
+	using Direction = Engine::Direction;
+	using Model = Engine::Model;
 
-	Direction moveDirection;
-//------------------------------------------------------ Methods
-public:
-	Ufo(int xPos, int yPos, Direction moveDirection) : Enemy(xPos, yPos), moveDirection(moveDirection) {};
+	class Ufo : public Enemy
+	{
+		//------------------------------------------------------ Fields
+	private:
+		static const Model MODEL_1;
+		static const std::array<size_t, 6> POSSIBLE_SCORES;
+		static const size_t MOVE_SPEED = 8;
 
-	virtual bool CanExitScreenSpace() const override { return true; }
-	virtual int GetColor() const override { return Terminal::RED; }
-	virtual void InitModel() { SetModel(MODEL_1); }
-	virtual size_t GetScore() const;
+		Direction moveDirection;
+		//------------------------------------------------------ Methods
+	public:
+		Ufo(int xPos, int yPos, Direction moveDirection) : Enemy(xPos, yPos), moveDirection(moveDirection) {};
 
-protected:
-	virtual void Update() override;
-	virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+		virtual bool CanExitScreenSpace() const override { return true; }
+		virtual int GetColor() const override { return Engine::Terminal::RED; }
+		virtual void InitModel() { SetModel(MODEL_1); }
+		virtual size_t GetScore() const;
 
-};
+	protected:
+		virtual void Update() override;
+		virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+
+	};
+}

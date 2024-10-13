@@ -2,24 +2,27 @@
 #include "Printer.h"
 #include "Frame.h"
 
-class UIPrinter : public Printer
+namespace Engine
 {
-//---------------------------------------------------------- Fields
+    class UIPrinter : public Printer
+    {
+        //---------------------------------------------------------- Fields
 
-public:
-    enum class WindowPosition{CenterX_TopY, CenterX_CenterY};
+    public:
+        enum class WindowPosition { CenterX_TopY, CenterX_CenterY };
 
-private:
-	static const char MARGIN_HORIZONTAL_CHAR = '=';
-	static const char MARGIN_VERTICAL_CHAR = '|';
+    private:
+        static const char MARGIN_HORIZONTAL_CHAR = '=';
+        static const char MARGIN_VERTICAL_CHAR = '|';
 
-//---------------------------------------------------------- Methods
-public:
-    UIPrinter(size_t screenSizeX, size_t screenSizeY, size_t screenPadding, int marginsColor);
-    void PrintWindow(const Frame& window, int color, WindowPosition windowPosition);
-    void PrintOnHeader(const string& header, int xPos, int color);
+        //---------------------------------------------------------- Methods
+    public:
+        UIPrinter(size_t screenSizeX, size_t screenSizeY, size_t screenPadding, int marginsColor);
+        void PrintWindow(const Frame& window, int color, WindowPosition windowPosition);
+        void PrintOnHeader(const string& header, int xPos, int color);
 
-private:
-    void DrawMargins(int color);
-    void DrawHorizontalMargin();
-};
+    private:
+        void DrawMargins(int color);
+        void DrawHorizontalMargin();
+    };
+}

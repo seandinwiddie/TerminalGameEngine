@@ -3,50 +3,53 @@
 #include <Windows.h>
 #include <string>
 
-using string = std::string;
-
-class Terminal : public Singleton<Terminal>
+namespace Engine
 {
-friend class Singleton;
+    using string = std::string;
 
-//---------------------------------------------------------- Fields
-public:
-    const static int WHITE_DARK;
-    const static int RED_DARK;
-    const static int GREEN_DARK;
-    const static int BLUE_DARK;
-    const static int CYAN_DARK;
-    const static int MAGENTA_DARK;
-    const static int YELLOW_DARK;
+    class Terminal : public Singleton<Terminal>
+    {
+        friend class Singleton;
 
-    const static int WHITE;
-    const static int RED;
-    const static int GREEN;
-    const static int BLUE;
-    const static int CYAN;
-    const static int MAGENTA;
-    const static int YELLOW;
-    const static int GREY;
-    const static int BLACK;
+        //---------------------------------------------------------- Fields
+    public:
+        const static int WHITE_DARK;
+        const static int RED_DARK;
+        const static int GREEN_DARK;
+        const static int BLUE_DARK;
+        const static int CYAN_DARK;
+        const static int MAGENTA_DARK;
+        const static int YELLOW_DARK;
 
-private:
-    int currentColor;
+        const static int WHITE;
+        const static int RED;
+        const static int GREEN;
+        const static int BLUE;
+        const static int CYAN;
+        const static int MAGENTA;
+        const static int YELLOW;
+        const static int GREY;
+        const static int BLACK;
 
-//---------------------------------------------------------- Fields
-public:
-    void Clear();
-    void SetColor(int color);
-    int GetColor() { return currentColor; }
-    void SetCursorPosition(const COORD& coord);
-    void SetCursorPosition(size_t x, size_t y);
-    COORD GetCursorPosition();
+    private:
+        int currentColor;
 
-    void Cout(const string& s) const;
-    void Cout(char c) const;
+        //---------------------------------------------------------- Fields
+    public:
+        void Clear();
+        void SetColor(int color);
+        int GetColor() { return currentColor; }
+        void SetCursorPosition(const COORD& coord);
+        void SetCursorPosition(size_t x, size_t y);
+        COORD GetCursorPosition();
 
-protected:
-    Terminal(){HideCursor();}
+        void Cout(const string& s) const;
+        void Cout(char c) const;
 
-private:
-    void HideCursor();
-};
+    protected:
+        Terminal() { HideCursor(); }
+
+    private:
+        void HideCursor();
+    };
+}

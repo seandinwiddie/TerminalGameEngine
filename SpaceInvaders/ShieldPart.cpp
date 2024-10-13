@@ -4,22 +4,25 @@
 #include "Projectile.h"
 #include "AudioManager.h"
 
-void ShieldPart::OnCollisionEnter(Collider* other, Direction collisionDir)
+namespace SpaceInvaders
 {
-    Collider::OnCollisionEnter(other, collisionDir);
-
-    Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
-    if (otherProjectile != nullptr)
+    void ShieldPart::OnCollisionEnter(Collider* other, Direction collisionDir)
     {
-        AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShieldBreak.wav");
-        Simulation::Instance().RemoveEntity(this);
-        return;
-    }
+        Collider::OnCollisionEnter(other, collisionDir);
 
-    Alien* otherAlien = dynamic_cast<Alien*>(other);
-    if (otherAlien != nullptr)
-    {
-        Simulation::Instance().RemoveEntity(this);
-        return;
+        Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
+        if (otherProjectile != nullptr)
+        {
+            Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShieldBreak.wav");
+            Engine::Simulation::Instance().RemoveEntity(this);
+            return;
+        }
+
+        Alien* otherAlien = dynamic_cast<Alien*>(other);
+        if (otherAlien != nullptr)
+        {
+            Engine::Simulation::Instance().RemoveEntity(this);
+            return;
+        }
     }
 }

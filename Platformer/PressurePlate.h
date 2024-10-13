@@ -2,27 +2,32 @@
 #include "Collider.h"
 #include "Event.h"
 
-class PressurePlate : public Collider
+namespace Platformer
 {
-//---------------------------------------------------------- Fields
-public:
-    Event<> OnPress;
-    Event<> OnRelease;
+    using Direction = Engine::Direction;
 
-private:
-    Model pressedModel;
-    Model unpressedModel;
+    class PressurePlate : public Engine::Collider
+    {
+        //---------------------------------------------------------- Fields
+    public:
+        Event<> OnPress;
+        Event<> OnRelease;
 
-//---------------------------------------------------------- Methods
-public:
-    PressurePlate(int xPos, int yPos, size_t width);
+    private:
+        Engine::Model pressedModel;
+        Engine::Model unpressedModel;
 
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual int GetColor() const { return Terminal::CYAN; }
+        //---------------------------------------------------------- Methods
+    public:
+        PressurePlate(int xPos, int yPos, size_t width);
 
-protected:
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-    virtual void OnCollisionExit(Direction endingCollisionDir) override;
-    virtual void InitModel() override { SetModel(unpressedModel); }
-};
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual int GetColor() const { return Engine::Terminal::CYAN; }
+
+    protected:
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+        virtual void OnCollisionExit(Direction endingCollisionDir) override;
+        virtual void InitModel() override { SetModel(unpressedModel); }
+    };
+}

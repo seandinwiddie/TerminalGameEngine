@@ -2,27 +2,34 @@
 #include "Collider.h"
 #include "Event.h"
 
-class Level;
+namespace Engine {class Level;}
 
-class LevelEndFlag : public Collider
+namespace Platformer
 {
-//---------------------------------------------------------- Fieldds
+    //class Engine::Level;
+    using Direction = Engine::Direction;
+    using Level = Engine::Level;
 
-public:
-    Event<> OnTouchBunny;
+    class LevelEndFlag : public Engine::Collider
+    {
+        //---------------------------------------------------------- Fieldds
 
-private:
-    static const Model flagModel;
-    Level* level;
+    public:
+        Event<> OnTouchBunny;
 
-//---------------------------------------------------------- Methods
-public:
-    LevelEndFlag(Level* level, int xPos, int yPos);
-    virtual int GetColor() const { return Terminal::GREEN; }
+    private:
+        static const Engine::Model flagModel;
+        Engine::Level* level;
 
-protected:
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
-    virtual void InitModel() { SetModel(flagModel); }
-};
+        //---------------------------------------------------------- Methods
+    public:
+        LevelEndFlag(Level* level, int xPos, int yPos);
+        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+
+    protected:
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+        virtual void InitModel() { SetModel(flagModel); }
+    };
+}

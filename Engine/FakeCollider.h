@@ -3,12 +3,15 @@
 #include "Collider.h"
 #include <cassert>
 
-class FakeCollider : public Collider
+namespace Engine
 {
-public:
-	FakeCollider() : Collider(0, 0) {}
-private:
-	virtual bool CanExitScreenSpace() const override { assert(false); return true; }
-	virtual double GetGravityScale() const override { assert(false); return 0; }
-	virtual void InitModel() override {}
-};
+	class FakeCollider : public Collider
+	{
+	public:
+		FakeCollider() : Collider(0, 0) {}
+	private:
+		virtual bool CanExitScreenSpace() const override { assert(false); return true; }
+		virtual double GetGravityScale() const override { assert(false); return 0; }
+		virtual void InitModel() override {}
+	};
+}

@@ -4,25 +4,28 @@
 #include "EnemyProjectile.h"
 #include "Simulation.h"
 
-void Alien::OnDestroy()
+namespace SpaceInvaders
 {
-	Enemy::OnDestroy();
-	AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
-	OnDestroyEvent.Notify(this);
-}
-
-void Alien::Shot()
-{
-	EnemyProjectile* projectile = new EnemyProjectile(GetMidPosX(), GetPosY() -2 , Direction::down, PROJECTILE_SPEED);
-	Simulation::Instance().TryAddEntity(projectile);
-}
-
-void Alien::Update()
-{
-	bool showFirstAnimFrameNew = TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
-	if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
+	void Alien::OnDestroy()
 	{
-		StepAnimation();
-		isFirsAnimationFrameTime = showFirstAnimFrameNew;
+		Enemy::OnDestroy();
+		Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
+		OnDestroyEvent.Notify(this);
+	}
+
+	void Alien::Shot()
+	{
+		EnemyProjectile* projectile = new EnemyProjectile(GetMidPosX(), GetPosY() - 2, Direction::down, PROJECTILE_SPEED);
+		Engine::Simulation::Instance().TryAddEntity(projectile);
+	}
+
+	void Alien::Update()
+	{
+		bool showFirstAnimFrameNew = Engine::TimeHelper::Instance().IsTimeForFirstOfTwoModels(1);
+		if (isFirsAnimationFrameTime != showFirstAnimFrameNew)
+		{
+			StepAnimation();
+			isFirsAnimationFrameTime = showFirstAnimFrameNew;
+		}
 	}
 }

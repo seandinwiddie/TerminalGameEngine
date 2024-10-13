@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <cassert>
 
-namespace GridDirection
+namespace Engine
 {
 	enum Direction { up, down, left, right, COUNT };
 

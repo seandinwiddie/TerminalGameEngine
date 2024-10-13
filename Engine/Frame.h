@@ -8,20 +8,24 @@
 #include <cassert>
 #include <string>
 
-using string = std::string;
-
-class Frame
+namespace Engine
 {
-public:
-    Vector2D<char> chars;
+    using string = std::string;
 
-public:
-    size_t GetSizeY() const { return chars.GetSizeY(); }
-    size_t GetSizeX() const { return chars.GetSizeX(); }
+    class Frame
+    {
+    public:
+        Vector2D<char> chars;
 
-    void ReadFromFile(const char* fileName);
-    void WriteString(const string& writenString, char writeOverChar);
-    bool IsSetup(){ return GetSizeY() > 0; }
+    public:
+        size_t GetSizeY() const { return chars.GetSizeY(); }
+        size_t GetSizeX() const { return chars.GetSizeX(); }
 
-    void RemoveNotAllowedChars(string& str);
-};
+        void ReadFromFile(const char* fileName);
+        void WriteString(const string& writenString, char writeOverChar);
+        bool IsSetup() { return GetSizeY() > 0; }
+
+        void RemoveNotAllowedChars(string& str);
+    };
+}
+

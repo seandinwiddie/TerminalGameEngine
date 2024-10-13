@@ -9,33 +9,36 @@
 #include <string>
 #include <memory>
 
-using string = std::string;
-template<typename T> using unique_ptr = std::unique_ptr<T>;
-
-class DebugManager : public Singleton<DebugManager>
+namespace Engine
 {
-friend class Singleton;
-//---------------------------------------------------------- Settings
-private:
-	static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
-//---------------------------------------------------------- Fields
-	unique_ptr<DebugPrinter> debugPrinter;
+	using string = std::string;
+	template<typename T> using unique_ptr = std::unique_ptr<T>;
 
-	//fps
-	std::list<double> fpsRecord;
-	double lastTimePrintedFps = 0;
-	double averageFPS = 0;
+	class DebugManager : public Singleton<DebugManager>
+	{
+		friend class Singleton;
+		//---------------------------------------------------------- Settings
+	private:
+		static constexpr double REFRESH_FPS_EVERY_SECONDS = 0.5;
+		//---------------------------------------------------------- Fields
+		unique_ptr<DebugPrinter> debugPrinter;
 
-	//cout calls
-	int coutCallsCount = 0;
-//---------------------------------------------------------- Methods
-public:
-	void Reset(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
-	void ShowAverageFPS();
-	void IncrementCoutCalls();
-	void PrintGenericLog(const string& str, int lineIndex);
+		//fps
+		std::list<double> fpsRecord;
+		double lastTimePrintedFps = 0;
+		double averageFPS = 0;
 
-private:
-	size_t GetAverageFps();
-};
+		//cout calls
+		int coutCallsCount = 0;
+		//---------------------------------------------------------- Methods
+	public:
+		void Reset(size_t screenSizeX, size_t screenSizeY, size_t screenPadding);
+		void ShowAverageFPS();
+		void IncrementCoutCalls();
+		void PrintGenericLog(const string& str, int lineIndex);
+
+	private:
+		size_t GetAverageFps();
+	};
+}
 #endif

@@ -2,39 +2,46 @@
 #include "Enemy.h"
 #include "Event.h"
 
-class Alien : public Enemy
+namespace SpaceInvaders
 {
-friend class AliensController;
+	using Model = Engine::Model;
 
-//------------------------------------------------------ Settings
-private:
-	static const size_t PROJECTILE_SPEED = 8;
+	class Alien : public Enemy
+	{
+		friend class AliensController;
 
-//------------------------------------------------------ Fields
-public:
-	Event<Collider*> OnDestroyEvent;
+		//------------------------------------------------------ Settings
+	private:
+		static const size_t PROJECTILE_SPEED = 8;
 
-protected:
-	const Model* animationModel1;
-	const Model* animationModel2;
+		//------------------------------------------------------ Fields
+	public:
+		Event<Collider*> OnDestroyEvent;
 
-private:
-	size_t gridIndexX;
-	size_t gridIndexY;
+	protected:
+		const Model* animationModel1;
+		const Model* animationModel2;
 
-//------------------------------------------------------ Methods
-public:
-	Alien(int xPos, int yPos, size_t xIndexInFormation, size_t yIndexInFormation) :
-		Enemy(xPos, yPos), gridIndexX(xIndexInFormation), gridIndexY(yIndexInFormation) { }
+	private:
+		size_t gridIndexX;
+		size_t gridIndexY;
 
-	virtual bool CanExitScreenSpace() const override { return false; }
-	size_t GetIndexInGridX() { return gridIndexX; }
-	size_t GetIndexInGridY() { return gridIndexY; }
-	
-	void Shot();
+		//------------------------------------------------------ Methods
+	public:
+		Alien(int xPos, int yPos, size_t xIndexInFormation, size_t yIndexInFormation) :
+			Enemy(xPos, yPos), gridIndexX(xIndexInFormation), gridIndexY(yIndexInFormation)
+		{
+		}
 
-protected:
-	virtual void OnDestroy() override;
-	virtual void Update() override;
-	void StepAnimation() { SetModel(isFirsAnimationFrameTime ? *animationModel1 : *animationModel2); }
-};
+		virtual bool CanExitScreenSpace() const override { return false; }
+		size_t GetIndexInGridX() { return gridIndexX; }
+		size_t GetIndexInGridY() { return gridIndexY; }
+
+		void Shot();
+
+	protected:
+		virtual void OnDestroy() override;
+		virtual void Update() override;
+		void StepAnimation() { SetModel(isFirsAnimationFrameTime ? *animationModel1 : *animationModel2); }
+	};
+}

@@ -5,82 +5,85 @@
 #include "AudioManager.h"
 #include "UIPrinter.h"
 
-size_t PongLevel::scorePlayer1 = 0;
-size_t PongLevel::scorePlayer2 = 0;
-
-void PongLevel::LoadInSimulation()
+namespace Pong
 {
-	Level::LoadInSimulation();
-	Simulation& simulation = Simulation::Instance();
+	size_t PongLevel::scorePlayer1 = 0;
+	size_t PongLevel::scorePlayer2 = 0;
 
-	//--------------- bars general settings
-	char barsChar = -37;
-	int startingPosX = GetWorldSizeX() / 2 - 1;
-	int barsSize = 8;
-	double barsMoveSpeed = 32;
-	double deflectFactor = 2.5;
+	void PongLevel::LoadInSimulation()
+	{
+		Level::LoadInSimulation();
+		Engine::Simulation& simulation = Engine::Simulation::Instance();
 
-	//--------------- bottom bar
-	PongBar* bottomBar = new PongBar
-	(
-		startingPosX,
-		GetScreenPadding(), 
-		barsSize,
-		1,
-		barsChar, 
-		barsMoveSpeed, 
-		deflectFactor, 
-		true
-	);
-	simulation.TryAddEntity(bottomBar);
+		//--------------- bars general settings
+		char barsChar = -37;
+		int startingPosX = GetWorldSizeX() / 2 - 1;
+		int barsSize = 8;
+		double barsMoveSpeed = 32;
+		double deflectFactor = 2.5;
 
-	//--------------- top bar
-	PongBar* topBar = new PongBar(
-		startingPosX,
-		GetWorldSizeY() - GetScreenPadding() -1, 
-		barsSize,
-		1,
-		barsChar, 
-		barsMoveSpeed,
-		deflectFactor, 
-		false
-	);
-	simulation.TryAddEntity(topBar);
-	
-	//--------------- ball
-	double ballSpeed = 16;
-	PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
-	pongBall->OnGoal.Subscribe([this](){ OnGameOver(); });
-	simulation.TryAddEntity(pongBall);
-	RefreshHeader();
-}
+		//--------------- bottom bar
+		PongBar* bottomBar = new PongBar
+		(
+			startingPosX,
+			GetScreenPadding(),
+			barsSize,
+			1,
+			barsChar,
+			barsMoveSpeed,
+			deflectFactor,
+			true
+		);
+		simulation.TryAddEntity(bottomBar);
 
-void PongLevel::IncreaseP1Score()
-{
-	++scorePlayer1;
-	RefreshHeader();
-}
+		//--------------- top bar
+		PongBar* topBar = new PongBar(
+			startingPosX,
+			GetWorldSizeY() - GetScreenPadding() - 1,
+			barsSize,
+			1,
+			barsChar,
+			barsMoveSpeed,
+			deflectFactor,
+			false
+		);
+		simulation.TryAddEntity(topBar);
 
-void PongLevel::IncreaseP2Score()
-{
-	++scorePlayer2;
-	RefreshHeader();
-}
+		//--------------- ball
+		double ballSpeed = 16;
+		PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
+		pongBall->OnGoal.Subscribe([this]() { OnGameOver(); });
+		simulation.TryAddEntity(pongBall);
+		RefreshHeader();
+	}
 
-void PongLevel::RefreshHeader()
-{
-	Simulation::Instance().GetUIPrinter().
-		PrintOnHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2),0,Terminal::WHITE);
-}
+	void PongLevel::IncreaseP1Score()
+	{
+		++scorePlayer1;
+		RefreshHeader();
+	}
 
-void PongLevel::OnPostGameOverDelayEnded()
-{ 
-	Level::OnPostGameOverDelayEnded();
-	Terminate();
-}
+	void PongLevel::IncreaseP2Score()
+	{
+		++scorePlayer2;
+		RefreshHeader();
+	}
 
-void PongLevel::OnGameOver()
-{ 
-	Level::OnGameOver();
-	AudioManager::Instance().PlayFx("Resources/Sounds/Pong/Goal.wav"); 
+	void PongLevel::RefreshHeader()
+	{
+		Engine::Simulation::Instance().GetUIPrinter().
+			PrintOnHeader(std::to_string(scorePlayer1) + " - " + std::to_string(scorePlayer2), 0, Engine::Terminal::WHITE);
+	}
+
+	void PongLevel::OnPostGameOverDelayEnded()
+	{
+		Level::OnPostGameOverDelayEnded();
+		Terminate();
+	}
+
+	void PongLevel::OnGameOver()
+	{
+		Level::OnGameOver();
+		Engine::AudioManager::Instance().PlayFx("Resources/Sounds/Pong/Goal.wav");
+	}
 }

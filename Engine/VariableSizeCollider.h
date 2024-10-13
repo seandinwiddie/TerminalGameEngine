@@ -1,31 +1,34 @@
 #pragma once
 #include "Collider.h"
 
-class VariableSizeCollider : public Collider
+namespace Engine
 {
-//---------------------------------------------------------- Fields
-    char modelChar;
-    size_t modelSizeX;
-    size_t modelSizeY;
-    Model model;
-//---------------------------------------------------------- Methods
-public:
-    VariableSizeCollider
-    (
-        int xPos,
-        int yPos,
-        size_t modelSizeX,
-        size_t modelSizeY,
-        char modelChar
-    ) : 
-        Collider(xPos, yPos), 
-        modelSizeX(modelSizeX), 
-        modelSizeY(modelSizeY), 
-        modelChar(modelChar)
+    class VariableSizeCollider : public Collider
     {
-       model = CreteModelUsingChar(modelChar, modelSizeX, modelSizeY);
-    }
+        //---------------------------------------------------------- Fields
+        char modelChar;
+        size_t modelSizeX;
+        size_t modelSizeY;
+        Model model;
+        //---------------------------------------------------------- Methods
+    public:
+        VariableSizeCollider
+        (
+            int xPos,
+            int yPos,
+            size_t modelSizeX,
+            size_t modelSizeY,
+            char modelChar
+        ) :
+            Collider(xPos, yPos),
+            modelSizeX(modelSizeX),
+            modelSizeY(modelSizeY),
+            modelChar(modelChar)
+        {
+            model = CreteModelUsingChar(modelChar, modelSizeX, modelSizeY);
+        }
 
-protected:
-    virtual void InitModel() override { SetModel(model); }
-};
+    protected:
+        virtual void InitModel() override { SetModel(model); }
+    };
+}

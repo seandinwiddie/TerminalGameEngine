@@ -6,17 +6,20 @@
 #include <conio.h>
 #include <cassert>
 
-class MovingStraightObject : public Collider
+namespace Engine
 {
-//---------------------------------------------------------- Fields
-private:
-	Direction moveDirection;
-	const double moveSpeed;
+	class MovingStraightObject : public Collider
+	{
+		//---------------------------------------------------------- Fields
+	private:
+		Direction moveDirection;
+		const double moveSpeed;
 
-//---------------------------------------------------------- Methods
-public:
-	MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed);
+		//---------------------------------------------------------- Methods
+	public:
+		MovingStraightObject(int xPos, int yPos, Direction moveDir, double moveSpeed);
 
-protected:
-	void Update() override;
-};
+	protected:
+		void Update() override;
+	};
+}

@@ -5,26 +5,31 @@
 #include "RandomUtils.h"
 #include "DebugManager.h"
 
-UfoSpawner::UfoSpawner(int xSpawnPos, int ySpawnPos, Direction ufoMoveDirection)
-	: xSpawnPos(xSpawnPos), ySpawnPos(ySpawnPos), ufoMoveDirection(ufoMoveDirection)
+namespace SpaceInvaders
 {
-	SetNextSpawnDelay();
-}
+	using TimeHelper = Engine::TimeHelper;
 
-void UfoSpawner::Update()
-{
-	if(TimeHelper::Instance().GetTime() >  nextSpawnTime)
+	UfoSpawner::UfoSpawner(int xSpawnPos, int ySpawnPos, Direction ufoMoveDirection)
+		: xSpawnPos(xSpawnPos), ySpawnPos(ySpawnPos), ufoMoveDirection(ufoMoveDirection)
 	{
-		Ufo* ufo = new Ufo(xSpawnPos,ySpawnPos,ufoMoveDirection);
-		Simulation::Instance().TryAddEntity(ufo);
-		lastTimeSpawned = TimeHelper::Instance().GetTime();
 		SetNextSpawnDelay();
 	}
-}
 
-void UfoSpawner::SetNextSpawnDelay()
-{
-	nextSpawnTime =
-		TimeHelper::Instance().GetTime() +
-		RandomUtils::GetRandomDouble(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY);
+	void UfoSpawner::Update()
+	{
+		if (TimeHelper::Instance().GetTime() > nextSpawnTime)
+		{
+			Ufo* ufo = new Ufo(xSpawnPos, ySpawnPos, ufoMoveDirection);
+			Engine::Simulation::Instance().TryAddEntity(ufo);
+			lastTimeSpawned = TimeHelper::Instance().GetTime();
+			SetNextSpawnDelay();
+		}
+	}
+
+	void UfoSpawner::SetNextSpawnDelay()
+	{
+		nextSpawnTime =
+			TimeHelper::Instance().GetTime() +
+			RandomUtils::GetRandomDouble(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY);
+	}
 }

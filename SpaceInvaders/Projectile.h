@@ -4,41 +4,45 @@
 #include "Enemy.h"
 #include "ShieldPart.h"
 
-class Projectile : public MovingStraightObject
+namespace SpaceInvaders
 {
-//---------------------------------------------------------- Methods
-public:
-    using MovingStraightObject::MovingStraightObject;
+    using Direction = Engine::Direction;
 
-protected:
-    virtual bool CanExitScreenSpace() const override { return false; }
-    virtual double GetGravityScale() const override { return 0; }
-    virtual void OnCollisionEnter(Collider* other, Direction collisionDir)
+    class Projectile : public Engine::MovingStraightObject
     {
-        MovingStraightObject::OnCollisionEnter(other, collisionDir);
-        Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
-        
-        Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
-        ShieldPart* otherShieldPart = dynamic_cast<ShieldPart*>(other);
+        //---------------------------------------------------------- Methods
+    public:
+        using MovingStraightObject::MovingStraightObject;
 
-        if (otherEnemy == nullptr && otherShieldPart == nullptr)
+    protected:
+        virtual bool CanExitScreenSpace() const override { return false; }
+        virtual double GetGravityScale() const override { return 0; }
+        virtual void OnCollisionEnter(Collider* other, Direction collisionDir)
         {
-            Simulation::Instance().SpawnParticles
-            (
-                GetPosX(),
-                GetPosY(),
-                GetModelWidth(),
-                GetModelHeight(),
-                '*',
-                GetColor(),
-                12,     //speed
-                3,      //movement life
-                4,      //density
-                collisionOppositeDirection
-            );
+            MovingStraightObject::OnCollisionEnter(other, collisionDir);
+            Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
+
+            Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
+            ShieldPart* otherShieldPart = dynamic_cast<ShieldPart*>(other);
+
+            if (otherEnemy == nullptr && otherShieldPart == nullptr)
+            {
+                Engine::Simulation::Instance().SpawnParticles
+                (
+                    GetPosX(),
+                    GetPosY(),
+                    GetModelWidth(),
+                    GetModelHeight(),
+                    '*',
+                    GetColor(),
+                    12,     //speed
+                    3,      //movement life
+                    4,      //density
+                    collisionOppositeDirection
+                );
+            }
+
+            Engine::Simulation::Instance().RemoveEntity(this);
         }
-
-        Simulation::Instance().RemoveEntity(this);
-    }
-};
-
+    };
+}

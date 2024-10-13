@@ -2,28 +2,31 @@
 #include "ISimulationEntity.h"
 #include "GridDirection.h"
 
-using Direction = GridDirection::Direction;
-
-class UfoSpawner : public ISimulationEntity
+namespace SpaceInvaders
 {
-//---------------------------------------------------------- Settings
-private:
-	static const int MIN_SPAWN_DELAY = 15;
-	static const int MAX_SPAWN_DELAY = 25;
+	using Direction = Engine::Direction;
 
-//---------------------------------------------------------- Fields
-private:
-	int xSpawnPos;
-	int ySpawnPos;
-	Direction ufoMoveDirection;
-	double lastTimeSpawned = -1;
-	double nextSpawnTime = -1;
+	class UfoSpawner : public Engine::ISimulationEntity
+	{
+		//---------------------------------------------------------- Settings
+	private:
+		static const int MIN_SPAWN_DELAY = 15;
+		static const int MAX_SPAWN_DELAY = 25;
 
-//---------------------------------------------------------- Methods
-public:
-	UfoSpawner(int xSpawnPos, int ySpawnPos, Direction ufoMoveDirection);
-protected:
-	virtual void Update();
-private:
-	void SetNextSpawnDelay();
-};
+		//---------------------------------------------------------- Fields
+	private:
+		int xSpawnPos;
+		int ySpawnPos;
+		Direction ufoMoveDirection;
+		double lastTimeSpawned = -1;
+		double nextSpawnTime = -1;
+
+		//---------------------------------------------------------- Methods
+	public:
+		UfoSpawner(int xSpawnPos, int ySpawnPos, Direction ufoMoveDirection);
+	protected:
+		virtual void Update();
+	private:
+		void SetNextSpawnDelay();
+	};
+}

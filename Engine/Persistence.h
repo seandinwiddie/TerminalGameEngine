@@ -2,27 +2,30 @@
 #include <string>
 #include <fstream>
 
-namespace Persistence
+namespace Engine
 {
-	inline void SaveBestScore(const char* persistenceFile , int bestScore)
+	namespace Persistence
 	{
-		std::ofstream outStream(persistenceFile);
-		assert(outStream);
-		outStream << bestScore;
-	}
-
-	inline int LoadBestScore(const char* persistenceFile)
-	{
-		std::ifstream infile(persistenceFile);
-
-		if (!infile)
+		inline void SaveBestScore(const char* persistenceFile, int bestScore)
 		{
-			SaveBestScore(persistenceFile, -1);
-			return -1;
+			std::ofstream outStream(persistenceFile);
+			assert(outStream);
+			outStream << bestScore;
 		}
-		
-		int bestScore;
-		infile >> bestScore;
-		return bestScore;
+
+		inline int LoadBestScore(const char* persistenceFile)
+		{
+			std::ifstream infile(persistenceFile);
+
+			if (!infile)
+			{
+				SaveBestScore(persistenceFile, -1);
+				return -1;
+			}
+
+			int bestScore;
+			infile >> bestScore;
+			return bestScore;
+		}
 	}
 }

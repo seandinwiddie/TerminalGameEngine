@@ -1,13 +1,18 @@
 #include "EnemyProjectile.h"
 #include "PlayerTank.h"
 
-const Model EnemyProjectile::MODEL(1, { '|' });
-
-void EnemyProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
+namespace SpaceInvaders
 {
-	Projectile::OnCollisionEnter(other, collisionDir);
-	
-	PlayerTank* otherTank = dynamic_cast<PlayerTank*>(other);
-	if (otherTank != nullptr)
-		otherTank->TakeDamage();
+	using Model = Engine::Model;
+
+	const Model EnemyProjectile::MODEL(1, { '|' });
+
+	void EnemyProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
+	{
+		Projectile::OnCollisionEnter(other, collisionDir);
+
+		PlayerTank* otherTank = dynamic_cast<PlayerTank*>(other);
+		if (otherTank != nullptr)
+			otherTank->TakeDamage();
+	}
 }

@@ -5,49 +5,52 @@
 #include "Simulation.h"
 #include "AudioManager.h"
 
-double Level:: GetLevelTime() const
+namespace Engine
 {
-    if (IsGameOver())
-        return gameOverTime - levelStartedTime;
-    else
-        return TimeHelper::Instance().GetTime() - levelStartedTime;
-}
+    double Level::GetLevelTime() const
+    {
+        if (IsGameOver())
+            return gameOverTime - levelStartedTime;
+        else
+            return TimeHelper::Instance().GetTime() - levelStartedTime;
+    }
 
-void Level::LoadInSimulation()
-{
-    isTerminated = false;
-    gameOverTime = -1;
-    levelStartedTime = TimeHelper::Instance().GetTime();
-    hasCalledOnPostGameOverDelayEnded = false;
-    
-    gameOverWindow.ReadFromFile(GetGameOverWindowPath());
-}
+    void Level::LoadInSimulation()
+    {
+        isTerminated = false;
+        gameOverTime = -1;
+        levelStartedTime = TimeHelper::Instance().GetTime();
+        hasCalledOnPostGameOverDelayEnded = false;
 
-bool Level::IsPostGameOverPauseEnded() const
-{
-    return gameOverTime > 0 && TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
-}
+        gameOverWindow.ReadFromFile(GetGameOverWindowPath());
+    }
 
-bool Level::CanPlayerPressKeyToRestartGame() const
-{
-    return TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() + PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY;
-}
+    bool Level::IsPostGameOverPauseEnded() const
+    {
+        return gameOverTime > 0 && TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay();
+    }
 
-void Level::OnGameOver()
-{
-    if (IsGameOver())
-        return;
+    bool Level::CanPlayerPressKeyToRestartGame() const
+    {
+        return TimeHelper::Instance().GetTime() - gameOverTime > ShowGameOverScreenDelay() + PRESS_ANY_KEY_TO_TERMINATE_GAME_DELAY;
+    }
 
-    gameOverTime = TimeHelper::Instance().GetTime();
-}
+    void Level::OnGameOver()
+    {
+        if (IsGameOver())
+            return;
 
-void Level::Update()
-{
-    if (gameOverTime < 0)
-        return;
+        gameOverTime = TimeHelper::Instance().GetTime();
+    }
 
-    if (IsPostGameOverPauseEnded() && hasCalledOnPostGameOverDelayEnded == false)
-        OnPostGameOverDelayEnded();
-    else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
-        Terminate();
+    void Level::Update()
+    {
+        if (gameOverTime < 0)
+            return;
+
+        if (IsPostGameOverPauseEnded() && hasCalledOnPostGameOverDelayEnded == false)
+            OnPostGameOverDelayEnded();
+        else if (CanPlayerPressKeyToRestartGame() && InputUtils::IsAnyKeyPressed())
+            Terminate();
+    }
 }

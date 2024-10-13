@@ -5,24 +5,27 @@
 #include <iostream>
 #include <string>
 
-using string = std::string;
-
-class DebugPrinter : public Printer
+namespace Engine
 {
-//------------------------------------------ Settings
-private:
-    const int DEBUG_COLOR = Terminal::CYAN;
-    const size_t FPS_POSITION = 1;
-    const size_t POSITION_COUT_CALLS = 2;
-    const size_t GENERIC_LOG_POSITION = 3;
+    using string = std::string;
 
-//------------------------------------------ Methodss
-public:
-    using Printer::Printer;
+    class DebugPrinter : public Printer
+    {
+        //------------------------------------------ Settings
+    private:
+        const int DEBUG_COLOR = Terminal::CYAN;
+        const size_t FPS_POSITION = 1;
+        const size_t POSITION_COUT_CALLS = 2;
+        const size_t GENERIC_LOG_POSITION = 3;
 
-public:
-    void PrintCoutCallsCount(size_t coutCallsCount);
-    void PrintFpsString(size_t fps);
-    void PrintGenericLog(const string& log, int lineIndex);
+        //------------------------------------------ Methodss
+    public:
+        using Printer::Printer;
 
-};
+    public:
+        void PrintCoutCallsCount(size_t coutCallsCount);
+        void PrintFpsString(size_t fps);
+        void PrintGenericLog(const string& log, int lineIndex);
+
+    };
+}

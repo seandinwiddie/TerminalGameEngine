@@ -1,19 +1,22 @@
 #pragma once
 #include "Collider.h"
 
-class Enemy : public Collider
+namespace SpaceInvaders
 {
-//------------------------------------------------------ Fields
-public:
-	using Collider::Collider;
-protected:
-	bool isFirsAnimationFrameTime;
+	class Enemy : public Engine::Collider
+	{
+		//------------------------------------------------------ Fields
+	public:
+		using Collider::Collider;
+	protected:
+		bool isFirsAnimationFrameTime;
 
-//------------------------------------------------------ Methods
-public:
-	virtual size_t GetScore() const = 0;
+		//------------------------------------------------------ Methods
+	public:
+		virtual size_t GetScore() const = 0;
 
-protected:
-	virtual double GetGravityScale() const override { return 0; }
-	virtual void OnDestroy() override;
-};
+	protected:
+		virtual double GetGravityScale() const override { return 0; }
+		virtual void OnDestroy() override;
+	};
+}

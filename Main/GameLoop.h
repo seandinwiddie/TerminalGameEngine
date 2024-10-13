@@ -2,9 +2,12 @@
 
 #include "Level.h"
 
+
+using Level = Engine::Level;
+
 class GameLoop
 {
-//---------------------------------------------------------- Methods
+    //---------------------------------------------------------- Methods
 public:
     GameLoop();
 private:

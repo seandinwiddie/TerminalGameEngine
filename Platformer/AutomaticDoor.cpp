@@ -1,35 +1,40 @@
 #include "AutomaticDoor.h"
 
-AutomaticDoor::AutomaticDoor
-(
-    int xPos,
-    int yPos,
-    size_t sizeX,
-    size_t sizeY,
-    char modelChar,
-    double moveSpeed
-) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar), moveSpeed(moveSpeed)
+namespace Platformer
 {
-    startingPosY = yPos;
-}
+    using Direction = Engine::Direction;
 
-void AutomaticDoor::Update()
-{
-    VariableSizeCollider::Update();
-    if (IsOpen())
+    AutomaticDoor::AutomaticDoor
+    (
+        int xPos,
+        int yPos,
+        size_t sizeX,
+        size_t sizeY,
+        char modelChar,
+        double moveSpeed
+    ) : VariableSizeCollider(xPos, yPos, sizeX, sizeY, modelChar), moveSpeed(moveSpeed)
     {
-        if (GetPosY() < startingPosY + GetModelHeight())
-            TryMove(Direction::up, moveSpeed);
+        startingPosY = yPos;
     }
-    else
-    {
-        if (GetPosY() > startingPosY)
-            TryMove(Direction::down, moveSpeed);
-    }
-}
 
-void AutomaticDoor::RemoveEnergySource()
-{ 
-    if(energySourcesCounter > 0)
-        --energySourcesCounter; 
+    void AutomaticDoor::Update()
+    {
+        VariableSizeCollider::Update();
+        if (IsOpen())
+        {
+            if (GetPosY() < startingPosY + GetModelHeight())
+                TryMove(Direction::up, moveSpeed);
+        }
+        else
+        {
+            if (GetPosY() > startingPosY)
+                TryMove(Direction::down, moveSpeed);
+        }
+    }
+
+    void AutomaticDoor::RemoveEnergySource()
+    {
+        if (energySourcesCounter > 0)
+            --energySourcesCounter;
+    }
 }

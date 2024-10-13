@@ -81,16 +81,10 @@
     <ClInclude Include="Printer.h">
       <Filter>Header Files\Printers</Filter>
     </ClInclude>
-    <ClInclude Include="RandomUtils.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="MovingStraightObject.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClInclude>
     <ClInclude Include="Simulation.h">
-      <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulationPrinter.h">
       <Filter>Header Files\Simulation</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
@@ -98,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="StaticCollider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="StringUtils.h">
-      <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Persistence.h">
       <Filter>Header Files\Utils</Filter>
@@ -128,6 +119,15 @@
     </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationPrinter.h">
+      <Filter>Header Files\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomUtils.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Header Files\General</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

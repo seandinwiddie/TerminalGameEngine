@@ -3,21 +3,24 @@
 #include "Simulation.h"
 #include "SpaceInvadersLevel.h"
 
-void Enemy::OnDestroy()
+namespace SpaceInvaders
 {
-	SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Simulation::Instance().GetActiveLevel());
-	assert(level != nullptr);
-	level->IncreasePlayerScore(GetScore());
-	Simulation::Instance().SpawnParticles
-	(
-		GetPosX(), 
-		GetPosY(),
-		GetModelWidth(),
-		GetModelHeight(), 
-		'*',
-		GetColor(),
-		12,	//speed
-		4,	//lifetime
-		1	//density
-	);
+	void Enemy::OnDestroy()
+	{
+		SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Engine::Simulation::Instance().GetActiveLevel());
+		assert(level != nullptr);
+		level->IncreasePlayerScore(GetScore());
+		Engine::Simulation::Instance().SpawnParticles
+		(
+			GetPosX(),
+			GetPosY(),
+			GetModelWidth(),
+			GetModelHeight(),
+			'*',
+			GetColor(),
+			12,	//speed
+			4,	//lifetime
+			1	//density
+		);
+	}
 }
