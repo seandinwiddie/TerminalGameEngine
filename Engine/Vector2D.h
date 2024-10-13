@@ -11,10 +11,12 @@ template<typename T> using vector = std::vector<T>;
 template<typename T>
 class Vector2D
 {
+    // -------------------------------------------------------------------- Fields
 private:
 	size_t width = 0;
 	vector<T> vector;
 
+    // -------------------------------------------------------------------- Methods
 public:
 	Vector2D() : Vector2D(0) {};
 	Vector2D(size_t width) : width(width) { vector.resize(width); }
