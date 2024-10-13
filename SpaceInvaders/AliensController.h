@@ -5,7 +5,6 @@
 #include "Event.h"
 #include "Vector2D.h"
 
-template <typename T> using vector = std::vector<T>;
 using namespace GridDirection;
 
 class Alien;
