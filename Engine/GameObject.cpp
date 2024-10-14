@@ -107,11 +107,21 @@ namespace Engine
 		OnMove.Notify(this, direction);
 	}
 
-	void GameObject::InsertInListSortingByLayer(GameObject* obj, std::list<GameObject*>& list)
+	//todo pass comparison lambda instead of using 2 functions
+	void GameObject::InsertInListHighSortingLayerFirst(GameObject* obj, std::list<GameObject*>& list)
 	{
 		auto it = list.begin();
 		for (; it != list.end(); ++it)
 			if (obj->GetSortingLayer() >= (*it)->GetSortingLayer())
+				break;
+		list.insert(it, obj);
+	}
+
+	void GameObject::InsertInListLowSortingLayerFirst(GameObject* obj, std::list<GameObject*>& list)
+	{
+		auto it = list.begin();
+		for (; it != list.end(); ++it)
+			if (obj->GetSortingLayer() <= (*it)->GetSortingLayer())
 				break;
 		list.insert(it, obj);
 	}

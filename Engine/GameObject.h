@@ -51,7 +51,8 @@ namespace Engine
 		size_t GetModelHeight()const { return model->GetSizeY(); }
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
-		static void InsertInListSortingByLayer(GameObject* obj, std::list<GameObject*>& list);
+		static void InsertInListHighSortingLayerFirst(GameObject* obj, std::list<GameObject*>& list);
+		static void InsertInListLowSortingLayerFirst(GameObject* obj, std::list<GameObject*>& list);
 
 	protected:
 		virtual void InitModel() = 0;

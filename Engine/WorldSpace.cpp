@@ -82,7 +82,7 @@ namespace Engine
 			{
 				Cell& cell = space.Get(x, y);
 
-				GameObject::InsertInListSortingByLayer(obj, cell.objects);
+				GameObject::InsertInListHighSortingLayerFirst(obj, cell.objects);
 
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
 				if (objCollider)
