@@ -126,13 +126,10 @@ namespace Engine
 				simulationPrinter->ClearObject(objectEntity);
 
 				worldSpace.RemoveObject(objectEntity);
+
  				std::unordered_set<GameObject*> coveredObjects = worldSpace.GetAreaObjects(objectEntity);
 				for (GameObject* coveredObj : coveredObjects)
-				{
-					if (coveredObj != objectEntity)
-						auto todoDelete = 5;
 					coveredObj->mustBeReprinted = true;
-				}
 			}
 			entities.erase(entity);
 			delete(entity);
@@ -181,22 +178,16 @@ namespace Engine
 		{
 			int oldXPos = it->object->GetPosX();
 			int oldYPos = it->object->GetPosY();
-			std::unordered_set<GameObject*> toBeReprintedObjects;
 
 			if (TryMoveObjectAtDirection(it->object, it->moveDir))
 			{
 				simulationPrinter->ClearArea(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
 				it->object->mustBeReprinted = true;
-			}
 
-			toBeReprintedObjects = worldSpace.GetAreaObjects(oldXPos,oldYPos,it->object->GetModelWidth(), it->object->GetModelHeight());
-			for (GameObject* obj : toBeReprintedObjects)
-			{
-				if (obj != it->object)
-					auto todoDelete = 5;
-				obj->mustBeReprinted = true;
+				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+				for (GameObject* obj : toBeReprintedObjects)
+					obj->mustBeReprinted = true;
 			}
-				
 		}
 	}
 
@@ -314,8 +305,7 @@ namespace Engine
 			return false;
 		}
 
-		if (colliderObj != nullptr)
-			worldSpace.MoveObject(colliderObj, direction);
+		worldSpace.MoveObject(obj, direction);
 
 		obj->CALLED_BY_SIM_Move(direction);
 

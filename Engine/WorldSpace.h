@@ -10,16 +10,23 @@
 namespace Engine
 {
 	template<typename T> using uset = std::unordered_set<T>;
-	template<typename T> using set = std::set<T>;
+	template<typename T> using multiset = std::multiset<T>;
 
 	class WorldSpace
 	{
 		//---------------------------------------------------------- Structs
 	private:
+		struct SortingRule
+		{
+			bool operator()(GameObject* a, GameObject* b) const
+			{
+				return a->GetSortingOrder() > b->GetSortingOrder(); // Descending order
+			}
+		};
 		struct Cell
 		{
 			Collider* collider = nullptr;	// cell collider, max 1 for cell
-			set<GameObject*> objects; 		// all objects in cell, includeing collider if present
+			std::multiset<GameObject*, SortingRule> objects; 		// all objects in cell, includeing collider if present
 		};
 
 		//---------------------------------------------------------- Margins
@@ -54,6 +61,6 @@ namespace Engine
 
 	private:
 		void WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
-		void EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);
+		void EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* value);		
 	};
 }

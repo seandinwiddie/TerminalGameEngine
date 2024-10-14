@@ -81,6 +81,7 @@ namespace Engine
 			for (int x = xStart; x < xStart + width; ++x)
 			{
 				Cell& cell = space.Get(x, y);
+
 				cell.objects.insert(obj);
 
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
@@ -88,7 +89,6 @@ namespace Engine
 				{
 					assert(cell.collider == nullptr || cell.collider == objCollider);
 
-					auto todoDelete = space.GetSizeX();
 					cell.collider = objCollider;
 				}
 			}
@@ -102,8 +102,26 @@ namespace Engine
 			for (int x = xStart; x < xStart + width; ++x)
 			{
 				Cell& cell = space.Get(x, y);
-				cell.objects.erase(obj);
 
+				//------------------ erase from cell.objects
+				
+				// !find doesn't work cause it uses key to evaluate equals!
+				// find all elements with obj key
+				auto range = cell.objects.equal_range(obj);
+				auto it = range.first;
+
+				// find the exact element to remove
+				while (it != range.second)
+				{
+					if (*it == obj)
+					{
+						cell.objects.erase(it);
+						break;
+					}
+					++it;
+				}
+		
+				//------------------ erase collider
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
 				if (objCollider)
 				{
@@ -277,9 +295,9 @@ namespace Engine
 		uset<GameObject*> objects;
 		for (int y = startingY; y < startingY + height; ++y)
 		{
-			for (int x = startingX; x < width; ++x)
+			for (int x = startingX; x < startingX + width; ++x)
 			{
-				Cell cell = space.Get(x, y);
+				Cell& cell = space.Get(x, y);
 				if (cell.objects.size() > 0)
 					objects.insert(*space.Get(x, y).objects.begin()); //todo implement sorting order
 			}
