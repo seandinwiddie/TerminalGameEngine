@@ -151,17 +151,31 @@ namespace Engine
 
 	void Simulation::PrintObjects()
 	{
-		//todo:if a colliding object and a non colliding object are in same tile, now there is no rule
-		// to define which should be in front. for fast particles this is not a big problem, but in the future you may want to 
-		//add a layer order system
+		list<GameObject*> toBePrintedObjects;
+		auto insertOrdered = [&toBePrintedObjects](GameObject* obj)
+			{
+				auto it = toBePrintedObjects.begin();
+				for (; it != toBePrintedObjects.end(); ++it)
+					if (obj->GetSortingOrder() < (*it)->GetSortingOrder())
+						break;
+				toBePrintedObjects.insert(it, obj);
+			};
+
+		//create sorted list
 		for (ISimulationEntity* entity : entities)
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
 			{
-				simulationPrinter->PrintObject(objEntity);
-				objEntity->mustBeReprinted = false;
+				insertOrdered(objEntity);
 			}
+		}
+
+		//print objects
+		for (GameObject* obj : toBePrintedObjects)
+		{
+			simulationPrinter->PrintObject(obj);
+			obj->mustBeReprinted = false;
 		}
 	}
 

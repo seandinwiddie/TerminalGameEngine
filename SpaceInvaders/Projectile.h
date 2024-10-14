@@ -34,7 +34,7 @@ namespace SpaceInvaders
                     GetModelHeight(),
                     '*',
                     GetColor(),
-                    12,     //speed
+                    8,     //speed
                     3,      //movement life
                     4,      //density
                     collisionOppositeDirection
