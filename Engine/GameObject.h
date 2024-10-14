@@ -51,6 +51,7 @@ namespace Engine
 		size_t GetModelHeight()const { return model->GetSizeY(); }
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
+		static void InsertInSortedList(GameObject* obj, std::list<GameObject*>& list);
 
 	protected:
 		virtual void InitModel() = 0;
@@ -66,4 +67,6 @@ namespace Engine
 		void ApplyGravity();
 		void CALLED_BY_SIM_Move(Direction direction);
 	};
+
+
 }

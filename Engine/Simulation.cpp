@@ -152,26 +152,13 @@ namespace Engine
 	void Simulation::PrintObjects()
 	{
 		list<GameObject*> toBePrintedObjects;
-		auto insertOrdered = [&toBePrintedObjects](GameObject* obj)
-		{
-			auto it = toBePrintedObjects.begin();
-			for (; it != toBePrintedObjects.end(); ++it)
-				if (obj->GetSortingOrder() >= (*it)->GetSortingOrder())
-					break;
-			toBePrintedObjects.insert(it, obj);
-		};
-
-		if (toBePrintedObjects.size() > 1)
-			auto todoDelete = 0;
 
 		//create sorted list
 		for (ISimulationEntity* entity : entities)
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
-			{
-				insertOrdered(objEntity);
-			}
+				GameObject::InsertInSortedList(objEntity, toBePrintedObjects);
 		}
 
 		//print objects

@@ -10,7 +10,7 @@
 namespace Engine
 {
 	template<typename T> using uset = std::unordered_set<T>;
-	template<typename T> using multiset = std::multiset<T>;
+	template<typename T> using list = std::list<T>;
 
 	class WorldSpace
 	{
@@ -25,8 +25,12 @@ namespace Engine
 		};
 		struct Cell
 		{
-			Collider* collider = nullptr;	// cell collider, max 1 for cell
-			std::multiset<GameObject*, SortingRule> objects; 		// all objects in cell, includeing collider if present
+			// cell collider, max 1 for cell
+			Collider* collider = nullptr;	
+
+			// all objects in cell, including collider if present
+			// (using list cause there are a lot of small sets (2/3 elements max per list usually)
+			list<GameObject*> objects;
 		};
 
 		//---------------------------------------------------------- Margins

@@ -82,7 +82,7 @@ namespace Engine
 			{
 				Cell& cell = space.Get(x, y);
 
-				cell.objects.insert(obj);
+				GameObject::InsertInSortedList(obj, cell.objects);
 
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
 				if (objCollider)
@@ -104,23 +104,15 @@ namespace Engine
 				Cell& cell = space.Get(x, y);
 
 				//------------------ erase from cell.objects
-				
-				// !find doesn't work cause it uses key to evaluate equals!
-				// find all elements with obj key
-				auto range = cell.objects.equal_range(obj);
-				auto it = range.first;
-
-				// find the exact element to remove
-				while (it != range.second)
+				for (auto it = cell.objects.begin(); it != cell.objects.end(); ++it)
 				{
 					if (*it == obj)
 					{
 						cell.objects.erase(it);
 						break;
 					}
-					++it;
 				}
-		
+
 				//------------------ erase collider
 				Collider* objCollider = dynamic_cast<Collider*>(obj);
 				if (objCollider)
@@ -299,7 +291,7 @@ namespace Engine
 			{
 				Cell& cell = space.Get(x, y);
 				if (cell.objects.size() > 0)
-					objects.insert(*space.Get(x, y).objects.begin()); //todo implement sorting order
+					objects.insert(*space.Get(x, y).objects.begin());
 			}
 		}
 		return objects;

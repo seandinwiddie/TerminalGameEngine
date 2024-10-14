@@ -106,4 +106,13 @@ namespace Engine
 		}
 		OnMove.Notify(this, direction);
 	}
+
+	void GameObject::InsertInSortedList(GameObject* obj, std::list<GameObject*>& list)
+	{
+		auto it = list.begin();
+		for (; it != list.end(); ++it)
+			if (obj->GetSortingOrder() >= (*it)->GetSortingOrder())
+				break;
+		list.insert(it, obj);
+	}
 }
