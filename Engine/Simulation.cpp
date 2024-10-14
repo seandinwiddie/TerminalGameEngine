@@ -192,9 +192,9 @@ namespace Engine
 				// finding area = combination of old position area + new position area
 				int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
 				int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;
-				bool isMovementOnX = minX < oldPosX || minX < obj->GetPosX();
-				size_t width = isMovementOnX ? obj->GetModelWidth()+1 : obj->GetModelWidth();
-				size_t height = !isMovementOnX ? obj->GetModelHeight()+1 : obj->GetModelHeight();
+				bool isMovementHorizontal = IsDirectionHorizontal(it->moveDir);
+				size_t width = isMovementHorizontal ? obj->GetModelWidth()+1 : obj->GetModelWidth();
+				size_t height = !isMovementHorizontal ? obj->GetModelHeight()+1 : obj->GetModelHeight();
 
 				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
 

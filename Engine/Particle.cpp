@@ -5,7 +5,6 @@
 
 namespace Engine
 {
-
 	Particle::Particle
 	(
 		int xPos,
@@ -50,7 +49,7 @@ namespace Engine
 
 		//--------- boost horizzontal speed (cause cells are smaller on x side)
 		for (int i = 0; i < moveDirections.size(); ++i)
-			if (IsHorizzontal(moveDirections[i]))
+			if (IsDirectionHorizontal(moveDirections[i]))
 				moveSpeeds[i] *= 2;
 
 		OnMove.Subscribe([this](GameObject* _, Direction __) { OnMoveCallback(); });
