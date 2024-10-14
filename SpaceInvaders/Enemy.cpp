@@ -17,10 +17,10 @@ namespace SpaceInvaders
 			GetModelWidth(),
 			GetModelHeight(),
 			'*',
-			Engine::Terminal::RED,
-			0.1,	//speed
-			100,//lifetime
-			10	//density
+			Engine::Terminal::GREEN,
+			8,	//speed
+			5,	//lifetime
+			2	//density
 		);
 	}
 }
