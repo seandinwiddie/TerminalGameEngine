@@ -153,13 +153,16 @@ namespace Engine
 	{
 		list<GameObject*> toBePrintedObjects;
 		auto insertOrdered = [&toBePrintedObjects](GameObject* obj)
-			{
-				auto it = toBePrintedObjects.begin();
-				for (; it != toBePrintedObjects.end(); ++it)
-					if (obj->GetSortingOrder() < (*it)->GetSortingOrder())
-						break;
-				toBePrintedObjects.insert(it, obj);
-			};
+		{
+			auto it = toBePrintedObjects.begin();
+			for (; it != toBePrintedObjects.end(); ++it)
+				if (obj->GetSortingOrder() >= (*it)->GetSortingOrder())
+					break;
+			toBePrintedObjects.insert(it, obj);
+		};
+
+		if (toBePrintedObjects.size() > 1)
+			auto todoDelete = 0;
 
 		//create sorted list
 		for (ISimulationEntity* entity : entities)
@@ -190,15 +193,24 @@ namespace Engine
 	{
 		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
 		{
-			int oldXPos = it->object->GetPosX();
-			int oldYPos = it->object->GetPosY();
+			GameObject* obj = it->object;
 
-			if (TryMoveObjectAtDirection(it->object, it->moveDir))
+			int oldPosX = obj->GetPosX();
+			int oldPosY = obj->GetPosY();
+
+			if (TryMoveObjectAtDirection(obj, it->moveDir))
 			{
-				simulationPrinter->ClearArea(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
-				it->object->mustBeReprinted = true;
+				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
 
-				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
+				// finding area = combination of old position area + new position area
+				int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
+				int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;
+				bool isMovementOnX = minX < oldPosX || minX < obj->GetPosX();
+				size_t width = isMovementOnX ? obj->GetModelWidth()+1 : obj->GetModelWidth();
+				size_t height = !isMovementOnX ? obj->GetModelHeight()+1 : obj->GetModelHeight();
+
+				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
+
 				for (GameObject* obj : toBeReprintedObjects)
 					obj->mustBeReprinted = true;
 			}
