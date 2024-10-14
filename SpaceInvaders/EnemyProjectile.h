@@ -1,5 +1,6 @@
 #pragma once
 #include "Projectile.h"
+#include "GameObject.h"
 
 namespace SpaceInvaders
 {
@@ -7,7 +8,7 @@ namespace SpaceInvaders
 	{
 		//---------------------------------------------------------- Fields
 	private:
-		static const Model MODEL;
+		static const Engine::Model MODEL;
 
 		//---------------------------------------------------------- Methodss
 	public:

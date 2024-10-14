@@ -125,18 +125,11 @@ namespace Engine
 				objectEntity->OnDestroy();
 				simulationPrinter->ClearObject(objectEntity);
 
-				Collider* colliderEntity = dynamic_cast<Collider*>(entity);
-				if (colliderEntity != nullptr)
-					worldSpace.RemoveObject(colliderEntity);
-				else
-				{
-					//todo: if a colliding object moves over a non colliding object, now it is not reprinted, improve in the future
-					//if entity is not a collider and was covering other objects, they must be reprinted
-					uset<Collider*> coveredObjects;
-					if (!worldSpace.IsAreaEmpty(objectEntity->GetPosX(), objectEntity->GetPosY(), objectEntity->GetModelWidth(), objectEntity->GetModelHeight(), coveredObjects))
-						for (Collider* elem : coveredObjects)
-							elem->mustBeReprinted = true;
-				}
+				worldSpace.RemoveObject(objectEntity);
+
+ 				std::unordered_set<GameObject*> coveredObjects = worldSpace.GetAreaObjects(objectEntity);
+				for (GameObject* coveredObj : coveredObjects)
+					coveredObj->mustBeReprinted = true;
 			}
 			entities.erase(entity);
 			delete(entity);
@@ -158,17 +151,21 @@ namespace Engine
 
 	void Simulation::PrintObjects()
 	{
-		//todo:if a colliding object and a non colliding object are in same tile, now there is no rule
-		// to define which should be in front. for fast particles this is not a big problem, but in the future you may want to 
-		//add a layer order system
+		list<GameObject*> toBePrintedObjects;
+
+		//create sorted list
 		for (ISimulationEntity* entity : entities)
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
-			{
-				simulationPrinter->PrintObject(objEntity);
-				objEntity->mustBeReprinted = false;
-			}
+				GameObject::InsertInListLowSortingLayerFirst(objEntity, toBePrintedObjects);
+		}
+
+		//print objects
+		for (GameObject* obj : toBePrintedObjects)
+		{
+			simulationPrinter->PrintObject(obj);
+			obj->mustBeReprinted = false;
 		}
 	}
 
@@ -183,13 +180,26 @@ namespace Engine
 	{
 		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
 		{
-			int oldXPos = it->object->GetPosX();
-			int oldYPos = it->object->GetPosY();
+			GameObject* obj = it->object;
 
-			if (TryMoveObjectAtDirection(it->object, it->moveDir))
+			int oldPosX = obj->GetPosX();
+			int oldPosY = obj->GetPosY();
+
+			if (TryMoveObjectAtDirection(obj, it->moveDir))
 			{
-				simulationPrinter->ClearArea(oldXPos, oldYPos, it->object->GetModelWidth(), it->object->GetModelHeight());
-				it->object->mustBeReprinted = true;
+				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
+
+				// finding area = combination of old position area + new position area
+				int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
+				int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;
+				bool isMovementHorizontal = IsDirectionHorizontal(it->moveDir);
+				size_t width = isMovementHorizontal ? obj->GetModelWidth()+1 : obj->GetModelWidth();
+				size_t height = !isMovementHorizontal ? obj->GetModelHeight()+1 : obj->GetModelHeight();
+
+				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
+
+				for (GameObject* obj : toBeReprintedObjects)
+					obj->mustBeReprinted = true;
 			}
 		}
 	}
@@ -227,10 +237,10 @@ namespace Engine
 			collisions[Direction::left].insert(WorldSpace::SCREEN_MARGIN);
 
 		// object-object collisions
-		worldSpace.IsAreaEmpty(xPos, yMax + 1, width, 1, collisions[Direction::up]);
-		worldSpace.IsAreaEmpty(xPos, yPos - 1, width, 1, collisions[Direction::down]);
-		worldSpace.IsAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
-		worldSpace.IsAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
+		worldSpace.IsCollidersAreaEmpty(xPos, yMax + 1, width, 1, collisions[Direction::up]);
+		worldSpace.IsCollidersAreaEmpty(xPos, yPos - 1, width, 1, collisions[Direction::down]);
+		worldSpace.IsCollidersAreaEmpty(xPos - 1, yPos, 1, height, collisions[Direction::left]);
+		worldSpace.IsCollidersAreaEmpty(xMax + 1, yPos, 1, height, collisions[Direction::right]);
 
 		collider->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 	}
@@ -263,7 +273,7 @@ namespace Engine
 		const Collider* collider = dynamic_cast<const Collider*>(entity);
 		if (collider != nullptr)
 		{
-			return worldSpace.IsAreaEmpty
+			return worldSpace.IsCollidersAreaEmpty
 			(
 				collider->GetPosX(),
 				collider->GetPosY(),
@@ -308,8 +318,7 @@ namespace Engine
 			return false;
 		}
 
-		if (colliderObj != nullptr)
-			worldSpace.MoveObject(colliderObj, direction);
+		worldSpace.MoveObject(obj, direction);
 
 		obj->CALLED_BY_SIM_Move(direction);
 
