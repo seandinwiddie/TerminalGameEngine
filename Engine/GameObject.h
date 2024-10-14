@@ -39,7 +39,7 @@ namespace Engine
 		GameObject(int xPos, int yPos);
 
 		virtual int GetColor() const { return Terminal::WHITE; }
-		virtual size_t GetSortingOrder() const { return 100; }
+		virtual size_t GetSortingLayer() const { return 100; }
 		void Init() { InitModel(); }
 		int GetPosX() const { return xPos; }
 		int GetPosY() const { return yPos; }
@@ -51,7 +51,7 @@ namespace Engine
 		size_t GetModelHeight()const { return model->GetSizeY(); }
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
-		static void InsertInSortedList(GameObject* obj, std::list<GameObject*>& list);
+		static void InsertInListSortingByLayer(GameObject* obj, std::list<GameObject*>& list);
 
 	protected:
 		virtual void InitModel() = 0;

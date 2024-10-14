@@ -158,7 +158,7 @@ namespace Engine
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
-				GameObject::InsertInSortedList(objEntity, toBePrintedObjects);
+				GameObject::InsertInListSortingByLayer(objEntity, toBePrintedObjects);
 		}
 
 		//print objects

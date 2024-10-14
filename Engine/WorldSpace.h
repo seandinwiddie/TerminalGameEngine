@@ -16,13 +16,6 @@ namespace Engine
 	{
 		//---------------------------------------------------------- Structs
 	private:
-		struct SortingRule
-		{
-			bool operator()(GameObject* a, GameObject* b) const
-			{
-				return a->GetSortingOrder() > b->GetSortingOrder(); // Descending order
-			}
-		};
 		struct Cell
 		{
 			// cell collider, max 1 for cell
