@@ -18,7 +18,8 @@ A simple engine for making Windows-terminal games, made with pure C++
 
 #
 <b>Links:</b>
-- [Trailer]([https://www.openal.org/downloads/](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli))
+
+- [Trailer](https://www.youtube.com/watch?v=gEkphmxIJFs&ab_channel=Nicol%C3%B2Bertoli)
 - [Itch Page](https://nicobertoli.itch.io/)
 
 #
