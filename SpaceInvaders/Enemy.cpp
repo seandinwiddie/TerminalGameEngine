@@ -20,7 +20,7 @@ namespace SpaceInvaders
 			GetDestroyedParticlesColor(),
 			8,	//speed
 			5,	//lifetime
-			2	//density
+			1.5	//density
 		);
 	}
 }
