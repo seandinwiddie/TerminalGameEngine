@@ -9,6 +9,7 @@
 #include "AudioManager.h"
 #include "Simulation.h"
 #include "SpaceInvadersLevel.h"
+#include "SortingLayerTestLevel.h"
 
 using namespace std;
 using namespace Engine;
@@ -65,6 +66,7 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
     Terminal::Instance().SetColor(Terminal::WHITE);
 #if DEBUG_MODE
     cout << "5 -> collisions test" << endl;
+    cout << "6 -> sorting layer test" << endl;
 #endif;
     cout << "esc -> return to main menu" << endl;
 
@@ -111,6 +113,11 @@ std::unique_ptr<Level> GameLoop::ShowLevelSelection()
         else if (IsKeyPressed(Key::NUM_5))
         {
             return std::make_unique<Platformer::CollisionsTestLevel>();
+            break;
+        }
+        else if (IsKeyPressed(Key::NUM_6))
+        {
+            return std::make_unique<Platformer::SortingLayerTestLevel>();
             break;
         }
 #endif

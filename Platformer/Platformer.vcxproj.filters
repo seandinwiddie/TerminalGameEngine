@@ -51,6 +51,12 @@
     <ClInclude Include="PuzzleLevel.h">
       <Filter>Header Files\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="SortingLayerTestObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SortingLayerTestLevel.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutomaticDoor.cpp">
@@ -78,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PuzzleLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortingLayerTestLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortingLayerTestObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

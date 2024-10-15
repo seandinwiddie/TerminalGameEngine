@@ -151,6 +151,8 @@
     <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="PushableObject.h" />
     <ClInclude Include="PuzzleLevel.h" />
+    <ClInclude Include="SortingLayerTestLevel.h" />
+    <ClInclude Include="SortingLayerTestObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -167,6 +169,8 @@
     <ClCompile Include="ObstaclesSpawner.cpp" />
     <ClCompile Include="PressurePlate.cpp" />
     <ClCompile Include="PuzzleLevel.cpp" />
+    <ClCompile Include="SortingLayerTestLevel.cpp" />
+    <ClCompile Include="SortingLayerTestObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="endlessRunner (2).txt" />
