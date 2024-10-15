@@ -148,6 +148,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="DebugPrinter.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="FakeCollider.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Collider.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="RandomUtils.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationPrinter.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="StaticCollider.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Terminal.h" />

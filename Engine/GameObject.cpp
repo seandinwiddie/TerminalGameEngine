@@ -13,12 +13,6 @@ namespace Engine
 		ResetPartialMovement();
 	}
 
-	void GameObject::Init()
-	{
-		InitModel();
-		Simulation::Instance().MarkObjectToReprint(this); 
-	}
-
 	void GameObject::Update()
 	{
 		ApplyGravity();
@@ -85,7 +79,7 @@ namespace Engine
 			return;
 
 		model = &newModel;
-		Simulation::Instance().MarkObjectToReprint(this);
+		Simulation::Instance().MarkAreaToReprint(this);
 	}
 
 	void GameObject::CALLED_BY_SIM_Move(Direction direction)

@@ -125,7 +125,7 @@ namespace Engine
 				objectEntity->OnDestroy();
 				simulationPrinter->ClearObject(objectEntity);
 				worldSpace.RemoveObject(objectEntity);
-				MarkObjectsInAreaToReprint(objectEntity);
+				MarkAreaToReprint(objectEntity);
 			}
 			entities.erase(entity);
 			delete(entity);
@@ -165,7 +165,7 @@ namespace Engine
 			if (TryMoveObjectAtDirection(obj, it->moveDir))
 			{
 				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
-				MarkObjectToReprintAfterMovement(obj, oldPosX, oldPosY);
+				MarkAreaToReprintAfterMovement(obj, oldPosX, oldPosY);
 			}
 		}
 	}
@@ -181,6 +181,9 @@ namespace Engine
 			if (objEntity && objEntity->mustBeReprinted)
 				GameObject::InsertInListLowSortingLayerFirst(objEntity, toBePrintedObjects);
 		}
+
+		if (toBePrintedObjects.size() > 1)
+			int tododelete = 2;
 
 		//print objects
 		for (GameObject* obj : toBePrintedObjects)
@@ -359,23 +362,15 @@ namespace Engine
 			xPos < GetWorldSizeX() - GetScreenPadding();
 	}
 
-	void Simulation::MarkObjectsInAreaToReprint(GameObject* objArea)
+	void Simulation::MarkAreaToReprint(GameObject* objArea)
 	{
 		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(objArea);
 		for (GameObject* obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
 
-	void Simulation::MarkObjectToReprint(GameObject* obj)
+	void Simulation::MarkAreaToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY)
 	{
-		obj->mustBeReprinted = true;
-		MarkObjectsInAreaToReprint(obj);
-	}
-
-	void Simulation::MarkObjectToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY)
-	{
-		obj->mustBeReprinted = true;
-
 		// finding area = combination of old position area + new position area
 		int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
 		int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;

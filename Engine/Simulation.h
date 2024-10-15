@@ -103,9 +103,8 @@ namespace Engine
 		bool IsInsideScreenY(int yPos) const;
 		bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const { return IsInsideScreenX(xPos) && IsInsideScreenY(yPos); }
 
-		void MarkObjectsInAreaToReprint(GameObject* objArea);
-		void MarkObjectToReprint(GameObject* obj);
-		void MarkObjectToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY);
+		void MarkAreaToReprint(GameObject* objArea);
+		void MarkAreaToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY);
 		void UnmarkObjectToReprint(GameObject* obj) { obj->mustBeReprinted = false; }
 	};
 }

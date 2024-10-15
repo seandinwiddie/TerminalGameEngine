@@ -22,7 +22,7 @@ namespace Platformer
         (
             20,     //posx
             4,      //posy
-            10,      //sizex
+            30,      //sizex
             5,      //sizey
             -37,     //char
             Engine::Terminal::RED,
@@ -35,7 +35,7 @@ namespace Platformer
         (
             60,     //posx
             4,      //posy
-            10,      //sizex
+            30,      //sizex
             5,      //sizey
             -37,     //char
             Engine::Terminal::BLUE,
