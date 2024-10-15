@@ -31,7 +31,8 @@ namespace Engine
 		double xPosContinuous;
 		double yPosContinuous;
 
-		bool mustBeReprinted = true;
+		/// never set this value directly, use simulation MarkObjectToReprint
+		bool mustBeReprinted;
 		const Model* model = nullptr;
 
 		//---------------------------------------------------------- Methods
@@ -40,7 +41,7 @@ namespace Engine
 
 		virtual int GetColor() const { return Terminal::WHITE; }
 		virtual size_t GetSortingLayer() const { return 100; }
-		void Init() { InitModel(); }
+		void Init();
 		int GetPosX() const { return xPos; }
 		int GetPosY() const { return yPos; }
 		int GetMaxPosX()const { return xPos + static_cast<int>(GetModelWidth()) - 1; }

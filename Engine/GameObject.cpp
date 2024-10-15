@@ -4,7 +4,6 @@
 
 namespace Engine
 {
-
 	GameObject::GameObject(int xPos, int yPos) :
 		xPos(xPos),
 		yPos(yPos),
@@ -12,6 +11,12 @@ namespace Engine
 		yPosContinuous(yPos)
 	{
 		ResetPartialMovement();
+	}
+
+	void GameObject::Init()
+	{
+		InitModel();
+		Simulation::Instance().MarkObjectToReprint(this); 
 	}
 
 	void GameObject::Update()
@@ -79,8 +84,8 @@ namespace Engine
 		if (model == &newModel)
 			return;
 
-		mustBeReprinted = true;
 		model = &newModel;
+		Simulation::Instance().MarkObjectToReprint(this);
 	}
 
 	void GameObject::CALLED_BY_SIM_Move(Direction direction)

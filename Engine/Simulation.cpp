@@ -124,12 +124,8 @@ namespace Engine
 			{
 				objectEntity->OnDestroy();
 				simulationPrinter->ClearObject(objectEntity);
-
 				worldSpace.RemoveObject(objectEntity);
-
- 				std::unordered_set<GameObject*> coveredObjects = worldSpace.GetAreaObjects(objectEntity);
-				for (GameObject* coveredObj : coveredObjects)
-					coveredObj->mustBeReprinted = true;
+				MarkObjectsInAreaToReprint(objectEntity);
 			}
 			entities.erase(entity);
 			delete(entity);
@@ -149,6 +145,35 @@ namespace Engine
 		toRemoveEntities.push_back(entity);
 	}
 
+	void Simulation::UpdateAllEntities()
+	{
+		level->Update();
+		for (ISimulationEntity* entity : entities)
+			entity->Update();
+	}
+
+	int todoRemoveConsecutiveMoements = 0;
+	void Simulation::ExecuteMoveRequests()
+	{
+		
+		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
+		{
+			GameObject* obj = it->object;
+
+			int oldPosX = obj->GetPosX();
+			int oldPosY = obj->GetPosY();
+
+			if (TryMoveObjectAtDirection(obj, it->moveDir))
+			{
+				if (++todoRemoveConsecutiveMoements % 3 == 0)
+					int tododeleteee = 4;
+
+				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
+				MarkObjectToReprintAfterMovement(obj, oldPosX, oldPosY);
+			}
+		}
+	}
+
 	void Simulation::PrintObjects()
 	{
 		list<GameObject*> toBePrintedObjects;
@@ -165,44 +190,10 @@ namespace Engine
 		for (GameObject* obj : toBePrintedObjects)
 		{
 			simulationPrinter->PrintObject(obj);
-			obj->mustBeReprinted = false;
+			UnmarkObjectToReprint(obj);
 		}
 	}
 
-	void Simulation::UpdateAllEntities()
-	{
-		level->Update();
-		for (ISimulationEntity* entity : entities)
-			entity->Update();
-	}
-
-	void Simulation::ExecuteMoveRequests()
-	{
-		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
-		{
-			GameObject* obj = it->object;
-
-			int oldPosX = obj->GetPosX();
-			int oldPosY = obj->GetPosY();
-
-			if (TryMoveObjectAtDirection(obj, it->moveDir))
-			{
-				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
-
-				// finding area = combination of old position area + new position area
-				int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
-				int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;
-				bool isMovementHorizontal = IsDirectionHorizontal(it->moveDir);
-				size_t width = isMovementHorizontal ? obj->GetModelWidth()+1 : obj->GetModelWidth();
-				size_t height = !isMovementHorizontal ? obj->GetModelHeight()+1 : obj->GetModelHeight();
-
-				std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
-
-				for (GameObject* obj : toBeReprintedObjects)
-					obj->mustBeReprinted = true;
-			}
-		}
-	}
 
 	void Simulation::UpdateAllObjectsEndedCollisions()
 	{
@@ -370,5 +361,35 @@ namespace Engine
 		return
 			xPos >= GetScreenPadding() &&
 			xPos < GetWorldSizeX() - GetScreenPadding();
+	}
+
+	void Simulation::MarkObjectsInAreaToReprint(GameObject* objArea)
+	{
+		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(objArea); //todo rename in GetAreaTopLayerObjects
+		for (GameObject* obj : toBeReprintedObjects)
+			obj->mustBeReprinted = true;
+	}
+
+	void Simulation::MarkObjectToReprint(GameObject* obj)
+	{
+		obj->mustBeReprinted = true;
+		MarkObjectsInAreaToReprint(obj);
+	}
+
+	void Simulation::MarkObjectToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY)
+	{
+		obj->mustBeReprinted = true;
+
+		// finding area = combination of old position area + new position area
+		int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
+		int minY = obj->GetPosY() < oldPosY ? obj->GetPosY() : oldPosY;
+		bool isMovementHorizontal = oldPosX != obj->GetPosX();
+		size_t width = isMovementHorizontal ? obj->GetModelWidth() + 1 : obj->GetModelWidth();
+		size_t height = !isMovementHorizontal ? obj->GetModelHeight() + 1 : obj->GetModelHeight();
+
+		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
+
+		for (GameObject* obj : toBeReprintedObjects)
+			obj->mustBeReprinted = true;
 	}
 }

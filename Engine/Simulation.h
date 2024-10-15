@@ -28,6 +28,7 @@ namespace Engine
 	{
 		//------------------------------------------------------------------------------------ Friend Classes
 		friend class Singleton;
+		friend class GameObject;
 
 		//------------------------------------------------------------------------------------ Structs
 		struct MoveRequest
@@ -101,5 +102,10 @@ namespace Engine
 		bool IsInsideScreenX(int xPos) const;
 		bool IsInsideScreenY(int yPos) const;
 		bool IsCoordinateInsideScreenSpace(int xPos, int yPos) const { return IsInsideScreenX(xPos) && IsInsideScreenY(yPos); }
+
+		void MarkObjectsInAreaToReprint(GameObject* objArea);
+		void MarkObjectToReprint(GameObject* obj);
+		void MarkObjectToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY);
+		void UnmarkObjectToReprint(GameObject* obj) { obj->mustBeReprinted = false; }
 	};
 }
