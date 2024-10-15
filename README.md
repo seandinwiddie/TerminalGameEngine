@@ -1,5 +1,5 @@
 # TerminalGameEngine
-A simple engine for making games that run in the Windows terminal
+A simple engine for making Windows-terminal games
  
 - Framerate-independent simulation (delta-time based)
 - Efficient rendering
