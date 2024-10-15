@@ -152,7 +152,6 @@ namespace Engine
 			entity->Update();
 	}
 
-	int todoRemoveConsecutiveMoements = 0;
 	void Simulation::ExecuteMoveRequests()
 	{
 		
@@ -165,9 +164,6 @@ namespace Engine
 
 			if (TryMoveObjectAtDirection(obj, it->moveDir))
 			{
-				if (++todoRemoveConsecutiveMoements % 3 == 0)
-					int tododeleteee = 4;
-
 				simulationPrinter->ClearArea(oldPosX, oldPosY, obj->GetModelWidth(), obj->GetModelHeight());
 				MarkObjectToReprintAfterMovement(obj, oldPosX, oldPosY);
 			}
