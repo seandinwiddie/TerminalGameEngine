@@ -54,9 +54,6 @@
     <ClInclude Include="DebugPrinter.h">
       <Filter>Header Files\Printers</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Header Files\General</Filter>
-    </ClInclude>
     <ClInclude Include="FakeCollider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
     </ClInclude>
@@ -65,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectionUtils.h">
-      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="InputUtils.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
@@ -86,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="Simulation.h">
       <Filter>Header Files\Simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Header Files\General</Filter>
     </ClInclude>
     <ClInclude Include="StaticCollider.h">
       <Filter>Header Files\GenericSimulationEntities</Filter>
@@ -128,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="StringUtils.h">
       <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionUtils.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

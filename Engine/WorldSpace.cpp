@@ -277,12 +277,12 @@ namespace Engine
 		}
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaObjects(GameObject* obj)
+	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(GameObject* obj)
 	{
-		return GetAreaObjects(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
+		return GetAreaTopLayerObjects(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaObjects(int startingX, int startingY, size_t width, size_t height)
+	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(int startingX, int startingY, size_t width, size_t height)
 	{
 		uset<GameObject*> objects;
 		for (int y = startingY; y < startingY + height; ++y)

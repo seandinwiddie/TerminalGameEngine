@@ -361,7 +361,7 @@ namespace Engine
 
 	void Simulation::MarkObjectsInAreaToReprint(GameObject* objArea)
 	{
-		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(objArea); //todo rename in GetAreaTopLayerObjects
+		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(objArea);
 		for (GameObject* obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
@@ -383,7 +383,7 @@ namespace Engine
 		size_t width = isMovementHorizontal ? obj->GetModelWidth() + 1 : obj->GetModelWidth();
 		size_t height = !isMovementHorizontal ? obj->GetModelHeight() + 1 : obj->GetModelHeight();
 
-		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaObjects(minX, minY, width, height);
+		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(minX, minY, width, height);
 
 		for (GameObject* obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;

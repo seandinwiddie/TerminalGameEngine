@@ -4,7 +4,6 @@
 
 namespace Engine
 {
-	//todo create direction namespace
 	enum Direction { up, down, left, right, COUNT };
 }
 
