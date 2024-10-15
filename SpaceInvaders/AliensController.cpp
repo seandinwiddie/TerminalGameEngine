@@ -69,7 +69,7 @@ namespace SpaceInvaders
 		assert(yPos < GetAliensGridHeight());
 		assert(xPos < GetAliensGridWidth());
 
-		aliensGrid.Set(alien, xPos, yPos);
+		aliensGrid.Get(xPos, yPos) = alien;
 
 		if (yPos == GetAliensGridHeight() - 1)
 			frontLine.Set(xPos, alien);
@@ -118,7 +118,7 @@ namespace SpaceInvaders
 	{
 		Alien* alien = dynamic_cast<Alien*>(alienObj);
 
-		aliensGrid.Set(nullptr, alien->GetIndexInGridX(), alien->GetIndexInGridY());
+		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()) = nullptr;
 
 		frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 

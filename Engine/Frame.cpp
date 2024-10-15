@@ -30,7 +30,7 @@ namespace Engine
 
             chars.IncreaseSizeY();
             for (int x = 0; x < line.length(); ++x)
-                chars.Set(line[x], x, y);
+                chars.Get(x, y) = line[x];
 
             line = "";
             ++y;
@@ -59,7 +59,8 @@ namespace Engine
                 if (c == writeOverChar)
                 {
                     for (int insertIt = 0; insertIt < writenString.size(); ++insertIt)
-                        chars.Set(writenString[insertIt], x + insertIt, y);
+                        chars.Get(x + insertIt, y) = writenString[insertIt];
+
                     x += writenString.size() - 1;
                 }
             }

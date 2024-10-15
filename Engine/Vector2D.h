@@ -39,7 +39,6 @@ namespace Engine
         }
         void Clear() { vector.clear(); }
 
-        void Set(T value, size_t x, size_t y) { vector[width * y + x] = value; } //todo remove
         const T& Get(size_t x, size_t y) const { return vector[width * y + x]; }
         T& Get(size_t x, size_t y) { return vector[width * y + x]; }
 
