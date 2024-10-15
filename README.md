@@ -11,12 +11,12 @@ A simple engine for making Windows-terminal games
 - Backgrounds support
 
 #
-###Notes:
+<b>Notes:</b>
 - Windows only
 - Requires you to install [OpenAL DLL](https://www.openal.org/downloads/)
 
 #
-###Links:
+<b>Links:</b>
 - [Trailer]([https://www.openal.org/downloads/](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli))
 - [Itch Page](https://nicobertoli.itch.io/)
 
