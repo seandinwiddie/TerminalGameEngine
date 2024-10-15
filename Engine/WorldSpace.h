@@ -1,5 +1,5 @@
 #pragma once
-#include "GridDirection.h"
+#include "DirectionUtils.h"
 #include "FakeCollider.h"
 #include "Vector2D.h"
 

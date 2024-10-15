@@ -6,7 +6,11 @@ namespace Engine
 {
 	//todo create direction namespace
 	enum Direction { up, down, left, right, COUNT };
+}
 
+namespace DirectionUtils
+{
+	using Direction = Engine::Direction;
 	inline Direction GetInverseDirection(Direction direction)
 	{
 		switch (direction)
@@ -42,9 +46,8 @@ namespace Engine
 	}
 
 	inline bool IsDirectionHorizontal(Direction dir)
-	{ 
+	{
 		assert(dir != Direction::COUNT);
-		return dir == Direction::left || dir == Direction::right; 
+		return dir == Direction::left || dir == Direction::right;
 	}
-
 }

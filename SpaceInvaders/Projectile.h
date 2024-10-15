@@ -20,7 +20,7 @@ namespace SpaceInvaders
         virtual void OnCollisionEnter(Collider* other, Direction collisionDir)
         {
             MovingStraightObject::OnCollisionEnter(other, collisionDir);
-            Direction collisionOppositeDirection = GetInverseDirection(collisionDir);
+            Direction collisionOppositeDirection = DirectionUtils::GetInverseDirection(collisionDir);
 
             Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
 

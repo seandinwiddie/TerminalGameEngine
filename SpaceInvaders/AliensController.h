@@ -1,6 +1,6 @@
 #pragma once
 #include "ISimulationEntity.h"
-#include "GridDirection.h"
+#include "DirectionUtils.h"
 #include "AliensFrontline.h"
 #include "Event.h"
 #include "Vector2D.h"

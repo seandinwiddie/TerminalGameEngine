@@ -152,7 +152,7 @@
     <ClInclude Include="FakeCollider.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="GridDirection.h" />
+    <ClInclude Include="DirectionUtils.h" />
     <ClInclude Include="InputUtils.h" />
     <ClInclude Include="ISimulationEntity.h" />
     <ClInclude Include="GameObject.h" />

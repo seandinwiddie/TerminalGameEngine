@@ -23,7 +23,7 @@ namespace Platformer
         {
             if (collisionDir == Direction::right || collisionDir == Direction::left)
             {
-                TryMove(GetInverseDirection(collisionDir), 9999);
+                TryMove(DirectionUtils::GetInverseDirection(collisionDir), 9999);
                 collisions[collisionDir].clear();
             }
             else

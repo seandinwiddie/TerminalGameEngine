@@ -1,6 +1,6 @@
 #pragma once
 #include "ISimulationEntity.h"
-#include "GridDirection.h"
+#include "DirectionUtils.h"
 #include "GameObject.h"
 #include <array>
 #include <optional>

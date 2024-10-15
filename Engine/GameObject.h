@@ -1,6 +1,6 @@
 #pragma once
 #include "Config.h"
-#include "GridDirection.h"
+#include "DirectionUtils.h"
 #include "ISimulationEntity.h"
 #include "Terminal.h"
 #include "Event.h"

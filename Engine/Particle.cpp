@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "RandomUtils.h"
-#include "GridDirection.h"
+#include "DirectionUtils.h"
 #include "Simulation.h"
 
 namespace Engine
@@ -34,9 +34,9 @@ namespace Engine
 
 		//--------- evaluate orthogonal direction
 
-		Direction orthogonalDirection = GetClockwiseDirection(moveDirections[0]);
+		Direction orthogonalDirection = DirectionUtils::GetClockwiseDirection(moveDirections[0]);
 		if (RandomUtils::GetRandomBool())
-			orthogonalDirection = GetInverseDirection(orthogonalDirection);
+			orthogonalDirection = DirectionUtils::GetInverseDirection(orthogonalDirection);
 		moveDirections[1] = orthogonalDirection;
 
 		//--------- evaluate directions speeds
@@ -49,7 +49,7 @@ namespace Engine
 
 		//--------- boost horizzontal speed (cause cells are smaller on x side)
 		for (int i = 0; i < moveDirections.size(); ++i)
-			if (IsDirectionHorizontal(moveDirections[i]))
+			if (DirectionUtils::IsDirectionHorizontal(moveDirections[i]))
 				moveSpeeds[i] *= 2;
 
 		OnMove.Subscribe([this](GameObject* _, Direction __) { OnMoveCallback(); });

@@ -298,7 +298,7 @@ namespace Engine
 
 					for (Collider* item : outCollidingObjects)
 						if (item != WorldSpace::SCREEN_MARGIN)
-							item->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, GetInverseDirection(direction));
+							item->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, DirectionUtils::GetInverseDirection(direction));
 				}
 			}
 			return false;

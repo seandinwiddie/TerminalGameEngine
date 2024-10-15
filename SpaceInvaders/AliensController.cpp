@@ -108,7 +108,7 @@ namespace SpaceInvaders
 
 	void AliensController::OnAliensReachMargin()
 	{
-		xMoveDirection = GetInverseDirection(xMoveDirection);
+		xMoveDirection = DirectionUtils::GetInverseDirection(xMoveDirection);
 		isTimeToMoveAliensDown = true;
 	}
 
