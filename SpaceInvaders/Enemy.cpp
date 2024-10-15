@@ -17,7 +17,7 @@ namespace SpaceInvaders
 			GetModelWidth(),
 			GetModelHeight(),
 			'*',
-			Engine::Terminal::GREEN,
+			GetDestroyedParticlesColor(),
 			8,	//speed
 			5,	//lifetime
 			2	//density

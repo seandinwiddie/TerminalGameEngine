@@ -30,6 +30,6 @@ namespace SpaceInvaders
 	protected:
 		virtual void Update() override;
 		virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-
+		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::RED; }
 	};
 }
