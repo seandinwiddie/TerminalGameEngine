@@ -36,7 +36,7 @@ namespace Platformer
 		virtual bool CanExitScreenSpace() const override { return true; }
 		virtual double GetGravityScale() const override { return 0; }
 		virtual int GetColor() const { return color; }
-		virtual size_t GetSortingLayer() const { return 200; }
+		virtual size_t GetSortingLayer() const { return sortingLayer; }
 
 	protected:
 		virtual void InitModel();
