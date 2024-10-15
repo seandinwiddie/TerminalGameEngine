@@ -1,6 +1,7 @@
 # TerminalGameEngine
-A simple engine for making Windows-terminal games, made using C++
- 
+<b>About:</b>
+
+A simple engine for making Windows-terminal games, made with pure C++
 - Framerate-independent simulation (delta-time based)
 - Efficient rendering
 - Particle system
