@@ -257,9 +257,7 @@ namespace Engine
 			return false;
 		}
 
-		Collider* collider = dynamic_cast<Collider*>(entity);
-		if (collider != nullptr)
-			worldSpace.InsertObject(collider);
+		worldSpace.InsertObject(objectEntity);
 
 		entities.insert(entity);
 		return true;
