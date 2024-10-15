@@ -256,8 +256,9 @@ namespace Engine
 			delete(entity);
 			return false;
 		}
-
-		worldSpace.InsertObject(objectEntity);
+		
+		if(objectEntity != nullptr)
+			worldSpace.InsertObject(objectEntity);
 
 		entities.insert(entity);
 		return true;
