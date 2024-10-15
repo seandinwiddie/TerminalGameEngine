@@ -12,19 +12,18 @@ namespace Platformer
         Engine::Simulation& simulation = Engine::Simulation::Instance();
 
         //----------------- bunny setup
-        int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
-        Bunny* bunny = new Bunny(9, bunnyStartingY);
+        Bunny* bunny = new Bunny(9, 5);
         bunny->OnObstacleHit.Subscribe([this]() { OnGameOver(); });
         simulation.TryAddEntity(bunny);
 
         //----------------- front object
         SortingLayerTestObject* sortingLayerTestObjFront = new SortingLayerTestObject
         (
-            20,     //posx
-            4,      //posy
-            30,      //sizex
+            10,     //posx
+            1,      //posy
+            30,     //sizex
             5,      //sizey
-            -37,     //char
+            -37,    //char
             Engine::Terminal::RED,
             200     //sorting layer
         );
@@ -34,7 +33,7 @@ namespace Platformer
         SortingLayerTestObject* sortingLayerTestObjBack = new SortingLayerTestObject
         (
             60,     //posx
-            4,      //posy
+            1,      //posy
             30,      //sizex
             5,      //sizey
             -37,     //char
