@@ -1,5 +1,7 @@
 #pragma once
 
+//todo move this and event to separate library
+
 template <typename T>
 class Singleton
 {
