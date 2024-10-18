@@ -1,8 +1,7 @@
 # TerminalGameEngine
 <b>About:</b>
 
-A simple engine for making terminal games, built with C++, without any graphics library.
-It works by printing characters really fast basically.
+A simple engine for creating games that run directly in the terminal, built with C++ and without any graphics libraries.
 
 - Framerate-independent simulation (delta-time based)
 - Efficient rendering
