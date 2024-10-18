@@ -179,7 +179,11 @@ namespace Engine
 		{
 			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
-				GameObject::InsertInListLowSortingLayerFirst(objEntity, toBePrintedObjects);
+				GameObject::InsertInListUsingRule
+				(
+					objEntity, toBePrintedObjects,
+					[](GameObject* toInsertObj, GameObject* listObject) { return  toInsertObj->GetSortingLayer() <= listObject->GetSortingLayer(); }
+				);
 		}
 
 		if (toBePrintedObjects.size() > 1)

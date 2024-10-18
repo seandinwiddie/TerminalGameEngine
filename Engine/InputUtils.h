@@ -33,7 +33,6 @@ namespace Engine
             ESC,
         };
 
-        // Map of key names to their virtual key codes
         static std::unordered_map<Key, int> keyMap =
         {
             {Key::SPACE, VK_SPACE},
@@ -58,7 +57,6 @@ namespace Engine
             {Key::ESC, VK_ESCAPE}
         };
 
-        // Function to check if a key is pressed based on its string name
         inline bool IsKeyPressed(Key key)
         {
             if (keyMap.find(key) != keyMap.end())
