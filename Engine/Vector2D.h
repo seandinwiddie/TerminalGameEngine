@@ -58,23 +58,5 @@ namespace Engine
         };
         Iterator begin() { return Iterator(vector.begin()); }
         Iterator end() { return Iterator(vector.end()); }
-
-        // -------------------------------------------------------------------- Const Iterator
-
-        class ConstIterator
-        {
-        private:
-            typename std::vector<T>::const_iterator it;
-        public:
-            ConstIterator(typename std::vector<T>::const_iterator it) : it(it) {}
-
-            const T& operator*() const { return *it; }
-            ConstIterator& operator++() { ++it; return *this; }
-            ConstIterator operator++(int) { ConstIterator temp = *this; ++it; return temp; }
-            bool operator==(const ConstIterator& other) const { return it == other.it; }
-            bool operator!=(const ConstIterator& other) const { return it != other.it; }
-        };
-        ConstIterator begin() const { return ConstIterator(vector.begin()); }
-        ConstIterator end() const { return ConstIterator(vector.end()); }
     };
 }
