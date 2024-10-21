@@ -1,5 +1,6 @@
 #pragma once
-#include "vector"
+#include <vector>
+#include <iterator>
 
 namespace Engine
 {
@@ -43,20 +44,79 @@ namespace Engine
         T& Get(size_t x, size_t y) { return vector[width * y + x]; }
 
         // -------------------------------------------------------------------- Iterator
+    public:
         class Iterator
         {
+        public:
+            // iterator traits
+            using iterator_category = std::random_access_iterator_tag;
+            using value_type = T;
+            using difference_type = std::ptrdiff_t; 
+            using pointer = T*;
+            using reference = T&;
+
         private:
             typename std::vector<T>::iterator it;
+
         public:
             Iterator(typename std::vector<T>::iterator it) : it(it) {}
 
-            T& operator*() { return *it; }
+            reference operator*() { return *it; }
+            pointer operator->() { return &(*it); }
             Iterator& operator++() { ++it; return *this; }
             Iterator operator++(int) { Iterator temp = *this; ++it; return temp; }
+            Iterator& operator--() { --it; return *this; }
+            Iterator operator--(int) { Iterator temp = *this; --it; return temp; }
+            Iterator operator+(difference_type n) const { return Iterator(it + n); }
+            Iterator operator-(difference_type n) const { return Iterator(it - n); }
+            difference_type operator-(const Iterator& other) const { return it - other.it; }
             bool operator==(const Iterator& other) const { return it == other.it; }
             bool operator!=(const Iterator& other) const { return it != other.it; }
+            bool operator<(const Iterator& other) const { return it < other.it; }
+            bool operator<=(const Iterator& other) const { return it <= other.it; }
+            bool operator>(const Iterator& other) const { return it > other.it; }
+            bool operator>=(const Iterator& other) const { return it >= other.it; }
+            reference operator[](difference_type n) const { return *(it + n); }
         };
+
         Iterator begin() { return Iterator(vector.begin()); }
         Iterator end() { return Iterator(vector.end()); }
+
+        // -------------------------------------------------------------------- Const Iterator
+        class ConstIterator
+        {
+        public:
+            using iterator_category = std::random_access_iterator_tag;
+            using value_type = const T;
+            using difference_type = std::ptrdiff_t;
+            using pointer = const T*;
+            using reference = const T&;
+
+        private:
+            typename std::vector<T>::const_iterator it;
+
+        public:
+            ConstIterator(typename std::vector<T>::const_iterator it) : it(it) {}
+
+            reference operator*() const { return *it; }
+            pointer operator->() const { return &(*it); }
+            ConstIterator& operator++() { ++it; return *this; }
+            ConstIterator operator++(int) { ConstIterator temp = *this; ++it; return temp; }
+            ConstIterator& operator--() { --it; return *this; }
+            ConstIterator operator--(int) { ConstIterator temp = *this; --it; return temp; }
+            ConstIterator operator+(difference_type n) const { return ConstIterator(it + n); }
+            ConstIterator operator-(difference_type n) const { return ConstIterator(it - n); }
+            difference_type operator-(const ConstIterator& other) const { return it - other.it; }
+            bool operator==(const ConstIterator& other) const { return it == other.it; }
+            bool operator!=(const ConstIterator& other) const { return it != other.it; }
+            bool operator<(const ConstIterator& other) const { return it < other.it; }
+            bool operator<=(const ConstIterator& other) const { return it <= other.it; }
+            bool operator>(const ConstIterator& other) const { return it > other.it; }
+            bool operator>=(const ConstIterator& other) const { return it >= other.it; }
+            reference operator[](difference_type n) const { return *(it + n); }
+        };
+
+        ConstIterator begin() const { return ConstIterator(vector.begin()); }
+        ConstIterator end() const { return ConstIterator(vector.end()); }
     };
 }
