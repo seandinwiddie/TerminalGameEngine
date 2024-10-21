@@ -53,7 +53,7 @@ namespace Platformer
         (
             [this]()
             {
-                PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 2);
+                PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 4);
                 Engine::Simulation::Instance().TryAddEntity(pushableObj1);
             }
         );
