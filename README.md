@@ -13,6 +13,11 @@ A simple engine for creating games that run directly in the terminal. Built in C
 - Backgrounds support
 
 #
+<b>Coming soon improvements:</b>
+- Making the simulation use smart pointers
+- Marking functions noexcept where appropriate
+
+#
 <b>Notes:</b>
 - Windows only
 - Requires you to install [OpenAL DLL](https://www.openal.org/downloads/)
