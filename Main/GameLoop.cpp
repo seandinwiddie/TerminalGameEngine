@@ -22,17 +22,17 @@ GameLoop::GameLoop()
     while (true)
     {
         AudioManager::Instance().StopMusic();
-        std::unique_ptr<Level> level = ShowLevelSelection();
+        std::shared_ptr<Level> level = ShowLevelSelection();
         while (true)
         {
-            returnToMainMenu = LoopSimulation(level.get());
+            returnToMainMenu = LoopSimulation(level);
             if (returnToMainMenu)
                 break;
         }
     }
 }
 
-bool GameLoop::LoopSimulation(Level* level)
+bool GameLoop::LoopSimulation(std::shared_ptr<Level> level)
 {
     Simulation::Instance().LoadLevel(level);
     while (level->IsTerminated() == false)
@@ -44,7 +44,7 @@ bool GameLoop::LoopSimulation(Level* level)
     return false;
 }
 
-std::unique_ptr<Level> GameLoop::ShowLevelSelection()
+std::shared_ptr<Level> GameLoop::ShowLevelSelection()
 {
     Terminal::Instance().Clear();
 

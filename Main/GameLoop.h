@@ -2,7 +2,6 @@
 
 #include "Level.h"
 
-
 using Level = Engine::Level;
 
 class GameLoop
@@ -11,6 +10,6 @@ class GameLoop
 public:
     GameLoop();
 private:
-    std::unique_ptr<Level> ShowLevelSelection();
-    bool LoopSimulation(Level* level);
+    std::shared_ptr<Level> ShowLevelSelection();
+    bool LoopSimulation(std::shared_ptr<Level> level);
 };

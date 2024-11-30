@@ -49,7 +49,7 @@ namespace Engine
 	private:
 		unique_ptr<SimulationPrinter> simulationPrinter;
 		unique_ptr<UIPrinter> uiPrinter;
-		Level* level;
+		shared_ptr<Level> level;
 		WorldSpace worldSpace;
 		uset<shared_ptr<ISimulationEntity>> entities;
 		list<shared_ptr<ISimulationEntity>> toRemoveEntities;
@@ -60,7 +60,7 @@ namespace Engine
 
 		//------------------------------------------------------------------------------------ Methods
 	public:
-		void LoadLevel(Level* level);
+		void LoadLevel(shared_ptr<Level> level);
 		void Step();
 		bool TryAddEntity(shared_ptr<ISimulationEntity> entity);
 		void RemoveEntity(shared_ptr<ISimulationEntity> entity);
@@ -70,7 +70,7 @@ namespace Engine
 		size_t GetScreenPadding() const;
 		size_t GetScreenSizeX() const;
 		size_t GetScreenSizeY() const;
-		Level* GetActiveLevel();
+		shared_ptr<Level> GetActiveLevel();
 		UIPrinter& GetUIPrinter();
 
 		void SpawnParticles
@@ -92,7 +92,7 @@ namespace Engine
 		bool CanEntityBeAdded(shared_ptr<ISimulationEntity> entity) const;
 		bool IsEntityInSimulation(shared_ptr<ISimulationEntity> newEntity) const;
 		void UpdateObjectEndedCollisions(shared_ptr<Collider> collidingObj);
-		void ResetPrinters(const Level* level);
+		void ResetPrinters(shared_ptr<const Level> level);
 		void EnqueueMoveRequestSortingBySpeed(MoveRequest request);
 		void UpdateAllEntities();
 		void ExecuteMoveRequests();

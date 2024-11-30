@@ -23,7 +23,7 @@ namespace Engine
 	size_t Simulation::GetScreenPadding() const { return level->GetScreenPadding(); }
 	size_t Simulation::GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
-	Level* Simulation::GetActiveLevel() { return level; }
+	shared_ptr<Level> Simulation::GetActiveLevel() { return level; }
 	UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
 	void Simulation::SpawnParticles
@@ -317,7 +317,7 @@ namespace Engine
 		return true;
 	}
 
-	void Simulation::LoadLevel(Level* level)
+	void Simulation::LoadLevel(shared_ptr<Level> level)
 	{
 		this->level = level;
 
@@ -332,7 +332,7 @@ namespace Engine
 		level->LoadInSimulation();
 	}
 
-	void Simulation::ResetPrinters(const Level* level)
+	void Simulation::ResetPrinters(shared_ptr<const Level> level)
 	{
 		Terminal::Instance().Clear();
 
