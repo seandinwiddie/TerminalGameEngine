@@ -3,8 +3,8 @@
 
 namespace Engine
 {
-	shared_ptr<FakeCollider> WORLD_MARGIN = std::make_shared<FakeCollider>();
-	shared_ptr<FakeCollider> SCREEN_MARGIN = std::make_shared<FakeCollider>();
+	shared_ptr<FakeCollider> WorldSpace::WORLD_MARGIN = std::make_shared<FakeCollider>();
+	shared_ptr<FakeCollider> WorldSpace::SCREEN_MARGIN = std::make_shared<FakeCollider>();
 
 	void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 	{

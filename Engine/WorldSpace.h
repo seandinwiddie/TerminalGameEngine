@@ -32,9 +32,6 @@ namespace Engine
 	public:
 		static shared_ptr<FakeCollider> WORLD_MARGIN;
 		static shared_ptr<FakeCollider> SCREEN_MARGIN;
-	private:
-		static FakeCollider WORLD_MARGIN_MEMORY;
-		static FakeCollider SCREEN_MARGIN_MEMORY;
 
 		//---------------------------------------------------------- Fields
 	public:
