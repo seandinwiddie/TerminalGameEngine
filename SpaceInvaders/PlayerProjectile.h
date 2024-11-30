@@ -18,6 +18,6 @@ namespace SpaceInvaders
 	protected:
 		virtual int GetColor() const { return Engine::Terminal::GREEN; }
 		virtual void InitModel() { SetModel(MODEL); }
-		virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+		virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir);
 	};
 }

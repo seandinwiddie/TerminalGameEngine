@@ -16,9 +16,9 @@ namespace Platformer
 
     LevelEndFlag::LevelEndFlag(Level* level, int xPos, int yPos) : Collider(xPos, yPos), level(level) {}
 
-    void LevelEndFlag::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void LevelEndFlag::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
     {
-        if (static_cast<Bunny*>(other) != nullptr)
+        if(std::static_pointer_cast<Bunny>(other))
             OnTouchBunny.Notify();
     }
 }

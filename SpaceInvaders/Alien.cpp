@@ -15,8 +15,7 @@ namespace SpaceInvaders
 
 	void Alien::Shot()
 	{
-		EnemyProjectile* projectile = new EnemyProjectile(GetMidPosX(), GetPosY() - 2, Direction::down, PROJECTILE_SPEED);
-		Engine::Simulation::Instance().TryAddEntity(projectile);
+		shared_ptr<EnemyProjectile> projectile = std::make_shared<EnemyProjectile>(GetMidPosX(), GetPosY() - 2, Direction::down, PROJECTILE_SPEED);
 	}
 
 	void Alien::Update()

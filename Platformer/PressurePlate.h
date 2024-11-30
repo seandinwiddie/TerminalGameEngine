@@ -4,6 +4,7 @@
 
 namespace Platformer
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using Direction = Engine::Direction;
 
     class PressurePlate : public Engine::Collider
@@ -26,7 +27,7 @@ namespace Platformer
         virtual int GetColor() const { return Engine::Terminal::CYAN; }
 
     protected:
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
         virtual void OnCollisionExit(Direction endingCollisionDir) override;
         virtual void InitModel() override { SetModel(unpressedModel); }
     };

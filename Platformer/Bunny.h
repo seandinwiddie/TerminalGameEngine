@@ -6,6 +6,7 @@
 
 namespace Platformer
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using Model = Engine::Model;
     using Direction = Engine::Direction;
 
@@ -66,7 +67,7 @@ namespace Platformer
 
     protected:
         void Update() override;
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
         virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
     private:

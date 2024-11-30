@@ -7,6 +7,7 @@ namespace SpaceInvaders
     class AliensController;
     using type_info = std::type_info;
     template<typename T> using vector = std::vector<T>;
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
 
     class SpaceInvadersLevel : public Engine::Level
     {
@@ -37,7 +38,7 @@ namespace SpaceInvaders
         int score;
         bool isLoadingWave;
         double startedLoadingWaveTime;
-        AliensController* aliensController;
+        shared_ptr<AliensController> aliensController;
 
         //------------------------------------------------------------------- Methods
     public:
@@ -69,7 +70,7 @@ namespace SpaceInvaders
         void PrintWave();
         const type_info& GetAlienTypeForRow(int rowIndex);
         void AddAliensRowToSimulation(int yPos, int rowIndex);
-        Alien* CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
+        shared_ptr<Alien> CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
         void OnWaveCompleted();
         void LoadNewWave();
         void OnPlayerTakesDamage(size_t remainingHealth);

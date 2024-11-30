@@ -7,6 +7,7 @@ namespace Engine {class Level;}
 namespace Platformer
 {
     //class Engine::Level;
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using Direction = Engine::Direction;
     using Level = Engine::Level;
 
@@ -29,7 +30,7 @@ namespace Platformer
     protected:
         virtual bool CanExitScreenSpace() const override { return false; }
         virtual double GetGravityScale() const override { return 0; }
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir);
         virtual void InitModel() { SetModel(flagModel); }
     };
 }

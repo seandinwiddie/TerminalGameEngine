@@ -41,7 +41,7 @@ namespace SpaceInvaders
 		isLoadingWave = false;
 		double startedLoadingWaveTime = -1;
 
-		aliensController = new AliensController(this);
+		aliensController = std::make_shared<AliensController>(this);
 		aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
 		aliensController->OnGroundTouched.Subscribe([this]() { OnGameOver(); });
 		Simulation::Instance().TryAddEntity(aliensController);
@@ -50,7 +50,7 @@ namespace SpaceInvaders
 		LoadPlayerTank();
 		InitHeader();
 
-		UfoSpawner* ufoSpawner = new UfoSpawner(GetWorldSizeX() - 5, GetWorldSizeY() - GetScreenPadding() - 2, Direction::left);
+		shared_ptr<UfoSpawner> ufoSpawner = std::make_shared<UfoSpawner>(GetWorldSizeX() - 5, GetWorldSizeY() - GetScreenPadding() - 2, Direction::left);
 		Simulation::Instance().TryAddEntity(ufoSpawner);
 
 #if !CHEAT_SPACEINV_DISABLE_SHIELDS
@@ -147,12 +147,9 @@ namespace SpaceInvaders
 	{
 		int xPos = GetWorldSizeX() / 2;
 		int yPos = GetScreenPadding();
-		PlayerTank* playerTank = new PlayerTank(xPos, yPos, this);
-
+		shared_ptr<PlayerTank> playerTank = std::make_shared<PlayerTank>(xPos, yPos, this);
 		playerTank->OnDamageTaken.Subscribe([this](size_t health) { OnPlayerTakesDamage(health); });
-
 		PrintHealth(playerTank->GetHealth());
-
 		Simulation::Instance().TryAddEntity(playerTank);
 	}
 
@@ -193,7 +190,8 @@ namespace SpaceInvaders
 		int xIndex = 0;
 		while (xIndex < ALIENS_COUNT_X)
 		{
-			Alien* alien = CreateAlienOfType(alienType, xPos, yPos, xIndex, yIndex);
+			shared_ptr<Alien> alien = CreateAlienOfType(alienType, xPos, yPos, xIndex, yIndex);
+
 			Simulation::Instance().TryAddEntity(alien);
 			aliensController->RegisterAlien(alien, xIndex, yIndex);
 
@@ -202,14 +200,14 @@ namespace SpaceInvaders
 		}
 	}
 
-	Alien* SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex)
+	shared_ptr<Alien> SpaceInvadersLevel::CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex)
 	{
 		if (alienType == typeid(AlienHighScore))
-			return new AlienHighScore(xPos, yPos, xIndex, yIndex);
+			return std::make_shared<AlienHighScore>(xPos, yPos, xIndex, yIndex);
 		else if (alienType == typeid(AlienMidScore))
-			return new AlienMidScore(xPos, yPos, xIndex, yIndex);
+			return std::make_shared<AlienMidScore>(xPos, yPos, xIndex, yIndex);
 		else if (alienType == typeid(AlienLowScore))
-			return new AlienLowScore(xPos, yPos, xIndex, yIndex);
+			return std::make_shared<AlienLowScore>(xPos, yPos, xIndex, yIndex);
 		else
 			throw std::invalid_argument("invalid alien type receiveds");
 	}
@@ -240,7 +238,7 @@ namespace SpaceInvaders
 				if (y == SHIELD_SIZE_Y - 1 && (x == 0 || x == SHIELD_SIZE_X - 1))
 					continue;
 
-				ShieldPart* shieldPart = new ShieldPart(xPos + x, yPos + y);
+				shared_ptr<ShieldPart> shieldPart = std::make_shared<ShieldPart>(xPos + x, yPos + y);
 				Simulation::Instance().TryAddEntity(shieldPart);
 			}
 		}

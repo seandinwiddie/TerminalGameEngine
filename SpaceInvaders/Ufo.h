@@ -6,6 +6,7 @@
 
 namespace SpaceInvaders
 {
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 	using Direction = Engine::Direction;
 	using Model = Engine::Model;
 
@@ -29,7 +30,7 @@ namespace SpaceInvaders
 
 	protected:
 		virtual void Update() override;
-		virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
+		virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
 		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::RED; }
 	};
 }

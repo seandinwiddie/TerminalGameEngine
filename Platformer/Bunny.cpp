@@ -8,6 +8,7 @@
 
 namespace Platformer
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using namespace Engine::InputUtils;
 
     //---------------------------------------------------------- Models
@@ -247,9 +248,9 @@ namespace Platformer
             lastTimeMovedOnX = Engine::TimeHelper::Instance().GetTime();
     }
 
-    void Bunny::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void Bunny::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
     {
-        if (dynamic_cast<Obstacle*>(other) != nullptr)
+        if(std::dynamic_pointer_cast<Obstacle>(other))
         {
             SetState(State::defeated);
             OnObstacleHit.Notify();
