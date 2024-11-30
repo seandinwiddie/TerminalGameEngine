@@ -52,7 +52,7 @@ namespace Engine
 		size_t GetModelHeight()const { return model->GetSizeY(); }
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
-		static void InsertInListUsingRule(GameObject* obj, std::list<GameObject*>& list, bool(*InsertRule)(GameObject* newItem, GameObject* listItem));
+		static void InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem));
 
 	protected:
 		virtual void InitModel() = 0;

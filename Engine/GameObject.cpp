@@ -79,7 +79,7 @@ namespace Engine
 			return;
 
 		model = &newModel;
-		Simulation::Instance().MarkAreaToReprint(this);
+		Simulation::Instance().MarkAreaToReprint(shared_ptr<GameObject>(this));
 	}
 
 	void GameObject::CALLED_BY_SIM_Move(Direction direction)
@@ -106,7 +106,7 @@ namespace Engine
 		OnMove.Notify(this, direction);
 	}
 
-	void GameObject::InsertInListUsingRule(GameObject* obj, std::list<GameObject*>& list, bool(*InsertRule)(GameObject* newItem, GameObject* listItem))
+	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))
 	{
 		auto it = list.begin();
 		for (; it != list.end(); ++it)

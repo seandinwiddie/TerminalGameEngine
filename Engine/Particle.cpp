@@ -70,6 +70,6 @@ namespace Engine
 	void Particle::OnMoveCallback()
 	{
 		if (--remainingMovementsBeforeDestruction == 0)
-			Simulation::Instance().RemoveEntity(this);
+			Simulation::Instance().RemoveEntity(std::shared_ptr<ISimulationEntity>(this));
 	}
 }

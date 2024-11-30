@@ -19,8 +19,7 @@ namespace Platformer
         Engine::Simulation& simulation = Engine::Simulation::Instance();
 
         //------------ bunny
-        //Bunny* bunny = new Bunny(5, 4, this);
-        Bunny* bunny = new Bunny(5, 8);
+        std::shared_ptr<Bunny> bunny = std::make_shared<Bunny>(5, 8);
         simulation.TryAddEntity(bunny);
 
         //------------ left platform

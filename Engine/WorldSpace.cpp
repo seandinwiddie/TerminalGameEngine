@@ -6,6 +6,7 @@ namespace Engine
 	FakeCollider WorldSpace::WORLD_MARGIN_MEMORY;
 	FakeCollider WorldSpace::SCREEN_MARGIN_MEMORY;
 
+
 	FakeCollider* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
 	FakeCollider* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
 
@@ -23,17 +24,17 @@ namespace Engine
 		this->screenPadding = screenPadding;
 	}
 
-	void WorldSpace::InsertObject(GameObject* obj)
+	void WorldSpace::InsertObject(shared_ptr<GameObject> obj)
 	{
 		WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
-	void WorldSpace::RemoveObject(GameObject* obj)
+	void WorldSpace::RemoveObject(shared_ptr<GameObject> obj)
 	{
 		EraseSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
-	void WorldSpace::MoveObject(GameObject* obj, Direction direction)
+	void WorldSpace::MoveObject(shared_ptr<GameObject> obj, Direction direction)
 	{
 		switch (direction)
 		{
@@ -73,7 +74,7 @@ namespace Engine
 		}
 	}
 
-	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
+	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, shared_ptr<GameObject> obj)
 	{
 		assert(obj != nullptr);
 
@@ -100,7 +101,7 @@ namespace Engine
 			}
 	}
 
-	void WorldSpace::EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
+	void WorldSpace::EraseSpace(int xStart, int yStart, size_t width, size_t height, shared_ptr<GameObject> obj)
 	{
 		assert(obj != nullptr);
 
@@ -120,7 +121,7 @@ namespace Engine
 				}
 
 				//------------------ erase collider
-				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
 					assert(cell.collider == nullptr || cell.collider == objCollider);
@@ -129,13 +130,13 @@ namespace Engine
 			}
 	}
 
-	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
+	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& areaObjects) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 		{
 			for (int x = startingX; x < startingX + width; ++x)
 			{
-				Collider* cellCollider = space.Get(x, y).collider;
+				auto cellCollider = space.Get(x, y).collider;
 				if (IsCoordinateInsideSpace(x, y) && cellCollider != nullptr)
 					areaObjects.insert(cellCollider);
 			}
@@ -173,12 +174,12 @@ namespace Engine
 
 	bool WorldSpace::CanObjectMoveAtDirection
 	(
-		const GameObject* object,
+		shared_ptr<const GameObject> object,
 		Direction direction,
 		uset<Collider*>& collidingObjects
 	) const
 	{
-		const Collider* colliderObj = dynamic_cast<const Collider*>(object);
+		shared_ptr<const Collider> colliderObj = std::dynamic_pointer_cast<const Collider>(object);
 
 		switch (direction)
 		{
@@ -283,14 +284,14 @@ namespace Engine
 		}
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(GameObject* obj)
+	uset<shared_ptr<GameObject>> WorldSpace::GetAreaTopLayerObjects(shared_ptr<GameObject> obj)
 	{
 		return GetAreaTopLayerObjects(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(int startingX, int startingY, size_t width, size_t height)
+	uset<shared_ptr<GameObject>> WorldSpace::GetAreaTopLayerObjects(int startingX, int startingY, size_t width, size_t height)
 	{
-		uset<GameObject*> objects;
+		uset<shared_ptr<GameObject>> objects;
 		for (int y = startingY; y < startingY + height; ++y)
 		{
 			for (int x = startingX; x < startingX + width; ++x)
