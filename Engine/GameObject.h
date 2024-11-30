@@ -20,7 +20,7 @@ namespace Engine
 
 		//---------------------------------------------------------- Fields
 	public:
-		Event<GameObject*, Direction> OnMove;
+		Event<shared_ptr<GameObject>, Direction> OnMove;
 		// generic on destroy event could be added
 
 	protected:

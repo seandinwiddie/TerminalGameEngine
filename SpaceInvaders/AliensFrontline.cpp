@@ -6,14 +6,14 @@ namespace SpaceInvaders
 	size_t AliensFrontline::GetMinY()
 	{
 		size_t min = SIZE_MAX;
-		for (Alien* alien : frontLine)
+		for (shared_ptr<Alien> alien : frontLine)
 			if (alien != nullptr && alien->GetPosY() < min)
 				min = alien->GetPosY();
 
 		return min;
 	}
 
-	void AliensFrontline::ReplaceDestroyedElement(Alien* destroyedAlien, const Vector2D<Alien*>& aliensGrid)
+	void AliensFrontline::ReplaceDestroyedElement(shared_ptr<Alien> destroyedAlien, const Vector2D<shared_ptr<Alien>>& aliensGrid)
 	{
 		size_t destroyedX = destroyedAlien->GetIndexInGridX();
 
@@ -34,7 +34,7 @@ namespace SpaceInvaders
 		frontLine[destroyedX] = nullptr;
 	}
 
-	Alien* AliensFrontline::GetRandom()
+	shared_ptr<Alien> AliensFrontline::GetRandom()
 	{
 		return GetAt(RandomUtils::GetRandomInt(0, static_cast<int>(frontLine.size()) - 1));
 	}

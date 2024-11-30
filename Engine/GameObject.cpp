@@ -103,7 +103,7 @@ namespace Engine
 			xPosContinuous = xPos;
 			break;
 		}
-		OnMove.Notify(this, direction);
+		OnMove.Notify(shared_ptr<GameObject>(this), direction);
 	}
 
 	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))

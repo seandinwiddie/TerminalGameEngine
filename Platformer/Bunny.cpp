@@ -91,7 +91,7 @@ namespace Platformer
         SetState(State::idle);
         ActivateLeftModels(true);
         previousPositionX = GetPosX();
-        OnMove.Subscribe([this](GameObject* _, Direction dir) { OnMoveCallback(dir); });
+        OnMove.Subscribe([this](shared_ptr<GameObject> _, Direction dir) { OnMoveCallback(dir); });
     }
 
     void Bunny::Update()

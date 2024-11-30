@@ -23,7 +23,8 @@ namespace Pong
 		double deflectFactor = 2.5;
 
 		//--------------- bottom bar
-		PongBar* bottomBar = new PongBar
+
+		auto bottomBar = std::make_shared<PongBar>
 		(
 			startingPosX,
 			GetScreenPadding(),
@@ -37,7 +38,8 @@ namespace Pong
 		simulation.TryAddEntity(bottomBar);
 
 		//--------------- top bar
-		PongBar* topBar = new PongBar(
+		auto topBar = std::make_shared<PongBar>
+		(
 			startingPosX,
 			GetWorldSizeY() - GetScreenPadding() - 1,
 			barsSize,
@@ -51,7 +53,7 @@ namespace Pong
 
 		//--------------- ball
 		double ballSpeed = 16;
-		PongBall* pongBall = new PongBall(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
+		auto pongBall = std::make_shared<PongBall>(this, GetWorldSizeX() / 2, GetWorldSizeY() / 2, ballSpeed);
 		pongBall->OnGoal.Subscribe([this]() { OnGameOver(); });
 		simulation.TryAddEntity(pongBall);
 		RefreshHeader();

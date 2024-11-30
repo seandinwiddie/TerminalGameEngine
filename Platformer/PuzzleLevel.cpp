@@ -23,49 +23,49 @@ namespace Platformer
         simulation.TryAddEntity(bunny);
 
         //------------ left platform
-        StaticCollider* platform = new StaticCollider(24, 11, 12, 1, '#');
+        auto platform = std::make_shared<StaticCollider>(24, 11, 12, 1, '#');
         simulation.TryAddEntity(platform);
 
         //------------ right flag platform
-        StaticCollider* flagPlatform = new StaticCollider(63, 15, 16, 1, '#');
+        auto flagPlatform = std::make_shared<StaticCollider>(63, 15, 16, 1, '#');
         simulation.TryAddEntity(flagPlatform);
 
         //------------ flag
-        LevelEndFlag* flag = new LevelEndFlag(this, 70, 16);
+        auto flag = std::make_shared<LevelEndFlag>(this, 70, 16);
         flag->OnTouchBunny.Subscribe([this]() { OnGameOver(); });
         simulation.TryAddEntity(flag);
 
         //------------ automatic door
-        AutomaticDoor* automaticDoor = new AutomaticDoor(60, 4, 2, 6, '|', 4);
+        auto automaticDoor = std::make_shared<AutomaticDoor>(60, 4, 2, 6, '|', 4);
         simulation.TryAddEntity(automaticDoor);
 
         //------------ automatic door container
-        StaticCollider* automaticDoorTopRight = new StaticCollider(62, 10, 1, 18, '#');
+        auto automaticDoorTopRight = std::make_shared<StaticCollider>(62, 10, 1, 18, '#');
         simulation.TryAddEntity(automaticDoorTopRight);
 
-        StaticCollider* automaticDoorTopLeft = new StaticCollider(59, 10, 1, 18, '#');
+        auto automaticDoorTopLeft = std::make_shared<StaticCollider>(59, 10, 1, 18, '#');
         simulation.TryAddEntity(automaticDoorTopLeft);
 
         //------------ pressure plate left
-        PressurePlate* pressurePlate1 = new PressurePlate(14, 4, 8);
+        auto pressurePlate1 = std::make_shared<PressurePlate>(14, 4, 8);
         pressurePlate1->OnPress.Subscribe
         (
             [this]()
             {
-                PushableObject* pushableObj1 = new PushableObject(32, GetWorldSizeY() - 4);
+                auto pushableObj1 = std::make_shared<PushableObject>(32, GetWorldSizeY() - 4);
                 Engine::Simulation::Instance().TryAddEntity(pushableObj1);
             }
         );
         simulation.TryAddEntity(pressurePlate1);
 
         //------------ pressure plate center
-        PressurePlate* openDoorPressurePlateLeft = new PressurePlate(37, 4, 8);
+        auto openDoorPressurePlateLeft = std::make_shared<PressurePlate>(37, 4, 8);
         openDoorPressurePlateLeft->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
         openDoorPressurePlateLeft->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
         simulation.TryAddEntity(openDoorPressurePlateLeft);
 
         //------------ pressure plate right
-        PressurePlate* openDoorPressurePlateRight = new PressurePlate(86, 4, 8);
+        auto openDoorPressurePlateRight = std::make_shared<PressurePlate>(86, 4, 8);
         openDoorPressurePlateRight->OnPress.Subscribe([automaticDoor]() { automaticDoor->AddEnergySource(); });
         openDoorPressurePlateRight->OnRelease.Subscribe([automaticDoor]() { automaticDoor->RemoveEnergySource(); });
         simulation.TryAddEntity(openDoorPressurePlateRight);

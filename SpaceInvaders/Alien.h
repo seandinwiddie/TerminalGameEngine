@@ -5,6 +5,7 @@
 namespace SpaceInvaders
 {
 	using Model = Engine::Model;
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 
 	class Alien : public Enemy
 	{
@@ -16,7 +17,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		Event<Collider*> OnDestroyEvent;
+		Event<shared_ptr<Collider>> OnDestroyEvent;
 
 	protected:
 		const Model* animationModel1;

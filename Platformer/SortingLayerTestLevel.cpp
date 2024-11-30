@@ -12,12 +12,12 @@ namespace Platformer
         Engine::Simulation& simulation = Engine::Simulation::Instance();
 
         //----------------- bunny setup
-        Bunny* bunny = new Bunny(9, 5);
+        shared_ptr<Bunny> bunny = std::make_shared<Bunny>(9,5);
         bunny->OnObstacleHit.Subscribe([this]() { OnGameOver(); });
         simulation.TryAddEntity(bunny);
 
         //----------------- front object
-        SortingLayerTestObject* sortingLayerTestObjFront = new SortingLayerTestObject
+        auto sortingLayerTestObjFront = std::make_shared<SortingLayerTestObject>
         (
             10,     //posx
             1,      //posy
@@ -30,7 +30,7 @@ namespace Platformer
         simulation.TryAddEntity(sortingLayerTestObjFront);
 
         //----------------- back object
-        SortingLayerTestObject* sortingLayerTestObjBack = new SortingLayerTestObject
+        auto sortingLayerTestObjBack = std::make_shared<SortingLayerTestObject>
         (
             60,     //posx
             1,      //posy

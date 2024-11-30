@@ -68,9 +68,8 @@ namespace Platformer
             double obstacleSpeed = GetCurrentObstaclesSpeed();
             Direction direction = obstacleSpeed > 0 ? Direction::right : Direction::left;
             obstacleSpeed = abs(obstacleSpeed);
-            Obstacle* obstacle = new Obstacle(xPos, randomPosY, direction, obstacleSpeed);
-
-            Engine::Simulation::Instance().TryAddEntity(dynamic_cast<Collider*>(obstacle));
+            shared_ptr<Obstacle> obstacle = std::make_shared<Obstacle>(xPos, randomPosY, direction, obstacleSpeed);
+            Engine::Simulation::Instance().TryAddEntity(std::dynamic_pointer_cast<Collider>(obstacle));
         }
     }
 

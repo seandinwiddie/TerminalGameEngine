@@ -63,7 +63,7 @@ namespace SpaceInvaders
 		HandleShooting();
 	}
 
-	void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
+	void AliensController::RegisterAlien(shared_ptr<Alien> alien, int xPos, int yPos)
 	{
 		assert(alien != nullptr);
 		assert(yPos < GetAliensGridHeight());
@@ -76,16 +76,16 @@ namespace SpaceInvaders
 
 		alien->OnMove.Subscribe
 		(
-			[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
+			[this](shared_ptr<GameObject> alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 		);
 
 		alien->OnDestroyEvent.Subscribe
 		(
-			[this](Collider* alienObj) { OnAlienDestroyedCallback(alienObj); }
+			[this](shared_ptr<Collider> alienObj) { OnAlienDestroyedCallback(alienObj); }
 		);
 	}
 
-	void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDirection)
+	void AliensController::OnAlienMovedCallback(shared_ptr<GameObject> alien, Direction moveDirection)
 	{
 		if (moveDirection == xMoveDirection)
 		{
@@ -114,9 +114,10 @@ namespace SpaceInvaders
 
 	static int calledTimes = 0;
 
-	void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
+	void AliensController::OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj)
 	{
-		Alien* alien = dynamic_cast<Alien*>(alienObj);
+		shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
+		//Alien* alien = dynamic_cast<Alien*>(alienObj);
 
 		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()) = nullptr;
 
@@ -131,7 +132,7 @@ namespace SpaceInvaders
 	{
 		if (Engine::TimeHelper::Instance().GetTime() - lastShotTime > shotDelay)
 		{
-			Alien* frontLineAlien = frontLine.GetRandom();
+			shared_ptr<Alien> frontLineAlien = frontLine.GetRandom();
 			if (frontLineAlien == nullptr)
 				return;
 			frontLineAlien->Shot();

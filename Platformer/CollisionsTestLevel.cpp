@@ -20,7 +20,7 @@ namespace Platformer
         //----------------------- right spawner
         int xPosRight = 96;
         vector<int>ySpawnPoints = { 20,18,16,14 };
-        ObstaclesSpawner* spawnerRight = new ObstaclesSpawner
+        shared_ptr<ObstaclesSpawner> spawnerRight = std::make_shared<ObstaclesSpawner>
         (
             xPosRight,
             spawnDelay,
@@ -32,7 +32,7 @@ namespace Platformer
         //----------------------- left spawner
         int xPosLeft = 2;
         vector<double>speeds2 = { 8, 1 };
-        ObstaclesSpawner* spawnerLeft = new ObstaclesSpawner
+        shared_ptr<ObstaclesSpawner> spawnerLeft = std::make_shared<ObstaclesSpawner>
         (
             xPosLeft,
             spawnDelay,

@@ -10,7 +10,7 @@ namespace SpaceInvaders
 	{
 		Enemy::OnDestroy();
 		Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
-		OnDestroyEvent.Notify(this);
+		OnDestroyEvent.Notify(shared_ptr<Collider>(this));
 	}
 
 	void Alien::Shot()
