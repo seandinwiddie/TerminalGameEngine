@@ -3,12 +3,8 @@
 
 namespace Engine
 {
-	FakeCollider WorldSpace::WORLD_MARGIN_MEMORY;
-	FakeCollider WorldSpace::SCREEN_MARGIN_MEMORY;
-
-
-	FakeCollider* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
-	FakeCollider* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
+	shared_ptr<FakeCollider> WORLD_MARGIN = std::make_shared<FakeCollider>();
+	shared_ptr<FakeCollider> SCREEN_MARGIN = std::make_shared<FakeCollider>();
 
 	void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 	{
@@ -88,14 +84,13 @@ namespace Engine
 					obj, 
 					cell.objects ,
 					// add high sorting layer objects at top of list
-					[](GameObject* newItem, GameObject* listItem){ return newItem->GetSortingLayer() >= listItem->GetSortingLayer();} 
+					[](shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem){ return newItem->GetSortingLayer() >= listItem->GetSortingLayer();}
 				);
 
-				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
 					assert(cell.collider == nullptr || cell.collider == objCollider);
-
 					cell.collider = objCollider;
 				}
 			}
@@ -176,7 +171,7 @@ namespace Engine
 	(
 		shared_ptr<const GameObject> object,
 		Direction direction,
-		uset<Collider*>& collidingObjects
+		uset<shared_ptr<Collider>>& collidingObjects
 	) const
 	{
 		shared_ptr<const Collider> colliderObj = std::dynamic_pointer_cast<const Collider>(object);

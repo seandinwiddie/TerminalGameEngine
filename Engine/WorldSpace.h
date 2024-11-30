@@ -44,7 +44,7 @@ namespace Engine
 	public:
 		void Init(int xSize, int ySize, size_t screenPadding);
 
-		bool CanObjectMoveAtDirection(shared_ptr<const GameObject> obj, Direction direction, uset<Collider*>& collidingObjects) const;
+		bool CanObjectMoveAtDirection(shared_ptr<const GameObject> obj, Direction direction, uset<shared_ptr<Collider>>& collidingObjects) const;
 		void InsertObject(shared_ptr<GameObject> obj);
 		void RemoveObject(shared_ptr<GameObject> obj);
 		void MoveObject(shared_ptr<GameObject> obj, Direction direction);

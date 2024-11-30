@@ -130,7 +130,6 @@ namespace Engine
 				MarkAreaToReprint(objectEntity);
 			}
 			entities.erase(entity);
-			delete(entity);
 		}
 		toRemoveEntities.clear();
 	}
@@ -263,7 +262,7 @@ namespace Engine
 		if (IsEntityInSimulation(entity))
 			return false;
 
-		const Collider* collider = dynamic_cast<const Collider*>(entity);
+		shared_ptr<const Collider> collider = std::dynamic_pointer_cast<const Collider>(entity);
 		if (collider != nullptr)
 		{
 			return worldSpace.IsCollidersAreaEmpty
@@ -286,9 +285,9 @@ namespace Engine
 
 	bool Simulation::TryMoveObjectAtDirection(shared_ptr<GameObject> obj, Direction direction)
 	{
-		uset<Collider*> outCollidingObjects;
+		uset<shared_ptr<Collider>> outCollidingObjects;
 
-		Collider* colliderObj = dynamic_cast<Collider*>(obj);
+		shared_ptr<Collider> colliderObj = std::dynamic_pointer_cast<Collider>(obj);
 
 		if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
 		{
@@ -303,9 +302,9 @@ namespace Engine
 				{
 					colliderObj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-					for (Collider* item : outCollidingObjects)
-						if (item != WorldSpace::SCREEN_MARGIN)
-							item->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, DirectionUtils::GetInverseDirection(direction));
+					for (auto collidingObj : outCollidingObjects)
+						if (collidingObj != WorldSpace::SCREEN_MARGIN)
+							collidingObj->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, DirectionUtils::GetInverseDirection(direction));
 				}
 			}
 			return false;
@@ -321,9 +320,6 @@ namespace Engine
 	void Simulation::LoadLevel(Level* level)
 	{
 		this->level = level;
-
-		for (ISimulationEntity* entity : entities)
-			delete(entity);
 
 		entities.clear();
 		worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
@@ -369,7 +365,7 @@ namespace Engine
 	void Simulation::MarkAreaToReprint(shared_ptr<GameObject> objArea)
 	{
 		std::unordered_set<shared_ptr<GameObject>> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(objArea);
-		for (GameObject* obj : toBeReprintedObjects)
+		for (shared_ptr<GameObject> obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
 
@@ -384,7 +380,7 @@ namespace Engine
 
 		std::unordered_set<shared_ptr<GameObject>> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(minX, minY, width, height);
 
-		for (GameObject* obj : toBeReprintedObjects)
+		for (shared_ptr<GameObject> obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
 }

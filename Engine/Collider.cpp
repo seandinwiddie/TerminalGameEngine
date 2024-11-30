@@ -4,10 +4,10 @@
 
 namespace Engine
 {
-	void Collider::CALLED_BY_SIM_NotifyCollisionEnter(uset<Collider*>collidingObjects, Direction collisionDir)
+	void Collider::CALLED_BY_SIM_NotifyCollisionEnter(uset<shared_ptr<Collider>>collidingObjects, Direction collisionDir)
 	{
-		uset<Collider*>& directionCollisions = collisions[collisionDir];
-		for (Collider* obj : collidingObjects)
+		auto& directionCollisions = collisions[collisionDir];
+		for (auto obj : collidingObjects)
 		{
 			if (directionCollisions.find(obj) == directionCollisions.end())
 			{
@@ -17,26 +17,26 @@ namespace Engine
 		}
 	}
 
-	void Collider::CALLED_BY_SIM_NotifyCollisionEnter(Collider* collidingObject, Direction collisionDir)
+	void Collider::CALLED_BY_SIM_NotifyCollisionEnter(shared_ptr<Collider> collidingObject, Direction collisionDir)
 	{
-		CALLED_BY_SIM_NotifyCollisionEnter(uset<Collider*>{collidingObject}, collisionDir);
+		CALLED_BY_SIM_NotifyCollisionEnter(uset<shared_ptr<Collider>>{collidingObject}, collisionDir);
 	}
 
-	void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<Collider*>, 4>& newCollisions)
+	void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<shared_ptr<Collider>>, 4>& newCollisions)
 	{
 		for (int i = 0; i < newCollisions.size(); ++i)
 		{
-			uset<Collider*>& directionCollisions = collisions[i];
-			const uset<Collider*>& directionNewCollisions = newCollisions[i];
+			uset<shared_ptr<Collider>>& directionCollisions = collisions[i];
+			const uset<shared_ptr<Collider>>& directionNewCollisions = newCollisions[i];
 
-			list<Collider*> toRemove;
+			list<shared_ptr<Collider>> toRemove;
 
 			//update collision direction
-			for (Collider* collider : directionCollisions)
+			for (shared_ptr<Collider> collider : directionCollisions)
 				if (directionNewCollisions.find(collider) == directionNewCollisions.end())
 					toRemove.push_back(collider);
 
-			for (Collider* toRemoveObj : toRemove)
+			for (shared_ptr<Collider> toRemoveObj : toRemove)
 				directionCollisions.erase(toRemoveObj);
 
 			//call on collision exit

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <unordered_set>
 #include <array>
+#include <memory>	
 
 namespace Engine
 {
@@ -14,7 +15,7 @@ namespace Engine
 		//---------------------------------------------------------- Fields
 
 	protected:
-		std::array<uset<Collider*>, 4> collisions;
+		std::array<uset<shared_ptr<Collider>>, 4> collisions;
 
 		//---------------------------------------------------------- Methods
 	public:
@@ -22,12 +23,12 @@ namespace Engine
 
 	protected:
 
-		virtual void OnCollisionEnter(Collider* other, Direction collisionDir) {}
+		virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) {}
 		virtual void OnCollisionExit(Direction endingCollisionDir) {}
 
 	private:
-		void CALLED_BY_SIM_NotifyCollisionEnter(uset<Collider*>collidingObjects, Direction collisionDir);
-		void CALLED_BY_SIM_NotifyCollisionEnter(Collider* collidingObject, Direction collisionDir);
-		void CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<Collider*>, 4>& newCollisions);
+		void CALLED_BY_SIM_NotifyCollisionEnter(uset<shared_ptr<Collider>>collidingObjects, Direction collisionDir);
+		void CALLED_BY_SIM_NotifyCollisionEnter(shared_ptr<Collider> collidingObject, Direction collisionDir);
+		void CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<shared_ptr<Collider>>, 4>& newCollisions);
 	};
 }

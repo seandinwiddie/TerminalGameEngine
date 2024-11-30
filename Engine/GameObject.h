@@ -6,10 +6,12 @@
 #include "Event.h"
 #include "Vector2D.h"
 
+#include <memory>
 #include <Windows.h>
 
 namespace Engine
 {
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 	using Model = Engine::Vector2D<char>;
 
 	class GameObject : public ISimulationEntity

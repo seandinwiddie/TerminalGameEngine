@@ -56,10 +56,10 @@ namespace Engine
 		if (direction == Direction::left || direction == Direction::right)
 		{
 			if (round(xPosContinuous) != xPos)
-				Simulation::Instance().RequestMovement(this, direction, moveSpeed);
+				Simulation::Instance().RequestMovement(shared_ptr<GameObject>(this), direction, moveSpeed);
 		}
 		else if (round(yPosContinuous) != yPos)
-			Simulation::Instance().RequestMovement(this, direction, moveSpeed);
+			Simulation::Instance().RequestMovement(shared_ptr<GameObject>(this), direction, moveSpeed);
 	}
 
 	Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
