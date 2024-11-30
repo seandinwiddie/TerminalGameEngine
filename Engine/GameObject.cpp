@@ -56,10 +56,10 @@ namespace Engine
 		if (direction == Direction::left || direction == Direction::right)
 		{
 			if (round(xPosContinuous) != xPos)
-				Simulation::Instance().RequestMovement(shared_ptr<GameObject>(this), direction, moveSpeed);
+				Simulation::Instance().RequestMovement(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction, moveSpeed);
 		}
 		else if (round(yPosContinuous) != yPos)
-			Simulation::Instance().RequestMovement(shared_ptr<GameObject>(this), direction, moveSpeed);
+			Simulation::Instance().RequestMovement(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction, moveSpeed);
 	}
 
 	Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
@@ -79,7 +79,8 @@ namespace Engine
 			return;
 
 		model = &newModel;
-		Simulation::Instance().MarkAreaToReprint(shared_ptr<GameObject>(this));
+
+		Simulation::Instance().MarkAreaToReprint(std::dynamic_pointer_cast<GameObject>(shared_from_this()));
 	}
 
 	void GameObject::CALLED_BY_SIM_Move(Direction direction)
@@ -103,7 +104,7 @@ namespace Engine
 			xPosContinuous = xPos;
 			break;
 		}
-		OnMove.Notify(shared_ptr<GameObject>(this), direction);
+		OnMove.Notify(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction);
 	}
 
 	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))

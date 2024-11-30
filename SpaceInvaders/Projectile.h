@@ -41,7 +41,7 @@ namespace SpaceInvaders
                 );
             }
 
-            Engine::Simulation::Instance().RemoveEntity(shared_ptr<ISimulationEntity>(this));
+            Engine::Simulation::Instance().RemoveEntity(shared_from_this());
         }
     };
 }

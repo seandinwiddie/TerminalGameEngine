@@ -1,8 +1,9 @@
 #pragma once
+#include <memory>
 
 namespace Engine
 {
-	class ISimulationEntity
+	class ISimulationEntity : public std::enable_shared_from_this<ISimulationEntity>
 	{
 		friend class Simulation;
 		//---------------------------------------------------------- Methods
