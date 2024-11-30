@@ -19,6 +19,7 @@ namespace SpaceInvaders
 	using WindowPosition = Engine::UIPrinter::WindowPosition;
 	using Simulation = Engine::Simulation;
 	using string = std::string;
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 
 	int SpaceInvadersLevel::GetWorldSizeX() const
 	{
@@ -41,7 +42,7 @@ namespace SpaceInvaders
 		isLoadingWave = false;
 		double startedLoadingWaveTime = -1;
 
-		aliensController = std::dynamic_pointer_cast<AliensController>(shared_from_this());
+		aliensController = std::make_shared<AliensController>(std::dynamic_pointer_cast<SpaceInvadersLevel>(shared_from_this()));
 		aliensController->OnWaveCompleted.Subscribe([this]() { OnWaveCompleted(); });
 		aliensController->OnGroundTouched.Subscribe([this]() { OnGameOver(); });
 		Simulation::Instance().TryAddEntity(aliensController);

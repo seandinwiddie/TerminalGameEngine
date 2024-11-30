@@ -38,7 +38,7 @@ namespace SpaceInvaders
 		Event<> OnGroundTouched;
 
 	private:
-		SpaceInvadersLevel* level;
+		shared_ptr<SpaceInvadersLevel> level;
 		Vector2D<shared_ptr<Alien>> aliensGrid;
 		AliensFrontline frontLine;
 
@@ -50,7 +50,7 @@ namespace SpaceInvaders
 		double shotDelay = 0;
 		//------------------------------------------------------------------- Methods
 	public:
-		AliensController(SpaceInvadersLevel* level) : level(level) {}
+		AliensController(shared_ptr<SpaceInvadersLevel> level) : level(level) {}
 		;	void Reset(int aliensCountX, int aliensCountY);
 		void Update() override;
 		void RegisterAlien(shared_ptr<Alien> alien, int xPos, int yPos);
