@@ -102,8 +102,12 @@ namespace SpaceInvaders
 	{
 		for (int y = 0; y < GetAliensGridHeight(); ++y)
 			for (int x = 0; x < GetAliensGridWidth(); ++x)
-				if (aliensGrid.Get(x, y) != nullptr)
-					aliensGrid.Get(x, y)->TryMove(dir, speed);
+			{
+				shared_ptr<Alien> alien = aliensGrid.Get(x, y).lock();
+				if (alien)
+					alien->TryMove(dir, speed);
+			}
+				
 	}
 
 	void AliensController::OnAliensReachMargin()
@@ -117,10 +121,7 @@ namespace SpaceInvaders
 	void AliensController::OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj)
 	{
 		shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
-		//Alien* alien = dynamic_cast<Alien*>(alienObj);
-
-		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()) = nullptr;
-
+		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()).reset();
 		frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 
 		--aliensCount;

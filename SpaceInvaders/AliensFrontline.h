@@ -8,6 +8,7 @@ namespace SpaceInvaders
 	template <typename T> using vector = std::vector<T>;
 	template <typename T> using Vector2D = Engine::Vector2D<T>;
 	template<typename T> using shared_ptr = std::shared_ptr<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 
 	class Alien;
 
@@ -21,6 +22,6 @@ namespace SpaceInvaders
 		shared_ptr<Alien> GetRandom();
 		void Set(size_t pos, shared_ptr<Alien> alien) { frontLine[pos] = alien; }
 		size_t GetMinY();
-		void ReplaceDestroyedElement(shared_ptr<Alien> destroyedAlien, const Vector2D<shared_ptr<Alien>>& aliensGrid);
+		void ReplaceDestroyedElement(shared_ptr<Alien> destroyedAlien, const Vector2D<weak_ptr<Alien>>& aliensGrid);
 	};
 }

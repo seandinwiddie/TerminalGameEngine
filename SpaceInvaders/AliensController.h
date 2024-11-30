@@ -17,6 +17,7 @@ namespace SpaceInvaders
 	class Alien;
 	class SpaceInvadersLevel;
 	using GameObject = Engine::GameObject;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 
 	class AliensController : public Engine::ISimulationEntity
 	{
@@ -39,7 +40,7 @@ namespace SpaceInvaders
 
 	private:
 		shared_ptr<SpaceInvadersLevel> level;
-		Vector2D<shared_ptr<Alien>> aliensGrid;
+		Vector2D<weak_ptr<Alien>> aliensGrid;
 		AliensFrontline frontLine;
 
 		size_t aliensCount = 0;
