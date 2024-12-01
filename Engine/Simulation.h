@@ -52,7 +52,7 @@ namespace Engine
 		shared_ptr<Level> level;
 		WorldSpace worldSpace;
 		uset<shared_ptr<ISimulationEntity>> entities;
-		list<shared_ptr<ISimulationEntity>> toRemoveEntities;
+		list<shared_ptr<ISimulationEntity>> toRemoveEntities; //todo use weak ptr?
 
 		// move requests are sorted from slower to faster
 		// slower objects have to move before faster ones to prevent false collisions detection

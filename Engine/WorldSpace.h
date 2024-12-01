@@ -13,6 +13,7 @@ namespace Engine
 	template<typename T> using uset = std::unordered_set<T>;
 	template<typename T> using list = std::list<T>;
 	template<typename T> using shared_ptr = std::shared_ptr<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 
 	class WorldSpace
 	{
@@ -21,7 +22,7 @@ namespace Engine
 		struct Cell
 		{
 			// cell collider, max 1 for cell
-			shared_ptr<Collider> collider = nullptr;	
+			weak_ptr<Collider> collider;	
 
 			// all objects in cell, including collider if present
 			// (using list cause there are a lot of small sets (2/3 elements max per list usually)
@@ -49,7 +50,7 @@ namespace Engine
 		bool IsInsideSpaceX(int xPos) const;
 		bool IsInsideSpaceY(int yPos) const;
 
-		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& areaObjects) const;
+		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& outAreaObjects) const;
 		bool IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const;
 
 		uset<shared_ptr<GameObject>> GetAreaTopLayerObjects(shared_ptr<GameObject> obj);

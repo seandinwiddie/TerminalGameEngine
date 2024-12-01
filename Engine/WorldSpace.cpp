@@ -12,10 +12,7 @@ namespace Engine
 		space.Resize(xSize, ySize);
 
 		for (Cell cell : space)
-		{
-			cell.collider = nullptr;
 			cell.objects.clear();
-		}
 			
 		this->screenPadding = screenPadding;
 	}
@@ -90,7 +87,7 @@ namespace Engine
 				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
-					assert(cell.collider == nullptr || cell.collider == objCollider);
+					assert(cell.collider.expired() || cell.collider.lock() == objCollider);
 					cell.collider = objCollider;
 				}
 			}
@@ -119,32 +116,32 @@ namespace Engine
 				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
-					assert(cell.collider == nullptr || cell.collider == objCollider);
-					cell.collider = nullptr;
+					assert(cell.collider.expired() || cell.collider.lock() == objCollider);
+					cell.collider.reset();
 				}
 			}
 	}
 
-	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& areaObjects) const
+	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& outAreaObjects) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 		{
 			for (int x = startingX; x < startingX + width; ++x)
 			{
-				auto cellCollider = space.Get(x, y).collider;
+				auto cellCollider = space.Get(x, y).collider.lock();
 				if (IsCoordinateInsideSpace(x, y) && cellCollider != nullptr)
-					areaObjects.insert(cellCollider);
+					outAreaObjects.insert(cellCollider);
 			}
 		}
 
-		return areaObjects.size() == 0;
+		return outAreaObjects.size() == 0;
 	}
 
 	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 			for (int x = startingX; x < startingX + width; ++x)
-				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y).collider != nullptr)
+				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y).collider.expired() == false)
 					return false;
 
 		return true;
