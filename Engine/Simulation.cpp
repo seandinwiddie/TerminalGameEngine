@@ -117,19 +117,21 @@ namespace Engine
 
 	void Simulation::RemoveMarkedEntities()
 	{
-		for (shared_ptr<ISimulationEntity>& entity : toRemoveEntities)
+		for (weak_ptr<ISimulationEntity>& entity : toRemoveEntities)
 		{
-			shared_ptr<GameObject> objectEntity = std::dynamic_pointer_cast<GameObject>(entity);
-
-			//GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
-			if (objectEntity != nullptr)
+			shared_ptr<ISimulationEntity> entitySp = entity.lock();
+			if (entitySp != nullptr)
 			{
-				objectEntity->OnDestroy(); //todo can probably be removed
-				simulationPrinter->ClearObject(objectEntity);
-				worldSpace.RemoveObject(objectEntity);
-				MarkAreaToReprint(objectEntity);
+				shared_ptr<GameObject> objectEntity = std::dynamic_pointer_cast<GameObject>(entitySp);
+				if (objectEntity != nullptr)
+				{
+					objectEntity->OnDestroy(); //todo can probably be removed
+					simulationPrinter->ClearObject(objectEntity);
+					worldSpace.RemoveObject(objectEntity);
+					MarkAreaToReprint(objectEntity);
+				}
+				entities.erase(entitySp);
 			}
-			entities.erase(entity);
 		}
 		toRemoveEntities.clear();
 	}
