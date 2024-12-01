@@ -105,7 +105,8 @@ namespace Engine
 				//------------------ erase from cell.objects
 				for (auto it = cell.objects.begin(); it != cell.objects.end(); ++it)
 				{
-					if (*it == obj)
+					auto itSharedPt = it->lock();
+					if (itSharedPt != nullptr && itSharedPt == obj)
 					{
 						cell.objects.erase(it);
 						break;
@@ -290,7 +291,18 @@ namespace Engine
 			{
 				Cell& cell = space.Get(x, y);
 				if (cell.objects.size() > 0)
-					objects.insert(*space.Get(x, y).objects.begin());
+				{
+					auto topItem = space.Get(x, y).objects.begin();
+					while (topItem != space.Get(x, y).objects.end())
+					{
+						auto topItemSp = topItem->lock();
+						if (topItemSp != nullptr)
+						{
+							objects.insert(topItemSp);
+							break;
+						}	
+					}
+				}
 			}
 		}
 		return objects;

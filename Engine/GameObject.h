@@ -56,6 +56,7 @@ namespace Engine
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
 		static void InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem));
+		static void InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<weak_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem));
 
 	protected:
 		virtual void InitModel() = 0;

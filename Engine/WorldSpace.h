@@ -26,7 +26,7 @@ namespace Engine
 
 			// all objects in cell, including collider if present
 			// (using list cause there are a lot of small sets (2/3 elements max per list usually)
-			list<shared_ptr<GameObject>> objects;
+			list<weak_ptr<GameObject>> objects;
 		};
 
 		//---------------------------------------------------------- Margins

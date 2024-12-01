@@ -115,4 +115,16 @@ namespace Engine
 				break;
 		list.insert(it, obj);
 	}
+
+	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<weak_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))
+	{
+		auto it = list.begin();
+		for (; it != list.end(); ++it)
+		{
+			auto itSharedPtr = it->lock();
+			if (itSharedPtr != nullptr && InsertRule(obj, itSharedPtr))
+				break;
+		}
+		list.insert(it, obj);
+	}
 }
