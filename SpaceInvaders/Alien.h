@@ -17,7 +17,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		Event<shared_ptr<Collider>> OnDestroyEvent;
+		Event<shared_ptr<Collider>> OnDestroyEvent; //todo remove shared ptr
 
 	protected:
 		const Model* animationModel1;
@@ -34,15 +34,15 @@ namespace SpaceInvaders
 		{
 		}
 
-		virtual bool CanExitScreenSpace() const override { return false; }
+		bool CanExitScreenSpace() const override { return false; }
 		size_t GetIndexInGridX() { return gridIndexX; }
 		size_t GetIndexInGridY() { return gridIndexY; }
 
 		void Shot();
 
 	protected:
-		virtual void OnDestroy() override;
-		virtual void Update() override;
+		void OnDestroy() override;
+		void Update() override;
 		void StepAnimation() { SetModel(isFirsAnimationFrameTime ? *animationModel1 : *animationModel2); }
 	};
 }

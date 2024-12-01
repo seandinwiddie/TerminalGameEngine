@@ -23,14 +23,14 @@ namespace SpaceInvaders
 	public:
 		Ufo(int xPos, int yPos, Direction moveDirection) : Enemy(xPos, yPos), moveDirection(moveDirection) {};
 
-		virtual bool CanExitScreenSpace() const override { return true; }
-		virtual int GetColor() const override { return Engine::Terminal::RED; }
+		bool CanExitScreenSpace() const override { return true; }
+		int GetColor() const override { return Engine::Terminal::RED; }
 		virtual void InitModel() { SetModel(MODEL_1); }
 		virtual size_t GetScore() const;
 
 	protected:
-		virtual void Update() override;
-		virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+		void Update() override;
+		void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
 		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::RED; }
 	};
 }

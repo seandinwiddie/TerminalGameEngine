@@ -13,13 +13,13 @@ namespace Platformer
         //---------------------------------------------------------- Methods
     public:
         using Collider::Collider;
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 8; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 8; }
         virtual int GetColor() const { return Engine::Terminal::BLUE; }
 
     protected:
-        virtual void InitModel() override { SetModel(model); }
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)override
+        void InitModel() override { SetModel(model); }
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)override
         {
             if (collisionDir == Direction::right || collisionDir == Direction::left)
             {

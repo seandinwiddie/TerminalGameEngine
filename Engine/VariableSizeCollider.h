@@ -29,6 +29,6 @@ namespace Engine
         }
 
     protected:
-        virtual void InitModel() override { SetModel(model); }
+        void InitModel() override { SetModel(model); }
     };
 }

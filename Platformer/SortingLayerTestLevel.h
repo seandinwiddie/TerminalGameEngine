@@ -12,11 +12,11 @@ namespace Platformer
     {
         //---------------------------------------------------------- Methods
     public:
-        virtual int GetWorldSizeX() const override { return 100; }
-        virtual int GetWorldSizeY() const override { return 30; }
-        virtual int GetScreenPadding() const override { return 1; }
-        virtual double ShowGameOverScreenDelay()const { return 0; }
+        int GetWorldSizeX() const override { return 100; }
+        int GetWorldSizeY() const override { return 30; }
+        int GetScreenPadding() const override { return 1; }
+        double ShowGameOverScreenDelay()const { return 0; }
 
-        virtual void LoadInSimulation() override;
+        void LoadInSimulation() override;
     };
 }

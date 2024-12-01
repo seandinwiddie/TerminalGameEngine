@@ -22,13 +22,13 @@ namespace Platformer
     public:
         PressurePlate(int xPos, int yPos, size_t width);
 
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::CYAN; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
+        int GetColor() const override { return Engine::Terminal::CYAN; }
 
     protected:
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
-        virtual void OnCollisionExit(Direction endingCollisionDir) override;
-        virtual void InitModel() override { SetModel(unpressedModel); }
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+        void OnCollisionExit(Direction endingCollisionDir) override;
+        void InitModel() override { SetModel(unpressedModel); }
     };
 }

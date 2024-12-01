@@ -18,8 +18,8 @@ namespace SpaceInvaders
         using Collider::Collider;
 
     protected:
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
         virtual int GetColor() const { return Engine::Terminal::GREEN; }
         virtual void InitModel() { SetModel(model); }
         virtual void OnCollisionEnter(shared_ptr<Collider>other, Direction collisionDir);

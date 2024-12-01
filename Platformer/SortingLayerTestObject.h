@@ -33,8 +33,8 @@ namespace Platformer
 			std::optional<Direction> mainDirection = std::nullopt
 		);
 
-		virtual bool CanExitScreenSpace() const override { return true; }
-		virtual double GetGravityScale() const override { return 0; }
+		bool CanExitScreenSpace() const override { return true; }
+		double GetGravityScale() const override { return 0; }
 		virtual int GetColor() const { return color; }
 		virtual size_t GetSortingLayer() const { return sortingLayer; }
 

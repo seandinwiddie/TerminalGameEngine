@@ -38,26 +38,26 @@ namespace SpaceInvaders
         int score;
         bool isLoadingWave;
         double startedLoadingWaveTime;
-        shared_ptr<AliensController> aliensController;
+        shared_ptr<AliensController> aliensController; //todo check if you can use uniqueptr
 
         //------------------------------------------------------------------- Methods
     public:
-        virtual int GetWorldSizeX() const override;
-        virtual int GetWorldSizeY() const override { return 50; }
-        virtual int GetScreenPadding() const override { return 6; }
-        virtual void LoadInSimulation() override;
+        int GetWorldSizeX() const override;
+        int GetWorldSizeY() const override { return 50; }
+        int GetScreenPadding() const override { return 6; }
+        void LoadInSimulation() override;
         size_t GetWaveNumber() { return waveNumber; }
         void IncreasePlayerScore(size_t increment);
         bool IsLoadingWave() { return isLoadingWave; }
 
     protected:
-        virtual void Update()override;
+        void Update()override;
         virtual double ShowGameOverScreenDelay() const { return 0.2; }
         virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; }
         virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
-        virtual void OnPostGameOverDelayEnded() override;
+        void OnPostGameOverDelayEnded() override;
         virtual void ShowGameOverScreen(int score, int savedBestScore);
-        virtual void OnGameOver() override;
+        void OnGameOver() override;
 
     private:
         void LoadAliens();

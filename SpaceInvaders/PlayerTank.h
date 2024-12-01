@@ -30,8 +30,8 @@ namespace SpaceInvaders
     public:
         PlayerTank(int xPos, int yPos, SpaceInvadersLevel* level) : Collider(xPos, yPos), level(level) {};
 
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
         virtual int GetColor() const { return Engine::Terminal::GREEN; }
         virtual void InitModel() { SetModel(MODEL); }
         void HandleMovement();
@@ -40,7 +40,7 @@ namespace SpaceInvaders
         size_t GetHealth() { return health; }
 
     protected:
-        virtual void Update() override;
+        void Update() override;
     };
 
 }

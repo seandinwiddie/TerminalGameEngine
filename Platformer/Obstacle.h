@@ -15,12 +15,12 @@ namespace Platformer
     public:
         using MovingStraightObject::MovingStraightObject;
 
-        virtual bool CanExitScreenSpace() const override { return true; }
-        virtual double GetGravityScale() const override { return 0; }
+        bool CanExitScreenSpace() const override { return true; }
+        double GetGravityScale() const override { return 0; }
         virtual int GetColor() const { return Engine::Terminal::RED; }
 
     protected:
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
-        virtual void InitModel();
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+        void InitModel() override;
     };
 }

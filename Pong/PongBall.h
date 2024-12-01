@@ -29,11 +29,11 @@ namespace Pong
         virtual int GetColor() const { return Engine::Terminal::GREEN; }
 
     protected:
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
         virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir);
-        virtual void Update() override;
-        virtual void InitModel() override { SetModel(MODEL); }
+        void Update() override;
+        void InitModel() override { SetModel(MODEL); }
 
     private:
         void HandleBarCollision(shared_ptr<PongBar> collidingBar);

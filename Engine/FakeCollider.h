@@ -10,8 +10,8 @@ namespace Engine
 	public:
 		FakeCollider() : Collider(0, 0) {}
 	private:
-		virtual bool CanExitScreenSpace() const override { assert(false); return true; }
-		virtual double GetGravityScale() const override { assert(false); return 0; }
-		virtual void InitModel() override {}
+		bool CanExitScreenSpace() const override { assert(false); return true; }
+		double GetGravityScale() const override { assert(false); return 0; }
+		void InitModel() override {}
 	};
 }

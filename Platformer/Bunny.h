@@ -62,13 +62,13 @@ namespace Platformer
     public:
         Bunny(int xPos, int yPos);
 
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override;
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override;
         virtual int GetColor() const { return Engine::Terminal::GREEN; }
 
     protected:
         void Update() override;
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
         virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
 
     private:

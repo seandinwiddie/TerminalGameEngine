@@ -26,13 +26,13 @@ namespace Platformer
         );
 
         bool IsOpen() const { return energySourcesCounter > 0; }
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::CYAN; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
+        int GetColor() const { return Engine::Terminal::CYAN; }
         void AddEnergySource() { ++energySourcesCounter; }
         void RemoveEnergySource();
 
     protected:
-        virtual void Update() override;
+        void Update() override;
     };
 }
