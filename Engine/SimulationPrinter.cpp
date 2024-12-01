@@ -27,7 +27,7 @@ namespace Engine
         InitBackground(backgroundFileName);
     }
 
-    void SimulationPrinter::PrintObject(GameObject* go)
+    void SimulationPrinter::PrintObject(shared_ptr<GameObject> go)
     {
         Model model = go->GetModel();
         assert(model.GetSizeX() > 0 && model.GetSizeY() > 0);
@@ -35,7 +35,7 @@ namespace Engine
         PrintInternal(go->GetPosX(), go->GetPosY(), go->GetModelWidth(), go->GetModelHeight(), go);
     }
 
-    void SimulationPrinter::ClearObject(GameObject* obj)
+    void SimulationPrinter::ClearObject(shared_ptr<GameObject> obj)
     {
         PrintInternal(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), nullptr);
     }
@@ -45,7 +45,7 @@ namespace Engine
         PrintInternal(worldXPos, worldYPos, xSize, ySize, nullptr);
     }
 
-    void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, GameObject* go)
+    void SimulationPrinter::PrintInternal(int worldXPos, int worldYPos, size_t xSize, size_t ySize, shared_ptr<GameObject> go)
     {
         terminal.SetColor(go == nullptr ? backgroundColor : go->GetColor());
         for (int yScreen = ConvertWorldPosToScreenPos(worldYPos), yModel = 0; yModel < ySize && yScreen < screenSizeY; ++yScreen, ++yModel)

@@ -32,14 +32,14 @@ namespace Engine
 			std::optional<Direction> mainDirection
 		);
 
-		virtual bool CanExitScreenSpace() const override { return true; }
-		virtual double GetGravityScale() const override { return 0; }
-		virtual int GetColor() const { return color; }
-		virtual size_t GetSortingLayer() const { return 200; }
+		bool CanExitScreenSpace() const override { return true; }
+		double GetGravityScale() const override { return 0; }
+		int GetColor() const override { return color; }
+		size_t GetSortingLayer() const override { return 200; }
 
 	protected:
-		virtual void InitModel();
-		virtual void Update();
+		void InitModel()override;
+		void Update()override;
 
 	private:
 		void OnMoveCallback();

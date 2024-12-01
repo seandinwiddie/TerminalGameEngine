@@ -17,6 +17,7 @@ namespace SpaceInvaders
 	class Alien;
 	class SpaceInvadersLevel;
 	using GameObject = Engine::GameObject;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 
 	class AliensController : public Engine::ISimulationEntity
 	{
@@ -38,8 +39,8 @@ namespace SpaceInvaders
 		Event<> OnGroundTouched;
 
 	private:
-		SpaceInvadersLevel* level;
-		Vector2D<Alien*> aliensGrid;
+		shared_ptr<SpaceInvadersLevel> level;
+		Vector2D<weak_ptr<Alien>> aliensGrid;
 		AliensFrontline frontLine;
 
 		size_t aliensCount = 0;
@@ -50,10 +51,10 @@ namespace SpaceInvaders
 		double shotDelay = 0;
 		//------------------------------------------------------------------- Methods
 	public:
-		AliensController(SpaceInvadersLevel* level) : level(level) {}
+		AliensController(shared_ptr<SpaceInvadersLevel> level) : level(level) {}
 		;	void Reset(int aliensCountX, int aliensCountY);
 		void Update() override;
-		void RegisterAlien(Alien* alien, int xPos, int yPos);
+		void RegisterAlien(shared_ptr<Alien> alien, int xPos, int yPos);
 
 	private:
 		double GetSpeedX()const;
@@ -64,8 +65,8 @@ namespace SpaceInvaders
 		size_t GetAliensGridWidth() const { return aliensGrid.GetSizeX(); }
 		size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
 		size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliensCount; }
-		void OnAlienMovedCallback(GameObject* alien, Direction moveDirection);
-		void OnAlienDestroyedCallback(GameObject* alienObj);
+		void OnAlienMovedCallback(weak_ptr<GameObject> alien, Direction moveDirection);
+		void OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj);
 		void OnAliensReachMargin();
 		void MoveAliens(Direction dir, double speed);
 		void HandleShooting();

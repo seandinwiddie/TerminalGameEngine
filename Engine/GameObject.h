@@ -6,10 +6,13 @@
 #include "Event.h"
 #include "Vector2D.h"
 
+#include <memory>
 #include <Windows.h>
 
 namespace Engine
 {
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 	using Model = Engine::Vector2D<char>;
 
 	class GameObject : public ISimulationEntity
@@ -18,7 +21,7 @@ namespace Engine
 
 		//---------------------------------------------------------- Fields
 	public:
-		Event<GameObject*, Direction> OnMove;
+		Event<weak_ptr<GameObject>, Direction> OnMove;
 		// generic on destroy event could be added
 
 	protected:
@@ -52,14 +55,15 @@ namespace Engine
 		size_t GetModelHeight()const { return model->GetSizeY(); }
 		const Model& GetModel()const { return *model; }
 		virtual bool CanExitScreenSpace() const = 0;
-		static void InsertInListUsingRule(GameObject* obj, std::list<GameObject*>& list, bool(*InsertRule)(GameObject* newItem, GameObject* listItem));
+		static void InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem));
+		static void InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<weak_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem));
 
 	protected:
 		virtual void InitModel() = 0;
 		virtual double GetGravityScale() const = 0;
 		virtual void OnDestroy() {} // called by simulation
 		virtual void TryMove(Direction direction, double moveSpeed);
-		virtual void Update();
+		void Update()override;
 		Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
 		void SetModel(const Model& newModel);
 

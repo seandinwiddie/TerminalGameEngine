@@ -63,7 +63,7 @@ namespace SpaceInvaders
 		HandleShooting();
 	}
 
-	void AliensController::RegisterAlien(Alien* alien, int xPos, int yPos)
+	void AliensController::RegisterAlien(shared_ptr<Alien> alien, int xPos, int yPos)
 	{
 		assert(alien != nullptr);
 		assert(yPos < GetAliensGridHeight());
@@ -76,18 +76,19 @@ namespace SpaceInvaders
 
 		alien->OnMove.Subscribe
 		(
-			[this](GameObject* alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
+			[this](weak_ptr<GameObject> alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 		);
 
 		alien->OnDestroyEvent.Subscribe
 		(
-			[this](Collider* alienObj) { OnAlienDestroyedCallback(alienObj); }
+			[this](shared_ptr<Collider> alienObj) { OnAlienDestroyedCallback(alienObj); }
 		);
 	}
 
-	void AliensController::OnAlienMovedCallback(GameObject* alien, Direction moveDirection)
+	void AliensController::OnAlienMovedCallback(weak_ptr<GameObject> alienWeak, Direction moveDirection)
 	{
-		if (moveDirection == xMoveDirection)
+		shared_ptr<GameObject> alien = alienWeak.lock();
+		if (moveDirection == xMoveDirection && alien != nullptr)
 		{
 			int alienXPos = alien->GetPosX();
 			if (
@@ -102,8 +103,12 @@ namespace SpaceInvaders
 	{
 		for (int y = 0; y < GetAliensGridHeight(); ++y)
 			for (int x = 0; x < GetAliensGridWidth(); ++x)
-				if (aliensGrid.Get(x, y) != nullptr)
-					aliensGrid.Get(x, y)->TryMove(dir, speed);
+			{
+				shared_ptr<Alien> alien = aliensGrid.Get(x, y).lock();
+				if (alien)
+					alien->TryMove(dir, speed);
+			}
+				
 	}
 
 	void AliensController::OnAliensReachMargin()
@@ -114,12 +119,10 @@ namespace SpaceInvaders
 
 	static int calledTimes = 0;
 
-	void AliensController::OnAlienDestroyedCallback(GameObject* alienObj)
+	void AliensController::OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj)
 	{
-		Alien* alien = dynamic_cast<Alien*>(alienObj);
-
-		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()) = nullptr;
-
+		shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
+		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()).reset();
 		frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 
 		--aliensCount;
@@ -131,7 +134,7 @@ namespace SpaceInvaders
 	{
 		if (Engine::TimeHelper::Instance().GetTime() - lastShotTime > shotDelay)
 		{
-			Alien* frontLineAlien = frontLine.GetRandom();
+			shared_ptr<Alien> frontLineAlien = frontLine.GetRandom();
 			if (frontLineAlien == nullptr)
 				return;
 			frontLineAlien->Shot();

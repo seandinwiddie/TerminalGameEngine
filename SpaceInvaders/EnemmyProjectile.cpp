@@ -7,11 +7,11 @@ namespace SpaceInvaders
 
 	const Model EnemyProjectile::MODEL(1, { '|' });
 
-	void EnemyProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
+	void EnemyProjectile::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
 	{
 		Projectile::OnCollisionEnter(other, collisionDir);
 
-		PlayerTank* otherTank = dynamic_cast<PlayerTank*>(other);
+		shared_ptr<PlayerTank> otherTank = std::dynamic_pointer_cast<PlayerTank>(other);
 		if (otherTank != nullptr)
 			otherTank->TakeDamage();
 	}

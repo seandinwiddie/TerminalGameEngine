@@ -11,7 +11,7 @@ namespace Platformer
         pressedModel = CreteModelUsingChar('_', width, 1);
     }
 
-    void PressurePlate::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void PressurePlate::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
     {
         if (collisionDir == Direction::up && collisions[Direction::up].size() == 1)
         {

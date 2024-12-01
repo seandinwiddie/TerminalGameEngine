@@ -7,6 +7,7 @@ namespace SpaceInvaders
     class AliensController;
     using type_info = std::type_info;
     template<typename T> using vector = std::vector<T>;
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
 
     class SpaceInvadersLevel : public Engine::Level
     {
@@ -37,26 +38,26 @@ namespace SpaceInvaders
         int score;
         bool isLoadingWave;
         double startedLoadingWaveTime;
-        AliensController* aliensController;
+        shared_ptr<AliensController> aliensController; //todo check if you can use uniqueptr
 
         //------------------------------------------------------------------- Methods
     public:
-        virtual int GetWorldSizeX() const override;
-        virtual int GetWorldSizeY() const override { return 50; }
-        virtual int GetScreenPadding() const override { return 6; }
-        virtual void LoadInSimulation() override;
+        int GetWorldSizeX() const override;
+        int GetWorldSizeY() const override { return 50; }
+        int GetScreenPadding() const override { return 6; }
+        void LoadInSimulation() override;
         size_t GetWaveNumber() { return waveNumber; }
         void IncreasePlayerScore(size_t increment);
         bool IsLoadingWave() { return isLoadingWave; }
 
     protected:
-        virtual void Update()override;
-        virtual double ShowGameOverScreenDelay() const { return 0.2; }
-        virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; }
+        void Update()override;
+        double ShowGameOverScreenDelay() const override { return 0.2; }
+        virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; } //todo check this, virtual must be moved on Level
         virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
-        virtual void OnPostGameOverDelayEnded() override;
+        void OnPostGameOverDelayEnded() override;
         virtual void ShowGameOverScreen(int score, int savedBestScore);
-        virtual void OnGameOver() override;
+        void OnGameOver() override;
 
     private:
         void LoadAliens();
@@ -69,7 +70,7 @@ namespace SpaceInvaders
         void PrintWave();
         const type_info& GetAlienTypeForRow(int rowIndex);
         void AddAliensRowToSimulation(int yPos, int rowIndex);
-        Alien* CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
+        shared_ptr<Alien> CreateAlienOfType(const type_info& alienType, int xPos, int yPos, int xIndex, int yIndex);
         void OnWaveCompleted();
         void LoadNewWave();
         void OnPlayerTakesDamage(size_t remainingHealth);

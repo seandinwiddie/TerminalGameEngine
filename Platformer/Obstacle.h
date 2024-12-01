@@ -3,6 +3,7 @@
 
 namespace Platformer
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using Model = Engine::Model;
     using Direction = Engine::Direction;
 
@@ -14,12 +15,12 @@ namespace Platformer
     public:
         using MovingStraightObject::MovingStraightObject;
 
-        virtual bool CanExitScreenSpace() const override { return true; }
-        virtual double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::RED; }
+        bool CanExitScreenSpace() const override { return true; }
+        double GetGravityScale() const override { return 0; }
+        int GetColor() const override { return Engine::Terminal::RED; }
 
     protected:
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-        virtual void InitModel();
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+        void InitModel() override;
     };
 }

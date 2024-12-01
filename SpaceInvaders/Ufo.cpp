@@ -26,7 +26,7 @@ namespace SpaceInvaders
 		TryMove(moveDirection, MOVE_SPEED);
 	}
 
-	void Ufo::OnCollisionEnter(Collider* other, Direction collisionDir)
+	void Ufo::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
 	{
 		Enemy::OnCollisionEnter(other, collisionDir);
 		Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/UfoDefeated.wav");

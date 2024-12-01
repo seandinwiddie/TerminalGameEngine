@@ -10,12 +10,12 @@ namespace SpaceInvaders
 	{
 		Enemy::OnDestroy();
 		Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/AlienDeath2.wav");
-		OnDestroyEvent.Notify(this);
+		OnDestroyEvent.Notify(std::dynamic_pointer_cast<Collider>(shared_from_this()));
 	}
 
 	void Alien::Shot()
 	{
-		EnemyProjectile* projectile = new EnemyProjectile(GetMidPosX(), GetPosY() - 2, Direction::down, PROJECTILE_SPEED);
+		shared_ptr<EnemyProjectile> projectile = std::make_shared<EnemyProjectile>(GetMidPosX(), GetPosY() - 2, Direction::down, PROJECTILE_SPEED);
 		Engine::Simulation::Instance().TryAddEntity(projectile);
 	}
 

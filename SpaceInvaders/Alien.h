@@ -5,6 +5,7 @@
 namespace SpaceInvaders
 {
 	using Model = Engine::Model;
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 
 	class Alien : public Enemy
 	{
@@ -16,7 +17,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		Event<Collider*> OnDestroyEvent;
+		Event<shared_ptr<Collider>> OnDestroyEvent; //todo remove shared ptr
 
 	protected:
 		const Model* animationModel1;
@@ -33,15 +34,15 @@ namespace SpaceInvaders
 		{
 		}
 
-		virtual bool CanExitScreenSpace() const override { return false; }
+		bool CanExitScreenSpace() const override { return false; }
 		size_t GetIndexInGridX() { return gridIndexX; }
 		size_t GetIndexInGridY() { return gridIndexY; }
 
 		void Shot();
 
 	protected:
-		virtual void OnDestroy() override;
-		virtual void Update() override;
+		void OnDestroy() override;
+		void Update() override;
 		void StepAnimation() { SetModel(isFirsAnimationFrameTime ? *animationModel1 : *animationModel2); }
 	};
 }

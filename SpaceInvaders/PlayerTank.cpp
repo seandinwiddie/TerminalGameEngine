@@ -54,7 +54,7 @@ namespace SpaceInvaders
             if (time - lastTimeShot > SHOTS_DELAY)
             {
                 lastTimeShot = Engine::TimeHelper::Instance().GetTime();
-                PlayerProjectile* projectile = new PlayerProjectile(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILE_SPEED);
+                shared_ptr<PlayerProjectile> projectile = std::make_shared<PlayerProjectile>(GetMidPosX(), GetMaxPosY() + 1, Direction::up, PROJECTILE_SPEED);
                 Engine::Simulation::Instance().TryAddEntity(projectile);
                 Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/Shot1.wav");
             }

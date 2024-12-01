@@ -3,6 +3,7 @@
 
 namespace SpaceInvaders
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
     using Direction = Engine::Direction;
     using Model = Engine::Model;
 
@@ -17,10 +18,10 @@ namespace SpaceInvaders
         using Collider::Collider;
 
     protected:
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::GREEN; }
-        virtual void InitModel() { SetModel(model); }
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir);
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override { return 0; }
+        int GetColor() const override { return Engine::Terminal::GREEN; }
+        void InitModel() override { SetModel(model); }
+        void OnCollisionEnter(shared_ptr<Collider>other, Direction collisionDir)override;
     };
 }

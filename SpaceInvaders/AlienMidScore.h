@@ -12,11 +12,11 @@ namespace SpaceInvaders
 	public:
 		using Alien::Alien;
 
-		virtual size_t GetScore() const { return 20; }
-		virtual int GetColor() const override { return Engine::Terminal::CYAN; }
+		size_t GetScore() const override { return 20; }
+		int GetColor() const override { return Engine::Terminal::CYAN; }
 
 	protected:
-		virtual void InitModel()
+		void InitModel() override
 		{
 			animationModel1 = &MODEL_1;
 			animationModel2 = &MODEL_2;

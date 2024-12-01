@@ -71,7 +71,7 @@ namespace Platformer
 
         //----------------- bunny setup
         int bunnyStartingY = static_cast<int>(simulation.GetScreenPadding());
-        Bunny* bunny = new Bunny(9, bunnyStartingY);
+        shared_ptr<Bunny> bunny = std::make_shared<Bunny>(9, bunnyStartingY);
         bunny->OnObstacleHit.Subscribe([this]() { OnGameOver(); });
         simulation.TryAddEntity(bunny);
 
@@ -109,9 +109,10 @@ namespace Platformer
         double increaseIntensityEverySeconds = 10;
         double stopSpawningWhenPhaseChangesDuration = 1;
 
-        std::vector<int> ySpawnPoints = { 4,8,12 };
+        //std::vector<int> ySpawnPoints = { 4,8,12 };
+        std::vector<int> ySpawnPoints = { 15,8,12 };
 
-        ObstaclesSpawner* spawner = new ObstaclesSpawner
+        shared_ptr<ObstaclesSpawner> spawner = std::make_shared<ObstaclesSpawner>
         (
             spawnerPosX,
             minSpawnDelays,
@@ -123,7 +124,6 @@ namespace Platformer
         );
 
         simulation.TryAddEntity(spawner);
-
         PlayRandomMusic();
     }
 

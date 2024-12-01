@@ -16,8 +16,8 @@ namespace SpaceInvaders
 		virtual size_t GetScore() const = 0;
 
 	protected:
-		virtual double GetGravityScale() const override { return 0; }
-		virtual void OnDestroy() override;
+		double GetGravityScale() const override { return 0; }
+		void OnDestroy() override;
 		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::GREEN; }
 	};
 }

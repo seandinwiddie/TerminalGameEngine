@@ -25,7 +25,7 @@ namespace SpaceInvaders
 	public:
 		UfoSpawner(int xSpawnPos, int ySpawnPos, Direction ufoMoveDirection);
 	protected:
-		virtual void Update();
+		void Update()override;
 	private:
 		void SetNextSpawnDelay();
 	};

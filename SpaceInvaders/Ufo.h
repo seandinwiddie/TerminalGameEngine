@@ -6,6 +6,7 @@
 
 namespace SpaceInvaders
 {
+	template<typename T> using shared_ptr = std::shared_ptr<T>;
 	using Direction = Engine::Direction;
 	using Model = Engine::Model;
 
@@ -22,14 +23,14 @@ namespace SpaceInvaders
 	public:
 		Ufo(int xPos, int yPos, Direction moveDirection) : Enemy(xPos, yPos), moveDirection(moveDirection) {};
 
-		virtual bool CanExitScreenSpace() const override { return true; }
-		virtual int GetColor() const override { return Engine::Terminal::RED; }
-		virtual void InitModel() { SetModel(MODEL_1); }
-		virtual size_t GetScore() const;
+		bool CanExitScreenSpace() const override { return true; }
+		int GetColor() const override { return Engine::Terminal::RED; }
+		void InitModel() override { SetModel(MODEL_1); }
+		size_t GetScore() const override;
 
 	protected:
-		virtual void Update() override;
-		virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::RED; }
+		void Update() override;
+		void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+		int GetDestroyedParticlesColor() override { return Engine::Terminal::RED; }
 	};
 }

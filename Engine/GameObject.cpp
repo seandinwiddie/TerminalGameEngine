@@ -56,10 +56,10 @@ namespace Engine
 		if (direction == Direction::left || direction == Direction::right)
 		{
 			if (round(xPosContinuous) != xPos)
-				Simulation::Instance().RequestMovement(this, direction, moveSpeed);
+				Simulation::Instance().RequestMovement(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction, moveSpeed);
 		}
 		else if (round(yPosContinuous) != yPos)
-			Simulation::Instance().RequestMovement(this, direction, moveSpeed);
+			Simulation::Instance().RequestMovement(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction, moveSpeed);
 	}
 
 	Model GameObject::CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const
@@ -79,7 +79,8 @@ namespace Engine
 			return;
 
 		model = &newModel;
-		Simulation::Instance().MarkAreaToReprint(this);
+
+		Simulation::Instance().MarkAreaToReprint(std::dynamic_pointer_cast<GameObject>(shared_from_this()));
 	}
 
 	void GameObject::CALLED_BY_SIM_Move(Direction direction)
@@ -103,15 +104,27 @@ namespace Engine
 			xPosContinuous = xPos;
 			break;
 		}
-		OnMove.Notify(this, direction);
+		OnMove.Notify(std::dynamic_pointer_cast<GameObject>(shared_from_this()), direction);
 	}
 
-	void GameObject::InsertInListUsingRule(GameObject* obj, std::list<GameObject*>& list, bool(*InsertRule)(GameObject* newItem, GameObject* listItem))
+	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<shared_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))
 	{
 		auto it = list.begin();
 		for (; it != list.end(); ++it)
 			if(InsertRule(obj,*it))
 				break;
+		list.insert(it, obj);
+	}
+
+	void GameObject::InsertInListUsingRule(shared_ptr<GameObject> obj, std::list<weak_ptr<GameObject>>& list, bool(*InsertRule)(shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem))
+	{
+		auto it = list.begin();
+		for (; it != list.end(); ++it)
+		{
+			auto itSharedPtr = it->lock();
+			if (itSharedPtr != nullptr && InsertRule(obj, itSharedPtr))
+				break;
+		}
 		list.insert(it, obj);
 	}
 }

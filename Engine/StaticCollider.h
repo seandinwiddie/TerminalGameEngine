@@ -17,7 +17,7 @@ namespace Engine
             char modelChar
         );
 
-        virtual bool CanExitScreenSpace() const override { return true; }
-        virtual double GetGravityScale() const override { return 0; }
+        bool CanExitScreenSpace() const override { return true; }
+        double GetGravityScale() const override { return 0; }
     };
 }

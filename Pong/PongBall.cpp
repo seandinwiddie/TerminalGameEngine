@@ -22,7 +22,7 @@ namespace Pong
             this->ySpeed = -ySpeed;
     }
 
-    void PongBall::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void PongBall::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
     {
         iSFirstLaunch = false;
 
@@ -46,8 +46,8 @@ namespace Pong
         if (collisionDir == Direction::up || collisionDir == Direction::down)
         {
             ySpeed = -ySpeed;
-
-            PongBar* colliderBar = dynamic_cast<PongBar*>(other);
+            
+            shared_ptr<PongBar> colliderBar = std::dynamic_pointer_cast<PongBar>(other);
             if (colliderBar != nullptr)
                 HandleBarCollision(colliderBar);
         }
@@ -57,7 +57,7 @@ namespace Pong
         }
     }
 
-    void PongBall::HandleBarCollision(PongBar* collidingBar)
+    void PongBall::HandleBarCollision(shared_ptr<PongBar> collidingBar)
     {
         int otherMidX = (collidingBar->GetMaxPosX() + collidingBar->GetPosX()) / 2;
         int distanceFromMidPoint = GetPosX() - otherMidX;

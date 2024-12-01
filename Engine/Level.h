@@ -42,7 +42,7 @@ namespace Engine
     protected:
         virtual void OnGameOver();
         virtual double ShowGameOverScreenDelay() const = 0;
-        virtual void Update() override;
+        void Update() override;
         virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
         virtual void LoadInSimulation();
         virtual const char* GetGameOverWindowPath() { return ""; }

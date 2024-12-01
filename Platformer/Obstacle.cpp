@@ -6,7 +6,7 @@ namespace Platformer
 {
     Model Obstacle::model = {};
 
-    void Obstacle::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void Obstacle::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
     {
         Engine::AudioManager::Instance().PlayFx("Resources/Sounds/Platform/Hit.wav", 0.2);
     }

@@ -19,7 +19,7 @@ namespace SpaceInvaders
 	{
 		if (TimeHelper::Instance().GetTime() > nextSpawnTime)
 		{
-			Ufo* ufo = new Ufo(xSpawnPos, ySpawnPos, ufoMoveDirection);
+			shared_ptr<Ufo> ufo = std::make_shared<Ufo>(xSpawnPos, ySpawnPos, ufoMoveDirection);
 			Engine::Simulation::Instance().TryAddEntity(ufo);
 			lastTimeSpawned = TimeHelper::Instance().GetTime();
 			SetNextSpawnDelay();

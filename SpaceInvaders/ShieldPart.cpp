@@ -6,22 +6,22 @@
 
 namespace SpaceInvaders
 {
-    void ShieldPart::OnCollisionEnter(Collider* other, Direction collisionDir)
+    void ShieldPart::OnCollisionEnter(shared_ptr<Collider>other, Direction collisionDir)
     {
         Collider::OnCollisionEnter(other, collisionDir);
 
-        Projectile* otherProjectile = dynamic_cast<Projectile*>(other);
+        shared_ptr<Projectile> otherProjectile = std::dynamic_pointer_cast<Projectile>(other);
         if (otherProjectile != nullptr)
         {
             Engine::AudioManager::Instance().PlayFx("Resources/Sounds/SpaceInvaders/ShieldBreak.wav");
-            Engine::Simulation::Instance().RemoveEntity(this);
+            Engine::Simulation::Instance().RemoveEntity(shared_from_this());
             return;
         }
 
-        Alien* otherAlien = dynamic_cast<Alien*>(other);
+        shared_ptr<Alien> otherAlien = std::dynamic_pointer_cast<Alien>(other);
         if (otherAlien != nullptr)
         {
-            Engine::Simulation::Instance().RemoveEntity(this);
+            Engine::Simulation::Instance().RemoveEntity(shared_from_this());
             return;
         }
     }

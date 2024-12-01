@@ -7,7 +7,7 @@ namespace SpaceInvaders
 {
 	void Enemy::OnDestroy()
 	{
-		SpaceInvadersLevel* level = dynamic_cast<SpaceInvadersLevel*>(Engine::Simulation::Instance().GetActiveLevel());
+		shared_ptr<SpaceInvadersLevel> level = std::dynamic_pointer_cast<SpaceInvadersLevel>(Engine::Simulation::Instance().GetActiveLevel());
 		assert(level != nullptr);
 		level->IncreasePlayerScore(GetScore());
 		Engine::Simulation::Instance().SpawnParticles

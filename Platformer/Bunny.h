@@ -6,6 +6,8 @@
 
 namespace Platformer
 {
+    template<typename T> using shared_ptr = std::shared_ptr<T>;
+    template<typename T> using weak_ptr = std::weak_ptr<T>;
     using Model = Engine::Model;
     using Direction = Engine::Direction;
 
@@ -60,14 +62,14 @@ namespace Platformer
     public:
         Bunny(int xPos, int yPos);
 
-        virtual bool CanExitScreenSpace() const override { return false; }
-        virtual double GetGravityScale() const override;
-        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+        bool CanExitScreenSpace() const override { return false; }
+        double GetGravityScale() const override;
+        int GetColor() const override { return Engine::Terminal::GREEN; }
 
     protected:
         void Update() override;
-        virtual void OnCollisionEnter(Collider* other, Direction collisionDir) override;
-        virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
+        void InitModel() override { SetModel(MODEL_IDLE_LEFT); }
 
     private:
         bool IsJumping() const { return state == State::jumpingDown || state == State::jumpingUp; }

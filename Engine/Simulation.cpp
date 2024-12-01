@@ -23,7 +23,7 @@ namespace Engine
 	size_t Simulation::GetScreenPadding() const { return level->GetScreenPadding(); }
 	size_t Simulation::GetScreenSizeX() const { return level->GetWorldSizeX() - 2 * level->GetScreenPadding(); }
 	size_t Simulation::GetScreenSizeY() const { return level->GetWorldSizeY() - 2 * level->GetScreenPadding(); }
-	Level* Simulation::GetActiveLevel() { return level; }
+	shared_ptr<Level> Simulation::GetActiveLevel() { return level; }
 	UIPrinter& Simulation::GetUIPrinter() { return *uiPrinter; }
 
 	void Simulation::SpawnParticles
@@ -54,7 +54,7 @@ namespace Engine
 					if (density == densityIntPart && RandomUtils::GetRandomDouble(0, 1) > densityDecimalPart)
 						continue;
 
-					Particle* particle = new Particle(x, y, modelChar, color, speed, movementLifeTime, mainDirection);
+					shared_ptr<Particle> particle = std::make_shared<Particle>(x, y, modelChar, color, speed, movementLifeTime, mainDirection);
 					TryAddEntity(particle);
 				}
 			}
@@ -91,7 +91,7 @@ namespace Engine
 #endif
 	}
 
-	void Simulation::RequestMovement(GameObject* applicantObj, Direction moveDir, double moveSpeed)
+	void Simulation::RequestMovement(shared_ptr<GameObject> applicantObj, Direction moveDir, double moveSpeed)
 	{
 		if (IsEntityInSimulation(applicantObj) == false)
 		{
@@ -117,23 +117,26 @@ namespace Engine
 
 	void Simulation::RemoveMarkedEntities()
 	{
-		for (ISimulationEntity* entity : toRemoveEntities)
+		for (weak_ptr<ISimulationEntity>& entity : toRemoveEntities)
 		{
-			GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
-			if (objectEntity != nullptr)
+			shared_ptr<ISimulationEntity> entitySp = entity.lock();
+			if (entitySp != nullptr)
 			{
-				objectEntity->OnDestroy();
-				simulationPrinter->ClearObject(objectEntity);
-				worldSpace.RemoveObject(objectEntity);
-				MarkAreaToReprint(objectEntity);
+				shared_ptr<GameObject> objectEntity = std::dynamic_pointer_cast<GameObject>(entitySp);
+				if (objectEntity != nullptr)
+				{
+					objectEntity->OnDestroy(); //todo can probably be removed
+					simulationPrinter->ClearObject(objectEntity);
+					worldSpace.RemoveObject(objectEntity);
+					MarkAreaToReprint(objectEntity);
+				}
+				entities.erase(entitySp);
 			}
-			entities.erase(entity);
-			delete(entity);
 		}
 		toRemoveEntities.clear();
 	}
 
-	void Simulation::RemoveEntity(ISimulationEntity* entity)
+	void Simulation::RemoveEntity(shared_ptr<ISimulationEntity> entity)
 	{
 		if (entity == nullptr)
 			return;
@@ -148,7 +151,7 @@ namespace Engine
 	void Simulation::UpdateAllEntities()
 	{
 		level->Update();
-		for (ISimulationEntity* entity : entities)
+		for (shared_ptr<ISimulationEntity> entity : entities) //todo use & ?
 			entity->Update();
 	}
 
@@ -157,7 +160,10 @@ namespace Engine
 		
 		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
 		{
-			GameObject* obj = it->object;
+
+			shared_ptr<GameObject> obj = it->object.lock();
+			if (obj == nullptr)
+				continue;
 
 			int oldPosX = obj->GetPosX();
 			int oldPosY = obj->GetPosY();
@@ -172,17 +178,17 @@ namespace Engine
 
 	void Simulation::PrintObjects()
 	{
-		list<GameObject*> toBePrintedObjects;
+		list<shared_ptr<GameObject>> toBePrintedObjects;
 
 		//create sorted list
-		for (ISimulationEntity* entity : entities)
+		for (shared_ptr<ISimulationEntity> entity : entities)
 		{
-			GameObject* objEntity = dynamic_cast<GameObject*>(entity);
+			shared_ptr<GameObject> objEntity = std::dynamic_pointer_cast<GameObject>(entity);
 			if (objEntity && objEntity->mustBeReprinted)
 				GameObject::InsertInListUsingRule
 				(
 					objEntity, toBePrintedObjects,
-					[](GameObject* toInsertObj, GameObject* listObject) { return  toInsertObj->GetSortingLayer() <= listObject->GetSortingLayer(); }
+					[](shared_ptr<GameObject> toInsertObj, shared_ptr<GameObject> listObject) { return  toInsertObj->GetSortingLayer() <= listObject->GetSortingLayer(); }
 				);
 		}
 
@@ -190,7 +196,7 @@ namespace Engine
 			int tododelete = 2;
 
 		//print objects
-		for (GameObject* obj : toBePrintedObjects)
+		for (auto obj : toBePrintedObjects)
 		{
 			simulationPrinter->PrintObject(obj);
 			UnmarkObjectToReprint(obj);
@@ -202,13 +208,13 @@ namespace Engine
 	{
 		for (auto& entity : entities)
 		{
-			Collider* collider = dynamic_cast<Collider*>((entity));
+			shared_ptr<Collider> collider = std::dynamic_pointer_cast<Collider>(entity);
 			if (collider != nullptr)
 				UpdateObjectEndedCollisions(collider);
 		}
 	}
 
-	void Simulation::UpdateObjectEndedCollisions(Collider* collider)
+	void Simulation::UpdateObjectEndedCollisions(shared_ptr<Collider> collider)
 	{
 		int xPos = collider->GetPosX();
 		int yPos = collider->GetPosY();
@@ -218,7 +224,7 @@ namespace Engine
 		size_t height = collider->GetModelHeight();
 		bool canExitScreen = collider->CanExitScreenSpace();
 
-		std::array<uset<Collider*>, 4> collisions;
+		std::array<uset<shared_ptr<Collider>>, 4> collisions;
 
 		//screen collisions
 		if (!canExitScreen && !IsCoordinateInsideScreenSpace(xPos, yMax + 1))
@@ -239,17 +245,15 @@ namespace Engine
 		collider->CALLED_BY_SIM_UpdateEndedCollisions(collisions);
 	}
 
-	bool Simulation::TryAddEntity(ISimulationEntity* entity)
+	bool Simulation::TryAddEntity(shared_ptr<ISimulationEntity> entity)
 	{
-		GameObject* objectEntity = dynamic_cast<GameObject*>(entity);
+		shared_ptr<GameObject> objectEntity = std::dynamic_pointer_cast<GameObject>(entity);
+
 		if (objectEntity != nullptr)
 			objectEntity->Init();
 
 		if (!CanEntityBeAdded(entity))
-		{
-			delete(entity);
 			return false;
-		}
 		
 		if(objectEntity != nullptr)
 			worldSpace.InsertObject(objectEntity);
@@ -258,12 +262,12 @@ namespace Engine
 		return true;
 	}
 
-	bool Simulation::CanEntityBeAdded(ISimulationEntity* entity) const
+	bool Simulation::CanEntityBeAdded(shared_ptr<ISimulationEntity> entity) const
 	{
 		if (IsEntityInSimulation(entity))
 			return false;
 
-		const Collider* collider = dynamic_cast<const Collider*>(entity);
+		shared_ptr<const Collider> collider = std::dynamic_pointer_cast<const Collider>(entity);
 		if (collider != nullptr)
 		{
 			return worldSpace.IsCollidersAreaEmpty
@@ -278,17 +282,17 @@ namespace Engine
 			return true;
 	}
 
-	bool Simulation::IsEntityInSimulation(ISimulationEntity* newEntity) const
+	bool Simulation::IsEntityInSimulation(shared_ptr<ISimulationEntity> newEntity) const
 	{
 		auto it = entities.find(newEntity);
 		return it != entities.end();
 	}
 
-	bool Simulation::TryMoveObjectAtDirection(GameObject* obj, Direction direction)
+	bool Simulation::TryMoveObjectAtDirection(shared_ptr<GameObject> obj, Direction direction)
 	{
-		uset<Collider*> outCollidingObjects;
+		uset<shared_ptr<Collider>> outCollidingObjects;
 
-		Collider* colliderObj = dynamic_cast<Collider*>(obj);
+		shared_ptr<Collider> colliderObj = std::dynamic_pointer_cast<Collider>(obj);
 
 		if (worldSpace.CanObjectMoveAtDirection(obj, direction, outCollidingObjects) == false)
 		{
@@ -303,9 +307,9 @@ namespace Engine
 				{
 					colliderObj->CALLED_BY_SIM_NotifyCollisionEnter(outCollidingObjects, direction);
 
-					for (Collider* item : outCollidingObjects)
-						if (item != WorldSpace::SCREEN_MARGIN)
-							item->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, DirectionUtils::GetInverseDirection(direction));
+					for (auto collidingObj : outCollidingObjects)
+						if (collidingObj != WorldSpace::SCREEN_MARGIN)
+							collidingObj->CALLED_BY_SIM_NotifyCollisionEnter(colliderObj, DirectionUtils::GetInverseDirection(direction));
 				}
 			}
 			return false;
@@ -318,12 +322,9 @@ namespace Engine
 		return true;
 	}
 
-	void Simulation::LoadLevel(Level* level)
+	void Simulation::LoadLevel(shared_ptr<Level> level)
 	{
 		this->level = level;
-
-		for (ISimulationEntity* entity : entities)
-			delete(entity);
 
 		entities.clear();
 		worldSpace.Init(level->GetWorldSizeX(), level->GetWorldSizeY(), level->GetScreenPadding());
@@ -336,7 +337,7 @@ namespace Engine
 		level->LoadInSimulation();
 	}
 
-	void Simulation::ResetPrinters(const Level* level)
+	void Simulation::ResetPrinters(shared_ptr<const Level> level)
 	{
 		Terminal::Instance().Clear();
 
@@ -366,14 +367,14 @@ namespace Engine
 			xPos < GetWorldSizeX() - GetScreenPadding();
 	}
 
-	void Simulation::MarkAreaToReprint(GameObject* objArea)
+	void Simulation::MarkAreaToReprint(shared_ptr<GameObject> objArea)
 	{
-		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(objArea);
-		for (GameObject* obj : toBeReprintedObjects)
+		std::unordered_set<shared_ptr<GameObject>> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(objArea);
+		for (shared_ptr<GameObject> obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
 
-	void Simulation::MarkAreaToReprintAfterMovement(GameObject* obj, int oldPosX, int oldPosY)
+	void Simulation::MarkAreaToReprintAfterMovement(shared_ptr<GameObject> obj, int oldPosX, int oldPosY)
 	{
 		// finding area = combination of old position area + new position area
 		int minX = obj->GetPosX() < oldPosX ? obj->GetPosX() : oldPosX;
@@ -382,9 +383,9 @@ namespace Engine
 		size_t width = isMovementHorizontal ? obj->GetModelWidth() + 1 : obj->GetModelWidth();
 		size_t height = !isMovementHorizontal ? obj->GetModelHeight() + 1 : obj->GetModelHeight();
 
-		std::unordered_set<GameObject*> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(minX, minY, width, height);
+		std::unordered_set<shared_ptr<GameObject>> toBeReprintedObjects = worldSpace.GetAreaTopLayerObjects(minX, minY, width, height);
 
-		for (GameObject* obj : toBeReprintedObjects)
+		for (shared_ptr<GameObject> obj : toBeReprintedObjects)
 			obj->mustBeReprinted = true;
 	}
 }

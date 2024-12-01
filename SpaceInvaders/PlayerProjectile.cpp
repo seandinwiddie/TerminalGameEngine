@@ -7,10 +7,10 @@ namespace SpaceInvaders
 {
 	const Model PlayerProjectile::MODEL(1, { '|' });
 
-	void PlayerProjectile::OnCollisionEnter(Collider* other, Direction collisionDir)
+	void PlayerProjectile::OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
 	{
 		Projectile::OnCollisionEnter(other, collisionDir);
-		Enemy* otherEnemy = dynamic_cast<Enemy*>(other);
+		shared_ptr<Enemy> otherEnemy = std::dynamic_pointer_cast<Enemy>(other);
 		if (otherEnemy != nullptr)
 		{
 			Engine::Simulation::Instance().RemoveEntity(otherEnemy);

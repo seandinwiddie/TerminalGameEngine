@@ -3,11 +3,8 @@
 
 namespace Engine
 {
-	FakeCollider WorldSpace::WORLD_MARGIN_MEMORY;
-	FakeCollider WorldSpace::SCREEN_MARGIN_MEMORY;
-
-	FakeCollider* WorldSpace::WORLD_MARGIN = &WorldSpace::WORLD_MARGIN_MEMORY;
-	FakeCollider* WorldSpace::SCREEN_MARGIN = &WorldSpace::SCREEN_MARGIN_MEMORY;
+	shared_ptr<FakeCollider> WorldSpace::WORLD_MARGIN = std::make_shared<FakeCollider>();
+	shared_ptr<FakeCollider> WorldSpace::SCREEN_MARGIN = std::make_shared<FakeCollider>();
 
 	void WorldSpace::Init(int xSize, int ySize, size_t screenPadding)
 	{
@@ -15,25 +12,22 @@ namespace Engine
 		space.Resize(xSize, ySize);
 
 		for (Cell cell : space)
-		{
-			cell.collider = nullptr;
 			cell.objects.clear();
-		}
 			
 		this->screenPadding = screenPadding;
 	}
 
-	void WorldSpace::InsertObject(GameObject* obj)
+	void WorldSpace::InsertObject(shared_ptr<GameObject> obj)
 	{
 		WriteSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
-	void WorldSpace::RemoveObject(GameObject* obj)
+	void WorldSpace::RemoveObject(shared_ptr<GameObject> obj)
 	{
 		EraseSpace(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight(), obj);
 	}
 
-	void WorldSpace::MoveObject(GameObject* obj, Direction direction)
+	void WorldSpace::MoveObject(shared_ptr<GameObject> obj, Direction direction)
 	{
 		switch (direction)
 		{
@@ -73,7 +67,7 @@ namespace Engine
 		}
 	}
 
-	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
+	void WorldSpace::WriteSpace(int xStart, int yStart, size_t width, size_t height, shared_ptr<GameObject> obj)
 	{
 		assert(obj != nullptr);
 
@@ -87,20 +81,19 @@ namespace Engine
 					obj, 
 					cell.objects ,
 					// add high sorting layer objects at top of list
-					[](GameObject* newItem, GameObject* listItem){ return newItem->GetSortingLayer() >= listItem->GetSortingLayer();} 
+					[](shared_ptr<GameObject> newItem, shared_ptr<GameObject> listItem){ return newItem->GetSortingLayer() >= listItem->GetSortingLayer();}
 				);
 
-				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
-					assert(cell.collider == nullptr || cell.collider == objCollider);
-
+					assert(cell.collider.expired() || cell.collider.lock() == objCollider);
 					cell.collider = objCollider;
 				}
 			}
 	}
 
-	void WorldSpace::EraseSpace(int xStart, int yStart, size_t width, size_t height, GameObject* obj)
+	void WorldSpace::EraseSpace(int xStart, int yStart, size_t width, size_t height, shared_ptr<GameObject> obj)
 	{
 		assert(obj != nullptr);
 
@@ -112,7 +105,8 @@ namespace Engine
 				//------------------ erase from cell.objects
 				for (auto it = cell.objects.begin(); it != cell.objects.end(); ++it)
 				{
-					if (*it == obj)
+					auto itSharedPt = it->lock();
+					if (itSharedPt != nullptr && itSharedPt == obj)
 					{
 						cell.objects.erase(it);
 						break;
@@ -120,35 +114,35 @@ namespace Engine
 				}
 
 				//------------------ erase collider
-				Collider* objCollider = dynamic_cast<Collider*>(obj);
+				shared_ptr<Collider> objCollider = std::dynamic_pointer_cast<Collider>(obj);
 				if (objCollider)
 				{
-					assert(cell.collider == nullptr || cell.collider == objCollider);
-					cell.collider = nullptr;
+					assert(cell.collider.expired() || cell.collider.lock() == objCollider);
+					cell.collider.reset();
 				}
 			}
 	}
 
-	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<Collider*>& areaObjects) const
+	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height, uset<shared_ptr<Collider>>& outAreaObjects) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 		{
 			for (int x = startingX; x < startingX + width; ++x)
 			{
-				Collider* cellCollider = space.Get(x, y).collider;
+				auto cellCollider = space.Get(x, y).collider.lock();
 				if (IsCoordinateInsideSpace(x, y) && cellCollider != nullptr)
-					areaObjects.insert(cellCollider);
+					outAreaObjects.insert(cellCollider);
 			}
 		}
 
-		return areaObjects.size() == 0;
+		return outAreaObjects.size() == 0;
 	}
 
 	bool WorldSpace::IsCollidersAreaEmpty(int startingX, int startingY, size_t width, size_t height) const
 	{
 		for (int y = startingY; y < startingY + height; ++y)
 			for (int x = startingX; x < startingX + width; ++x)
-				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y).collider != nullptr)
+				if (IsCoordinateInsideSpace(x, y) && space.Get(x, y).collider.expired() == false)
 					return false;
 
 		return true;
@@ -173,12 +167,12 @@ namespace Engine
 
 	bool WorldSpace::CanObjectMoveAtDirection
 	(
-		const GameObject* object,
+		shared_ptr<const GameObject> object,
 		Direction direction,
-		uset<Collider*>& collidingObjects
+		uset<shared_ptr<Collider>>& collidingObjects
 	) const
 	{
-		const Collider* colliderObj = dynamic_cast<const Collider*>(object);
+		shared_ptr<const Collider> colliderObj = std::dynamic_pointer_cast<const Collider>(object);
 
 		switch (direction)
 		{
@@ -283,21 +277,32 @@ namespace Engine
 		}
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(GameObject* obj)
+	uset<shared_ptr<GameObject>> WorldSpace::GetAreaTopLayerObjects(shared_ptr<GameObject> obj)
 	{
 		return GetAreaTopLayerObjects(obj->GetPosX(), obj->GetPosY(), obj->GetModelWidth(), obj->GetModelHeight());
 	}
 
-	uset<GameObject*> WorldSpace::GetAreaTopLayerObjects(int startingX, int startingY, size_t width, size_t height)
+	uset<shared_ptr<GameObject>> WorldSpace::GetAreaTopLayerObjects(int startingX, int startingY, size_t width, size_t height)
 	{
-		uset<GameObject*> objects;
+		uset<shared_ptr<GameObject>> objects;
 		for (int y = startingY; y < startingY + height; ++y)
 		{
 			for (int x = startingX; x < startingX + width; ++x)
 			{
 				Cell& cell = space.Get(x, y);
 				if (cell.objects.size() > 0)
-					objects.insert(*space.Get(x, y).objects.begin());
+				{
+					auto topItem = space.Get(x, y).objects.begin();
+					while (topItem != space.Get(x, y).objects.end())
+					{
+						auto topItemSp = topItem->lock();
+						if (topItemSp != nullptr)
+						{
+							objects.insert(topItemSp);
+							break;
+						}	
+					}
+				}
 			}
 		}
 		return objects;
