@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+#include "DebugManager.h"
+#include <string>
 
 namespace Engine
 {
@@ -10,5 +12,11 @@ namespace Engine
 	protected:
 		virtual void Update() = 0;
 		virtual ~ISimulationEntity() = default;
+
+		/*virtual ~ISimulationEntity()
+		{
+			static int todoDeleteCounter = 0;
+			Engine::DebugManager::Instance().PrintGenericLog(std::to_string(++todoDeleteCounter), 1);
+		}*/
 	};
 }
