@@ -7,6 +7,7 @@
 namespace Platformer
 {
     template<typename T> using shared_ptr = std::shared_ptr<T>;
+    template<typename T> using weak_ptr = std::weak_ptr<T>;
     using Model = Engine::Model;
     using Direction = Engine::Direction;
 

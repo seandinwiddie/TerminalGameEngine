@@ -12,6 +12,7 @@
 namespace Engine
 {
 	template<typename T> using shared_ptr = std::shared_ptr<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 	using Model = Engine::Vector2D<char>;
 
 	class GameObject : public ISimulationEntity
@@ -20,7 +21,7 @@ namespace Engine
 
 		//---------------------------------------------------------- Fields
 	public:
-		Event<shared_ptr<GameObject>, Direction> OnMove;
+		Event<weak_ptr<GameObject>, Direction> OnMove;
 		// generic on destroy event could be added
 
 	protected:

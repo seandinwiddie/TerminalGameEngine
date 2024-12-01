@@ -52,7 +52,7 @@ namespace Engine
 			if (DirectionUtils::IsDirectionHorizontal(moveDirections[i]))
 				moveSpeeds[i] *= 2;
 
-		OnMove.Subscribe([this](shared_ptr<GameObject> _, Direction __) { OnMoveCallback(); });
+		OnMove.Subscribe([this](weak_ptr<GameObject> _, Direction __) { OnMoveCallback(); });
 	}
 
 	void Particle::InitModel()
