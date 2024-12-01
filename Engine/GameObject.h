@@ -63,7 +63,7 @@ namespace Engine
 		virtual double GetGravityScale() const = 0;
 		virtual void OnDestroy() {} // called by simulation
 		virtual void TryMove(Direction direction, double moveSpeed);
-		virtual void Update();
+		void Update()override;
 		Model CreteModelUsingChar(char modelChar, size_t sizeX, size_t sizeY) const;
 		void SetModel(const Model& newModel);
 

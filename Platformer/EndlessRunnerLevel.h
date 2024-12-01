@@ -25,7 +25,7 @@ namespace Platformer
 
     protected:
         void Update()override;
-        virtual double ShowGameOverScreenDelay() const { return 1.5; }
+        double ShowGameOverScreenDelay() const override { return 1.5; }
         void OnPostGameOverDelayEnded() override;
         virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/EndlessRunner.txt"; }
         virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/EndlessRunner.txt"; }

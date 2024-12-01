@@ -26,12 +26,12 @@ namespace Pong
         //---------------------------------------------------------- Methods
     public:
         PongBall(PongLevel* level, int xPos, int yPos, double ySpeed);
-        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+        int GetColor() const override { return Engine::Terminal::GREEN; }
 
     protected:
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir);
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
         void Update() override;
         void InitModel() override { SetModel(MODEL); }
 

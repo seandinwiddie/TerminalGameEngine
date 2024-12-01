@@ -17,7 +17,7 @@ namespace Platformer
 
         bool CanExitScreenSpace() const override { return true; }
         double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::RED; }
+        int GetColor() const override { return Engine::Terminal::RED; }
 
     protected:
         void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;

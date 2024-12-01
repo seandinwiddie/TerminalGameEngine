@@ -32,8 +32,8 @@ namespace SpaceInvaders
 
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        virtual int GetColor() const { return Engine::Terminal::GREEN; }
-        virtual void InitModel() { SetModel(MODEL); }
+        int GetColor() const override { return Engine::Terminal::GREEN; }
+        void InitModel() override { SetModel(MODEL); }
         void HandleMovement();
         void HandleShooting();
         void TakeDamage();

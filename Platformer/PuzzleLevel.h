@@ -7,7 +7,7 @@ namespace Platformer
     {
         //---------------------------------------------------------- Methods
     public:
-        virtual double ShowGameOverScreenDelay() const { return 1.5; }
+        double ShowGameOverScreenDelay() const override { return 1.5; }
         int GetWorldSizeX() const override { return 120; }
         int GetWorldSizeY() const override { return 30; }
         int GetScreenPadding() const override { return 4; }

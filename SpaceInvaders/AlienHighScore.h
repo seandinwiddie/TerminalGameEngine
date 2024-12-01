@@ -16,7 +16,7 @@ namespace SpaceInvaders
 		int GetColor() const override { return Engine::Terminal::MAGENTA; }
 
 	protected:
-		virtual void InitModel()
+		void InitModel() override
 		{
 			animationModel1 = &MODEL_1;
 			animationModel2 = &MODEL_2;

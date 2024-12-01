@@ -18,7 +18,7 @@ namespace SpaceInvaders
     protected:
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override { return 0; }
-        virtual void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir)
+        void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override
         {
             MovingStraightObject::OnCollisionEnter(other, collisionDir);
             Direction collisionOppositeDirection = DirectionUtils::GetInverseDirection(collisionDir);

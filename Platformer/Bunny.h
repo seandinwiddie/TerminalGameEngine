@@ -64,12 +64,12 @@ namespace Platformer
 
         bool CanExitScreenSpace() const override { return false; }
         double GetGravityScale() const override;
-        virtual int GetColor() const { return Engine::Terminal::GREEN; }
+        int GetColor() const override { return Engine::Terminal::GREEN; }
 
     protected:
         void Update() override;
         void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
-        virtual void InitModel() { SetModel(MODEL_IDLE_LEFT); }
+        void InitModel() override { SetModel(MODEL_IDLE_LEFT); }
 
     private:
         bool IsJumping() const { return state == State::jumpingDown || state == State::jumpingUp; }

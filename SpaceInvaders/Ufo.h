@@ -25,12 +25,12 @@ namespace SpaceInvaders
 
 		bool CanExitScreenSpace() const override { return true; }
 		int GetColor() const override { return Engine::Terminal::RED; }
-		virtual void InitModel() { SetModel(MODEL_1); }
-		virtual size_t GetScore() const;
+		void InitModel() override { SetModel(MODEL_1); }
+		size_t GetScore() const override;
 
 	protected:
 		void Update() override;
 		void OnCollisionEnter(shared_ptr<Collider> other, Direction collisionDir) override;
-		virtual int GetDestroyedParticlesColor() { return Engine::Terminal::RED; }
+		int GetDestroyedParticlesColor() override { return Engine::Terminal::RED; }
 	};
 }
