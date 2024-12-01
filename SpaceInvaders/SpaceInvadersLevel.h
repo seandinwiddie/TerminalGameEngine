@@ -53,7 +53,7 @@ namespace SpaceInvaders
     protected:
         void Update()override;
         double ShowGameOverScreenDelay() const override { return 0.2; }
-        virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; }
+        virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; } //todo check this, virtual must be moved on Level
         virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
         void OnPostGameOverDelayEnded() override;
         virtual void ShowGameOverScreen(int score, int savedBestScore);
