@@ -4,14 +4,41 @@
 
 namespace Engine
 {
+	// todo move to utility class and make templatic
+	//----------------------------------------- weak ptr list utils
+	bool WeakPtrListContainsShared(const list<weak_ptr<Collider>>& list, const shared_ptr<Collider>& sharedPtr)
+	{
+		for (const auto& weakItem : list)
+			if (auto sharedItem = weakItem.lock())
+				if (sharedItem == sharedPtr)
+					return true;
+
+		return false;
+	}
+
+	void RemoveWeakPointerFromList(list<weak_ptr<Collider>>& weakList, const weak_ptr<Collider>& target)
+	{
+		for (auto it = weakList.begin(); it != weakList.end(); ++it)
+		{
+			if (auto targetLocked = target.lock())
+				if (auto currentLocked = it->lock())
+					if (currentLocked == targetLocked)
+					{
+						weakList.erase(it);
+						return;
+					}
+		}
+	}
+	//----------------------------------------- weak ptr list utils
+
 	void Collider::CALLED_BY_SIM_NotifyCollisionEnter(uset<shared_ptr<Collider>>collidingObjects, Direction collisionDir)
 	{
-		auto& directionCollisions = collisions[collisionDir];
+		list<weak_ptr<Collider>>& localDirectionColl = collisions[collisionDir];
 		for (auto obj : collidingObjects)
 		{
-			if (directionCollisions.find(obj) == directionCollisions.end())
+			if(WeakPtrListContainsShared(localDirectionColl, obj) == false)
 			{
-				directionCollisions.insert(obj);
+				localDirectionColl.push_back(obj);
 				OnCollisionEnter(obj, collisionDir);
 			}
 		}
@@ -22,22 +49,25 @@ namespace Engine
 		CALLED_BY_SIM_NotifyCollisionEnter(uset<shared_ptr<Collider>>{collidingObject}, collisionDir);
 	}
 
-	void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<shared_ptr<Collider>>, 4>& newCollisions)
+	void Collider::CALLED_BY_SIM_UpdateEndedCollisions(const std::array<uset<shared_ptr<Collider>>,4>& newCollisions)
 	{
 		for (int i = 0; i < newCollisions.size(); ++i)
 		{
-			uset<shared_ptr<Collider>>& directionCollisions = collisions[i];
-			const uset<shared_ptr<Collider>>& directionNewCollisions = newCollisions[i];
+			list<weak_ptr<Collider>>& localDirectionColl = collisions[i];
+			const uset<shared_ptr<Collider>>& newDirectionColl = newCollisions[i];
 
-			list<shared_ptr<Collider>> toRemove;
+			list<weak_ptr<Collider>> toRemove;
 
 			//update collision direction
-			for (shared_ptr<Collider> collider : directionCollisions)
-				if (directionNewCollisions.find(collider) == directionNewCollisions.end())
-					toRemove.push_back(collider);
+			for (weak_ptr<Collider> colliderWeak : localDirectionColl)
+			{
+				auto collider = colliderWeak.lock();
+				if (collider == nullptr || newDirectionColl.find(collider) == newDirectionColl.end())
+					toRemove.push_back(colliderWeak);
+			}	
 
-			for (shared_ptr<Collider> toRemoveObj : toRemove)
-				directionCollisions.erase(toRemoveObj);
+			for (auto toRemoveObj : toRemove)
+				RemoveWeakPointerFromList(localDirectionColl, toRemoveObj);
 
 			//call on collision exit
 			if (toRemove.size() > 0)

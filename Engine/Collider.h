@@ -7,6 +7,8 @@
 namespace Engine
 {
 	template<typename T> using uset = std::unordered_set<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
+	template<typename T> using list = std::list<T>;
 
 	class Collider : public GameObject
 	{
@@ -15,7 +17,7 @@ namespace Engine
 		//---------------------------------------------------------- Fields
 
 	protected:
-		std::array<uset<shared_ptr<Collider>>, 4> collisions;
+		std::array<list<weak_ptr<Collider>>, 4> collisions;
 
 		//---------------------------------------------------------- Methods
 	public:
