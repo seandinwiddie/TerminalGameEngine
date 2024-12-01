@@ -34,7 +34,7 @@ namespace Engine
 		//------------------------------------------------------------------------------------ Structs
 		struct MoveRequest
 		{
-			shared_ptr<GameObject> object;
+			weak_ptr<GameObject> object;
 			Direction moveDir;
 			double moveSpeed;
 

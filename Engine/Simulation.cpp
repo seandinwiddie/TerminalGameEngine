@@ -158,7 +158,10 @@ namespace Engine
 		
 		for (auto it = moveRequests.begin(); it != moveRequests.end(); ++it)
 		{
-			shared_ptr<GameObject> obj = it->object;
+
+			shared_ptr<GameObject> obj = it->object.lock();
+			if (obj == nullptr)
+				continue;
 
 			int oldPosX = obj->GetPosX();
 			int oldPosY = obj->GetPosY();
