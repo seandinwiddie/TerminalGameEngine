@@ -76,7 +76,7 @@ namespace SpaceInvaders
 
 		alien->OnMove.Subscribe
 		(
-			[this](weak_ptr<GameObject> alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
+			[this](shared_ptr<GameObject> alien, Direction dir) { OnAlienMovedCallback(alien, dir); }
 		);
 
 		alien->OnDestroyEvent.Subscribe
@@ -85,14 +85,14 @@ namespace SpaceInvaders
 		);
 	}
 
-	void AliensController::OnAlienMovedCallback(weak_ptr<GameObject> alienWeak, Direction moveDirection)
+	void AliensController::OnAlienMovedCallback(shared_ptr<GameObject> alien, Direction moveDirection)
 	{
-		shared_ptr<GameObject> alien = alienWeak.lock();
-		if (moveDirection == xMoveDirection && alien != nullptr)
+		if (moveDirection == xMoveDirection)
 		{
 			int alienXPos = alien->GetPosX();
 			if (
-				alienXPos == level->GetScreenPadding() ||
+				alienXPos == level->GetScreenPadding()
+				||
 				alienXPos == level->GetWorldSizeX() - level->GetScreenPadding() - alien->GetModelWidth()
 				)
 				OnAliensReachMargin();

@@ -21,7 +21,7 @@ namespace Engine
 
 		//---------------------------------------------------------- Fields
 	public:
-		Event<weak_ptr<GameObject>, Direction> OnMove;
+		Event<shared_ptr<GameObject>, Direction> OnMove;
 		// generic on destroy event could be added
 
 	protected:
