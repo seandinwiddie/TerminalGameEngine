@@ -24,8 +24,8 @@ A simple engine for creating games that run directly in the terminal. Built in C
 #
 <b>Links:</b>
 
-- [Trailer](https://www.youtube.com/watch?v=gEkphmxIJFs&ab_channel=Nicol%C3%B2Bertoli)
-- [Itch Page](https://nicobertoli.itch.io/)
+- [Trailer](https://www.youtube.com/watch?v=TqpGVI95oNU&ab_channel=Nicol%C3%B2Bertoli)
+- [Itch Page](https://nicobertoli.itch.io/terminal-game-engine-c)
 
 #
 If anyone wants to contribute by adding new features or levels, it would be awesome :)
