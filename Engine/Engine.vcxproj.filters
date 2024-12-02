@@ -129,6 +129,9 @@
     <ClInclude Include="Singleton.h">
       <Filter>Header Files\General</Filter>
     </ClInclude>
+    <ClInclude Include="SmartPointersListUtils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MovingStraightObject.cpp">
