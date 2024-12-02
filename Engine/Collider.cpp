@@ -16,17 +16,20 @@ namespace Engine
 		return false;
 	}
 
-	void RemoveWeakPointerFromList(list<weak_ptr<Collider>>& weakList, const weak_ptr<Collider>& target)
+	void RemoveWeakPointerFromList(list<weak_ptr<Collider>>& weakList, const weak_ptr<Collider>& targetWeak)
 	{
-		for (auto it = weakList.begin(); it != weakList.end(); ++it)
+		shared_ptr<Collider> target = targetWeak.lock();
+		if (target == nullptr)
+			return;
+		
+		for (auto itWeak = weakList.begin(); itWeak != weakList.end(); ++itWeak)
 		{
-			if (auto targetLocked = target.lock())
-				if (auto currentLocked = it->lock())
-					if (currentLocked == targetLocked)
-					{
-						weakList.erase(it);
-						return;
-					}
+			if (auto it = itWeak->lock())
+				if (it == target)
+				{
+					weakList.erase(itWeak);
+					return;
+				}
 		}
 	}
 	//----------------------------------------- weak ptr list utils
