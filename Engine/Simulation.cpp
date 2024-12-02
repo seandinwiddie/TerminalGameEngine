@@ -125,7 +125,7 @@ namespace Engine
 				shared_ptr<GameObject> objectEntity = std::dynamic_pointer_cast<GameObject>(entitySp);
 				if (objectEntity != nullptr)
 				{
-					objectEntity->OnDestroy(); //todo can probably be removed
+					objectEntity->OnDestroy();
 					simulationPrinter->ClearObject(objectEntity);
 					worldSpace.RemoveObject(objectEntity);
 					MarkAreaToReprint(objectEntity);
@@ -151,7 +151,7 @@ namespace Engine
 	void Simulation::UpdateAllEntities()
 	{
 		level->Update();
-		for (shared_ptr<ISimulationEntity> entity : entities) //todo use & ?
+		for (shared_ptr<ISimulationEntity> entity : entities)
 			entity->Update();
 	}
 
