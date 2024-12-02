@@ -18,7 +18,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		Event<weak_ptr<Collider>> OnDestroyEvent; //todo remove shared ptr
+		Event<weak_ptr<Collider>> OnDestroyEvent;
 
 	protected:
 		const Model* animationModel1;

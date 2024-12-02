@@ -40,6 +40,6 @@ namespace Platformer
 
 	protected:
 		void InitModel() override;
-		virtual void Update()override;
+		void Update()override;
 	};
 }

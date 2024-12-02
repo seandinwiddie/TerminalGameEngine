@@ -46,6 +46,8 @@ namespace Engine
         virtual void OnPostGameOverDelayEnded() { hasCalledOnPostGameOverDelayEnded = true; }
         virtual void LoadInSimulation();
         virtual const char* GetGameOverWindowPath() { return ""; }
+        virtual const char* GetPersistenceFilePath() { return ""; }
+        virtual void ShowGameOverScreen(int score, int savedBestScore){};
 
         bool IsPostGameOverPauseEnded() const;
         bool CanPlayerPressKeyToRestartGame() const;

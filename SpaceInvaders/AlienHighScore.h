@@ -12,7 +12,7 @@ namespace SpaceInvaders
 	public:
 		using Alien::Alien;
 
-		virtual size_t GetScore() const { return 30; }
+		size_t GetScore() const override { return 30; }
 		int GetColor() const override { return Engine::Terminal::MAGENTA; }
 
 	protected:

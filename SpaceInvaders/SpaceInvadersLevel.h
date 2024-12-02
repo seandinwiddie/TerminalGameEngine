@@ -38,7 +38,7 @@ namespace SpaceInvaders
         int score;
         bool isLoadingWave;
         double startedLoadingWaveTime;
-        shared_ptr<AliensController> aliensController; //todo check if you can use uniqueptr
+        shared_ptr<AliensController> aliensController;
 
         //------------------------------------------------------------------- Methods
     public:
@@ -53,10 +53,10 @@ namespace SpaceInvaders
     protected:
         void Update()override;
         double ShowGameOverScreenDelay() const override { return 0.2; }
-        virtual const char* GetPersistenceFilePath() { return "Resources/Persistence/SpaceInvaders.txt"; } //todo check this, virtual must be moved on Level
-        virtual const char* GetGameOverWindowPath() { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
+        const char* GetPersistenceFilePath() override { return "Resources/Persistence/SpaceInvaders.txt"; }
+        const char* GetGameOverWindowPath() override { return "Resources/GameOverWindows/SpaceInvaders.txt"; }
         void OnPostGameOverDelayEnded() override;
-        virtual void ShowGameOverScreen(int score, int savedBestScore);
+        void ShowGameOverScreen(int score, int savedBestScore) override;
         void OnGameOver() override;
 
     private:
