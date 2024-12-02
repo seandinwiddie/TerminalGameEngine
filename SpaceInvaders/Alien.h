@@ -6,6 +6,7 @@ namespace SpaceInvaders
 {
 	using Model = Engine::Model;
 	template<typename T> using shared_ptr = std::shared_ptr<T>;
+	template<typename T> using weak_ptr = std::weak_ptr<T>;
 
 	class Alien : public Enemy
 	{
@@ -17,7 +18,7 @@ namespace SpaceInvaders
 
 		//------------------------------------------------------ Fields
 	public:
-		Event<shared_ptr<Collider>> OnDestroyEvent; //todo remove shared ptr
+		Event<weak_ptr<Collider>> OnDestroyEvent; //todo remove shared ptr
 
 	protected:
 		const Model* animationModel1;

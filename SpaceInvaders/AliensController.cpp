@@ -81,7 +81,7 @@ namespace SpaceInvaders
 
 		alien->OnDestroyEvent.Subscribe
 		(
-			[this](shared_ptr<Collider> alienObj) { OnAlienDestroyedCallback(alienObj); }
+			[this](weak_ptr<Collider> alienObj) { OnAlienDestroyedCallback(alienObj); }
 		);
 	}
 
@@ -119,15 +119,19 @@ namespace SpaceInvaders
 
 	static int calledTimes = 0;
 
-	void AliensController::OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj)
+	void AliensController::OnAlienDestroyedCallback(weak_ptr<GameObject> alienObjWeak)
 	{
-		shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
-		aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()).reset();
-		frontLine.ReplaceDestroyedElement(alien, aliensGrid);
+		shared_ptr<GameObject> alienObj = alienObjWeak.lock();
+		if (alienObj != nullptr)
+		{
+			shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
+			aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()).reset();
+			frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 
-		--aliensCount;
-		if (aliensCount == 0)
-			OnWaveCompleted.Notify();
+			--aliensCount;
+			if (aliensCount == 0)
+				OnWaveCompleted.Notify();
+		}
 	}
 
 	void AliensController::HandleShooting()

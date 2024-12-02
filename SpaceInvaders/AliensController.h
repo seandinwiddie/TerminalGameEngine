@@ -66,7 +66,7 @@ namespace SpaceInvaders
 		size_t GetStartingAliensCount() const { return GetAliensGridWidth() * GetAliensGridHeight(); }
 		size_t GetDestroyedAliensCount() const { return GetStartingAliensCount() - aliensCount; }
 		void OnAlienMovedCallback(weak_ptr<GameObject> alien, Direction moveDirection);
-		void OnAlienDestroyedCallback(shared_ptr<GameObject> alienObj);
+		void OnAlienDestroyedCallback(weak_ptr<GameObject> alienObj);
 		void OnAliensReachMargin();
 		void MoveAliens(Direction dir, double speed);
 		void HandleShooting();
