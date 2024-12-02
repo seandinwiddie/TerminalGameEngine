@@ -14,7 +14,6 @@ A simple engine for creating games that run directly in the terminal. Built in C
 
 #
 <b>Coming soon improvements:</b>
-- Making the simulation use smart pointers
 - Marking functions noexcept where appropriate
 
 #
