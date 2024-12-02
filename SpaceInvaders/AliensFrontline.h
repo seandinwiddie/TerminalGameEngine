@@ -15,10 +15,10 @@ namespace SpaceInvaders
 	class AliensFrontline
 	{
 	private:
-		vector<shared_ptr<Alien>> frontLine; //todo use weak ptrs
+		vector<weak_ptr<Alien>> frontLine;
 	public:
 		void Init(size_t size) { frontLine.resize(size); }
-		shared_ptr<Alien> GetAt(size_t pos) { return frontLine.size() > 0 ? frontLine[pos] : nullptr; }
+		shared_ptr<Alien> GetAt(size_t pos) { return frontLine.size() > 0 ? frontLine[pos].lock() : nullptr; }
 		shared_ptr<Alien> GetRandom();
 		void Set(size_t pos, shared_ptr<Alien> alien) { frontLine[pos] = alien; }
 		size_t GetMinY();

@@ -6,10 +6,12 @@ namespace SpaceInvaders
 	size_t AliensFrontline::GetMinY()
 	{
 		size_t min = SIZE_MAX;
-		for (shared_ptr<Alien> alien : frontLine)
+		for (weak_ptr<Alien> alienWeak : frontLine)
+		{
+			shared_ptr<Alien> alien = alienWeak.lock();
 			if (alien != nullptr && alien->GetPosY() < min)
 				min = alien->GetPosY();
-
+		}
 		return min;
 	}
 
@@ -17,22 +19,16 @@ namespace SpaceInvaders
 	{
 		size_t destroyedX = destroyedAlien->GetIndexInGridX();
 
-		if (frontLine[destroyedX] != destroyedAlien)
-			return;
-		
 		//try find new front line element
 		for (int y = static_cast<int>(aliensGrid.GetSizeY()) - 1; y >= 0; --y)
 		{
 			shared_ptr<Alien> newCandidate = aliensGrid.Get(destroyedX, y).lock();
-			if (newCandidate != nullptr)
+			if (newCandidate != nullptr && newCandidate != destroyedAlien)
 			{
 				frontLine[destroyedX] = newCandidate;
 				return;
 			}
 		}
-
-		//whole column eliminated
-		frontLine[destroyedX] = nullptr;
 	}
 
 	shared_ptr<Alien> AliensFrontline::GetRandom()

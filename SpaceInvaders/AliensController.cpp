@@ -125,7 +125,6 @@ namespace SpaceInvaders
 		if (alienObj != nullptr)
 		{
 			shared_ptr<Alien> alien = std::dynamic_pointer_cast<Alien>(alienObj);
-			aliensGrid.Get(alien->GetIndexInGridX(), alien->GetIndexInGridY()).reset();
 			frontLine.ReplaceDestroyedElement(alien, aliensGrid);
 
 			--aliensCount;
