@@ -109,8 +109,7 @@ namespace Platformer
         double increaseIntensityEverySeconds = 10;
         double stopSpawningWhenPhaseChangesDuration = 1;
 
-        //std::vector<int> ySpawnPoints = { 4,8,12 };
-        std::vector<int> ySpawnPoints = { 15,8,12 };
+        std::vector<int> ySpawnPoints = { 4,8,12 };
 
         shared_ptr<ObstaclesSpawner> spawner = std::make_shared<ObstaclesSpawner>
         (
